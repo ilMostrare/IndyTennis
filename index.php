@@ -9,6 +9,7 @@
 session_start();
 
 require_once ('includes/database.php');
+require_once ('includes/queries.php');
 
 ?>
 
@@ -24,8 +25,12 @@ require_once ('includes/database.php');
 
 <body>
 
+    <? require "includes/nav.html"?>
 
-
+    <p>Current Date: <? echo $curDate ?></p>
+    <p>Season #: <? echo $sznID ?></p>
+    <p>Singles Round #: <? echo $SGLSroundID ?></p>
+    <p>Doubles Round #: <? echo $DBLSroundID ?></p>
 
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/jquery.svg.js"></script>
