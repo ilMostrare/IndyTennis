@@ -1,0 +1,124 @@
+nav {
+  position: fixed;
+  background-color: #367690;
+  width: 100%;
+  height: $nav-height;
+  display: flex;
+
+  .navContainer {
+    width: 80%;
+    height: $nav-height;
+    margin: auto auto;
+    display: flex;
+    z-index: 10;
+
+
+    #pageLinks{
+      width: 100%;
+      height: 100%;
+      margin: auto auto;
+      display: flex;
+      //background-color: #F8D486;
+
+      div{
+        height: 100%;
+        text-transform: uppercase;
+        font-size: medium;
+        margin: auto auto;
+        white-space: nowrap;
+        color: white;
+        padding-top: ($nav-height / 2) - 13px;
+        box-sizing: border-box;
+
+        a{
+          margin: auto 15px;
+          white-space: nowrap;
+          text-decoration: none;
+          color: white;
+          padding: auto;
+        }
+
+        &:hover{
+          a{
+            color: black;
+          }
+          background-color: #EEF95D;
+          //text-decoration: underline;
+        }
+
+        &:active{
+          a{
+            color: black;
+          }
+          background-color: #3a4120;
+          //text-decoration: underline;
+        }
+      }
+
+      #logo{
+        width: 30%;
+        height: 100%;
+        margin: auto auto;
+        display: flex;
+        //background-color: firebrick;
+
+        a{
+          display: flex;
+          height: 100%;
+          width: 100%;
+          img{
+            height: 65%;
+            margin: auto;
+
+            .cls-1{
+              &:hover{
+                fill: #EEF95D;
+                stroke: #EEF95D;
+                //text-decoration: underline;
+              }
+            }
+
+          }
+        }
+
+        &:hover{
+          fill: #EEF95D;
+          //text-decoration: underline;
+        }
+      }
+
+    }
+
+  }
+}
+
+/*
+@media only screen and (max-device-width : 1080px) and (orientation: portrait) {
+
+  nav{
+    height: $phone-nav-height;
+
+    .navContainer{
+      height: $phone-nav-height;
+      width: 100%;
+      padding-left: 30px;
+      padding-right: 30px;
+
+      #pageLinks{
+        a{
+          font-size: xx-large;
+        }
+      }
+
+      #logo{
+        height: $phone-nav-height;
+
+        a{
+          img{
+            height: 50%;
+          }
+        }
+      }
+    }
+  }
+}*/

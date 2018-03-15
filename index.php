@@ -27,10 +27,12 @@ require_once ('includes/queries.php');
 
     <? require "includes/nav.html"?>
 
-    <p>Current Date: <? echo $curDate ?></p>
-    <p>Season #: <? echo $sznID ?></p>
-    <p>Singles Round #: <? echo $SGLSroundID ?></p>
-    <p>Doubles Round #: <? echo $DBLSroundID ?></p>
+    <div class="homeContent">
+        <p>Current Date: <? echo $curDate ?></p>
+        <p>Season #: <? echo $sznID ?></p>
+        <p>Singles Round #: <? echo $SGLSroundID ?></p>
+        <p>Doubles Round #: <? echo $DBLSroundID ?></p>
+    </div>
 
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/jquery.svg.js"></script>

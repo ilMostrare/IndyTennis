@@ -1,0 +1,19 @@
+Coinflip/Walkover - Min for winner, no show = 0?
+
+SOS/RPI?
+
+***How is the current mailing list handled?  
+ - The link on the website just sends me an email telling me someone is Interested and I then add their email to our list, which is actually 4 lists because our email server only lets me send email to 49 people at a time. Eye roll
+
+**How do you want to handle entering matchups?  
+ - Ideally it would auto generate, as the excel spreadsheet already does for me. (But then I do tinker with it to avoid repeat matches)
+
+***How do you want to handle score entering?  
+ - Idk if I trust people to enter their own scores
+
+
+7 - 6 : if P1 games won > P2 games won, P1set++; else P2set++
+0 - 6 :
+7 - 6 :
+
+If P1Set > P2set : winner = P1, else winner = P2
