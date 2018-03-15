@@ -32,7 +32,12 @@ require_once ('includes/queries.php');
         <p>Season #: <? echo $sznID ?></p>
         <p>Singles Round #: <? echo $SGLSroundID ?></p>
         <p>Doubles Round #: <? echo $DBLSroundID ?></p>
+        <br />
+        <? getSGLSRankings() ?>
+        <br />
+        <? getDBLSRankings() ?>
     </div>
+
 
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/jquery.svg.js"></script>
