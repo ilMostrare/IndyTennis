@@ -57,14 +57,15 @@ while ($DBLSroundRow = mysqli_fetch_assoc($curDBLSRNDQuery)){
 
 #endregion
 
-function getSGLSRankings()
+#region Print out Ladder Standings
+function printSGLSRankings()
 {
     global $conn;
     global $sznID;
 
-    $setRankVarSQL = "SET @rank := 0";
-    $curSGLSRankingsSQL = "SELECT @rank := @rank + 1 AS Rank, `ID`,`FIRST_NAME`,`LAST_NAME`,`SGLS_POINTS` FROM `PLAYERS` WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC, `LAST_NAME` ASC";
-    @$conn->query($setRankVarSQL);
+    $setRowNumVarSQL = "SET @row_number := 0";
+    $curSGLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
+    @$conn->query($setRowNumVarSQL);
     $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
     if (!$curSGLSRankingsQuery) {
         $errno = $conn->errno;
@@ -73,7 +74,59 @@ function getSGLSRankings()
         die("Selection failed: ($errno) $error.");
     }
     while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
+        $rowNum = $curSGLSRankingsRow["RowNum"];
         $sglsPlayerID = $curSGLSRankingsRow["ID"];
+        $curSGLSRank = $curSGLSRankingsRow["Rank"];
+        $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
+        $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
+        $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
+
+        echo "<p>", $rowNum, " - ", $curSGLSRank, " - ", $curSGLSRankLName, ", ", $curSGLSRankFName, " - ", $curSGLSRankPoints, "</p>";
+    }
+}
+
+function printDBLSRankings()
+{
+    global $conn;
+    global $sznID;
+
+    $setRowNumVarSQL = "SET @row_number := 0";
+    $curDBLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `DBLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `DBLS_POINTS`, @curRank := IF(@prevRank = `DBLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `DBLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `DBLS_PLAYER` = 1 ORDER BY `DBLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
+    @$conn->query($setRowNumVarSQL);
+    $curDBLSRankingsQuery = @$conn->query($curDBLSRankingsSQL);
+    if (!$curDBLSRankingsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curDBLSRankingsRow = mysqli_fetch_assoc($curDBLSRankingsQuery)) {
+        $rowNum = $curDBLSRankingsRow["RowNum"];
+        $dblsPlayerID = $curDBLSRankingsRow["ID"];
+        $curDBLSRank = $curDBLSRankingsRow["Rank"];
+        $curDBLSRankFName = $curDBLSRankingsRow["FIRST_NAME"];
+        $curDBLSRankLName = $curDBLSRankingsRow["LAST_NAME"];
+        $curDBLSRankPoints = $curDBLSRankingsRow["DBLS_POINTS"];
+
+        echo "<p>", $rowNum, " - ", $curDBLSRank, " - ", $curDBLSRankLName, ", ", $curDBLSRankFName, " - ", $curDBLSRankPoints, "</p>";
+    }
+}
+#endregion
+
+#region Get Individual Player Ranks
+function GetPlayerSGLSRank($playerID){
+    global $conn;
+    //global $sznID;
+
+    $curSGLSRankingsSQL = "SELECT (COUNT(`ID`) + 1) AS Rank, (SELECT `ID` FROM PLAYERS WHERE `ID` = '".$playerID."') AS ID, (SELECT `FIRST_NAME` FROM PLAYERS WHERE `ID` = '".$playerID."') AS FIRST_NAME, (SELECT `LAST_NAME` FROM PLAYERS WHERE `ID` = '".$playerID."') AS LAST_NAME, (SELECT `SGLS_POINTS` FROM PLAYERS WHERE `ID` = '".$playerID."') AS SGLS_POINTS FROM PLAYERS WHERE (`SGLS_POINTS` > (SELECT `SGLS_POINTS` FROM PLAYERS WHERE `ID` = '".$playerID."'))";
+    $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
+    if (!$curSGLSRankingsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
         $curSGLSRank = $curSGLSRankingsRow["Rank"];
         $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
         $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
@@ -83,14 +136,11 @@ function getSGLSRankings()
     }
 }
 
-function getDBLSRankings()
-{
+function GetPlayerDBLSRank($playerID){
     global $conn;
-    global $sznID;
+    //global $sznID;
 
-    $setRankVarSQL = "SET @rank := 0";
-    $curDBLSRankingsSQL = "SELECT @rank := @rank + 1 AS Rank, `ID`,`FIRST_NAME`,`LAST_NAME`,`DBLS_POINTS` FROM `PLAYERS` WHERE `SEASON_NUM` = '".$sznID."' AND `DBLS_PLAYER` = 1 ORDER BY `DBLS_POINTS` DESC, `LAST_NAME` ASC";
-    @$conn->query($setRankVarSQL);
+    $curDBLSRankingsSQL = "SELECT (COUNT(`ID`) + 1) AS Rank, (SELECT `ID` FROM PLAYERS WHERE `ID` = '".$playerID."') AS ID, (SELECT `FIRST_NAME` FROM PLAYERS WHERE `ID` = '".$playerID."') AS FIRST_NAME, (SELECT `LAST_NAME` FROM PLAYERS WHERE `ID` = '".$playerID."') AS LAST_NAME, (SELECT `DBLS_POINTS` FROM PLAYERS WHERE `ID` = '".$playerID."') AS DBLS_POINTS FROM PLAYERS WHERE (`DBLS_POINTS` > (SELECT `DBLS_POINTS` FROM PLAYERS WHERE `ID` = '".$playerID."'))";
     $curDBLSRankingsQuery = @$conn->query($curDBLSRankingsSQL);
     if (!$curDBLSRankingsQuery) {
         $errno = $conn->errno;
@@ -99,7 +149,6 @@ function getDBLSRankings()
         die("Selection failed: ($errno) $error.");
     }
     while ($curDBLSRankingsRow = mysqli_fetch_assoc($curDBLSRankingsQuery)) {
-        $dblsPlayerID = $curDBLSRankingsRow["ID"];
         $curDBLSRank = $curDBLSRankingsRow["Rank"];
         $curDBLSRankFName = $curDBLSRankingsRow["FIRST_NAME"];
         $curDBLSRankLName = $curDBLSRankingsRow["LAST_NAME"];
@@ -108,3 +157,5 @@ function getDBLSRankings()
         echo "<p>", $curDBLSRank, " - ", $curDBLSRankLName, ", ", $curDBLSRankFName, " - ", $curDBLSRankPoints, "</p>";
     }
 }
+
+#endregion

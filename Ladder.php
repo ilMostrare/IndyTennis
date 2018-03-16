@@ -28,9 +28,17 @@ require_once ('includes/queries.php');
     <? require "includes/nav.html"?>
 
     <div class="ladderContent">
-        <? getSGLSRankings() ?>
+        <p>Singles Ladder:</p>
+        <? printSGLSRankings() ?>
         <br />
-        <? getDBLSRankings() ?>
+        <p>Doubles Ladder:</p>
+        <? printDBLSRankings() ?>
+        <br />
+        <p>Singles (Individual):</p>
+        <? GetPlayerSGLSRank(4) ?>
+        <br />
+        <p>Doubles (Individual):</p>
+        <? GetPlayerDBLSRank(4) ?>
     </div>
 
     <? require "includes/footer.html"?>
