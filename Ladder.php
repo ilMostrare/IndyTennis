@@ -27,18 +27,19 @@ require_once ('includes/queries.php');
 
     <? require "includes/nav.html"?>
 
-    <div class="homeContent">
-
-
-
+    <div class="ladderContent">
+        <? getSGLSRankings() ?>
+        <br />
+        <? getDBLSRankings() ?>
     </div>
 
     <? require "includes/footer.html"?>
 
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/jquery.svg.js"></script>
-    <script src="js/sweetalert.min.js"></script>
-    <script src="js/app.js"></script>
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/jquery.svg.js"></script>
+<script src="js/sweetalert.min.js"></script>
+<script src="js/app.js"></script>
 </body>
 
 </html>

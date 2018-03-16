@@ -1,12 +1,26 @@
 <nav>
     <div class="navContainer">
-        <span id="pageLinks">
-            <div><a id="homePage" href="./">Home</a></div>
-            <div><a id="about" href="#">About</a></div>
-            <div><a id="join" href="#">Join</a></div>
-            <span id="logo"><a href="#"><img src="includes/images/IndyTennisSmall-WH.svg" /></a></span>
-            <div><a id="ladder" href="#">Ladder</a></div>
-            <div><a id="tourney" href="#">IndyTennis Classic</a></div>
-        </span>
+        <div class="navLeft">
+            <div><? echo $curDate  ?></div>
+        </div>
+        <div id="pageLinks">
+            <div id="navLiLeft">
+                <div><a id="homePage" href="./">Home</a></div>
+                <div><a id="about" href="About">About</a></div>
+                <div><a id="join" href="Join">Join Us</a></div>
+            </div>
+            <div id="navLiCenter">
+                <span id="logo"><a href="#"><? echo file_get_contents("includes/images/IndyTennis_WH.svg"); ?></a></span>
+            </div>
+            <div id="navLiRight">
+                <div><a id="ladder" href="Ladder">Ladder</a></div>
+                <div><a id="tourney" href="ITC">IndyTennis Classic</a></div>
+            </div>
+        </div>
+        <div class="navRight">
+            <div>Current Ladder Round #</div>
+            <div>Singles: <? echo $SGLSroundID  ?></div>
+            <div>Doubles: <? echo $DBLSroundID  ?></div>
+        </div>
     </div>
 </nav>
