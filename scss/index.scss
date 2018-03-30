@@ -1,11 +1,82 @@
 .homeContent {
-  padding-top: $nav-height+15px;
+  padding-top: $nav-height;
   padding-bottom: 5px;
-  width: 80%;
+  width: $bodyWidth;
   min-height: 100%;
-  margin: auto;
+  margin: 0 auto;
   display: block;
   z-index: 3;
   box-sizing: border-box;
-  //background-color: white;
+  background-color: $backgroundColor;
+
+  .headerIMG{
+    width: 100%;
+    margin: 0 auto;
+
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .header{
+    width: 100%;
+    margin: 0 2% auto 2%;
+
+    h1{
+      margin: 7px auto;
+      text-align: center;
+      font-size: 300%;
+      letter-spacing: 3px;
+      color: #333333;
+    }
+    h2{
+      margin: 0 auto;
+      text-align: center;
+      letter-spacing: 3px;
+      color: #333333;
+    }
+  }
+
+  .homeTxt{
+    width: 75%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 5% auto 5%;
+
+      h3 {
+        color: #333333;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+      p {
+        width: 100%;
+        color: #333333;
+        overflow: auto;
+
+        a {
+          color: #53A548;
+          text-decoration: none;
+
+          &:hover {
+            color: #EEF95D;
+          }
+
+          &:active {
+            color: #53A548;
+          }
+        }
+      }
+
+      h4 {
+        color: #333333;
+      }
+
+      #announceDates{
+        width: 100%;
+        color: #333333;
+        font-size: 60%;
+        text-align: right;
+      }
+  }
 }

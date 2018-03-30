@@ -34,7 +34,7 @@ nav {
 
 
     #pageLinks{
-      width: 65%;
+      width: $bodyWidth;
       height: 100%;
       margin: auto auto;
       display: flex;
@@ -80,9 +80,10 @@ nav {
             a{
               color: black;
             }
-            background-color: #585f23;
+            background-color: #53A548;
             text-decoration: none;
           }
+
         }
 
       }
@@ -124,10 +125,10 @@ nav {
             }
             svg:active{
               .cls-1,.cls-2,.cls-3{
-                fill:#585f23;
+                fill:#53A548;
               }
               .cls-2,.cls-3{
-                fill: #585f23;
+                fill: #53A548;
               }
             }
           }
@@ -175,7 +176,7 @@ nav {
             a{
               color: black;
             }
-            background-color: #585f23;
+            background-color: #53A548;
             text-decoration: none;
           }
         }

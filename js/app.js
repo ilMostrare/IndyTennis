@@ -12,10 +12,60 @@ function setBindings() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
     });
+
+    //$('.navItem').click(function(){
+    //    $(this).addClass('current').siblings('.navItem').removeClass('current');
+    //});
+
+    $("#singles tr:even").css({
+        "background-color":"#dcdcdc"
+    });
+    $("#doubles tr:odd").css({
+        "background-color":"#dcdcdc"
+    });
+
+    $("form .singles-player-name").click(function (evt) {
+        evt.preventDefault();
+
+        var viewPlayer = $(this).val();
+        console.log(viewPlayer);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                viewPlayerID: viewPlayer
+            }
+        }).done(function (data) {
+            console.log("Success");
+            console.log(data);
+            window.location.href = "Player";
+        });
+    });
+
+    $("form .doubles-player-name").click(function (evt) {
+        evt.preventDefault();
+
+        var viewPlayer = $(this).val();
+        console.log(viewPlayer);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                viewPlayerID: viewPlayer
+            }
+        }).done(function (data) {
+            console.log("Success");
+            console.log(data);
+            window.location.href = "Player";
+        });
+    });
+
 }
 
 $(document).ready(function () {
 
     setBindings();
 
-}
+});

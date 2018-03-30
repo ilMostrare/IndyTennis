@@ -10,7 +10,6 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
-require_once ('includes/playerInfo.php');
 
 ?>
 
@@ -29,17 +28,29 @@ require_once ('includes/playerInfo.php');
     <? require "includes/nav.html"?>
 
     <div class="ladderContent">
-        <p>Singles Ladder:</p>
-        <? printSGLSRankings() ?>
-        <br />
-        <p>Doubles Ladder:</p>
-        <? printDBLSRankings() ?>
-        <br />
-        <p>Singles (Individual):</p>
-        <? GetPlayerSGLSRank(4) ?>
-        <br />
-        <p>Doubles (Individual):</p>
-        <? GetPlayerDBLSRank(4) ?>
+        <div class="header">
+            <h1><? echo date("Y") ?> Ladder Standings</h1>
+            <h3><a href="WeeklyMatchUps">View This Weeks Matchups</a></h3>
+        </div>
+        <div class="standings">
+            <div class="left">
+                <h2>Singles</h2>
+                <div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>
+                <table id="singles">
+                    <? printSGLSRankings() ?>
+                </table>
+            </div>
+
+            <div class="right">
+                <h2>Doubles</h2>
+                <div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>
+                <table id="doubles">
+                    <? printDBLSRankings() ?>
+                </table>
+            </div>
+        </div>
+
+
     </div>
 
     <? require "includes/footer.html"?>

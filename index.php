@@ -10,6 +10,7 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
+require_once ('includes/announcements.php');
 
 ?>
 
@@ -28,8 +29,28 @@ require_once ('includes/queries.php');
     <? require "includes/nav.html"?>
 
     <div class="homeContent">
+        <div class="headerIMG">
+            <img src="includes/images/headerIMG.jpg">
+        </div>
 
+        <div class="header">
+            <h1>INDYTENNIS</h1>
+            <h2>::Serving Since 2004::</h2>
+            <br />
+        </div>
 
+        <div class="homeTxt">
+                <br />
+                <h3>Our Mission</h3>
+                <p>To provide a healthy, accepting, and positive atmosphere for tennis and related activities among LGBT community members, friends, family members and allies.  As with the sport of tennis, IndyTennis starts with LOVE.</p>
+                <br /><br />
+                <h3>Come Hit With Us!</h3>
+                <p>Join us at our social plays - Saturday mornings in the summer, 10AM @Riverside Park or in the Winter, Sunday evenings @ West Indy Racquet Club</p>
+                <p>For more information, check out the <a href="About.php">About Page</a> for contact information!</p>
+                <br /><br />
+                <h3>Announcements</h3>
+                <? printAnnouncements() ?>
+        </div>
 
     </div>
 

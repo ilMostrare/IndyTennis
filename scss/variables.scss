@@ -2,3 +2,13 @@
 $nav-height: 70px;
 $phone-nav-height: 100px;
 $nav-link-font-size: medium;
+$backgroundColor: white;
+$bodyWidth: 70%;
+
+.current{
+  a{
+    color: black;
+  }
+  background-color: #EEF95D;
+  color: black;
+}

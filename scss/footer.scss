@@ -3,6 +3,8 @@ footer{
   width: 100%;
   background-color: darkgrey;
   display: flex;
+  position: relative;
+  //bottom: 0;
 
   .footerCopy{
     width: 33%;

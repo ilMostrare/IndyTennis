@@ -8,6 +8,22 @@
 
 $curDate = date("M jS, Y");
 
+if (!empty($_POST['viewPlayerID'])){
+    $viewPlayer = isset($_POST['viewPlayerID']) ? $_POST['viewPlayerID'] : 'No data found';
+
+
+//    echo "Data: ",$logEmail,", ",$logPass,"";
+
+    // send login info to database
+    $viewPlayerSql = "SELECT * FROM `PLAYERS` WHERE `ID` LIKE '".$viewPlayer."'";
+    $viewPlayerQuery = @$conn->query($viewPlayerSql);
+    $viewPlayerRow=mysqli_fetch_assoc($viewPlayerQuery);
+
+    $_SESSION['playerID'] = $viewPlayerRow["ID"];
+    echo "", $_SESSION['playerID'],"";
+
+}
+
 #region Get Current Season and Round
 $curSZNsql = "SELECT * FROM `SEASON` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date)";
 $curSZNQuery = @$conn->query($curSZNsql);
@@ -57,6 +73,7 @@ while ($DBLSroundRow = mysqli_fetch_assoc($curDBLSRNDQuery)){
 
 #endregion
 
+
 #region Print out Ladder Standings
 function printSGLSRankings()
 {
@@ -81,7 +98,7 @@ function printSGLSRankings()
         $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
         $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
 
-        echo "<p>", $rowNum, " - ", $curSGLSRank, " - ", $curSGLSRankLName, ", ", $curSGLSRankFName, " - ", $curSGLSRankPoints, "</p>";
+        echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
     }
 }
 
@@ -108,7 +125,7 @@ function printDBLSRankings()
         $curDBLSRankLName = $curDBLSRankingsRow["LAST_NAME"];
         $curDBLSRankPoints = $curDBLSRankingsRow["DBLS_POINTS"];
 
-        echo "<p>", $rowNum, " - ", $curDBLSRank, " - ", $curDBLSRankLName, ", ", $curDBLSRankFName, " - ", $curDBLSRankPoints, "</p>";
+        echo "<tr><td class='tableLeft'>", $curDBLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='doubles-player-name' name='viewPlayer' value='",$dblsPlayerID,"'>", $curDBLSRankLName, ", ", $curDBLSRankFName, "</button></form></td><td class='tableRight'>", $curDBLSRankPoints, "</td></tr>";
     }
 }
 #endregion
