@@ -50,11 +50,16 @@ footer{
     p{
       font-size: smaller;
       margin: auto 10% auto auto;
+      color: #333333;
+      cursor: pointer;
 
-      a {
-        text-decoration: none;
-        color: #333333;
+      &:hover{
+        color: $highlightLink;
       }
+      &:active{
+        color: $activeLink;
+      }
+
     }
   }
 }

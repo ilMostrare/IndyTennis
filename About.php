@@ -10,6 +10,8 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
+require_once ('includes/adminLogin.php');
+
 
 ?>
 

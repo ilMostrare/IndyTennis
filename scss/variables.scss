@@ -4,11 +4,11 @@ $phone-nav-height: 100px;
 $nav-link-font-size: medium;
 $backgroundColor: white;
 $bodyWidth: 70%;
+$highlightLink: #EEF95D;
+$activeLink: #53A548;
 
 .current{
-  a{
-    color: black;
-  }
-  background-color: #EEF95D;
-  color: black;
+  background-color: #53A548;
+  border-radius: 5px;
+
 }

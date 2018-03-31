@@ -1,21 +1,23 @@
 function validateEmail(emailString) {
     var regX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    // console.log(regX.test(emailString));
     return regX.test(emailString);
 }
 
-function setBindings() {
+function closeModal() {
+    $(".modal-wrapper").css("display", "none")
+}
 
+function setBindings() {
 
     $("#logo").click(function() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
     });
 
-    //$('.navItem').click(function(){
-    //    $(this).addClass('current').siblings('.navItem').removeClass('current');
-    //});
+    $('.optionsList li').click(function(){
+        $(this).addClass('current').siblings('').removeClass('current');
+    });
 
     $("#singles tr:even").css({
         "background-color":"#dcdcdc"
@@ -24,11 +26,49 @@ function setBindings() {
         "background-color":"#dcdcdc"
     });
 
+    $("#loginSubmit").click(function (evt) {
+        evt.preventDefault();
+
+        var logEM = $("#loginEM").val();
+        var logPass = $("#loginPASS").val();
+
+        //console.log(logEM);
+        //console.log(logPass);
+
+        if (logEM == ""){
+            swal("Oops...", "Please Enter Your Email!", "error");
+        } else if (!validateEmail(logEM)){
+            swal("Oops...", "Please Enter a Valid Email!", "error");
+        } else if (logPass == ""){
+            swal("Oops...", "Please Enter Your Password!", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    loginEmail: logEM,
+                    loginPassword: logPass
+                }
+            }).done(function (data) {
+                if(data.charAt(0)>0) {
+                    console.log("Success");
+                    //console.log(data);
+                    window.location.href = "Admin";
+                } else {
+                    console.log("Failed");
+                    //console.log(data);
+                    swal("Oops...", "Login Information is Invalid!", "error");
+                }
+            });
+
+        }
+    });
+
     $("form .singles-player-name").click(function (evt) {
         evt.preventDefault();
 
         var viewPlayer = $(this).val();
-        console.log(viewPlayer);
+        //console.log(viewPlayer);
 
         $.ajax({
             url: '',
@@ -38,7 +78,7 @@ function setBindings() {
             }
         }).done(function (data) {
             console.log("Success");
-            console.log(data);
+            //console.log(data);
             window.location.href = "Player";
         });
     });
@@ -57,9 +97,19 @@ function setBindings() {
             }
         }).done(function (data) {
             console.log("Success");
-            console.log(data);
+            //console.log(data);
             window.location.href = "Player";
         });
+    });
+
+    $(".admin").click(function (evt) {
+        $(".modal-wrapper").css("display", "flex");
+        $(".login-wrapper").css("display", "block");
+        //console.log("am i working?")
+    });
+
+    $(".close-button").click(function (evt) {
+        closeModal();
     });
 
 }

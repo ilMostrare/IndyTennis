@@ -10,6 +10,7 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
+require_once ('includes/adminLogin.php');
 
 ?>
 
@@ -53,8 +54,12 @@ require_once ('includes/queries.php');
 
     </div>
 
-    <? require "includes/footer.html"?>
+    <?
 
+    require "includes/footer.html";
+    require_once ("includes/adminLoginModal.php");
+
+    ?>
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/jquery.svg.js"></script>

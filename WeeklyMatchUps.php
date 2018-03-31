@@ -1,16 +1,15 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: bslabach
- * Date: 3/8/18
- * Time: 6:08 PM
+ * User: BSlabach
+ * Date: 3/21/2018
+ * Time: 8:01 AM
  */
 
 session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
-require_once ('includes/adminLogin.php');
 
 ?>
 
@@ -26,18 +25,15 @@ require_once ('includes/adminLogin.php');
 
 <body>
 
-    <? require "includes/nav.html"?>
+<? require "includes/nav.html"?>
 
-    <div class="itcContent">
+<div class="matchesContent">
 
-    </div>
 
-    <?
 
-    require "includes/footer.html";
-    require_once ("includes/adminLoginModal.php");
+</div>
 
-    ?>
+<? require "includes/footer.html"?>
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/jquery.svg.js"></script>

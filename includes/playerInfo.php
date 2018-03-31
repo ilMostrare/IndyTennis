@@ -60,7 +60,7 @@ function GetPlayerInfo($playerID){
 
     echo "<div class='header'><h1>", $playerInfoFN, " ", $playerInfoLN ,"  -  ", date("Y") ,"</h1>";
     echo "<h4>", $playerInfoEM, " - (", substr($playerInfoPN, 0, 3) ,") ",substr($playerInfoPN, 3, 3),"-",substr($playerInfoPN, 6, 4),"</h4>";
-    echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank,"</h3><h3 class='right'>Doubles: #",$curDBLSRank,"</h3></div></div>";
+    echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$playerInfoSGLSPTS," PTS)</h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$playerInfoDBLSPTS," PTS)</h3></div></div>";
 
 }
 

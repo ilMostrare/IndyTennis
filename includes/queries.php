@@ -6,7 +6,11 @@
  * Time: 7:40 AM
  */
 
+
 $curDate = date("M jS, Y");
+
+
+#region View Player
 
 if (!empty($_POST['viewPlayerID'])){
     $viewPlayer = isset($_POST['viewPlayerID']) ? $_POST['viewPlayerID'] : 'No data found';
@@ -23,6 +27,9 @@ if (!empty($_POST['viewPlayerID'])){
     echo "", $_SESSION['playerID'],"";
 
 }
+
+#endregion
+
 
 #region Get Current Season and Round
 $curSZNsql = "SELECT * FROM `SEASON` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date)";

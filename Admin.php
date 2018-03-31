@@ -10,6 +10,24 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
+require_once ('includes/adminLogin.php');
+require_once ('includes/adminTools.php');
+
+
+$user_id = $_SESSION['adminID'];
+
+
+$userSql = "SELECT * FROM `ADMIN` WHERE `ID` = '".$user_id."'";
+$userQuery = @$conn->query($userSql);
+
+$userRow=mysqli_fetch_assoc($userQuery);
+
+if (empty($userRow)){
+    echo "<script>window.location.href = './';</script>";
+} else {
+    $userFN = $userRow["FIRST_NAME"];
+    $userLN = $userRow["LAST_NAME"];
+}
 
 ?>
 
@@ -28,12 +46,36 @@ require_once ('includes/queries.php');
     <? require "includes/nav.html"?>
 
     <div class="adminContent">
+        <div class="header">
+            <h1>Admin Panel</h1>
+            <h3>Welcome, <? echo $userFN ?></h3>
+        </div>
 
+        <div class="adminBody">
+            <div class="adminOptions">
+                <ul class="optionsList">
+                    <li id="createMatches">Create Round Matches</li>
+                    <li id="editMatches">Edit Matchups</li>
+                    <li id="enterScores">Enter Scores</li>
+                    <li id="addAnnounce">Add Announcement</li>
+                    <li id="changePassword">Change Password</li>
+                </ul>
 
+            </div>
+            <div class="adminForms">
+                <p>asdf</p>
+            </div>
+
+        </div>
 
     </div>
 
-    <? require "includes/footer.html"?>
+    <?
+
+    require "includes/footer.html";
+    require_once ("includes/adminLoginModal.php");
+
+    ?>
 
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/jquery.svg.js"></script>
