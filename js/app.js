@@ -21,18 +21,23 @@ function setBindings() {
 
     $('#createMatches').click(function(){
         $('#createRoundMatches').css({"display":"block"});
+        $('#editRoundMatches').css({"display":"none"});
     });
     $('#editMatches').click(function(){
         $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"block"});
     });
     $('#enterScores').click(function(){
         $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
     });
     $('#addAnnounce').click(function(){
         $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
     });
     $('#changePassword').click(function(){
         $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
     });
 
     $("#singles tr:even").css({
@@ -118,7 +123,26 @@ function setBindings() {
         });
     });
 
-    $(".admin").click(function (evt) {
+    $("form .create-sgls-matches").click(function (evt) {
+        evt.preventDefault();
+
+        var createSGLSMatches = $(this).val();
+        console.log(createSGLSMatches);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                createSGLSID: createSGLSMatches
+            }
+        }).done(function (data) {
+            console.log("Success");
+            //console.log(data);
+            swal("Success", "Singles Matches Created", "success");
+        });
+    });
+
+    /*$(".admin").click(function (evt) {
         $(".modal-wrapper").css("display", "flex");
         $(".login-wrapper").css("display", "block");
         //console.log("am i working?")
@@ -126,7 +150,7 @@ function setBindings() {
 
     $(".close-button").click(function (evt) {
         closeModal();
-    });
+    });*/
 
 }
 

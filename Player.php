@@ -10,11 +10,14 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
+require_once ('includes/adminLogin.php');
 require_once ('includes/playerInfo.php');
 
 if (empty($_SESSION['playerID'])){
     echo "<script>window.location.href = './';</script>";
 }
+
+$user_id = $_SESSION['adminID'];
 
 ?>
 
@@ -30,15 +33,39 @@ if (empty($_SESSION['playerID'])){
 
 <body>
 
-<? require "includes/nav.html"?>
-
-    <div class="playerContent">
-
-            <? GetPlayerInfo($_SESSION['playerID']) ?>
-
-    </div>
-
 <?
+
+require "includes/nav.html";
+
+    if (!(empty($user_id))){
+
+        if ($adminRow["EMAIL"] = "byron.slabach@gmail.com" || "wrathofmath85@gmail.com"){
+            echo "<div class='playerContent'>";
+
+            GetPlayerInfo($_SESSION['playerID']);
+
+            echo "</div>";
+
+        } else {
+            echo "<div class='playerContent'>";
+
+            GetPlayerInfo($_SESSION['playerID']);
+
+            echo "</div>";
+        }
+
+    } else {
+        echo "<div class='playerContent'>";
+        echo "<h1>Please Login</h1>";
+        echo "<form action='' method='post'>";
+        echo "<label>Email:</label>";
+        echo "<input id='loginEM' name='loginEmail' type='email' placeholder='Email'>";
+        echo "<label>Password:</label>";
+        echo "<input id='loginPASS' name='loginPassword' type='password' placeholder='Password'>";
+        echo "<input id='loginSubmit' type='submit' value='Login'>";
+        echo "</form>";
+        echo "</div>";
+    }
 
 require "includes/footer.html";
 require_once ("includes/adminLoginModal.php");

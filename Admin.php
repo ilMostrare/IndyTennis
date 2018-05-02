@@ -27,6 +27,7 @@ if (empty($userRow)){
 } else {
     $userFN = $userRow["FIRST_NAME"];
     $userLN = $userRow["LAST_NAME"];
+    $userEM = $userRow["EMAIL"];
 }
 
 ?>
@@ -54,17 +55,39 @@ if (empty($userRow)){
         <div class="adminBody">
             <div class="adminOptions">
                 <ul class="optionsList">
-                    <li id="createMatches">Create Round Matches</li>
-                    <li id="editMatches">Edit Matchups</li>
-                    <li id="enterScores">Enter Scores</li>
-                    <li id="addAnnounce">Add Announcement</li>
-                    <li id="changePassword">Change Password</li>
+                    <?
+                    if ($userEM = "byron.slabach@gmail.com" || "wrathofmath85@gmail.com") {
+
+                        echo '<li id="createMatches">Create Round Matches</li>';
+                        echo '<li id="editMatches">Edit Matchups</li>';
+                        echo '<li id="enterScores">Enter Scores</li>';
+                        echo '<li id="addAnnounce">Add Announcement</li>';
+                        echo '<li id="changePassword">Change Password</li>';
+
+                    } else {
+
+                        echo '<li id="changePassword">Change Password</li>';
+                        echo '<li id="changeEmail">Change Email</li>';
+                        echo '<li id="changePhone">Change Phone Number</li>';
+
+                    }
+                    ?>
                 </ul>
 
             </div>
             <div class="adminForms">
                 <div id="createRoundMatches">
                     <h3>Create Round Matches</h3>
+                    <div class="roundNumbers">
+                        <span>Current Singles Round: <? echo $SGLSroundID  ?></span>
+                        <span>Current Doubles Round: <? echo $DBLSroundID  ?></span>
+                    </div>
+                    <form>
+                        <button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value=<? echo $SGLSroundID  ?> >Create Singles Round #<? echo $SGLSroundID  ?> Matches</button>
+                    </form>
+                </div>
+                <div id="editRoundMatches">
+                    <h3>Edit Round Matches</h3>
                     <form action='' method='post'>
 
                     </form>

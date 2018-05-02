@@ -13,15 +13,38 @@ SOS/RPI?
 
 ###########################################################################
 
-7 - 6 : if P1 games won > P2 games won, P1set++; else P2set++
-0 - 6 :
-7 - 6 :
-
-If P1Set > P2set : winner = P1, else winner = P2
-
-###########################################################################
-
 Loser Points:		# of games won - maximum of 10
 Winner Points:
     if higher ranked or 1 rank difference-		10 + difference in games won - Minimum 11
 	if lower ranked by at least 2-		10 + (difference in games won * difference in rankings/2) - Minimum 15, Maximum 25
+
+###########################################################################
+
+To Work On:
+
+Admin.php / adminTools.php
+    - IF Byron or Dan, display full controls
+        - Create Round Matches
+        - Edit Matches
+        - Enter Scores
+        - Add Announcement
+        - Change Password
+
+    - IF anyone else, display:
+        - Change Password
+        - Change Email
+        - Change Phone
+
+   - Complete functionality for each
+
+Player.php
+    - IF logged in, display contact details
+    - IF not logged in, display login form
+
+WeeklyMatchUps.php
+    -Display matches for current round
+
+About.php
+Join.php
+
+MAKE EVERYTHING MOBILE FRIENDLY

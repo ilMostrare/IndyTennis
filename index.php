@@ -51,7 +51,21 @@ require_once ('includes/adminLogin.php');
                 <p>For more information, check out the <a href="About.php">About Page</a> for contact information!</p>
                 <br /><br />
                 <h3>Announcements</h3>
-                <? printAnnouncements() ?>
+                <?
+                $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
+                $numAnnounceQuery = @$conn->query($numAnnounceSQL);
+                $numAnnounce = mysqli_num_rows($numAnnounceQuery);
+
+                if ($numAnnounce > 0){
+
+                    printAnnouncements();
+
+                } else{
+
+                    echo "<h4>No new announcements!</h4>";
+
+                }
+                ?>
         </div>
 
     </div>

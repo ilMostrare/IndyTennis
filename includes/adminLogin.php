@@ -20,7 +20,7 @@ if (isset($_POST['loginEmail'])){
     // send login info to database
     $adminSql = "SELECT * FROM `ADMIN` WHERE `EMAIL` LIKE '$logEmail' AND `PASSWORD` = '$logPass'";
     $adminQuery = @$conn->query($adminSql);
-    $adminRow=mysqli_fetch_assoc($adminQuery);
+    $adminRow = mysqli_fetch_assoc($adminQuery);
 
     $_SESSION['adminID'] = $adminRow["ID"];
     echo "", $_SESSION['adminID'],"";

@@ -78,7 +78,67 @@
         margin-top: 35px;
         display: none;
 
-        h4{
+        h3{
+          text-align: center;
+        }
+
+        .roundNumbers{
+          width: 100%;
+
+          span{
+            margin: auto;
+          }
+        }
+
+        form input{
+          display: block;
+          width: 90%;
+          height: 40px;
+          margin-bottom: 10px;
+          font-size: 16px;
+          border-radius: 5px;
+          border-style: solid;
+          border-width: .5px;
+          border-color: lightgrey;
+          padding-left: 5px;
+        }
+
+        form select{
+          display: block;
+          width: 90%;
+          height: 40px;
+          margin-bottom: 35px;
+          font-size: 16px;
+        }
+
+        form label {
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        form input[type=submit] {
+          height: 30px;
+          width: 45%;
+          min-width: 145px;
+          border: none;
+          border-radius: 10px;
+          background-color: lightgrey;
+          cursor: pointer;
+          margin: 10px auto;
+          padding: 0;
+
+          &:hover{
+            background-color: darkgrey;
+          }
+        }
+
+      }
+
+      #editRoundMatches{
+        margin-top: 35px;
+        display: none;
+
+        h3{
           text-align: center;
         }
 
@@ -125,6 +185,7 @@
         }
 
       }
+
 
     }
 
