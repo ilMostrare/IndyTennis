@@ -19,6 +19,22 @@ function setBindings() {
         $(this).addClass('current').siblings('').removeClass('current');
     });
 
+    $('#createMatches').click(function(){
+        $('#createRoundMatches').css({"display":"block"});
+    });
+    $('#editMatches').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+    });
+    $('#enterScores').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+    });
+    $('#addAnnounce').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+    });
+    $('#changePassword').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+    });
+
     $("#singles tr:even").css({
         "background-color":"#dcdcdc"
     });

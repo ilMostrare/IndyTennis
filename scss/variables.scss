@@ -11,4 +11,14 @@ $activeLink: #53A548;
   background-color: #53A548;
   border-radius: 5px;
 
+  &:hover {
+    background-color: #EEF95D;
+    color: #333333;
+  }
+
+  &:active {
+    background-color: #53A548;
+    color: #333333;
+  }
+
 }
