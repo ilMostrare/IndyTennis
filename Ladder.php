@@ -26,38 +26,56 @@ require_once ('includes/adminLogin.php');
 
 <body>
 
-    <? require "includes/nav.html"?>
+    <? require "includes/nav.html";
 
-    <div class="ladderContent">
-        <div class="header">
-            <h1><? echo date("Y") ?> Ladder Standings</h1>
-            <h3><a href="WeeklyMatchUps">View This Weeks Matchups</a></h3>
-        </div>
-        <div class="standings">
-            <div class="left">
-                <h2>Singles</h2>
-                <div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>
-                <table id="singles">
-                    <? printSGLSRankings() ?>
-                </table>
-            </div>
+    if ($isLadderLive > 0) {
 
-            <div class="right">
-                <h2>Doubles</h2>
-                <div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>
-                <table id="doubles">
-                    <? printDBLSRankings() ?>
-                </table>
-            </div>
-        </div>
+        echo '<div class="ladderContent">';
+        echo '<div class="header">';
+        echo '<h1><? echo date("Y") ?> Ladder Standings</h1>';
+        echo '<h3><a href="WeeklyMatchUps">View This Weeks Matchups</a></h3>';
+        echo '</div>';
+        echo '<div class="standings">';
+        echo '<div class="left">';
+        echo '<h2>Singles</h2>';
+        echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';
+        echo '<table id="singles">';
+        printSGLSRankings();
+        echo '</table>';
+        echo '</div>';
+
+        echo '<div class="right">';
+        echo '<h2>Doubles</h2>';
+        echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';
+        echo '<table id="doubles">';
+        printDBLSRankings();
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
 
 
-    </div>
+        echo '</div>';
+    } else {
+        echo '<div class="ladderContent">';
+        echo '<div class="header">';
+        echo '<h1>Coming Soon!</h1>';
+        echo '<h3>Under Construction. Coming Next Season!</h3>';
+        echo '</div>';
+        echo '<div class="ctIMG">';
+        echo '<img src="includes/images/tennis-court-dimensions-and-layout.jpg">';
+        echo '</div>';
+        echo '</div>';
+    }
 
-    <?
 
-    require "includes/footer.html";
-    require_once ("includes/adminLoginModal.php");
+
+    if ($isLadderLive > 0){
+        require "includes/footer.html";
+    } else {
+        require "includes/tempFooter.html";
+    }
+
+    //require_once ("includes/adminLoginModal.php");
 
     ?>
 

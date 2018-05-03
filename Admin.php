@@ -100,8 +100,13 @@ if (empty($userRow)){
 
     <?
 
-    require "includes/footer.html";
-    require_once ("includes/adminLoginModal.php");
+    if ($isLadderLive > 0){
+        require "includes/footer.html";
+    } else {
+        require "includes/tempFooter.html";
+    }
+
+    //require_once ("includes/adminLoginModal.php");
 
     ?>
 

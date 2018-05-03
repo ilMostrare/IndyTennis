@@ -33,7 +33,15 @@ require_once ('includes/queries.php');
 
 </div>
 
-<? require "includes/footer.html"?>
+<?
+
+if ($isLadderLive > 0){
+    require "includes/footer.html";
+} else {
+    require "includes/tempFooter.html";
+}
+
+?>
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/jquery.svg.js"></script>

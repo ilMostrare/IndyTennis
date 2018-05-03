@@ -137,7 +137,7 @@ function setBindings() {
             }
         }).done(function (data) {
             console.log("Success");
-            //console.log(data);
+            console.log(data);
             swal("Success", "Singles Matches Created", "success");
         });
     });

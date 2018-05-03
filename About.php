@@ -33,7 +33,17 @@ require_once ('includes/adminLogin.php');
 
     </div>
 
-    <? require "includes/footer.html"?>
+    <?
+
+    if ($isLadderLive > 0){
+        require "includes/footer.html";
+    } else {
+        require "includes/tempFooter.html";
+    }
+
+    //require_once ("includes/adminLoginModal.php");
+
+    ?>
 
 
 <script src="js/jquery-3.1.1.min.js"></script>

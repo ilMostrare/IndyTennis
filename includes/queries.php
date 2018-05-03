@@ -9,6 +9,12 @@
 
 $curDate = date("M jS, Y");
 
+$isLadderLiveSQL = "SELECT `IS_LADDER_LIVE` FROM `CONTROL`";
+$isLadderLiveQRY = @$conn->query($isLadderLiveSQL);
+while ($isLadderLiveROW = mysqli_fetch_assoc($isLadderLiveQRY)){
+    $isLadderLive = $isLadderLiveROW['IS_LADDER_LIVE'];
+}
+
 
 #region View Player
 
@@ -149,9 +155,13 @@ function createSGLSMatches(){
 
     $j = rand(1, 3);
 
-    $numberOfSinglesPlayersSQL = "SELECT COUNT(*) FROM `PLAYERS` WHERE `SGLS_PLAYER`=1";
+    $numberOfSinglesPlayersSQL = "SELECT COUNT(*) as TOTAL FROM `PLAYERS` WHERE `SGLS_PLAYER`=1";
     $numberOfSinglesPlayersQuery = @$conn->query($numberOfSinglesPlayersSQL);
-    $num_SGLS_Players = mysqli_fetch_object($numberOfSinglesPlayersQuery);
+    //$num_SGLS_Players = mysqli_fetch_object($numberOfSinglesPlayersQuery);
+    while ($num_SGLS_Players_Row = mysqli_fetch_assoc($numberOfSinglesPlayersQuery)){
+        $num_SGLS_Players = $num_SGLS_Players_Row['TOTAL'];
+        echo "NumPlayers ",$num_SGLS_Players;
+    }
 
     while ($i <= $num_SGLS_Players){
 
@@ -159,8 +169,9 @@ function createSGLSMatches(){
         @$conn->query($setRowNumVarSQL);
         $getPlayer1IDSQL = "SELECT * FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s WHERE (@row_number:=@row_number+1) = '".$i."' ORDER BY Rank ASC, `LAST_NAME` ASC";
         $player1QRY = @$conn->query($getPlayer1IDSQL);
-        while ($player1Row = mysqli_fetch_object($player1QRY)){
+        while ($player1Row = mysqli_fetch_assoc($player1QRY)){
             $player1 = $player1Row['ID'];
+            echo "P1 ",$player1;
         }
 
         $setRowNumVarSQL2 = "SET @row_number := 0";
@@ -169,11 +180,16 @@ function createSGLSMatches(){
         $player2QRY = @$conn->query($getPlayer2IDSQL);
         while ($player2Row = mysqli_fetch_assoc($player2QRY)){
             $player2 = $player2Row['ID'];
+            echo "P2 ",$player2;
         }
 
-        $existsSQL = "SELECT COUNT(*) FROM `SGLSMATCH` WHERE ((`PLAYER1` = '".$player1."') OR (`PLAYER2` = '".$player1."')) AND `ROUND_NUM` = '".$currentRound."'";
+        $existsSQL = "SELECT COUNT(*) as TOTAL FROM `SGLSMATCH` WHERE ((`PLAYER1` = '".$player1."') OR (`PLAYER2` = '".$player1."')) AND `ROUND_NUM` = '".$currentRound."'";
         $existsQRY = @$conn->query($existsSQL);
-        $alreadyExists = mysqli_fetch_object($existsQRY);
+        //$alreadyExists = mysqli_fetch_assoc($existsQRY);
+        while ($alreadyExistsROW = mysqli_fetch_assoc($existsQRY)){
+            $alreadyExists = $alreadyExistsROW['TOTAL'];
+            echo "Exists ",$alreadyExists;
+        }
 
         if ($alreadyExists > 0){
             $i++;
