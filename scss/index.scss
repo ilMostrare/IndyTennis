@@ -52,6 +52,19 @@
           color: #333333;
         }
       }
+
+      a {
+        color: #53A548;
+        text-decoration: none;
+
+        &:hover {
+          color: #EEF95D;
+        }
+
+        &:active {
+          color: #53A548;
+        }
+      }
     }
   }
 
@@ -59,8 +72,8 @@
     background-color: white;
     width: 25%;
     margin: 0 auto;
-    padding: 0 5px auto 5px;
-
+    //padding: 0 10px auto 10px;
+    box-sizing: border-box;
 
     #noAnnounce{
       margin-left: 5%;
@@ -72,9 +85,13 @@
       margin-bottom: 5px;
     }
     p {
-      width: 100%;
+      width: 95%;
       color: #333333;
       overflow: auto;
+      padding-left: 1em;
+      padding-right: 1em;
+      //font-size: 80%;
+      margin: 0 auto;
 
       a {
         color: #53A548;
@@ -92,13 +109,16 @@
 
     h4 {
       color: #333333;
+      padding-left: 1em;
+      padding-right: 1em;
     }
 
     #announceDates {
-      width: 100%;
+      width: 95%;
       color: #333333;
       font-size: 60%;
       text-align: right;
+      //padding-right: 1em;
     }
   }
 }

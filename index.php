@@ -55,7 +55,8 @@ require_once ('includes/adminLogin.php');
 
         <div class="hmRight">
             <br />
-            <h3>Announcements</h3>
+            <h3>Announcements / Upcoming</h3>
+            <br />
             <?
             $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
             $numAnnounceQuery = @$conn->query($numAnnounceSQL);
@@ -67,7 +68,7 @@ require_once ('includes/adminLogin.php');
 
             } else{
 
-                echo "<br /><p id='noAnnounce'>No new announcements!</p>";
+                echo "<p id='noAnnounce'>No new announcements!</p>";
 
             }
             ?>
