@@ -2,81 +2,103 @@
   padding-top: $nav-height;
   padding-bottom: 5px;
   width: $bodyWidth;
-  min-height: 100%;
-  margin: 0 auto;
-  display: block;
+  min-height: calc(100% - (#{$nav-height} - 15px));
+  margin: 0 auto 0 auto;
+  display: flex;
   z-index: 3;
   box-sizing: border-box;
-  background-color: $backgroundColor;
+  //background-color: #A5DC86;
 
-  .headerIMG{
-    width: 100%;
-    margin: 0 auto;
 
-    img{
+
+  .hmLeft {
+    width: 73%;
+    background-color: $backgroundColor;
+    min-height: 100%;
+
+    .headerIMG{
       width: 100%;
-      height: auto;
-    }
-  }
-
-  .header{
-    width: 100%;
-    margin: 0 auto;
-
-    h1{
-      margin: 7px auto;
-      text-align: center;
-      font-size: 300%;
-      letter-spacing: 3px;
-      color: #333333;
-    }
-    h2{
       margin: 0 auto;
-      text-align: center;
-      letter-spacing: 3px;
-      color: #333333;
-    }
-  }
 
-  .homeTxt{
-    width: 75%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    padding: 0 5% 15px 5%;
-
-      h3 {
-        color: #333333;
-        text-align: center;
-        margin-bottom: 5px;
-      }
-      p {
+      img{
         width: 100%;
-        color: #333333;
-        overflow: auto;
+        height: auto;
+      }
+    }
 
-        a {
-          color: #53A548;
-          text-decoration: none;
+    .homeTxt {
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+      padding: 0 5% 15px 5%;
+      display: block;
+      //background-color: aquamarine;
 
-          &:hover {
-            color: #EEF95D;
-          }
+      .header {
+        width: 100%;
+        margin: 0 auto;
 
-          &:active {
-            color: #53A548;
-          }
+        h1 {
+          margin: 7px auto;
+          text-align: center;
+          font-size: 300%;
+          letter-spacing: 3px;
+          color: #333333;
+        }
+        h2 {
+          margin: 0 auto;
+          text-align: center;
+          letter-spacing: 3px;
+          color: #333333;
         }
       }
+    }
+  }
 
-      h4 {
-        color: #333333;
-      }
+  .hmRight {
+    background-color: white;
+    width: 25%;
+    margin: 0 auto;
+    padding: 0 5px auto 5px;
 
-      #announceDates{
-        width: 100%;
-        color: #333333;
-        font-size: 60%;
-        text-align: right;
+
+    #noAnnounce{
+      margin-left: 5%;
+    }
+
+    h3 {
+      color: #333333;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    p {
+      width: 100%;
+      color: #333333;
+      overflow: auto;
+
+      a {
+        color: #53A548;
+        text-decoration: none;
+
+        &:hover {
+          color: #EEF95D;
+        }
+
+        &:active {
+          color: #53A548;
+        }
       }
+    }
+
+    h4 {
+      color: #333333;
+    }
+
+    #announceDates {
+      width: 100%;
+      color: #333333;
+      font-size: 60%;
+      text-align: right;
+    }
   }
 }

@@ -8,33 +8,73 @@ nav {
   opacity: 90;
 
   .navContainer {
-    width: 100%;
-    height: $nav-height;
+    width: $bodyWidth;
+    height: 100%;
     margin: auto auto;
     display: flex;
 
     .navLeft{
-      width: 15%;
+      width: 33%;
       height: 100%;
-      margin: auto auto auto 0;
-      display: block;
-      //background-color: #F8D486;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      //background-color: #ea7d7d;
 
-      div{
+      .navLinks{
+        list-style-type: none;
+        margin: auto;
+        height: 100%;
+        //background-color: #b4dbed;
         width: 100%;
-        height: 15px;
-        //background-color: orchid;
-        font-size: small;
-        margin: (($nav-height / 2) - 10px) auto auto auto;
-        padding-left: 25px;
-        box-sizing: border-box;
-        color: #9b9b9b;
+
+        li{
+          display: inline-block;
+          margin: auto;
+          height: 100%;
+          text-transform: uppercase;
+          font-size: $nav-link-font-size;
+          //background-color: #F8D486;
+          padding-left: 10px;
+          padding-right: 10px;
+          //width: 25%;
+
+          .listA{
+            line-height: $nav-height;
+            margin: auto;
+            white-space: nowrap;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            display: block;
+            //background-color: #A5DC86;
+            vertical-align: middle;
+          }
+
+          &:hover{
+            a{
+              color: black;
+            }
+            height: 100%;
+            background-color: #EEF95D;
+            text-decoration: none;
+          }
+
+          &:active{
+            a{
+              color: black;
+            }
+            height: 100%;
+            background-color: #53A548;
+            text-decoration: none;
+          }
+        }
       }
     }
 
 
     #pageLinks{
-      width: $bodyWidth;
+      width: 33%;
       height: 100%;
       margin: auto auto;
       display: flex;
@@ -138,12 +178,12 @@ nav {
       }
 
       #navLiRight{
-        width: 35%;
+        width: 33%;
         height: 100%;
         margin: auto auto auto 0;
         box-sizing: border-box;
         display: flex;
-        //background-color: orangered;
+        //background-color: cornflowerblue;
 
         div{
           height: 100%;
@@ -255,11 +295,11 @@ nav {
 
 
     .navRight{
-      width: 15%;
+      width: 33%;
       height: 100%;
       margin: auto 0 auto auto;
       display: block;
-      //background-color: #F8D486;
+      //background-color: cornflowerblue;
       padding-top: (($nav-height / 2) - 25px);
       box-sizing: border-box;
 

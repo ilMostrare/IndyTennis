@@ -31,41 +31,46 @@ require_once ('includes/adminLogin.php');
     <? require "includes/nav.html"?>
 
     <div class="homeContent">
-        <div class="headerIMG">
-            <img src="includes/images/headerIMG.jpg">
+
+        <div class="hmLeft">
+            <div class="headerIMG">
+                <img src="includes/images/headerIMG.jpg">
+            </div>
+
+            <div class="homeTxt">
+                    <div class="header">
+                        <h1>INDYTENNIS</h1>
+                        <h2>::Serving Since 2004::</h2>
+                        <br />
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To provide a healthy, accepting, and positive atmosphere for tennis and related activities among LGBT community members, friends, family members and allies.  As with the sport of tennis, IndyTennis starts with LOVE.</p>
+                    <br /><br />
+                    <h3>Come Hit With Us!</h3>
+                    <p>Join us at our social plays - Saturday mornings in the summer, 10AM @ Riverside Park or in the Winter, Sunday evenings<br /> @ West Indy Racquet Club</p>
+                    <br />
+                    <p>For more information, check out the <a href="About">About Page</a> for contact information!</p>
+            </div>
         </div>
 
-        <div class="header">
-            <h1>INDYTENNIS</h1>
-            <h2>::Serving Since 2004::</h2>
+        <div class="hmRight">
             <br />
-        </div>
+            <h3>Announcements</h3>
+            <?
+            $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
+            $numAnnounceQuery = @$conn->query($numAnnounceSQL);
+            $numAnnounce = mysqli_num_rows($numAnnounceQuery);
 
-        <div class="homeTxt">
-                <br />
-                <h3>Our Mission</h3>
-                <p>To provide a healthy, accepting, and positive atmosphere for tennis and related activities among LGBT community members, friends, family members and allies.  As with the sport of tennis, IndyTennis starts with LOVE.</p>
-                <br /><br />
-                <h3>Come Hit With Us!</h3>
-                <p>Join us at our social plays - Saturday mornings in the summer, 10AM @Riverside Park or in the Winter, Sunday evenings @ West Indy Racquet Club</p>
-                <p>For more information, check out the <a href="About.php">About Page</a> for contact information!</p>
-                <br /><br />
-                <h3>Announcements</h3>
-                <?
-                $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
-                $numAnnounceQuery = @$conn->query($numAnnounceSQL);
-                $numAnnounce = mysqli_num_rows($numAnnounceQuery);
+            if ($numAnnounce > 0){
 
-                if ($numAnnounce > 0){
+                printAnnouncements();
 
-                    printAnnouncements();
+            } else{
 
-                } else{
+                echo "<br /><p id='noAnnounce'>No new announcements!</p>";
 
-                    echo "<h4>No new announcements!</h4>";
-
-                }
-                ?>
+            }
+            ?>
         </div>
 
     </div>

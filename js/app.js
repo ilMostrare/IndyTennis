@@ -15,8 +15,9 @@ function setBindings() {
         return false;
     });
 
-    $('.optionsList li').click(function(){
-        $(this).addClass('current').siblings('').removeClass('current');
+
+    $('.navLinks .listA').click(function(){
+        $(this).addClass('currentPage').siblings('').removeClass('currentPage');
     });
 
     $('#createMatches').click(function(){

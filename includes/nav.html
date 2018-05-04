@@ -1,21 +1,27 @@
 <nav>
     <div class="navContainer">
         <div class="navLeft">
-            <div><? echo $curDate  ?></div>
+            <!--<div><? echo $curDate  ?></div>-->
+            <ul class="navLinks">
+                <li><a class="listA" id="homePage" href="./">Home</a></li>
+                <li><a class="listA" id="about" href="About">About</a></li>
+                <li><a class="listA" id="ladder" href="Ladder">Ladder</a></li>
+                <li><a class="listA" id="tourney" href="https://www.theindytennisclassic.org/" target="_blank">IndyTennis Classic</a></li>
+            </ul>
         </div>
         <div id="pageLinks">
-            <div id="navLiLeft">
-                <div class="navItem"><a id="homePage" href="./">Home</a></div>
-                <div class="navItem"><a id="about" href="About">About</a></div>
-                <div class="navItem"><a id="join" href="Join">Join Us</a></div>
-            </div>
+            <!--<div id="navLiLeft">-->
+                <!--<div class="navItem"><a id="homePage" href="./">Home</a></div>-->
+                <!--<div class="navItem"><a id="about" href="About">About</a></div>-->
+                <!--<div class="navItem"><a id="join" href="Join">Join Us</a></div>-->
+            <!--</div>-->
             <div id="navLiCenter">
                 <span id="logo"><a href="#"><? echo file_get_contents("includes/images/IndyTennis_WH.svg"); ?></a></span>
             </div>
-            <div id="navLiRight">
-                <div class="navItem"><a id="ladder" href="Ladder">Ladder</a></div>
-                <div class="navItem"><a id="tourney" href="https://www.theindytennisclassic.org/" target="_blank">IndyTennis Classic</a></div>
-            </div>
+            <!--<div id="navLiRight">-->
+                <!--<div class="navItem"><a id="ladder" href="Ladder">Ladder</a></div>-->
+                <!--<div class="navItem"><a id="tourney" href="https://www.theindytennisclassic.org/" target="_blank">IndyTennis Classic</a></div>-->
+            <!--</div>-->
         </div>
         <div class="navRight">
             <div>Current Ladder Round #</div>
