@@ -1,28 +1,31 @@
 .homeContent {
-  padding-top: $nav-height;
-  padding-bottom: 5px;
+  padding-top: $nav-height + 10px;
+  //padding-bottom: 5px;
   width: $bodyWidth;
-  min-height: calc(100% - (#{$nav-height} - 15px));
+  height: calc(100% - (#{$nav-height} - 5px));
   margin: 0 auto 0 auto;
   display: flex;
   z-index: 3;
   box-sizing: border-box;
+  overflow: hidden;
   //background-color: #A5DC86;
-
 
 
   .hmLeft {
     width: 73%;
     background-color: $backgroundColor;
     min-height: 100%;
+    border-radius: 10px 0 0 10px;
 
     .headerIMG{
       width: 100%;
       margin: 0 auto;
 
+
       img{
         width: 100%;
         height: auto;
+        border-radius: 10px 0 0 0;
       }
     }
 
@@ -74,6 +77,9 @@
     margin: 0 auto;
     //padding: 0 10px auto 10px;
     box-sizing: border-box;
+    //overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 0 10px 10px 0;
 
     #noAnnounce{
       margin-left: 5%;

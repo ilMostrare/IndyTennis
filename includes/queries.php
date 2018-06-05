@@ -61,7 +61,7 @@ if (!$curSGLSRNDQuery) {
     die("Selection failed: ($errno) $error.");
 }
 while ($SGLSroundRow = mysqli_fetch_assoc($curSGLSRNDQuery)){
-    $SGLSroundID = $SGLSroundRow["ID"];
+    $SGLSroundID = $SGLSroundRow["ROUND_NUM"];
     $SGLSroundSTART = $SGLSroundRow["START_DATE"];
     $SGLSroundEND = $SGLSroundRow["END_DATE"];
     $SGLSroundSZNID = $SGLSroundRow["SEASON_NUM"];
@@ -77,7 +77,7 @@ if (!$curDBLSRNDQuery) {
     die("Selection failed: ($errno) $error.");
 }
 while ($DBLSroundRow = mysqli_fetch_assoc($curDBLSRNDQuery)){
-    $DBLSroundID = $DBLSroundRow["ID"];
+    $DBLSroundID = $DBLSroundRow["ROUND_NUM"];
     $DBLSroundSTART = $DBLSroundRow["START_DATE"];
     $DBLSroundEND = $DBLSroundRow["END_DATE"];
     $DBLSroundSZNID = $DBLSroundRow["SEASON_NUM"];

@@ -45,7 +45,6 @@ WeeklyMatchUps.php
     -Display matches for current round
 
 About.php
-Join.php
 
 MAKE EVERYTHING MOBILE FRIENDLY
 

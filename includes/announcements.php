@@ -28,3 +28,30 @@ function printAnnouncements()
         echo "<h4>",$announceTitle,"</h4><p>- ",$announceContent,"</p><p id='announceDates'>exp: ",$announceEnd,"</p><br />";
     }
 }
+
+function displayAnnouncements(){
+
+    global $conn;
+
+    echo '<div class="hmRight" id="style-2">';
+    echo '<br />';
+    echo '<h3>Announcements / Upcoming</h3>';
+    echo '<br />';
+
+            $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
+            $numAnnounceQuery = @$conn->query($numAnnounceSQL);
+            $numAnnounce = mysqli_num_rows($numAnnounceQuery);
+
+            if ($numAnnounce > 0){
+
+                printAnnouncements();
+
+            } else{
+
+                echo "<p id='noAnnounce'>No new announcements!</p>";
+
+            }
+
+    echo '</div>';
+
+}
