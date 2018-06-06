@@ -7,7 +7,6 @@
   display: flex;
   z-index: 3;
   box-sizing: border-box;
-  overflow: hidden;
   //background-color: #A5DC86;
 
 
@@ -16,6 +15,8 @@
     background-color: $backgroundColor;
     min-height: 100%;
     border-radius: 10px 0 0 10px;
+    overflow-x: hidden;
+    //overflow-y: scroll;
 
     .headerIMG{
       width: 100%;
@@ -74,7 +75,7 @@
   .hmRight {
     background-color: white;
     width: 25%;
-    margin: 0 auto;
+    margin: 0 0 auto auto;
     //padding: 0 10px auto 10px;
     box-sizing: border-box;
     //overflow-y: scroll;

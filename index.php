@@ -32,7 +32,7 @@ require_once ('includes/adminLogin.php');
 
     <div class="homeContent">
 
-        <div class="hmLeft">
+        <div class="hmLeft" id="style-2">
             <div class="headerIMG">
                 <img src="includes/images/headerIMG.jpg">
             </div>

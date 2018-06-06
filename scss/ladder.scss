@@ -2,7 +2,7 @@
   padding-top: $nav-height + 10px;
   //padding-bottom: 5px;
   width: $bodyWidth;
-  height: calc(100% - (#{$nav-height} - 5px));
+  min-height: calc(100% - (#{$nav-height} - 5px));
   margin: 0 auto 0 auto;
   display: block;
   z-index: 3;
@@ -51,6 +51,7 @@
     img{
       width: 65%;
       margin: 30px auto auto auto;
+      box-shadow: 3px 3px 8px #888888;
     }
   }
 

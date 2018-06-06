@@ -2,7 +2,7 @@
   padding-top: $nav-height + 10px;
   //padding-bottom: 5px;
   width: $bodyWidth;
-  max-height: calc(100% - (#{$nav-height} - 5px));
+  height: calc(100% - (#{$nav-height} - 5px));
   margin: 0 auto 0 auto;
   display: flex;
   z-index: 3;
@@ -63,7 +63,7 @@
   .hmRight {
     background-color: white;
     width: 25%;
-    margin: 0 auto;
+    margin: 0 0 auto auto;
     //padding: 0 10px auto 10px;
     box-sizing: border-box;
     //overflow-y: scroll;
