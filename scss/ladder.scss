@@ -2,12 +2,12 @@
   padding-top: $nav-height + 10px;
   //padding-bottom: 5px;
   width: $bodyWidth;
-  min-height: calc(100% - (#{$nav-height} - 5px));
+  height: calc(100% - (#{$nav-height} - 5px));
   margin: 0 auto 0 auto;
   display: block;
   z-index: 3;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
   //background-color: #A5DC86;
 
 

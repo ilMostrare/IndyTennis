@@ -1,0 +1,172 @@
+@media only screen and (max-device-width : 1080px) {
+
+  /********* Nav **********/
+  nav {
+
+    .navContainer{
+      width: 100%;
+      margin: auto auto;
+
+      .navLeft{
+        .navLinks{
+          margin: auto;
+          li {
+            //display: flex;
+            margin: auto;
+            font-size: larger;
+            width: min-content;
+            float: left;
+          }
+          li a#tourney{
+            display: none;
+          }
+
+        }
+      }
+
+      #navCenter{
+        #navLiCenter{
+          #logo{
+            a{
+              svg{
+                margin: auto auto;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+
+  /********* Index **********/
+  .homeContent {
+    width: 95%;
+    display: block;
+    height: min-content;
+
+    .hmLeft{
+      width: 100%;
+      margin: 0 auto 15px auto;
+      height: min-content;
+    }
+
+    .hmRight{
+      width: 100%;
+      margin: auto auto 15px auto;
+    }
+  }
+
+  /********* About **********/
+  .aboutContent {
+
+  }
+
+  /********* Ladder **********/
+  .ladderContent {
+
+  }
+
+  /********* Footer **********/
+  footer {
+
+  }
+
+}
+
+@media only screen and (max-device-width : 1080px) and (orientation: portrait) {
+
+  /********* Nav **********/
+  nav {
+    height: $phone-nav-height;
+
+    .navContainer{
+      width: 100%;
+      margin: auto;
+
+      .navLeft{
+        .navLinks{
+          margin: auto;
+          li {
+            margin: auto;
+            //display: flex;
+            font-size: 150%;
+            width: min-content;
+            float: left;
+
+            .listA{
+              height: $phone-nav-height;
+              line-height: $phone-nav-height;
+              margin: auto;
+              //vertical-align: middle;
+            }
+          }
+          li a#tourney{
+            display: none;
+          }
+
+        }
+      }
+
+      #navCenter{
+        #navLiCenter{
+          width: 100%;
+          #logo{
+            width: 100%;
+            a{
+              width: 100%;
+              svg{
+                width: 100%;
+                margin: auto auto;
+
+              }
+            }
+          }
+        }
+      }
+
+      .navRight{
+        div{
+          display: none;
+        }
+      }
+    }
+
+  }
+
+  /********* Index **********/
+  .homeContent {
+    padding-top: $phone-nav-height + 10px;
+    width: 95%;
+    display: block;
+    height: min-content;
+
+    .hmLeft{
+      width: 100%;
+      margin: 0 auto 15px auto;
+      height: min-content;
+    }
+
+    .hmRight{
+      width: 100%;
+      margin: auto auto 15px auto;
+    }
+  }
+
+  /********* About **********/
+  .aboutContent {
+    padding-top: $phone-nav-height + 10px;
+  }
+
+  /********* Ladder **********/
+  .ladderContent {
+    padding-top: $phone-nav-height + 10px;
+  }
+
+  /********* Footer **********/
+  footer {
+
+  }
+}
+
