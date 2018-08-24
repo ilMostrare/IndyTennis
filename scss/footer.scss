@@ -7,91 +7,72 @@ footer{
   margin-top: 10px;
   //bottom: 0;
 
-  .footerCopy{
-    width: 33%;
+  .shoe {
     height: 100%;
-    margin: auto auto auto 0;
+    width: $bodyWidth;
     display: flex;
-
-    p{
-      margin: auto auto auto 10%;
-    }
-
-  }
-  .footerSocial{
-    width: 33%;
-    height: 100%;
     margin: auto;
-    display: flex;
+    //background-color: #f06e57;
 
-    a{
-      margin: auto;
-      img{
-        margin: auto;
-        height: 30px;
-        width: 30px;
+    .footerCopy {
+      width: 33%;
+      height: 100%;
+      margin: auto auto auto 0;
+      display: flex;
+
+      p {
+        margin: auto auto auto 0;
       }
 
-      &:hover{
-        -webkit-filter: opacity(35%);filter: opacity(35%);
-      }
-      &:active{
-        -webkit-filter: opacity(85%);filter: opacity(85%);
-      }
     }
+    .footerSocial {
+      width: 33%;
+      height: 100%;
+      margin: auto;
+      display: flex;
 
-  }
-  .footerRight{
-    width: 33%;
-    height: 100%;
-    margin: auto 0 auto auto;
-    display: flex;
-    text-align: right;
+      a {
+        margin: auto;
+        img {
+          margin: auto;
+          height: 30px;
+          width: 30px;
+        }
 
-    a{
-      font-size: smaller;
-      margin: auto 10% auto auto;
-      color: #333333;
-      cursor: pointer;
-      text-decoration: none;
-
-      &:hover{
-        color: $highlightLink;
+        &:hover {
+          -webkit-filter: opacity(35%);
+          filter: opacity(35%);
+        }
+        &:active {
+          -webkit-filter: opacity(85%);
+          filter: opacity(85%);
+        }
       }
-      &:active{
-        color: $activeLink;
-      }
 
+    }
+    .footerRight {
+      width: 33%;
+      height: 100%;
+      margin: auto 0 auto auto;
+      display: flex;
+      text-align: right;
+
+      a {
+        font-size: smaller;
+        margin: auto 0 auto auto;
+        color: #333333;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          color: $highlightLink;
+        }
+        &:active {
+          color: $activeLink;
+        }
+
+      }
     }
   }
 }
 
-/*
-@media only screen and (max-device-width : 1080px) and (orientation: portrait) {
-
-  footer{
-    height: $phone-nav-height - 10px;
-
-    .footerCopy{
-      height: $phone-nav-height - 10px;
-
-      p{
-        font-size: x-large;
-      }
-    }
-    .footerSocial{
-      height: $phone-nav-height - 10px;
-
-      a {
-        img {
-          margin: auto;
-          height: 45px;
-          width: 45px;
-        }
-      }
-    }
-    .footerRight{
-      height: $phone-nav-height - 10px;
-    }
-  }
-}*/

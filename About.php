@@ -36,7 +36,7 @@ require_once ('includes/adminLogin.php');
             <div class="aboutTxt">
                 <div class="header">
                     <h1>About INDYTENNIS</h1>
-                    <h2>89 Members and Growing!</h2>
+                    <h2>94 Members and Growing!</h2>
                     <br />
                 </div>
                 <h3>Contact / Join</h3>

@@ -190,7 +190,9 @@
 
   /********* Footer **********/
   footer {
-
+    .shoe {
+      width: 95%;
+    }
   }
 
 }
@@ -328,29 +330,33 @@
   }
 
   /********* Footer **********/
-  footer{
+  footer {
     height: $phone-nav-height - 10px;
 
-    .footerCopy{
-      height: $phone-nav-height - 10px;
+    .shoe {
+      width: 95%;
 
-      p{
-        font-size: x-large;
-      }
-    }
-    .footerSocial{
-      height: $phone-nav-height - 10px;
+      .footerCopy {
+        height: $phone-nav-height - 10px;
 
-      a {
-        img {
-          margin: auto;
-          height: 45px;
-          width: 45px;
+        p {
+          font-size: x-large;
         }
       }
-    }
-    .footerRight{
-      height: $phone-nav-height - 10px;
+      .footerSocial {
+        height: $phone-nav-height - 10px;
+
+        a {
+          img {
+            margin: auto;
+            height: 45px;
+            width: 45px;
+          }
+        }
+      }
+      .footerRight {
+        height: $phone-nav-height - 10px;
+      }
     }
   }
 }
