@@ -15,7 +15,7 @@ function createSGLSMatches(){
 
     $i = 1;
 
-    $j = rand(1, 3);
+    //$j = rand(1, 3);
 
     $numberOfSinglesPlayersSQL = "SELECT COUNT(*) as TOTAL FROM `PLAYERS` WHERE `SGLS_PLAYER`=1";
     $numberOfSinglesPlayersQuery = @$conn->query($numberOfSinglesPlayersSQL);
@@ -25,7 +25,9 @@ function createSGLSMatches(){
         echo "NumPlayers ",$num_SGLS_Players;
     }
 
-    while ($i <= $num_SGLS_Players){
+    do {//$i = 1;$i <= $num_SGLS_Players;$i++){
+
+        $j = rand(1, 3);
 
         $setRowNumVarSQL = "SET @row_number := 0";
         @$conn->query($setRowNumVarSQL);
@@ -54,19 +56,20 @@ function createSGLSMatches(){
         }
 
         if ($alreadyExists > 0){
-            $i++;
+            //$i++;
+            echo "Player exists, do nothing";
         } else {
             if ($player2 > $num_SGLS_Players){
                 $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`) VALUES (NULL, '".$player1."', NULL, ".$currentRound.", ".$sznID.", '0', '0', '0', '0', '0', '0', '0', '0', '0')";
                 @$conn->query($createMatchSQL);
-                $i++;
+                //$i++;
             } else {
                 $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`) VALUES (NULL, '".$player1."', '".$player2."', '".$currentRound."', '".$sznID."', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
                 @$conn->query($createMatchSQL);
-                $i++;
+                //$i++;
             }
         }
-    }
+    } while ($i <= $num_SGLS_Players);
 }
 
 
