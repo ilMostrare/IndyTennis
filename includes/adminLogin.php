@@ -18,11 +18,14 @@ if (isset($_POST['loginEmail'])){
     //echo "Data: ",$logEmail,", ",$logPass,"";
 
     // send login info to database
-    $adminSql = "SELECT * FROM `ADMIN` WHERE `EMAIL` LIKE '$logEmail' AND `PASSWORD` = '$logPass'";
+    $adminSql = "SELECT * FROM `PLAYERS` WHERE `EMAIL` LIKE '$logEmail' AND `PASSWORD` = '$logPass'";
     $adminQuery = @$conn->query($adminSql);
     $adminRow = mysqli_fetch_assoc($adminQuery);
 
     $_SESSION['adminID'] = $adminRow["ID"];
+    $_SESSION['userEmail'] = $adminRow['EMAIL'];
+    $_SESSION['userFN'] = $adminRow['FIRST_NAME'];
+
     echo "", $_SESSION['adminID'],"";
 
 }

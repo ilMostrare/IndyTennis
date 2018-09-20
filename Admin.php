@@ -22,14 +22,6 @@ $userQuery = @$conn->query($userSql);
 
 $userRow=mysqli_fetch_assoc($userQuery);
 
-if (empty($userRow)){
-    echo "<script>window.location.href = './';</script>";
-} else {
-    $userFN = $userRow["FIRST_NAME"];
-    $userLN = $userRow["LAST_NAME"];
-    $userEM = $userRow["EMAIL"];
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -49,54 +41,160 @@ if (empty($userRow)){
     <div class="adminContent">
         <div class="header">
             <h1>Admin Panel</h1>
-            <h3>Welcome, <? echo $userFN ?></h3>
+            <h3>Welcome, <? echo $_SESSION['userFN'] ?></h3>
         </div>
 
         <div class="adminBody">
-            <div class="adminOptions">
-                <ul class="optionsList">
-                    <?
-                    if ($userEM = "byron.slabach@gmail.com" || "wrathofmath85@gmail.com") {
+            <?
+            if (!(empty($user_id))) {
+                echo '<div class="adminOptions">';
+                    echo '<ul class="optionsList">';
+                    if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com") {
 
                         echo '<li id="createMatches">Create Round Matches</li>';
                         echo '<li id="editMatches">Edit Matchups</li>';
                         echo '<li id="enterScores">Enter Scores</li>';
+                        echo '<li id="addPlayers">Add Players</li>';
                         echo '<li id="addAnnounce">Add Announcement</li>';
                         echo '<li id="changePassword">Change Password</li>';
+                        echo '<li id="changeEmail">Change Email</li>';
+                        echo '<li id="changePhone">Change Phone Number</li>';
 
                     } else {
 
                         echo '<li id="changePassword">Change Password</li>';
                         echo '<li id="changeEmail">Change Email</li>';
                         echo '<li id="changePhone">Change Phone Number</li>';
+                        echo '<li id="loggoutt">Logout</li>';
 
                     }
-                    ?>
-                </ul>
+                    echo '</ul>';
+                echo '</div>';
 
-            </div>
-            <div class="adminForms">
-                <div id="createRoundMatches">
-                    <h3>Create Round Matches</h3>
+                echo '<div class="adminForms">';
+                    echo '<div id="createRoundMatches">';
+                        echo '<h3>Create Round Matches</h3>';
+                        echo '<div class="roundNumbers">';
+                            echo '<span>Current Singles Round: $SGLSroundID</span>';
+                            echo '<span>Current Doubles Round: $DBLSroundID</span>';
+                        echo '</div>';
+                        echo "<form><button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value='".$SGLSroundID."'>Create Singles Round #".$SGLSroundID." Matches</button></form>";
+                    echo '</div>';
+
+                    echo "<div id='editRoundMatches'>";
+                        echo "<h3>Edit Round Matches</h3>";
+                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span>Current Doubles Round: ".$DBLSroundID."</span></div>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='enterScoreResults'>";
+                        echo "<h3>Enter Scores</h3>";
+                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span>Current Doubles Round: ".$DBLSroundID."</span></div>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='addAnnouncement'>";
+                        echo "<h3>Add Announcement</h3>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='addNewPlayers'>";
+                        echo "<h3>Add New Player</h3>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='changeEM'>";
+                        echo "<h3>Change Email</h3>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='changePW'>";
+                        echo "<h3>Change Password</h3>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='changePH'>";
+                        echo "<h3>Change Phone Number</h3>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                    echo "<div id='logout'>";
+                        echo "<h3>Logout</h3>";
+                        echo "<form action='' method='post'></form>";
+                    echo "</div>";
+
+                echo '</div>';
+
+            } else {
+                echo "<div class='playerContent'>";
+                    echo "<h1>Please Login</h1>";
+                        echo "<form action='' method='post'>";
+                        echo "<label>Email:</label>";
+                        echo "<input id='loginEM' name='loginEmail' type='email' placeholder='Email'>";
+                        echo "<label>Password:</label>";
+                        echo "<input id='loginPASS' name='loginPassword' type='password' placeholder='Password'>";
+                        echo "<input id='loginSubmit' type='submit' value='Login'>";
+                    echo "</form>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </div>
+            
+
+
+
+
+<!--
+
+                <div id="enterScoreResults">
+                    <h3>Edit Scores</h3>
                     <div class="roundNumbers">
-                        <span>Current Singles Round: <? echo $SGLSroundID  ?></span>
-                        <span>Current Doubles Round: <? echo $DBLSroundID  ?></span>
+                        <span>Current Singles Round: <?/* echo $SGLSroundID*/  ?></span>
+                        <span>Current Doubles Round: <?/* echo $DBLSroundID  */?></span>
                     </div>
-                    <form>
-                        <button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value=<? echo $SGLSroundID  ?> >Create Singles Round #<? echo $SGLSroundID  ?> Matches</button>
-                    </form>
-                </div>
-                <div id="editRoundMatches">
-                    <h3>Edit Round Matches</h3>
                     <form action='' method='post'>
 
                     </form>
                 </div>
-            </div>
+                <div id="addNewPlayers">
+                    <h3>Add Players</h3>
+                    <form action='' method='post'>
 
-        </div>
+                    </form>
+                </div>
+                <div id="addAnnouncement">
+                    <h3>Add Announcement</h3>
+                    <form action='' method='post'>
 
-    </div>
+                    </form>
+                </div>
+                <div id="changePW">
+                    <h3>Change Password</h3>
+                    <form action='' method='post'>
+
+                    </form>
+                </div>
+                <div id="changeEM">
+                    <h3>Change Email</h3>
+                    <form action='' method='post'>
+
+                    </form>
+                </div>
+                <div id="changePH">
+                    <h3>Change Phone #</h3>
+                    <form action='' method='post'>
+
+                    </form>
+                </div>
+                <div id="logout">
+                    <h3>Logout</h3>
+                    <form action='' method='post'>
+
+                    </form>
+                </div>
+           -->
+
 
     <?
 

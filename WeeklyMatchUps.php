@@ -25,13 +25,37 @@ require_once ('includes/queries.php');
 
 <body>
 
-<? require "includes/nav.html"?>
+<? require "includes/nav.html";
 
-<div class="matchesContent">
+ echo '<div class="ladderContent">';
+    echo '<div class="header">';
+        echo '<h1><? echo date("Y") ?>Weekly Matchups</h1>';
+        echo '<h3><a href="Ladder">Back to Ladder</a></h3>';
+    echo '</div>';
+    echo '<div class="standings">';
+        echo '<div class="left">';
+            echo '<h2>Singles - Round ',$SGLSroundID,'</h2>';
+            echo '<table id="singles">';
+                printSGLSMatchups();
+            echo '</table>';
+        echo '</div>';
+
+        echo '<div class="right">';
+            echo '<h2>Doubles - Round ',$DBLSroundID,'</h2>';
+            echo '<table id="doubles">';
+                printDBLSMatchups();
+            echo '</table>';
+        echo '</div>';
+    echo '</div>';
+ echo '</div>';
+
+?>
+
+<!--<div class="matchesContent">
 
 
 
-</div>
+</div>-->
 
 <?
 

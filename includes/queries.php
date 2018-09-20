@@ -143,3 +143,68 @@ function printDBLSRankings()
 }
 #endregion
 
+#region Print out weekly matchups
+
+function printSGLSMatchups()
+{
+    global $conn;
+    global $SGLSroundID;
+
+
+    $curSGLSMatchupsSQL = "SELECT `PLAYER1`,`PLAYER2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` ON `PLAYERS`.`ID` = `SGLSMATCH`.`PLAYER1` WHERE `ROUND_NUM` = '".$SGLSroundID."'";
+    $curSGLSMatchupsQuery = @$conn->query($curSGLSMatchupsSQL);
+    if (!$curSGLSMatchupsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curSGLSMatchupsRow = mysqli_fetch_assoc($curSGLSMatchupsQuery)) {
+        $sglsPlayer1ID = $curSGLSMatchupsRow["PLAYER1"];
+        $viewPlayer1Sql = "SELECT `FIRST_NAME`, `LAST_NAME` FROM `PLAYERS` WHERE `ID` LIKE '".$sglsPlayer1ID."'";
+        $viewPlayer1Query = @$conn->query($viewPlayer1Sql);
+        while ($viewPlayer1Row=mysqli_fetch_assoc($viewPlayer1Query)){
+            $P1FN = $viewPlayer1Row['FIRST_NAME'];
+            $P1LN = $viewPlayer1Row['LAST_NAME'];
+        }
+
+        $sglsPlayer2ID = $curSGLSMatchupsRow["PLAYER2"];
+        $viewPlayer2Sql = "SELECT `FIRST_NAME`, `LAST_NAME` FROM `PLAYERS` WHERE `ID` LIKE '".$sglsPlayer2ID."'";
+        $viewPlayer2Query = @$conn->query($viewPlayer2Sql);
+        while ($viewPlayer2Row=mysqli_fetch_assoc($viewPlayer2Query)){
+            $P2FN = $viewPlayer2Row['FIRST_NAME'];
+            $P2LN = $viewPlayer2Row['LAST_NAME'];
+        }
+
+        echo "<tr><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayer1ID,"'>", $P1LN, ", ", $P1FN, "</button></form> vs <form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayer2ID,"'>", $P2LN, ", ", $P2FN, "</button></form></td></tr>";
+    }
+}
+
+function printDBLSMatchups()
+{
+    global $conn;
+    global $sznID;
+
+    $setRowNumVarSQL = "SET @row_number := 0";
+    $curSGLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
+    @$conn->query($setRowNumVarSQL);
+    $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
+    if (!$curSGLSRankingsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
+        $rowNum = $curSGLSRankingsRow["RowNum"];
+        $sglsPlayerID = $curSGLSRankingsRow["ID"];
+        $curSGLSRank = $curSGLSRankingsRow["Rank"];
+        $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
+        $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
+        $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
+
+        echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
+    }
+}
+
+#endregion

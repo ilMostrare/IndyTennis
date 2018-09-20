@@ -20,26 +20,107 @@ function setBindings() {
         $(this).addClass('currentPage').siblings('').removeClass('currentPage');
     });
 
+    //region Admin Functions
     $('#createMatches').click(function(){
         $('#createRoundMatches').css({"display":"block"});
         $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
     });
     $('#editMatches').click(function(){
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"block"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
     });
     $('#enterScores').click(function(){
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"block"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
     });
     $('#addAnnounce').click(function(){
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"block"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
     });
     $('#changePassword').click(function(){
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"block"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
     });
+    $('#addPlayers').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"block"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
+    });
+    $('#changeEmail').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"block"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
+    });
+    $('#changePhone').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"block"});
+        $('#logout').css({"display":"none"});
+    });
+    $('#loggoutt').click(function(){
+        $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
+        $('#enterScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"block"});
+    });
+    //endregion
 
     $("#singles tr:even").css({
         "background-color":"#dcdcdc"
@@ -75,7 +156,7 @@ function setBindings() {
                 if(data.charAt(0)>0) {
                     console.log("Success");
                     //console.log(data);
-                    window.location.href = "Admin";
+                    window.location.href = "";
                 } else {
                     console.log("Failed");
                     //console.log(data);
@@ -142,17 +223,6 @@ function setBindings() {
             swal("Success", "Singles Matches Created", "success");
         });
     });
-
-    /*$(".admin").click(function (evt) {
-        $(".modal-wrapper").css("display", "flex");
-        $(".login-wrapper").css("display", "block");
-        //console.log("am i working?")
-    });
-
-    $(".close-button").click(function (evt) {
-        closeModal();
-    });*/
-
 }
 
 $(document).ready(function () {
