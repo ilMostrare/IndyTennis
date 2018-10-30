@@ -10,6 +10,7 @@ session_start();
 
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
+require_once ('includes/adminLogin.php');
 
 ?>
 
@@ -25,47 +26,39 @@ require_once ('includes/queries.php');
 
 <body>
 
-<? require "includes/nav.html";
+    <? require "includes/nav.html";
 
- echo '<div class="ladderContent">';
-    echo '<div class="header">';
-        echo '<h1><? echo date("Y") ?>Weekly Matchups</h1>';
-        echo '<h3><a href="Ladder">Back to Ladder</a></h3>';
-    echo '</div>';
-    echo '<div class="standings">';
-        echo '<div class="left">';
-            echo '<h2>Singles - Round ',$SGLSroundID,'</h2>';
-            echo '<table id="singles">';
-                printSGLSMatchups();
-            echo '</table>';
+    echo '<div class="matchesContent">';
+        echo '<div class="header">';
+            echo '<h1><? echo date("Y") ?>Weekly Matchups</h1>';
+            echo '<h3><a href="Ladder">Back to Ladder</a></h3>';
         echo '</div>';
+        echo '<div class="displayMatches">';
+            echo '<div class="left">';
+                echo '<h2>Singles - Round ',$SGLSroundID,'</h2>';
+                echo '<table id="singlesMU">';
+                    printSGLSMatchups();
+                echo '</table>';
+            echo '</div>';
 
-        echo '<div class="right">';
-            echo '<h2>Doubles - Round ',$DBLSroundID,'</h2>';
-            echo '<table id="doubles">';
-                printDBLSMatchups();
-            echo '</table>';
+            echo '<div class="right">';
+                echo '<h2>Doubles - Round ',$DBLSroundID,'</h2>';
+                echo '<table id="doublesMU">';
+                    printDBLSMatchups();
+                echo '</table>';
+            echo '</div>';
         echo '</div>';
     echo '</div>';
- echo '</div>';
-
-?>
-
-<!--<div class="matchesContent">
 
 
 
-</div>-->
+    if ($isLadderLive > 0){
+        require "includes/footer.html";
+    } else {
+        require "includes/tempFooter.html";
+    }
 
-<?
-
-if ($isLadderLive > 0){
-    require "includes/footer.html";
-} else {
-    require "includes/tempFooter.html";
-}
-
-?>
+    ?>
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/jquery.svg.js"></script>

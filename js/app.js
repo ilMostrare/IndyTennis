@@ -125,7 +125,13 @@ function setBindings() {
     $("#singles tr:even").css({
         "background-color":"#dcdcdc"
     });
+    $("#singlesMU tr:even").css({
+        "background-color":"#dcdcdc"
+    });
     $("#doubles tr:odd").css({
+        "background-color":"#dcdcdc"
+    });
+    $(".doublesMU tr:odd").css({
         "background-color":"#dcdcdc"
     });
 

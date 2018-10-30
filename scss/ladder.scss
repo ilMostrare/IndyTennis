@@ -8,8 +8,8 @@
   z-index: 3;
   box-sizing: border-box;
   overflow-x: hidden;
-  //background-color: #A5DC86;
-
+  background-color: $backgroundColor;
+  border-radius: 0 0 10px 10px;
 
   .header{
     width: 100%;
@@ -62,6 +62,7 @@
     box-sizing: border-box;
     padding: 0 5% auto 5%;
     display: flex;
+    background-color: white;
 
     .left{
       width: 48%;

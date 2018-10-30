@@ -83,13 +83,13 @@ $userRow=mysqli_fetch_assoc($userQuery);
 
                     echo "<div id='editRoundMatches'>";
                         echo "<h3>Edit Round Matches</h3>";
-                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span>Current Doubles Round: ".$DBLSroundID."</span></div>";
+                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
                         echo "<form action='' method='post'></form>";
                     echo "</div>";
 
                     echo "<div id='enterScoreResults'>";
                         echo "<h3>Enter Scores</h3>";
-                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span>Current Doubles Round: ".$DBLSroundID."</span></div>";
+                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
                         echo "<form action='' method='post'></form>";
                     echo "</div>";
 

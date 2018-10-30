@@ -1,0 +1,163 @@
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 15;
+}
+
+.modal-wrapper .login-wrapper {
+  display: none;
+  position: relative;
+  width: 50%;
+  min-height: 40%;
+  background-color: #ffffff;
+  margin: auto;
+  border-radius: 20px;
+  padding: 30px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.modal-wrapper .login-wrapper h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.modal-wrapper .login-wrapper .close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.modal-wrapper .login-wrapper form input {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  padding-left: 5px;
+}
+
+.modal-wrapper .login-wrapper form select {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+.modal-wrapper .login-wrapper form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-wrapper .login-wrapper form input[type=submit] {
+  height: 30px;
+  width: 45%;
+  min-width: 145px;
+  border: none;
+  border-radius: 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+  margin: 10px auto;
+  padding: 0;
+}
+
+.modal-wrapper .login-wrapper form input[type=submit]:hover {
+  background-color: darkgrey;
+}
+
+/*
+
+@media only screen and (max-device-width : 1080px){
+  .modal-wrapper{
+    .newItem-wrapper{
+      width: 70%;
+      max-height: 100%;
+
+      h2{
+        font-size: x-large;
+        margin-bottom: 5px;
+      }
+
+      .close-button{
+        font-size: 4em;
+      }
+
+      form input{
+        height: 40px;
+        font-size: 1.2em;
+      }
+
+      form select{
+        height: 40px;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      form label {
+        font-size: 1.2em;
+        margin-bottom: 5px;
+      }
+
+      form input[type=submit] {
+        height: 40px;
+        font-size: 1.2em;
+      }
+
+      form input[type=reset] {
+        height: 40px;
+        font-size: 1.2em;
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width : 1080px) and (orientation: portrait){
+  .modal-wrapper{
+    .newItem-wrapper{
+      width: 85%;
+
+      h2{
+        font-size: xx-large;
+        margin-bottom: 15px;
+      }
+
+      .close-button{
+        font-size: 4em;
+      }
+
+      form input{
+        height: 50px;
+      }
+
+      form select{
+        height: 50px;
+        margin-bottom: 15px;
+      }
+
+      form label {
+        font-size: 2em;
+      }
+
+      form input[type=submit] {
+        height: 50px;
+      }
+
+      form input[type=reset] {
+        height: 50px;
+      }
+    }
+  }
+}*/
+/*# sourceMappingURL=modal.css.map */

@@ -1,0 +1,245 @@
+.matchesContent {
+    padding-top: $nav-height + 10px;
+    //padding-bottom: 5px;
+    width: $bodyWidth;
+    height: calc(100% - (#{$nav-height} - 5px));
+    margin: 0 auto 0 auto;
+    display: block;
+    z-index: 3;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: $backgroundColor;
+    border-radius: 0 0 10px 10px;
+  
+    .header{
+      width: 100%;
+      margin: 0 auto;
+  
+      h1{
+        margin: 7px auto;
+        text-align: center;
+        font-size: 300%;
+        letter-spacing: 3px;
+        color: #333333;
+      }
+      h3{
+        margin: 0 auto 5px auto;
+        text-align: center;
+        letter-spacing: 3px;
+        color: #333333;
+        a{
+          text-decoration: none;
+          text-align: center;
+          color: #333333;
+  
+          &:hover {
+            color: #EEF95D;
+          }
+  
+          &:active {
+            color: #53A548;
+          }
+        }
+      }
+    }
+    
+    .displayMatches{
+      width: 90%;
+      margin: 0 auto;
+      box-sizing: border-box;
+      padding: 0 5% auto 5%;
+      display: flex;
+      background-color: white;
+  
+      .left{
+        width: 48%;
+        //background-color: #F8D486;
+        margin: 0 auto auto 0;
+  
+        h2{
+          text-align: center;
+          color: #333333;
+          padding-bottom: 10px;
+        }
+  
+        div{
+          width: 100%;
+          display: flex;
+          margin: 0 auto;
+          padding-bottom: 7px;
+          text-decoration: underline;
+  
+          .rnk{
+            width: 20%;
+            //background-color: #A5DC86;
+            margin: auto;
+            text-align: center;
+  
+          }
+          .nme{
+            width: 60%;
+            //background-color: #f06e57;
+            text-align: center;
+            margin: auto;
+          }
+          .pts{
+            width: 20%;
+            //background-color: cornflowerblue;
+            text-align: center;
+            margin: auto;
+          }
+        }
+  
+        table{
+          width: 100%;
+          //background-color: #53A548;
+          //border: none;
+          margin: 0 auto;
+          padding: 5px auto 5px auto;
+          //border: 1px solid #CCC;
+          border-collapse: collapse;
+  
+          td{
+            padding-top: .5em;
+            padding-bottom: .5em;
+            border: none;
+          }
+  
+          .tableLeft{
+            width: 20%;
+            //background-color: #A5DC86;
+            text-align: center;
+            padding: 5px auto;
+          }
+          .tableCenter{
+            width: 60%;
+            //background-color: #f06e57;
+            text-align: center;
+            padding: 5px auto;
+  
+            form{
+              .singles-player-name{
+                text-decoration: none;
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                font-size: 1em;
+  
+                &:hover {
+                  color: #EEF95D;
+                }
+  
+                &:active {
+                  color: #53A548;
+                }
+              }
+            }
+          }
+          .tableRight{
+            width: 20%;
+            //background-color: cornflowerblue;
+            text-align: center;
+            padding: 5px auto;
+  
+          }
+        }
+      }
+  
+      .right{
+        width: 48%;
+        //background-color: #F8D486;
+        margin: 0 0 auto auto;
+  
+        h2{
+          text-align: center;
+          color: #333333;
+          padding-bottom: 10px;
+        }
+  
+        div{
+          width: 100%;
+          display: flex;
+          margin: 0 auto;
+          padding-bottom: 7px;
+          text-decoration: underline;
+  
+          .rnk{
+            width: 20%;
+            //background-color: #A5DC86;
+            margin: auto;
+            text-align: center;
+  
+          }
+          .nme{
+            width: 60%;
+            //background-color: #f06e57;
+            text-align: center;
+            margin: auto;
+          }
+          .pts{
+            width: 20%;
+            //background-color: cornflowerblue;
+            text-align: center;
+            margin: auto;
+          }
+        }
+  
+        table{
+          width: 100%;
+          //background-color: #53A548;
+          //border: none;
+          margin: 0 auto;
+          padding: 5px auto 5px auto;
+          //border: 1px solid #CCC;
+          border-collapse: collapse;
+  
+          td{
+            padding-top: .5em;
+            padding-bottom: .5em;
+            border: none;
+          }
+  
+          .tableLeft{
+            width: 20%;
+            //background-color: #A5DC86;
+            text-align: center;
+            padding: 5px auto;
+          }
+          .tableCenter{
+            width: 60%;
+            //background-color: #f06e57;
+            text-align: center;
+            padding: 5px auto;
+  
+  
+            form{
+              .doubles-player-name{
+                text-decoration: none;
+                background: none;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                font-size: 1em;
+  
+                &:hover {
+                  color: #EEF95D;
+                }
+  
+                &:active {
+                  color: #53A548;
+                }
+              }
+            }
+          }
+          .tableRight{
+            width: 20%;
+            //background-color: cornflowerblue;
+            text-align: center;
+            padding: 5px auto;
+  
+          }
+        }
+      }
+    }
+  }
