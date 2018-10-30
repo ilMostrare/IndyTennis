@@ -418,6 +418,7 @@ nav .navContainer .navRight div {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   overflow-x: hidden;
+  overflow-y: scroll;
   background-color: white;
   border-radius: 0 0 10px 10px;
 }
@@ -669,6 +670,7 @@ nav .navContainer .navRight div {
           box-sizing: border-box;
   background-color: white;
   color: #333333;
+  border-radius: 0 0 10px 10px;
 }
 
 .playerContent .header {
@@ -1942,6 +1944,7 @@ footer .shoe .footerRight a:active {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   overflow-x: hidden;
+  overflow-y: scroll;
   background-color: white;
   border-radius: 0 0 10px 10px;
 }
@@ -2031,32 +2034,30 @@ footer .shoe .footerRight a:active {
   margin: auto;
 }
 
-.matchesContent .displayMatches .left table {
+.matchesContent .displayMatches .left #singlesMU {
   width: 100%;
   margin: 0 auto;
   padding: 5px auto 5px auto;
   border-collapse: collapse;
 }
 
-.matchesContent .displayMatches .left table td {
+.matchesContent .displayMatches .left #singlesMU tr:nth-child(even) {
+  background-color: #dcdcdc;
+}
+
+.matchesContent .displayMatches .left #singlesMU td {
   padding-top: .5em;
   padding-bottom: .5em;
   border: none;
 }
 
-.matchesContent .displayMatches .left table .tableLeft {
-  width: 20%;
-  text-align: center;
+.matchesContent .displayMatches .left #singlesMU .tableLeft {
+  width: 45%;
+  text-align: right;
   padding: 5px auto;
 }
 
-.matchesContent .displayMatches .left table .tableCenter {
-  width: 60%;
-  text-align: center;
-  padding: 5px auto;
-}
-
-.matchesContent .displayMatches .left table .tableCenter form .singles-player-name {
+.matchesContent .displayMatches .left #singlesMU .tableLeft form .singlesMatch-player1-name {
   text-decoration: none;
   background: none;
   border: none;
@@ -2065,18 +2066,41 @@ footer .shoe .footerRight a:active {
   font-size: 1em;
 }
 
-.matchesContent .displayMatches .left table .tableCenter form .singles-player-name:hover {
+.matchesContent .displayMatches .left #singlesMU .tableLeft form .singlesMatch-player1-name:hover {
   color: #EEF95D;
 }
 
-.matchesContent .displayMatches .left table .tableCenter form .singles-player-name:active {
+.matchesContent .displayMatches .left #singlesMU .tableLeft form .singlesMatch-player1-name:active {
   color: #53A548;
 }
 
-.matchesContent .displayMatches .left table .tableRight {
-  width: 20%;
+.matchesContent .displayMatches .left #singlesMU .tableCenter {
+  width: 10%;
   text-align: center;
   padding: 5px auto;
+}
+
+.matchesContent .displayMatches .left #singlesMU .tableRight {
+  width: 45%;
+  text-align: left;
+  padding: 5px auto;
+}
+
+.matchesContent .displayMatches .left #singlesMU .tableRight form .singlesMatch-player2-name {
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.matchesContent .displayMatches .left #singlesMU .tableRight form .singlesMatch-player2-name:hover {
+  color: #EEF95D;
+}
+
+.matchesContent .displayMatches .left #singlesMU .tableRight form .singlesMatch-player2-name:active {
+  color: #53A548;
 }
 
 .matchesContent .displayMatches .right {
@@ -2118,32 +2142,32 @@ footer .shoe .footerRight a:active {
   margin: auto;
 }
 
-.matchesContent .displayMatches .right table {
+.matchesContent .displayMatches .right #doublesMU {
   width: 100%;
   margin: 0 auto;
   padding: 5px auto 5px auto;
   border-collapse: collapse;
 }
 
-.matchesContent .displayMatches .right table td {
+.matchesContent .displayMatches .right #doublesMU td {
   padding-top: .5em;
   padding-bottom: .5em;
   border: none;
 }
 
-.matchesContent .displayMatches .right table .tableLeft {
+.matchesContent .displayMatches .right #doublesMU .tableLeft {
   width: 20%;
   text-align: center;
   padding: 5px auto;
 }
 
-.matchesContent .displayMatches .right table .tableCenter {
+.matchesContent .displayMatches .right #doublesMU .tableCenter {
   width: 60%;
   text-align: center;
   padding: 5px auto;
 }
 
-.matchesContent .displayMatches .right table .tableCenter form .doubles-player-name {
+.matchesContent .displayMatches .right #doublesMU .tableCenter form .doubles-player-name {
   text-decoration: none;
   background: none;
   border: none;
@@ -2152,15 +2176,15 @@ footer .shoe .footerRight a:active {
   font-size: 1em;
 }
 
-.matchesContent .displayMatches .right table .tableCenter form .doubles-player-name:hover {
+.matchesContent .displayMatches .right #doublesMU .tableCenter form .doubles-player-name:hover {
   color: #EEF95D;
 }
 
-.matchesContent .displayMatches .right table .tableCenter form .doubles-player-name:active {
+.matchesContent .displayMatches .right #doublesMU .tableCenter form .doubles-player-name:active {
   color: #53A548;
 }
 
-.matchesContent .displayMatches .right table .tableRight {
+.matchesContent .displayMatches .right #doublesMU .tableRight {
   width: 20%;
   text-align: center;
   padding: 5px auto;

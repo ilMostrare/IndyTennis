@@ -124,14 +124,8 @@ function setBindings() {
 
     $("#singles tr:even").css({
         "background-color":"#dcdcdc"
-    });
-    $("#singlesMU tr:even").css({
-        "background-color":"#dcdcdc"
-    });
+    });    
     $("#doubles tr:odd").css({
-        "background-color":"#dcdcdc"
-    });
-    $(".doublesMU tr:odd").css({
         "background-color":"#dcdcdc"
     });
 
@@ -173,23 +167,75 @@ function setBindings() {
         }
     });
 
+    //region View Player Page
     $("form .singles-player-name").click(function (evt) {
         evt.preventDefault();
 
         var viewPlayer = $(this).val();
-        //console.log(viewPlayer);
+        console.log(viewPlayer);
 
         $.ajax({
             url: '',
             type: 'POST',
             data: {
                 viewPlayerID: viewPlayer
+            },
+            success: function(data){
+                console.log("Success"),
+                //console.log(data);
+                window.location.href = "Player"
+            },
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+              }
+        })
+    });
+    $("form .singlesMatch-player1-name").click(function (evt) {
+        evt.preventDefault();
+
+        var viewPlayer = $(this).val();
+        console.log(viewPlayer);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                viewMatchPlayerID: viewPlayer
+            },
+            success: function(data){
+                console.log("Success"),
+                //console.log(data);
+                window.location.href = "Player"
+            },
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
             }
-        }).done(function (data) {
-            console.log("Success");
-            //console.log(data);
-            window.location.href = "Player";
-        });
+        })        
+    });
+    $("form .singlesMatch-player2-name").click(function (evt) {
+        evt.preventDefault();
+
+        var viewPlayer = $(this).val();
+        console.log(viewPlayer);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                viewMatchPlayerID: viewPlayer
+            },
+            success: function(data){
+                console.log("Success"),
+                //console.log(data);
+                window.location.href = "Player"
+            },
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        })
     });
 
     $("form .doubles-player-name").click(function (evt) {
@@ -203,13 +249,19 @@ function setBindings() {
             type: 'POST',
             data: {
                 viewPlayerID: viewPlayer
+            },
+            success: function(data){
+                console.log("Success"),
+                //console.log(data);
+                window.location.href = "Player"
+            },
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
             }
-        }).done(function (data) {
-            console.log("Success");
-            //console.log(data);
-            window.location.href = "Player";
-        });
+        })
     });
+    //endregion
 
     $("form .create-sgls-matches").click(function (evt) {
         evt.preventDefault();

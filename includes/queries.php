@@ -20,11 +20,19 @@ while ($isLadderLiveROW = mysqli_fetch_assoc($isLadderLiveQRY)){
 
 if (!empty($_POST['viewPlayerID'])){
     $viewPlayer = isset($_POST['viewPlayerID']) ? $_POST['viewPlayerID'] : 'No data found';
+    
+    $viewPlayerSql = "SELECT * FROM `PLAYERS` WHERE `ID` LIKE '".$viewPlayer."'";
+    $viewPlayerQuery = @$conn->query($viewPlayerSql);
+    $viewPlayerRow=mysqli_fetch_assoc($viewPlayerQuery);
 
+    $_SESSION['playerID'] = $viewPlayerRow["ID"];
+    echo "", $_SESSION['playerID'],"";
 
-//    echo "Data: ",$logEmail,", ",$logPass,"";
+}
 
-    // send login info to database
+if (!empty($_POST['viewMatchPlayerID'])){
+    $viewPlayer = isset($_POST['viewMatchPlayerID']) ? $_POST['viewMatchPlayerID'] : 'No data found';
+    
     $viewPlayerSql = "SELECT * FROM `PLAYERS` WHERE `ID` LIKE '".$viewPlayer."'";
     $viewPlayerQuery = @$conn->query($viewPlayerSql);
     $viewPlayerRow=mysqli_fetch_assoc($viewPlayerQuery);
@@ -111,7 +119,7 @@ function printSGLSRankings()
         $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
         $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
 
-        echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
+        echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='button' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
     }
 }
 
@@ -176,35 +184,35 @@ function printSGLSMatchups()
             $P2LN = $viewPlayer2Row['LAST_NAME'];
         }
 
-        echo "<tr><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayer1ID,"'>", $P1LN, ", ", $P1FN, "</button></form> vs <form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayer2ID,"'>", $P2LN, ", ", $P2FN, "</button></form></td></tr>";
+        echo "<tr><td class='tableLeft'><form><button type='submit' id='playerInfo' class='singlesMatch-player1-name' name='viewPlayer' value='",$sglsPlayer1ID,"'>", $P1LN, ", ", $P1FN, "</button></form></td><td class='tableCenter'> vs </td><td class='tableRight'><form><button type='submit' id='playerInfo' class='singlesMatch-player2-name' name='viewPlayer' value='",$sglsPlayer2ID,"'>", $P2LN, ", ", $P2FN, "</button></form></td></tr>";
     }
 }
 
-// function printDBLSMatchups()
-// {
-//     global $conn;
-//     global $sznID;
+/* function printDBLSMatchups()
+{
+    global $conn;
+    global $sznID;
 
-//     $setRowNumVarSQL = "SET @row_number := 0";
-//     $curSGLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
-//     @$conn->query($setRowNumVarSQL);
-//     $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
-//     if (!$curSGLSRankingsQuery) {
-//         $errno = $conn->errno;
-//         $error = $conn->error;
-//         $conn->close();
-//         die("Selection failed: ($errno) $error.");
-//     }
-//     while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
-//         $rowNum = $curSGLSRankingsRow["RowNum"];
-//         $sglsPlayerID = $curSGLSRankingsRow["ID"];
-//         $curSGLSRank = $curSGLSRankingsRow["Rank"];
-//         $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
-//         $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
-//         $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
+    $setRowNumVarSQL = "SET @row_number := 0";
+    $curSGLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
+    @$conn->query($setRowNumVarSQL);
+    $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
+    if (!$curSGLSRankingsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
+        $rowNum = $curSGLSRankingsRow["RowNum"];
+        $sglsPlayerID = $curSGLSRankingsRow["ID"];
+        $curSGLSRank = $curSGLSRankingsRow["Rank"];
+        $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
+        $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
+        $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
 
-//         echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
-//     }
-// }
+        echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
+    }
+} */
 
 #endregion
