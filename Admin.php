@@ -38,10 +38,17 @@ $userRow=mysqli_fetch_assoc($userQuery);
 
     <? require "includes/nav.html"?>
 
-    <div class="adminContent">
+    <div class="adminContent" id='style-2'>
         <div class="header">
             <h1>Admin Panel</h1>
-            <h3>Welcome, <? echo $_SESSION['userFN'] ?></h3>
+            <h3><? 
+                    if ($_SESSION['userFN'] != ''){
+                        echo "Welcome, ",$_SESSION['userFN'],"";
+                    } else {
+                        echo "Please Login";
+                    }
+                ?>
+            </h3>
         </div>
 
         <div class="adminBody">
@@ -51,14 +58,16 @@ $userRow=mysqli_fetch_assoc($userQuery);
                     echo '<ul class="optionsList">';
                     if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com") {
 
-                        echo '<li id="createMatches">Create Round Matches</li>';
-                        echo '<li id="editMatches">Edit Matchups</li>';
-                        echo '<li id="enterScores">Enter Scores</li>';
+                        // echo '<li id="createMatches">Create Round Matches</li>';
+                        // echo '<li id="editMatches">Edit Matchups</li>';
+                        echo '<li id="enterSGLSScores">Enter Singles Scores</li>';
+                        echo '<li id="enterDBLSScores">Enter Doubles Scores</li>';
                         echo '<li id="addPlayers">Add Players</li>';
                         echo '<li id="addAnnounce">Add Announcement</li>';
                         echo '<li id="changePassword">Change Password</li>';
                         echo '<li id="changeEmail">Change Email</li>';
                         echo '<li id="changePhone">Change Phone Number</li>';
+                        echo '<li id="loggoutt">Logout</li>';
 
                     } else {
 
@@ -87,10 +96,37 @@ $userRow=mysqli_fetch_assoc($userQuery);
                         echo "<form action='' method='post'></form>";
                     echo "</div>";
 
-                    echo "<div id='enterScoreResults'>";
-                        echo "<h3>Enter Scores</h3>";
-                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
-                        echo "<form action='' method='post'></form>";
+                    echo "<div id='enterSGLSScoreResults'>";
+                        echo "<h3>Enter Singles Scores</h3>";
+                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span></div><br />";
+                        echo "<form action='' method='post' class='enterSGLSScores'>";
+                            
+                            echo "<label><h4>Match: </h4></label>";
+                            echo "<select name='SGLSMatchID' id='sglsMatchID' required>", getSGLSMatches() ,"</select>";
+                           
+                            echo "<label><h4>Set 1 (Player 1 First):</h4></label>";
+                            echo "<div class='sglsSet'><input type='number' name='sglsSet1P1' id='sglsSet1P1' min='0'></input><input type='number' name='sglsSet1P2' id='sglsSet1P2' min='0'></input></div>";
+
+                            echo "<label><h4>Set 2 (Player 1 First):</h4></label>";
+                            echo "<div class='sglsSet'><input type='number' name='sglsSet2P1' id='sglsSet2P1' min='0'></input><input type='number' name='sglsSet2P2' id='sglsSet2P2' min='0'></input></div>";
+
+                            echo "<label><h4>Set 3 (Player 1 First):</h4></label>";
+                            echo "<div class='sglsSet'><input type='number' name='sglsSet3P1' id='sglsSet3P1' min='0'></input><input type='number' name='sglsSet3P2' id='sglsSet3P2' min='0'></input></div>";
+
+                            echo "<input id='sglsScoreSubmit' type='submit' value='Submit'>";
+
+                        echo "</form>";
+                    echo "</div>";
+
+                    echo "<div id='enterDBLSScoreResults'>";
+                        echo "<h3>Enter Doubles Scores</h3>";
+                        echo "<div class='roundNumbers'><span>Current Doubles Round: ".$DBLSroundID."</span></div><br />";
+                        echo "<form action='' method='post' class='enterDBLSScores'>";
+                            
+                            /* echo "<label>Match:</label>";
+                            echo "<select name='MatchID' required>", getMatches() ,"</select>"; */
+                           
+                        echo "</form>";
                     echo "</div>";
 
                     echo "<div id='addAnnouncement'>";
@@ -126,12 +162,11 @@ $userRow=mysqli_fetch_assoc($userQuery);
                 echo '</div>';
 
             } else {
-                echo "<div class='playerContent'>";
-                    echo "<h1>Please Login</h1>";
-                        echo "<form action='' method='post'>";
-                        echo "<label>Email:</label>";
+                echo "<div class='loginDiv'>";
+                    echo "<form action='' method='post' class='loginForm'>";
+                        echo "<label>Email: </label>";
                         echo "<input id='loginEM' name='loginEmail' type='email' placeholder='Email'>";
-                        echo "<label>Password:</label>";
+                        echo "<label>Password: </label>";
                         echo "<input id='loginPASS' name='loginPassword' type='password' placeholder='Password'>";
                         echo "<input id='loginSubmit' type='submit' value='Login'>";
                     echo "</form>";
@@ -141,61 +176,6 @@ $userRow=mysqli_fetch_assoc($userQuery);
         </div>
     </div>
             
-
-
-
-
-<!--
-
-                <div id="enterScoreResults">
-                    <h3>Edit Scores</h3>
-                    <div class="roundNumbers">
-                        <span>Current Singles Round: <?/* echo $SGLSroundID*/  ?></span>
-                        <span>Current Doubles Round: <?/* echo $DBLSroundID  */?></span>
-                    </div>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-                <div id="addNewPlayers">
-                    <h3>Add Players</h3>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-                <div id="addAnnouncement">
-                    <h3>Add Announcement</h3>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-                <div id="changePW">
-                    <h3>Change Password</h3>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-                <div id="changeEM">
-                    <h3>Change Email</h3>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-                <div id="changePH">
-                    <h3>Change Phone #</h3>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-                <div id="logout">
-                    <h3>Logout</h3>
-                    <form action='' method='post'>
-
-                    </form>
-                </div>
-           -->
-
-
     <?
 
     if ($isLadderLive > 0){

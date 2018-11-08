@@ -1,0 +1,56 @@
+.loginDiv {
+  width: 90%;
+  height: 25%;
+  margin: 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.loginDiv .loginForm {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: block;
+  padding: 0 15px 0 15px h1;
+  padding-text-align: center;
+}
+
+.loginDiv .loginForm label {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.loginDiv .loginForm input[type="email"] {
+  width: 300px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.loginDiv .loginForm input[type="password"] {
+  width: 300px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.loginDiv .loginForm input[type="submit"] {
+  width: 200px;
+  margin-left: 35px;
+  border-radius: 5px;
+  float: right;
+  border-style: solid;
+}
+
+.loginDiv .loginForm input[type="submit"]:hover {
+  background-color: #585858;
+  color: #EEF95D;
+  border-radius: 5px;
+}
+
+.loginDiv .loginForm input[type="submit"]:active {
+  color: #53A548;
+  background-color: #333333;
+}
+/*# sourceMappingURL=login.css.map */

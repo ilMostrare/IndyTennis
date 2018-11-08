@@ -40,7 +40,7 @@ require "includes/nav.html";
     if (!(empty($user_id))){
 
         if ($adminRow["EMAIL"] = "byron.slabach@gmail.com" || "wrathofmath85@gmail.com"){
-            echo "<div class='playerContent'>";
+            echo "<div class='playerContent' id='style-2'>";
 
             GetPlayerInfo($_SESSION['playerID']);
 
@@ -55,15 +55,17 @@ require "includes/nav.html";
         }
 
     } else {
-        echo "<div class='playerContent'>";
-        echo "<h1>Please Login</h1>";
-        echo "<form action='' method='post'>";
-        echo "<label>Email:</label>";
-        echo "<input id='loginEM' name='loginEmail' type='email' placeholder='Email'>";
-        echo "<label>Password:</label>";
-        echo "<input id='loginPASS' name='loginPassword' type='password' placeholder='Password'>";
-        echo "<input id='loginSubmit' type='submit' value='Login'>";
-        echo "</form>";
+        echo "<div class='playerContent' id='style-2'>";
+        echo "<div class='header'><h1>Please Login</h1></div>";
+        echo "<div class='loginDiv'>";
+                    echo "<form action='' method='post' class='loginForm'>";
+                        echo "<label>Email: </label>";
+                        echo "<input id='loginEM' name='loginEmail' type='email' placeholder='Email'>";
+                        echo "<label>Password: </label>";
+                        echo "<input id='loginPASS' name='loginPassword' type='password' placeholder='Password'>";
+                        echo "<input id='loginSubmit' type='submit' value='Login'>";
+                    echo "</form>";
+                echo "</div>";
         echo "</div>";
     }
 

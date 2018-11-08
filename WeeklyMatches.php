@@ -29,7 +29,7 @@ require_once ('includes/adminLogin.php');
     <? 
         require "includes/nav.html";
 
-        echo '<div class="matchesContent">';
+        echo '<div class="matchesContent" id="style-2">';
             echo '<div class="header">';
                 echo '<h1><? echo date("Y") ?>Weekly Matches</h1>';
                 echo '<h3><a href="Ladder">Back to Ladder</a></h3>';

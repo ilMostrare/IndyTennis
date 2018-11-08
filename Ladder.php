@@ -31,7 +31,7 @@ require_once ('includes/adminLogin.php');
 
         if ($isLadderLive > 0) {
 
-            echo '<div class="ladderContent">';
+            echo '<div class="ladderContent" id="style-2">';
                 echo '<div class="header">';
                     echo '<h1><? echo date("Y") ?> Ladder Standings</h1>';
                     echo '<h3><a href="WeeklyMatches">View This Weeks Matchups</a></h3>';

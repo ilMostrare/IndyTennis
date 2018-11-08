@@ -1,18 +1,19 @@
 .playerContent {
-  padding-top: $nav-height+10px;
-  padding-bottom: 5px;
+  padding-top: $nav-height + 10px;
+  //padding-bottom: 5px;
   width: $bodyWidth;
-  min-height: calc(100% - (#{$nav-height} - 15px));
-  margin: 0 auto;
+  height: calc(100% - (#{$nav-height} - 5px));
+  margin: 0 auto 0 auto;
   display: block;
   z-index: 3;
   box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-color: $backgroundColor;
-  color: #333333;
   border-radius: 0 0 10px 10px;
 
   .header {
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     //background-color: #f06e57;
     box-sizing: border-box;
@@ -33,7 +34,7 @@
     }
 
     .rankings{
-      width: 100%;
+      width: 90%;
       display: flex;
       margin: 5px auto;
       //background-color: #f06e57;
@@ -53,4 +54,6 @@
       }
     }
   }
+
+  @import "login.scss";
 }

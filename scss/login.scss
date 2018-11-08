@@ -1,0 +1,62 @@
+.loginDiv{
+    width: 90%;
+    height: 25%;
+    // background-color: #A5DC86;
+    margin: 20px auto;
+    // height:auto; 
+    display: flex;
+
+    .loginForm{
+      width:100%; 
+      margin:0 auto;
+      // width: 100%;
+      // background-color: orangered;
+      height: 100%;
+      display: block;
+      padding: 0 15px 0 15px
+
+      h1{
+        text-align: center;
+      }
+
+      label{
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      input[type="email"] {
+        width: 300px;
+        padding-left: 15px;
+        //background-color: yellow;
+        border-radius: 5px;
+        border:0.5px solid
+      }
+
+      input[type="password"] {
+        width: 300px;
+        padding-left: 15px;
+        //background-color: yellow;
+        border-radius: 5px;
+        border:0.5px solid
+      }
+    
+      input[type="submit"] {
+          width: 200px;
+          margin-left: 35px;
+          border-radius: 5px;
+          float: right;
+          border-style:solid;
+
+          &:hover {
+            background-color: #585858;
+            color: #EEF95D;
+            border-radius: 5px;
+          }
+
+          &:active {
+            color: #53A548;
+            background-color: #333333;
+          }
+      }
+    }
+  }

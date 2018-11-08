@@ -20,11 +20,23 @@ function setBindings() {
         $(this).addClass('currentPage').siblings('').removeClass('currentPage');
     });
 
-    //region Admin Functions
+    //#region Admin Functions
     $('#createMatches').click(function(){
+        $('#createMatches').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"block"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -33,9 +45,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#editMatches').click(function(){
+        $('#editMatches').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"block"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -43,10 +67,45 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
     });
-    $('#enterScores').click(function(){
+    $('#enterSGLSScores').click(function(){
+        $('#enterSGLSScores').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"block"});
+        $('#enterSGLSScoreResults').css({"display":"block"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
+    });
+    $('#enterDBLSScores').click(function(){
+        $('#enterDBLSScores').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
+        $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"block"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -55,9 +114,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#addAnnounce').click(function(){
+        $('#addAnnounce').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"block"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -66,9 +137,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#changePassword').click(function(){
+        $('#changePassword').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"block"});
         $('#addNewPlayers').css({"display":"none"});
@@ -77,9 +160,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#addPlayers').click(function(){
+        $('#addPlayers').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"block"});
@@ -88,9 +183,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#changeEmail').click(function(){
+        $('#changeEmail').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -99,9 +206,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#changePhone').click(function(){
+        $('#changePhone').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -110,9 +229,21 @@ function setBindings() {
         $('#logout').css({"display":"none"});
     });
     $('#loggoutt').click(function(){
+        $('#loggoutt').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
-        $('#enterScoreResults').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -120,7 +251,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"block"});
     });
-    //endregion
+    //#endregion
 
     $("#singles tr:even").css({
         "background-color":"#dcdcdc"
@@ -167,7 +298,7 @@ function setBindings() {
         }
     });
 
-    //region View Player Page
+    //#region View Player Page
     $("form .singles-player-name").click(function (evt) {
         evt.preventDefault();
 
@@ -261,8 +392,9 @@ function setBindings() {
             }
         })
     });
-    //endregion
+    //#endregion
 
+    //#region Admin Tools
     $("form .create-sgls-matches").click(function (evt) {
         evt.preventDefault();
 
@@ -281,6 +413,40 @@ function setBindings() {
             swal("Success", "Singles Matches Created", "success");
         });
     });
+
+    $("form .enterSGLSScores").click(function (evt) {
+        evt.preventDefault();
+
+        var sglsMatchID = $("#sglsMatchID").val();
+        var sglsSet1P1 = $("#sglsSet1P1").val();
+        var sglsSet2P1 = $("#sglsSet2P1").val();
+        var sglsSet3P1 = $("#sglsSet3P1").val();
+        var sglsSet1P2 = $("#sglsSet1P2").val();
+        var sglsSet2P2 = $("#sglsSet2P2").val();
+        var sglsSet3P2 = $("#sglsSet3P2").val();
+
+        // console.log(createSGLSMatches);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                ntrSGLSMatchID: sglsMatchID,
+                ntrSGLSS1P1: sglsSet1P1,
+                ntrSGLSS2P1: sglsSet2P1,
+                ntrSGLSS3P1: sglsSet3P1,
+                ntrSGLSS1P2: sglsSet1P2,
+                ntrSGLSS2P2: sglsSet2P2,
+                ntrSGLSS3P2: sglsSet3P2
+            }
+        }).done(function (data) {
+            console.log("Success");
+            console.log(data);
+            swal("Success", "Scores Entered", "success");
+        });
+    });
+
+    //#endregion
 }
 
 $(document).ready(function () {

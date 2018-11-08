@@ -20,7 +20,6 @@ function GetPlayerInfo($playerID){
     }
     while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
         $curSGLSRank = $curSGLSRankingsRow["Rank"];
-
     }
 
     $curDBLSRankingsSQL = "SELECT (COUNT(`ID`) + 1) AS Rank, (SELECT `ID` FROM PLAYERS WHERE `ID` = '".$playerID."') AS ID, (SELECT `FIRST_NAME` FROM PLAYERS WHERE `ID` = '".$playerID."') AS FIRST_NAME, (SELECT `LAST_NAME` FROM PLAYERS WHERE `ID` = '".$playerID."') AS LAST_NAME, (SELECT `DBLS_POINTS` FROM PLAYERS WHERE `ID` = '".$playerID."') AS DBLS_POINTS FROM PLAYERS WHERE (`DBLS_POINTS` > (SELECT `DBLS_POINTS` FROM PLAYERS WHERE `ID` = '".$playerID."'))";
@@ -33,7 +32,6 @@ function GetPlayerInfo($playerID){
     }
     while ($curDBLSRankingsRow = mysqli_fetch_assoc($curDBLSRankingsQuery)) {
         $curDBLSRank = $curDBLSRankingsRow["Rank"];
-
     }
 
     $playerInfoSql = "SELECT * FROM `PLAYERS` WHERE `ID` LIKE '".$_SESSION['playerID']."'";

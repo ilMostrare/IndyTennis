@@ -356,6 +356,7 @@ nav .navContainer .navRight div {
   background-color: white;
   width: 25%;
   margin: 0 0 auto auto;
+  padding-bottom: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   overflow-x: hidden;
@@ -660,21 +661,21 @@ nav .navContainer .navRight div {
 
 .playerContent {
   padding-top: 80px;
-  padding-bottom: 5px;
   width: 80%;
-  min-height: calc(100% - (70px - 15px));
-  margin: 0 auto;
+  height: calc(100% - (70px - 5px));
+  margin: 0 auto 0 auto;
   display: block;
   z-index: 3;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-color: white;
-  color: #333333;
   border-radius: 0 0 10px 10px;
 }
 
 .playerContent .header {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -696,7 +697,7 @@ nav .navContainer .navRight div {
 }
 
 .playerContent .header .rankings {
-  width: 100%;
+  width: 90%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -713,6 +714,62 @@ nav .navContainer .navRight div {
   margin: 0 auto 20px auto;
   width: 49%;
   text-align: left;
+}
+
+.playerContent .loginDiv {
+  width: 90%;
+  height: 25%;
+  margin: 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.playerContent .loginDiv .loginForm {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: block;
+  padding: 0 15px 0 15px h1;
+  padding-text-align: center;
+}
+
+.playerContent .loginDiv .loginForm label {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.playerContent .loginDiv .loginForm input[type="email"] {
+  width: 300px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.playerContent .loginDiv .loginForm input[type="password"] {
+  width: 300px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.playerContent .loginDiv .loginForm input[type="submit"] {
+  width: 200px;
+  margin-left: 35px;
+  border-radius: 5px;
+  float: right;
+  border-style: solid;
+}
+
+.playerContent .loginDiv .loginForm input[type="submit"]:hover {
+  background-color: #585858;
+  color: #EEF95D;
+  border-radius: 5px;
+}
+
+.playerContent .loginDiv .loginForm input[type="submit"]:active {
+  color: #53A548;
+  background-color: #333333;
 }
 
 .aboutContent {
@@ -785,6 +842,7 @@ nav .navContainer .navRight div {
   background-color: white;
   width: 25%;
   margin: 0 0 auto auto;
+  padding-bottom: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   overflow-x: hidden;
@@ -837,30 +895,19 @@ nav .navContainer .navRight div {
   text-align: right;
 }
 
-.joinContent {
-  padding-top: 85px;
-  padding-bottom: 5px;
-  width: 80%;
-  min-height: calc(100% - (70px - 15px));
-  margin: auto;
-  display: block;
-  z-index: 3;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 .adminContent {
-  padding-top: 85px;
-  padding-bottom: 5px;
+  padding-top: 80px;
   width: 80%;
-  min-height: calc(100% - (70px - 15px));
-  margin: 0 auto;
+  height: calc(100% - (70px - 5px));
+  margin: 0 auto 0 auto;
   display: block;
   z-index: 3;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-color: white;
-  color: #333333;
+  border-radius: 0 0 10px 10px;
 }
 
 .adminContent .header {
@@ -885,7 +932,7 @@ nav .navContainer .navRight div {
 
 .adminContent .adminBody {
   width: 90%;
-  height: 100%;
+  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -911,7 +958,6 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminOptions .optionsList li:hover {
-  background-color: #333333;
   color: #EEF95D;
   border-radius: 5px;
 }
@@ -923,7 +969,6 @@ nav .navContainer .navRight div {
 .adminContent .adminBody .adminForms {
   min-width: 75%;
   height: 100%;
-  background-color: darkorchid;
   margin: 0 auto;
 }
 
@@ -938,6 +983,7 @@ nav .navContainer .navRight div {
 
 .adminContent .adminBody .adminForms #createRoundMatches .roundNumbers {
   width: 100%;
+  text-align: center;
 }
 
 .adminContent .adminBody .adminForms #createRoundMatches .roundNumbers span {
@@ -995,6 +1041,15 @@ nav .navContainer .navRight div {
   text-align: center;
 }
 
+.adminContent .adminBody .adminForms #editRoundMatches .roundNumbers {
+  width: 100%;
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #editRoundMatches .roundNumbers span {
+  margin: auto;
+}
+
 .adminContent .adminBody .adminForms #editRoundMatches form input {
   display: block;
   width: 90%;
@@ -1037,16 +1092,43 @@ nav .navContainer .navRight div {
   background-color: darkgrey;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults {
   margin-top: 35px;
   display: none;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults h3 {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults h3 {
   text-align: center;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults form input {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .roundNumbers {
+  width: 100%;
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .roundNumbers span {
+  margin: auto;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults form {
+  margin: 0 auto;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults form input {
   display: block;
   width: 90%;
   height: 40px;
@@ -1059,7 +1141,7 @@ nav .navContainer .navRight div {
   padding-left: 5px;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults form select {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults form select {
   display: block;
   width: 90%;
   height: 40px;
@@ -1067,12 +1149,12 @@ nav .navContainer .navRight div {
   font-size: 16px;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults form label {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults form label {
   display: block;
   margin-bottom: 5px;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults form input[type=submit] {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults form input[type=submit] {
   height: 30px;
   width: 45%;
   min-width: 145px;
@@ -1084,7 +1166,67 @@ nav .navContainer .navRight div {
   padding: 0;
 }
 
-.adminContent .adminBody .adminForms #enterScoreResults form input[type=submit]:hover {
+.adminContent .adminBody .adminForms #enterSGLSScoreResults form input[type=submit]:hover {
+  background-color: darkgrey;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults {
+  margin-top: 35px;
+  display: none;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults h3 {
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .roundNumbers {
+  width: 100%;
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .roundNumbers span {
+  margin: auto;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults form input {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  padding-left: 5px;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults form select {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults form input[type=submit] {
+  height: 30px;
+  width: 45%;
+  min-width: 145px;
+  border: none;
+  border-radius: 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+  margin: 10px auto;
+  padding: 0;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults form input[type=submit]:hover {
   background-color: darkgrey;
 }
 
@@ -1394,168 +1536,62 @@ nav .navContainer .navRight div {
   background-color: darkgrey;
 }
 
-.modal-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
-  z-index: 15;
-}
-
-.modal-wrapper .login-wrapper {
-  display: none;
-  position: relative;
-  width: 50%;
-  min-height: 40%;
-  background-color: #ffffff;
-  margin: auto;
-  border-radius: 20px;
-  padding: 30px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.modal-wrapper .login-wrapper h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.modal-wrapper .login-wrapper .close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 1.5em;
-  cursor: pointer;
-}
-
-.modal-wrapper .login-wrapper form input {
-  display: block;
+.adminContent .adminBody .loginDiv {
   width: 90%;
-  height: 40px;
-  margin-bottom: 10px;
-  font-size: 16px;
+  height: 25%;
+  margin: 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .loginDiv .loginForm {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: block;
+  padding: 0 15px 0 15px h1;
+  padding-text-align: center;
+}
+
+.adminContent .adminBody .loginDiv .loginForm label {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.adminContent .adminBody .loginDiv .loginForm input[type="email"] {
+  width: 300px;
+  padding-left: 15px;
   border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.adminContent .adminBody .loginDiv .loginForm input[type="password"] {
+  width: 300px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.adminContent .adminBody .loginDiv .loginForm input[type="submit"] {
+  width: 200px;
+  margin-left: 35px;
+  border-radius: 5px;
+  float: right;
   border-style: solid;
-  border-width: .5px;
-  border-color: lightgrey;
-  padding-left: 5px;
 }
 
-.modal-wrapper .login-wrapper form select {
-  display: block;
-  width: 90%;
-  height: 40px;
-  margin-bottom: 35px;
-  font-size: 16px;
+.adminContent .adminBody .loginDiv .loginForm input[type="submit"]:hover {
+  background-color: #585858;
+  color: #EEF95D;
+  border-radius: 5px;
 }
 
-.modal-wrapper .login-wrapper form label {
-  display: block;
-  margin-bottom: 5px;
+.adminContent .adminBody .loginDiv .loginForm input[type="submit"]:active {
+  color: #53A548;
+  background-color: #333333;
 }
 
-.modal-wrapper .login-wrapper form input[type=submit] {
-  height: 30px;
-  width: 45%;
-  min-width: 145px;
-  border: none;
-  border-radius: 10px;
-  background-color: lightgrey;
-  cursor: pointer;
-  margin: 10px auto;
-  padding: 0;
-}
-
-.modal-wrapper .login-wrapper form input[type=submit]:hover {
-  background-color: darkgrey;
-}
-
-/*
-
-@media only screen and (max-device-width : 1080px){
-  .modal-wrapper{
-    .newItem-wrapper{
-      width: 70%;
-      max-height: 100%;
-
-      h2{
-        font-size: x-large;
-        margin-bottom: 5px;
-      }
-
-      .close-button{
-        font-size: 4em;
-      }
-
-      form input{
-        height: 40px;
-        font-size: 1.2em;
-      }
-
-      form select{
-        height: 40px;
-        font-size: 1.2em;
-        margin-bottom: 10px;
-      }
-
-      form label {
-        font-size: 1.2em;
-        margin-bottom: 5px;
-      }
-
-      form input[type=submit] {
-        height: 40px;
-        font-size: 1.2em;
-      }
-
-      form input[type=reset] {
-        height: 40px;
-        font-size: 1.2em;
-      }
-    }
-  }
-}
-
-@media only screen and (max-device-width : 1080px) and (orientation: portrait){
-  .modal-wrapper{
-    .newItem-wrapper{
-      width: 85%;
-
-      h2{
-        font-size: xx-large;
-        margin-bottom: 15px;
-      }
-
-      .close-button{
-        font-size: 4em;
-      }
-
-      form input{
-        height: 50px;
-      }
-
-      form select{
-        height: 50px;
-        margin-bottom: 15px;
-      }
-
-      form label {
-        font-size: 2em;
-      }
-
-      form input[type=submit] {
-        height: 50px;
-      }
-
-      form input[type=reset] {
-        height: 50px;
-      }
-    }
-  }
-}*/
 footer {
   height: 55px;
   width: 100%;

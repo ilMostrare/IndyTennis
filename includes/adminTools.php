@@ -61,4 +61,46 @@ if (isset($_POST['createSGLSID'])){
 
 #endregion
 
-#
+#region Enter Scores
+
+function getSGLSMatches(){
+    global $conn;
+    global $sznID;
+    // global $currentRound;
+    global $SGLSroundID;
+
+    $optSGLSMatchupsSQL = "SELECT `SGLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `SGLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `SGLSMATCH`.`PLAYER2` WHERE `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."'";
+    $optSGLSMatchupsQuery = @$conn->query($optSGLSMatchupsSQL);
+    if (!$optSGLSMatchupsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($optSGLSMatchupsRow = mysqli_fetch_assoc($optSGLSMatchupsQuery)) {
+        $sglsMatchID = $optSGLSMatchupsRow["ID"];
+        $sglsMatchPlayer1 = $optSGLSMatchupsRow["P_1"];
+        $sglsMatchPlayer2 = $optSGLSMatchupsRow["P_2"];
+        
+        // echo "<li>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</li>";
+        echo "<option value='",$sglsMatchID,"'>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</option>";
+    }
+
+}
+
+function ntrSGLSScores(){
+    global $conn;
+    global $sznID;
+    global $SGLSroundID;
+
+
+}
+
+if (isset($_POST['ntrSGLSMatchID'])){
+
+    ntrSGLSScores();
+
+}
+
+
+#endregion
