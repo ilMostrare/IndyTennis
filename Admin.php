@@ -105,13 +105,17 @@ $userRow=mysqli_fetch_assoc($userQuery);
                             echo "<select name='SGLSMatchID' id='sglsMatchID' required>", getSGLSMatches() ,"</select>";
                            
                             echo "<label><h4>Set 1 (Player 1 First):</h4></label>";
-                            echo "<div class='sglsSet'><input type='number' name='sglsSet1P1' id='sglsSet1P1' min='0'></input><input type='number' name='sglsSet1P2' id='sglsSet1P2' min='0'></input></div>";
+                            echo "<div class='sglsSet'><input type='number' name='sglsSet1P1' id='sglsSet1P1' min='0' max='7' required></input><input type='number' name='sglsSet1P2' id='sglsSet1P2' min='0' max='7'></input></div>";
 
                             echo "<label><h4>Set 2 (Player 1 First):</h4></label>";
-                            echo "<div class='sglsSet'><input type='number' name='sglsSet2P1' id='sglsSet2P1' min='0'></input><input type='number' name='sglsSet2P2' id='sglsSet2P2' min='0'></input></div>";
+                            echo "<div class='sglsSet'><input type='number' name='sglsSet2P1' id='sglsSet2P1' min='0' max='7' required></input><input type='number' name='sglsSet2P2' id='sglsSet2P2' min='0' max='7' required></input></div>";
 
                             echo "<label><h4>Set 3 (Player 1 First):</h4></label>";
-                            echo "<div class='sglsSet'><input type='number' name='sglsSet3P1' id='sglsSet3P1' min='0'></input><input type='number' name='sglsSet3P2' id='sglsSet3P2' min='0'></input></div>";
+                            echo "<div class='sglsSet'><input type='number' name='sglsSet3P1' id='sglsSet3P1' min='0' max='7'></input><input type='number' name='sglsSet3P2' id='sglsSet3P2' min='0' max='7'></input></div>";
+
+                            echo "<div class='sglsSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='sglsPlayoff' id='sglsPlayoff' value='pl'></input><label><h4>Challenge Match?:</h4></label><input type='checkbox' name='sglsChallenge' id='sglsChallenge' value='ch'></input></div>";
+
+                            echo "<div class='sglsSet'><label><h4>Match Winner?:</h4></label><span><input type='radio' name='sglsWinner' value='1' required><label>Player 1</label></input><input type='radio' name='sglsWinner' value='2'><label>Player 2</label></input></span></div>";
 
                             echo "<input id='sglsScoreSubmit' type='submit' value='Submit'>";
 

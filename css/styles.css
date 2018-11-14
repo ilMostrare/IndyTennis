@@ -1017,7 +1017,7 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #createRoundMatches form input[type=submit] {
-  height: 30px;
+  height: 40px;
   width: 45%;
   min-width: 145px;
   border: none;
@@ -1110,10 +1110,6 @@ nav .navContainer .navRight div {
   margin: auto;
 }
 
-.adminContent .adminBody .adminForms #enterSGLSScoreResults form {
-  margin: 0 auto;
-}
-
 .adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet {
   width: 90%;
   display: -webkit-box;
@@ -1121,11 +1117,43 @@ nav .navContainer .navRight div {
   display: flex;
 }
 
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet input {
+  margin-bottom: 10px;
+}
+
 .adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet input[type=number] {
   border-radius: 5px;
   border-style: solid;
   border-width: .5px;
   border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet label {
+  white-space: nowrap;
 }
 
 .adminContent .adminBody .adminForms #enterSGLSScoreResults form input {
@@ -1155,8 +1183,8 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #enterSGLSScoreResults form input[type=submit] {
-  height: 30px;
-  width: 45%;
+  height: 40px;
+  width: 300px;
   min-width: 145px;
   border: none;
   border-radius: 10px;

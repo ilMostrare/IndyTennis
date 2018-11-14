@@ -120,7 +120,7 @@
         }
 
         form input[type=submit] {
-          height: 30px;
+          height: 40px;
           width: 45%;
           min-width: 145px;
           border: none;
@@ -218,13 +218,43 @@
         .sglsSet{
           width: 90%;
           display: flex;
-          
+          // background-color: aquamarine;
 
+          input {
+            margin-bottom: 10px;
+          }
           input[type=number] {
             border-radius: 5px;
             border-style: solid;
             border-width: .5px;
             border-color: lightgrey;
+          }
+          input[type=checkbox] {
+            height: 1em;
+          }
+
+          span{
+            width: 50%;
+            display: flex;
+            // background-color: chocolate;
+
+            label{
+              margin-left: 30px;
+              display: block;
+              white-space: nowrap;
+            }
+
+            input[type=radio] {
+              height: 1em;
+              white-space: nowrap;
+              width: 60%;
+              // background-color: chocolate;
+              float: left;
+            }
+          }
+          
+          label{
+            white-space: nowrap;
           }
         }
 
@@ -255,8 +285,8 @@
         }
 
         form input[type=submit] {
-          height: 30px;
-          width: 45%;
+          height: 40px;
+          width: 300px;
           min-width: 145px;
           border: none;
           border-radius: 10px;

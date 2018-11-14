@@ -414,36 +414,82 @@ function setBindings() {
         });
     });
 
-    $("form .enterSGLSScores").click(function (evt) {
+    $("form #sglsScoreSubmit").click(function (evt) {
         evt.preventDefault();
 
-        var sglsMatchID = $("#sglsMatchID").val();
-        var sglsSet1P1 = $("#sglsSet1P1").val();
-        var sglsSet2P1 = $("#sglsSet2P1").val();
+        var sglsMatchID = parseInt($("#sglsMatchID").val());
+        var sglsSet1P1 = parseInt($("#sglsSet1P1").val());
+        var sglsSet2P1 = parseInt($("#sglsSet2P1").val());
         var sglsSet3P1 = $("#sglsSet3P1").val();
-        var sglsSet1P2 = $("#sglsSet1P2").val();
-        var sglsSet2P2 = $("#sglsSet2P2").val();
+        var sglsSet1P2 = parseInt($("#sglsSet1P2").val());
+        var sglsSet2P2 = parseInt($("#sglsSet2P2").val());
         var sglsSet3P2 = $("#sglsSet3P2").val();
+        var sglsPlayoff = $("#sglsPlayoff").prop("checked");
+        var sglsChallenge = $("#sglsChallenge").prop("checked");
+        var sglsWinner = parseInt($('input[name=sglsWinner]:checked').val());
 
-        // console.log(createSGLSMatches);
+        //#region Value Handling
+        if(sglsPlayoff == true){
+            sglsPlayoff = 1;
+        } else {
+            sglsPlayoff = 0;
+        };
+        if(sglsChallenge == true){
+            sglsChallenge = 1;
+        } else {
+            sglsChallenge = 0;
+        };
+        if(sglsSet3P1 == ''){
+            sglsSet3P1 = 0;
+        } else {
+            sglsSet3P1 = parseInt(sglsSet3P1);
+        };
+        if(sglsSet3P2 == ''){
+            sglsSet3P2 = 0;
+        } else {
+            sglsSet3P2 = parseInt(sglsSet3P2);
+        };
+        //#endregion
 
-        $.ajax({
-            url: '',
-            type: 'POST',
-            data: {
-                ntrSGLSMatchID: sglsMatchID,
-                ntrSGLSS1P1: sglsSet1P1,
-                ntrSGLSS2P1: sglsSet2P1,
-                ntrSGLSS3P1: sglsSet3P1,
-                ntrSGLSS1P2: sglsSet1P2,
-                ntrSGLSS2P2: sglsSet2P2,
-                ntrSGLSS3P2: sglsSet3P2
-            }
-        }).done(function (data) {
-            console.log("Success");
-            console.log(data);
-            swal("Success", "Scores Entered", "success");
-        });
+        // console.log(sglsMatchID," ",sglsSet1P1," ",sglsSet2P1," ",sglsSet3P1," ",sglsSet1P2," ",sglsSet2P2," ",sglsSet3P2," ",sglsPlayoff," ",sglsChallenge," ",sglsWinner);
+
+        if (sglsSet1P1 > 7){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if (sglsSet2P1 > 7){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if (sglsSet3P1 > 7){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if (sglsSet1P2 > 7){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if (sglsSet2P2 > 7){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if (sglsSet3P2 > 7){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if (sglsWinner == ''){
+            swal("Oops...", "Please Select a Winner!", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrSGLSMatchID: sglsMatchID,
+                    ntrSGLSS1P1: sglsSet1P1,
+                    ntrSGLSS2P1: sglsSet2P1,
+                    ntrSGLSS3P1: sglsSet3P1,
+                    ntrSGLSS1P2: sglsSet1P2,
+                    ntrSGLSS2P2: sglsSet2P2,
+                    ntrSGLSS3P2: sglsSet3P2,
+                    ntrSGLSPlayoff: sglsPlayoff,
+                    ntrSGLSChallenge: sglsChallenge,
+                    ntrSGLSWinner: sglsWinner
+                }
+            }).done(function (data) {
+                console.log("Success");
+                console.log(data);
+                swal("Success", "Scores Entered", "success");
+                $(".enterSGLSScores")[0].reset();
+            });
+        }
     });
 
     //#endregion
