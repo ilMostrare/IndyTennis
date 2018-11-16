@@ -720,9 +720,7 @@ nav .navContainer .navRight div {
   width: 90%;
   height: 25%;
   margin: 20px auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
 }
 
 .playerContent .loginDiv .loginForm {
@@ -735,39 +733,43 @@ nav .navContainer .navRight div {
 }
 
 .playerContent .loginDiv .loginForm label {
+  height: 25px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.playerContent .loginDiv .loginForm input[type="email"] {
-  width: 300px;
-  padding-left: 15px;
-  border-radius: 5px;
-  border: 0.5px solid;
-}
-
-.playerContent .loginDiv .loginForm input[type="password"] {
-  width: 300px;
-  padding-left: 15px;
-  border-radius: 5px;
-  border: 0.5px solid;
-}
-
-.playerContent .loginDiv .loginForm input[type="submit"] {
+.playerContent .loginDiv .loginForm input[type=email] {
+  height: 25px;
   width: 200px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.playerContent .loginDiv .loginForm input[type=password] {
+  height: 25px;
+  width: 200px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.playerContent .loginDiv .loginForm input[type=submit] {
+  height: 25px;
+  width: 150px;
   margin-left: 35px;
   border-radius: 5px;
   float: right;
   border-style: solid;
 }
 
-.playerContent .loginDiv .loginForm input[type="submit"]:hover {
+.playerContent .loginDiv .loginForm input[type=submit]:hover {
   background-color: #585858;
   color: #EEF95D;
   border-radius: 5px;
 }
 
-.playerContent .loginDiv .loginForm input[type="submit"]:active {
+.playerContent .loginDiv .loginForm input[type=submit]:active {
   color: #53A548;
   background-color: #333333;
 }
@@ -970,6 +972,7 @@ nav .navContainer .navRight div {
   min-width: 75%;
   height: 100%;
   margin: 0 auto;
+  padding-left: 10px;
 }
 
 .adminContent .adminBody .adminForms #createRoundMatches {
@@ -1258,6 +1261,116 @@ nav .navContainer .navRight div {
   background-color: darkgrey;
 }
 
+.adminContent .adminBody .adminForms #addNewPlayers {
+  margin-top: 35px;
+  display: none;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers h3 {
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer #newSGLSPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer #newDBLSPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers .newPlayer label {
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers form input {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  padding-left: 5px;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers form select {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers form input[type=submit] {
+  height: 30px;
+  width: 300px;
+  min-width: 145px;
+  border: none;
+  border-radius: 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+  margin: 10px auto;
+  padding: 0;
+}
+
+.adminContent .adminBody .adminForms #addNewPlayers form input[type=submit]:hover {
+  background-color: darkgrey;
+}
+
 .adminContent .adminBody .adminForms #addAnnouncement {
   margin-top: 35px;
   display: none;
@@ -1357,57 +1470,6 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #changePW form input[type=submit]:hover {
-  background-color: darkgrey;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers {
-  margin-top: 35px;
-  display: none;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers h3 {
-  text-align: center;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers form input {
-  display: block;
-  width: 90%;
-  height: 40px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border-style: solid;
-  border-width: .5px;
-  border-color: lightgrey;
-  padding-left: 5px;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers form select {
-  display: block;
-  width: 90%;
-  height: 40px;
-  margin-bottom: 35px;
-  font-size: 16px;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers form input[type=submit] {
-  height: 30px;
-  width: 45%;
-  min-width: 145px;
-  border: none;
-  border-radius: 10px;
-  background-color: lightgrey;
-  cursor: pointer;
-  margin: 10px auto;
-  padding: 0;
-}
-
-.adminContent .adminBody .adminForms #addNewPlayers form input[type=submit]:hover {
   background-color: darkgrey;
 }
 
@@ -1568,9 +1630,7 @@ nav .navContainer .navRight div {
   width: 90%;
   height: 25%;
   margin: 20px auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
 }
 
 .adminContent .adminBody .loginDiv .loginForm {
@@ -1583,39 +1643,43 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .loginDiv .loginForm label {
+  height: 25px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.adminContent .adminBody .loginDiv .loginForm input[type="email"] {
-  width: 300px;
-  padding-left: 15px;
-  border-radius: 5px;
-  border: 0.5px solid;
-}
-
-.adminContent .adminBody .loginDiv .loginForm input[type="password"] {
-  width: 300px;
-  padding-left: 15px;
-  border-radius: 5px;
-  border: 0.5px solid;
-}
-
-.adminContent .adminBody .loginDiv .loginForm input[type="submit"] {
+.adminContent .adminBody .loginDiv .loginForm input[type=email] {
+  height: 25px;
   width: 200px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.adminContent .adminBody .loginDiv .loginForm input[type=password] {
+  height: 25px;
+  width: 200px;
+  padding-left: 15px;
+  border-radius: 5px;
+  border: 0.5px solid;
+}
+
+.adminContent .adminBody .loginDiv .loginForm input[type=submit] {
+  height: 25px;
+  width: 150px;
   margin-left: 35px;
   border-radius: 5px;
   float: right;
   border-style: solid;
 }
 
-.adminContent .adminBody .loginDiv .loginForm input[type="submit"]:hover {
+.adminContent .adminBody .loginDiv .loginForm input[type=submit]:hover {
   background-color: #585858;
   color: #EEF95D;
   border-radius: 5px;
 }
 
-.adminContent .adminBody .loginDiv .loginForm input[type="submit"]:active {
+.adminContent .adminBody .loginDiv .loginForm input[type=submit]:active {
   color: #53A548;
   background-color: #333333;
 }

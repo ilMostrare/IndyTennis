@@ -40,7 +40,13 @@ $userRow=mysqli_fetch_assoc($userQuery);
 
     <div class="adminContent" id='style-2'>
         <div class="header">
-            <h1>Admin Panel</h1>
+            <h1><?  if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com") {
+                        echo "Admin Panel";
+                    } else {
+                        echo "Settings";
+                    }            
+                ?>
+            </h1>
             <h3><? 
                     if ($_SESSION['userFN'] != ''){
                         echo "Welcome, ",$_SESSION['userFN'],"";
@@ -133,16 +139,34 @@ $userRow=mysqli_fetch_assoc($userQuery);
                         echo "</form>";
                     echo "</div>";
 
+                    echo "<div id='addNewPlayers'>";
+                        echo "<h3>Add New Player</h3>";
+                        echo "<form action='' method='post' class='addNewPLYR'>";
+                            echo "<label><h4>First Name:</h4></label>";
+                            echo "<div class='newPlayer'><input type='text' name='newFName' id='newFName' placeholder='John' required></input></div>";
+
+                            echo "<label><h4>Last Name:</h4></label>";
+                            echo "<div class='newPlayer'><input type='text' name='newLName' id='newLName' placeholder='Doe' required></input></div>";
+
+                            echo "<label><h4>Email</h4></label>";
+                            echo "<div class='newPlayer'><input type='text' name='newEmail' id='newEmail' placeholder='example@email.com' required></div>";
+
+                            echo "<label><h4>Phone:</h4></label>";
+                            echo "<div class='newPlayer'><input type='number' name='newPhone' id='newPhone' min='0' placeholder='3178885000' required></input></div>";
+
+                            echo "<div class='newPlayer'><label><h4>Singles Player?:</h4></label><input type='checkbox' name='newSGLSPlayer' id='newSGLSPlayer' value='sg'></input><label><h4>Doubles Player?:</h4></label><input type='checkbox' name='newDBLSPlayer' id='newDBLSPlayer' value='db'></input></div>";
+
+                            echo "<div class='newPlayer'><label><h4>Starting Singles<br />Points (if any):</h4></label><input type='number' name='newSGLSPoints' id='newSGLSPoints' min='0'></input><label><h4>Starting Doubles<br />Points (if any):</h4></label><input type='number' name='newDBLSPoints' id='newDBLSPoints' min='0'></input></div>";
+
+                            echo "<input id='newPlayerSubmit' type='submit' value='Submit'>";
+                        echo "</form>";
+                    echo "</div>";
+
                     echo "<div id='addAnnouncement'>";
                         echo "<h3>Add Announcement</h3>";
                         echo "<form action='' method='post'></form>";
                     echo "</div>";
-
-                    echo "<div id='addNewPlayers'>";
-                        echo "<h3>Add New Player</h3>";
-                        echo "<form action='' method='post'></form>";
-                    echo "</div>";
-
+                    
                     echo "<div id='changeEM'>";
                         echo "<h3>Change Email</h3>";
                         echo "<form action='' method='post'></form>";

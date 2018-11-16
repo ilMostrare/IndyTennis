@@ -74,6 +74,7 @@
       height: 100%;
       // background-color: darkorchid;
       margin: 0 auto;
+      padding-left: 10px;
 
 
       #createRoundMatches{
@@ -363,6 +364,118 @@
 
       }
 
+      #addNewPlayers{
+        margin-top: 35px;
+        display: none;
+
+        h3{
+          text-align: center;
+        }
+
+        .newPlayer{
+          width: 90%;
+          display: flex;
+          margin-bottom: 20px;
+          // background-color: aquamarine;
+
+          // input {
+          //   margin-bottom: 20px;
+          // }
+          input[type=number] {
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+            // margin: 0 5px 0 5px;
+          }
+
+          #newSGLSPoints{
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+            margin: 0 10px 0 10px;
+          }
+          #newDBLSPoints{
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+            margin: 0 10px 0 10px;
+          }
+          input[type=checkbox] {
+            height: 1em;
+          }
+
+          span{
+            width: 50%;
+            display: flex;
+            // background-color: chocolate;
+
+            label{
+              margin-left: 30px;
+              display: block;
+              white-space: nowrap;
+            }
+
+            input[type=radio] {
+              height: 1em;
+              white-space: nowrap;
+              width: 60%;
+              // background-color: chocolate;
+              float: left;
+            }
+          }
+          
+          label{
+            white-space: nowrap;
+          }
+        }
+
+        form input{
+          display: block;
+          width: 90%;
+          height: 40px;
+          margin-bottom: 10px;
+          font-size: 16px;
+          border-radius: 5px;
+          border-style: solid;
+          border-width: .5px;
+          border-color: lightgrey;
+          padding-left: 5px;
+        }
+
+        form select{
+          display: block;
+          width: 90%;
+          height: 40px;
+          margin-bottom: 35px;
+          font-size: 16px;
+        }
+
+        form label {
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        form input[type=submit] {
+          height: 30px;
+          width: 300px;
+          min-width: 145px;
+          border: none;
+          border-radius: 10px;
+          background-color: lightgrey;
+          cursor: pointer;
+          margin: 10px auto;
+          padding: 0;
+
+          &:hover{
+            background-color: darkgrey;
+          }
+        }
+
+      }
+
       #addAnnouncement{
         margin-top: 35px;
         display: none;
@@ -416,58 +529,6 @@
       }
 
       #changePW{
-        margin-top: 35px;
-        display: none;
-
-        h3{
-          text-align: center;
-        }
-
-        form input{
-          display: block;
-          width: 90%;
-          height: 40px;
-          margin-bottom: 10px;
-          font-size: 16px;
-          border-radius: 5px;
-          border-style: solid;
-          border-width: .5px;
-          border-color: lightgrey;
-          padding-left: 5px;
-        }
-
-        form select{
-          display: block;
-          width: 90%;
-          height: 40px;
-          margin-bottom: 35px;
-          font-size: 16px;
-        }
-
-        form label {
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        form input[type=submit] {
-          height: 30px;
-          width: 45%;
-          min-width: 145px;
-          border: none;
-          border-radius: 10px;
-          background-color: lightgrey;
-          cursor: pointer;
-          margin: 10px auto;
-          padding: 0;
-
-          &:hover{
-            background-color: darkgrey;
-          }
-        }
-
-      }
-
-      #addNewPlayers{
         margin-top: 35px;
         display: none;
 

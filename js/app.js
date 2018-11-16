@@ -453,19 +453,19 @@ function setBindings() {
 
         // console.log(sglsMatchID," ",sglsSet1P1," ",sglsSet2P1," ",sglsSet3P1," ",sglsSet1P2," ",sglsSet2P2," ",sglsSet3P2," ",sglsPlayoff," ",sglsChallenge," ",sglsWinner);
 
-        if (sglsSet1P1 > 7){
+        if ((sglsSet1P1 > 7) || isNaN(sglsSet1P1)){
             swal("Oops...", "Score Entered is Invalid!", "error");
-        } else if (sglsSet2P1 > 7){
+        } else if ((sglsSet2P1 > 7) || isNaN(sglsSet2P1)){
             swal("Oops...", "Score Entered is Invalid!", "error");
         } else if (sglsSet3P1 > 7){
             swal("Oops...", "Score Entered is Invalid!", "error");
-        } else if (sglsSet1P2 > 7){
+        } else if ((sglsSet1P2 > 7) || isNaN(sglsSet2P1)){
             swal("Oops...", "Score Entered is Invalid!", "error");
-        } else if (sglsSet2P2 > 7){
+        } else if ((sglsSet2P2 > 7) || isNaN(sglsSet2P1)){
             swal("Oops...", "Score Entered is Invalid!", "error");
         } else if (sglsSet3P2 > 7){
             swal("Oops...", "Score Entered is Invalid!", "error");
-        } else if (sglsWinner == ''){
+        } else if (isNaN(sglsWinner)){
             swal("Oops...", "Please Select a Winner!", "error");
         } else {
             $.ajax({
@@ -489,7 +489,82 @@ function setBindings() {
                 swal("Success", "Scores Entered", "success");
                 $(".enterSGLSScores")[0].reset();
             });
+            // console.log("hello");
         }
+    });
+
+    $("form #newPlayerSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var newFName = $("#newFName").val();
+        var newLName = $("#newLName").val();
+        var newEmail = $("#newEmail").val();
+        var newPhone = parseInt($("#newPhone").val());
+        var newSGLSPoints = $("#newSGLSPoints").val();
+        var newDBLSPoints = $("#newDBLSPoints").val();
+        var newSGLSPlayer = $("#newSGLSPlayer").prop("checked");
+        var newDBLSPlayer = $("#newDBLSPlayer").prop("checked");
+
+        //#region Value Handling
+        if(newSGLSPlayer == true){
+            newSGLSPlayer = 1;
+        } else {
+            newSGLSPlayer = 0;
+        };
+        if(newDBLSPlayer == true){
+            newDBLSPlayer = 1;
+        } else {
+            newDBLSPlayer = 0;
+        };
+        if(newSGLSPoints == ''){
+            newSGLSPoints = 0;
+        } else {
+            newSGLSPoints = parseInt(newSGLSPoints);
+        };
+        if(newDBLSPoints == ''){
+            newDBLSPoints = 0;
+        } else {
+            newDBLSPoints = parseInt(newDBLSPoints);
+        };
+        //#endregion
+
+        //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
+
+        if ((newPhone.toString().length) != 10){
+            swal("Oops...", "Please Enter a Valid Phone Number! (Must be 10 digits)", "error");
+        } else if ((newSGLSPlayer == 1) && (newSGLSPoints == 0)){
+            swal("Oops...", "Please Enter Starting Singles Points", "error");
+        } else if ((newDBLSPlayer == 1) && (newDBLSPoints == 0)){
+            swal("Oops...", "Please Enter Starting Doubles Points", "error");
+        } else if ((newFName == '') || (newLName == '')){
+            swal("Oops...", "Please Enter Player's Full Name", "error");
+        } else if (newEmail == ''){
+            swal("Oops...", "Please Enter Player's Email", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrNewFName: newFName,
+                    ntrNewLName: newLName,
+                    ntrNewEmail: newEmail,
+                    ntrNewPhone: newPhone,
+                    ntrNewSGLSPoints: newSGLSPoints,
+                    ntrNewDBLSPoints: newDBLSPoints,
+                    ntrNewSGLSPlayer: newSGLSPlayer,
+                    ntrNewDBLSPlayer: newDBLSPlayer
+                }
+            }).done(function (data) {
+                console.log("Success");
+                console.log(data);
+                swal("Success", "Scores Entered", "success");
+                $(".addNewPLYR")[0].reset();
+            });
+
+            //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
+
+        } 
+
     });
 
     //#endregion

@@ -4,7 +4,7 @@
     // background-color: #A5DC86;
     margin: 20px auto;
     // height:auto; 
-    display: flex;
+    display: block;
 
     .loginForm{
       width:100%; 
@@ -20,28 +20,32 @@
       }
 
       label{
+        height: 25px;
         padding-left: 15px;
         padding-right: 15px;
       }
 
-      input[type="email"] {
-        width: 300px;
+      input[type=email] {
+        height: 25px;
+        width: 200px;
         padding-left: 15px;
         //background-color: yellow;
         border-radius: 5px;
         border:0.5px solid
       }
 
-      input[type="password"] {
-        width: 300px;
+      input[type=password] {
+        height: 25px;
+        width: 200px;
         padding-left: 15px;
         //background-color: yellow;
         border-radius: 5px;
         border:0.5px solid
       }
     
-      input[type="submit"] {
-          width: 200px;
+      input[type=submit] {
+          height: 25px;
+          width: 150px;
           margin-left: 35px;
           border-radius: 5px;
           float: right;

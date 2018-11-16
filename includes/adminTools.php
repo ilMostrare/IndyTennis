@@ -291,3 +291,31 @@ if (isset($_POST['ntrSGLSMatchID'])){
 
 
 #endregion
+
+#region Enter Doubles Scores
+
+#endregion
+
+#region Add Player
+
+function addNewPlayer (){
+
+}
+
+if (isset($_POST['ntrNewFName'])){
+
+    $SGLSMatchID = isset($_POST['ntrSGLSMatchID']) ? $_POST['ntrSGLSMatchID'] : 'No data found';
+    $sglsp1s1 = isset($_POST['ntrSGLSS1P1']) ? $_POST['ntrSGLSS1P1'] : 'No data found';
+    $sglsp1s2 = isset($_POST['ntrSGLSS2P1']) ? $_POST['ntrSGLSS2P1'] : 'No data found';
+    $sglsp1s3 = isset($_POST['ntrSGLSS3P1']) ? $_POST['ntrSGLSS3P1'] : 'No data found';
+    $sglsp2s1 = isset($_POST['ntrSGLSS1P2']) ? $_POST['ntrSGLSS1P2'] : 'No data found';
+    $sglsp2s2 = isset($_POST['ntrSGLSS2P2']) ? $_POST['ntrSGLSS2P2'] : 'No data found';
+    $sglsp2s3 = isset($_POST['ntrSGLSS3P2']) ? $_POST['ntrSGLSS3P2'] : 'No data found';
+    $sglsPlayoff = isset($_POST['ntrSGLSPlayoff']) ? $_POST['ntrSGLSPlayoff'] : 'No data found';
+
+
+    addNewPlayer($SGLSMatchID, $sglsp1s1, $sglsp1s2, $sglsp1s3, $sglsp2s1, $sglsp2s2, $sglsp2s3,$sglsPlayoff);
+
+}
+
+#endregion
