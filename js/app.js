@@ -89,6 +89,13 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+
+        // $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".addAnnounce")[0].reset();
+        $(".updatePN")[0].reset();
     });
     $('#enterDBLSScores').click(function(){
         $('#enterDBLSScores').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -112,6 +119,13 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".addAnnounce")[0].reset();
+        $(".updatePN")[0].reset();
     });
     $('#addAnnounce').click(function(){
         $('#addAnnounce').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -135,6 +149,13 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        // $(".addAnnounce")[0].reset();
+        $(".updatePN")[0].reset();
     });
     $('#changePassword').click(function(){
         $('#changePassword').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -158,6 +179,13 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        // $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".addAnnounce")[0].reset();
+        $(".updatePN")[0].reset();
     });
     $('#addPlayers').click(function(){
         $('#addPlayers').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -181,6 +209,13 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+
+        $(".enterSGLSScores")[0].reset();
+        // $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".addAnnounce")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".updatePN")[0].reset();
     });
     $('#changeEmail').click(function(){
         $('#changeEmail').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -201,9 +236,16 @@ function setBindings() {
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
-        $('#changePH').css({"display":"block"});
-        $('#changeEM').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"block"});
         $('#logout').css({"display":"none"});
+
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".addAnnounce")[0].reset();
+        // $(".updateEM")[0].reset();
+        $(".updatePN")[0].reset();
     });
     $('#changePhone').click(function(){
         $('#changePhone').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -224,9 +266,16 @@ function setBindings() {
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
-        $('#changePH').css({"display":"none"});
-        $('#changeEM').css({"display":"block"});
+        $('#changePH').css({"display":"block"});
+        $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".addAnnounce")[0].reset();
+        // $(".updatePN")[0].reset();
     });
     $('#loggoutt').click(function(){
         $('#loggoutt').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -250,6 +299,41 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"block"});
+
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".addAnnounce")[0].reset();
+        $(".updatePN")[0].reset();
+
+        var logoutID = 1;
+
+        swal({
+            title: 'Are you sure you want to logout?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ff9966',
+            cancelButtonColor: 'dimgrey',
+            confirmButtonText: 'Logout',
+            closeOnConfirm: false
+        },function () {
+            swal(
+                'Logged Out!', '', 'success'
+            );
+
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    logout: logoutID
+                }
+            }).done(function (data) {
+                console.log("Success");
+                window.location.href = "/index.php";
+            });
+        })
     });
     //#endregion
 
@@ -265,9 +349,6 @@ function setBindings() {
 
         var logEM = $("#loginEM").val();
         var logPass = $("#loginPASS").val();
-
-        //console.log(logEM);
-        //console.log(logPass);
 
         if (logEM == ""){
             swal("Oops...", "Please Enter Your Email!", "error");
@@ -286,11 +367,9 @@ function setBindings() {
             }).done(function (data) {
                 if(data.charAt(0)>0) {
                     console.log("Success");
-                    //console.log(data);
                     window.location.href = "";
                 } else {
                     console.log("Failed");
-                    //console.log(data);
                     swal("Oops...", "Login Information is Invalid!", "error");
                 }
             });
@@ -500,6 +579,7 @@ function setBindings() {
         var newLName = $("#newLName").val();
         var newEmail = $("#newEmail").val();
         var newPhone = parseInt($("#newPhone").val());
+        var newPassword = $("#newPassword").val();
         var newSGLSPoints = $("#newSGLSPoints").val();
         var newDBLSPoints = $("#newDBLSPoints").val();
         var newSGLSPlayer = $("#newSGLSPlayer").prop("checked");
@@ -540,6 +620,8 @@ function setBindings() {
             swal("Oops...", "Please Enter Player's Full Name", "error");
         } else if (newEmail == ''){
             swal("Oops...", "Please Enter Player's Email", "error");
+        } else if ((newPassword == '') || (newPassword.length < 8)){
+            swal("Oops...", "Please Enter a Valid Password (Must be at least 8 characters)", "error");
         } else {
             $.ajax({
                 url: '',
@@ -549,6 +631,7 @@ function setBindings() {
                     ntrNewLName: newLName,
                     ntrNewEmail: newEmail,
                     ntrNewPhone: newPhone,
+                    ntrNewPassword: newPassword,
                     ntrNewSGLSPoints: newSGLSPoints,
                     ntrNewDBLSPoints: newDBLSPoints,
                     ntrNewSGLSPlayer: newSGLSPlayer,
@@ -557,13 +640,128 @@ function setBindings() {
             }).done(function (data) {
                 console.log("Success");
                 console.log(data);
-                swal("Success", "Scores Entered", "success");
+                swal("Success", "Player Entered", "success");
                 $(".addNewPLYR")[0].reset();
             });
 
             //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
 
         } 
+
+    });
+
+    $("form #newPasswordSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var userNewPWID = $("#userNewPWID").val();
+        var newUserPW = $("#userNewPW").val();
+
+        if ((newUserPW == '') || (newUserPW.length < 8)){
+            swal("Oops...", "Please Enter a Valid Password (Must be at least 8 characters)", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrUserNewPWID: userNewPWID,
+                    ntrNewUserPW: newUserPW
+                }
+            }).done(function (data) {
+                console.log("Success");
+                console.log(data);
+                swal("Success", "Password Updated", "success");
+                $(".updatePW")[0].reset();
+            });
+
+        }
+
+    });
+
+    $("form #newEmailSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var userNewEMID = $("#userNewEMID").val();
+        var newUserEM = $("#userNewEM").val();
+
+        if (!validateEmail(newUserEM)){
+            swal("Oops...", "Please Enter a Valid Email", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrUserNewEMID: userNewEMID,
+                    ntrNewUserEM: newUserEM
+                }
+            }).done(function (data) {
+                console.log("Success");
+                console.log(data);
+                swal("Success", "Email Updated", "success");
+                $(".updateEM")[0].reset();
+            });
+
+        }
+
+    });
+
+    $("form #newPhoneSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var userNewPNID = $("#userNewPNID").val();
+        var newUserPN = $("#userNewPN").val();
+
+        if ((newUserPN == '') || ((newUserPN.toString().length) != 10)){
+            swal("Oops...", "Please Enter a Valid Phone Number (Must be 10 digits)", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrUserNewPNID: userNewPNID,
+                    ntrNewUserPN: newUserPN
+                }
+            }).done(function (data) {
+                console.log("Success");
+                console.log(data);
+                swal("Success", "Phone Number Updated", "success");
+                $(".updatePN")[0].reset();
+            });
+
+        }
+
+    });
+
+    $("form #newAnnounceSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var newAnnounceTitle = $("#announceTitle").val();
+        var newAnnounceDesc = $("#announceDesc").val();
+        var newAnnounceDate = $("#announceDate").val();
+        var newAnnounceLink = $("#announceLink").val();
+
+        if (newAnnounceTitle == ''){
+            swal("Oops...", "Please Enter a Title", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrAnnounceTitle: newAnnounceTitle,
+                    ntrAnnounceDesc: newAnnounceDesc,
+                    ntrAnnounceDate: newAnnounceDate,
+                    ntrAnnounceLink: newAnnounceLink
+                }
+            }).done(function (data) {
+                console.log("Success");
+                console.log(data);
+                swal("Success", "Announcement Entered", "success");
+                $(".addAnnounce")[0].reset();
+            });
+
+            // console.log(newAnnounceTitle, newAnnounceDesc, newAnnounceDate, newAnnounceLink)
+            // $(".addAnnounce")[0].reset();
+
+        }
 
     });
 

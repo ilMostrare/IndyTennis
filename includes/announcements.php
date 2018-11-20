@@ -10,7 +10,7 @@ function printAnnouncements()
 {
     global $conn;
 
-    $announceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
+    $announceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE `END_DATE` >= CURDATE() ORDER BY `END_DATE` ASC";
     $announceQuery = @$conn->query($announceSQL);
     if (!$announceQuery) {
         $errno = $conn->errno;
@@ -25,7 +25,7 @@ function printAnnouncements()
         $announceTitle = $announceRow["TITLE"];
         $announceContent = $announceRow["CONTENT"];
 
-        echo "<h4>",$announceTitle,"</h4><p>- ",$announceContent,"</p><p id='announceDates'>exp: ",$announceEnd,"</p><br />";
+        echo "<h4>",$announceTitle,"</h4><p>- ",$announceContent,"</p><p id='announceDates'>Date: ",$announceEnd,"</p><br />";
     }
 }
 
@@ -38,7 +38,7 @@ function displayAnnouncements(){
     echo '<h3>Announcements / Upcoming</h3>';
     echo '<br />';
 
-            $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date) ORDER BY `END_DATE` ASC";
+            $numAnnounceSQL = "SELECT * FROM `ANNOUNCEMENTS` WHERE `END_DATE` >= CURDATE() ORDER BY `END_DATE` ASC";
             $numAnnounceQuery = @$conn->query($numAnnounceSQL);
             $numAnnounce = mysqli_num_rows($numAnnounceQuery);
 

@@ -101,9 +101,7 @@ function printSGLSRankings()
     global $conn;
     global $sznID;
 
-    $setRowNumVarSQL = "SET @row_number := 0";
-    $curSGLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
-    @$conn->query($setRowNumVarSQL);
+    $curSGLSRankingsSQL = "SELECT `SGLSLADDER`.`ID` AS `Rank`,`PLAYERS`.`ID` AS `PlayerID`,`PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` AS `LAST_NAME`,`SGLSLADDER`.`SGLS_POINTS` AS `SGLS_POINTS` FROM `SGLSLADDER` INNER JOIN `PLAYERS` ON `PLAYERS`.`ID` = `SGLSLADDER`.`PLAYER_ID` ORDER BY `SGLSLADDER`.`ID`";
     $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
     if (!$curSGLSRankingsQuery) {
         $errno = $conn->errno;
@@ -112,9 +110,9 @@ function printSGLSRankings()
         die("Selection failed: ($errno) $error.");
     }
     while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
-        $rowNum = $curSGLSRankingsRow["RowNum"];
-        $sglsPlayerID = $curSGLSRankingsRow["ID"];
+        // $rowNum = $curSGLSRankingsRow["ID"];
         $curSGLSRank = $curSGLSRankingsRow["Rank"];
+        $sglsPlayerID = $curSGLSRankingsRow["PlayerID"];
         $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
         $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
         $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
@@ -128,9 +126,9 @@ function printDBLSRankings()
     global $conn;
     global $sznID;
 
-    $setRowNumVarSQL = "SET @row_number := 0";
-    $curDBLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `DBLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `DBLS_POINTS`, @curRank := IF(@prevRank = `DBLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `DBLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `DBLS_PLAYER` = 1 ORDER BY `DBLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
-    @$conn->query($setRowNumVarSQL);
+    //$setRowNumVarSQL = "SET @row_number := 0";
+    $curDBLSRankingsSQL = "SELECT `DBLSLADDER`.`ID` AS `Rank`,`PLAYERS`.`ID` AS `PlayerID`,`PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` AS `LAST_NAME`,`DBLSLADDER`.`DBLS_POINTS` AS `DBLS_POINTS` FROM `DBLSLADDER` INNER JOIN `PLAYERS` ON `PLAYERS`.`ID` = `DBLSLADDER`.`PLAYER_ID` ORDER BY `DBLSLADDER`.`ID`";
+    //@$conn->query($setRowNumVarSQL);
     $curDBLSRankingsQuery = @$conn->query($curDBLSRankingsSQL);
     if (!$curDBLSRankingsQuery) {
         $errno = $conn->errno;
@@ -139,8 +137,8 @@ function printDBLSRankings()
         die("Selection failed: ($errno) $error.");
     }
     while ($curDBLSRankingsRow = mysqli_fetch_assoc($curDBLSRankingsQuery)) {
-        $rowNum = $curDBLSRankingsRow["RowNum"];
-        $dblsPlayerID = $curDBLSRankingsRow["ID"];
+        //$rowNum = $curDBLSRankingsRow["RowNum"];
+        $dblsPlayerID = $curDBLSRankingsRow["PlayerID"];
         $curDBLSRank = $curDBLSRankingsRow["Rank"];
         $curDBLSRankFName = $curDBLSRankingsRow["FIRST_NAME"];
         $curDBLSRankLName = $curDBLSRankingsRow["LAST_NAME"];

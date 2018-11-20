@@ -13,3 +13,7 @@ if ($conn->connect_errno != 0) {
     $errmsg = $conn->connect_error;
     die ("Connection failed with: ($errno) $errmsg.");
 } 
+
+$options = [
+    'cost' => 10,
+];

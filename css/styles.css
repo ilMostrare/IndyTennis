@@ -1356,7 +1356,7 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #addNewPlayers form input[type=submit] {
-  height: 30px;
+  height: 40px;
   width: 300px;
   min-width: 145px;
   border: none;
@@ -1378,6 +1378,45 @@ nav .navContainer .navRight div {
 
 .adminContent .adminBody .adminForms #addAnnouncement h3 {
   text-align: center;
+}
+
+.adminContent .adminBody .adminForms #addAnnouncement .newPlayer {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.adminContent .adminBody .adminForms #addAnnouncement .newPlayer input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #addAnnouncement .newPlayer span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #addAnnouncement .newPlayer span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #addAnnouncement .newPlayer span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #addAnnouncement .newPlayer label {
+  white-space: nowrap;
 }
 
 .adminContent .adminBody .adminForms #addAnnouncement form input {
@@ -1407,8 +1446,8 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #addAnnouncement form input[type=submit] {
-  height: 30px;
-  width: 45%;
+  height: 40px;
+  width: 200px;
   min-width: 145px;
   border: none;
   border-radius: 10px;
@@ -1429,6 +1468,49 @@ nav .navContainer .navRight div {
 
 .adminContent .adminBody .adminForms #changePW h3 {
   text-align: center;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #changePW .newPlayer label {
+  white-space: nowrap;
 }
 
 .adminContent .adminBody .adminForms #changePW form input {
@@ -1458,8 +1540,8 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #changePW form input[type=submit] {
-  height: 30px;
-  width: 45%;
+  height: 40px;
+  width: 200px;
   min-width: 145px;
   border: none;
   border-radius: 10px;
@@ -1480,6 +1562,65 @@ nav .navContainer .navRight div {
 
 .adminContent .adminBody .adminForms #changePH h3 {
   text-align: center;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer #newSGLSPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer #newDBLSPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #changePH .newPlayer label {
+  white-space: nowrap;
 }
 
 .adminContent .adminBody .adminForms #changePH form input {
@@ -1509,8 +1650,8 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #changePH form input[type=submit] {
-  height: 30px;
-  width: 45%;
+  height: 40px;
+  width: 200px;
   min-width: 145px;
   border: none;
   border-radius: 10px;
@@ -1531,6 +1672,65 @@ nav .navContainer .navRight div {
 
 .adminContent .adminBody .adminForms #changeEM h3 {
   text-align: center;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer #newSGLSPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer #newDBLSPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #changeEM .newPlayer label {
+  white-space: nowrap;
 }
 
 .adminContent .adminBody .adminForms #changeEM form input {
@@ -1560,8 +1760,8 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #changeEM form input[type=submit] {
-  height: 30px;
-  width: 45%;
+  height: 40px;
+  width: 200px;
   min-width: 145px;
   border: none;
   border-radius: 10px;
@@ -1611,14 +1811,14 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #logout form input[type=submit] {
-  height: 30px;
-  width: 45%;
+  height: 40px;
+  width: 200px;
   min-width: 145px;
   border: none;
   border-radius: 10px;
   background-color: lightgrey;
   cursor: pointer;
-  margin: 10px auto;
+  margin: 20px auto;
   padding: 0;
 }
 
