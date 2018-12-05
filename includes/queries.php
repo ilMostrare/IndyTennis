@@ -157,7 +157,7 @@ function printSGLSMatchups()
     global $SGLSroundID;
 
 
-    $curSGLSMatchupsSQL = "SELECT `PLAYER1`,`PLAYER2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` ON `PLAYERS`.`ID` = `SGLSMATCH`.`PLAYER1` WHERE `ROUND_NUM` = '".$SGLSroundID."'";
+    $curSGLSMatchupsSQL = "SELECT `PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE `ROUND_NUM` = '".$SGLSroundID."'";
     $curSGLSMatchupsQuery = @$conn->query($curSGLSMatchupsSQL);
     if (!$curSGLSMatchupsQuery) {
         $errno = $conn->errno;
@@ -186,31 +186,50 @@ function printSGLSMatchups()
     }
 }
 
-/* function printDBLSMatchups()
+function printDBLSMatchups()
 {
     global $conn;
-    global $sznID;
+    global $DBLSroundID;
 
-    $setRowNumVarSQL = "SET @row_number := 0";
-    $curSGLSRankingsSQL = "SELECT (@row_number:=@row_number + 1) AS RowNum, `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, Rank FROM (SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SGLS_POINTS`, @curRank := IF(@prevRank = `SGLS_POINTS`, @curRank, @incRank) AS rank, @incRank := @incRank + 1, @prevRank := `SGLS_POINTS` FROM PLAYERS p, ( SELECT @curRank :=0, @prevRank := NULL, @incRank := 1 ) r WHERE `SEASON_NUM` = '".$sznID."' AND `SGLS_PLAYER` = 1 ORDER BY `SGLS_POINTS` DESC) s ORDER BY Rank ASC, `LAST_NAME` ASC";
-    @$conn->query($setRowNumVarSQL);
-    $curSGLSRankingsQuery = @$conn->query($curSGLSRankingsSQL);
-    if (!$curSGLSRankingsQuery) {
+    $curDBLSMatchupsSQL = "SELECT `PLAYER1`,`PLAYER2`,`PLAYER3`,`PLAYER4` FROM `DBLSMATCH` WHERE `ROUND_NUM` = '".$DBLSroundID."'";
+    $curDBLSMatchupsQuery = @$conn->query($curDBLSMatchupsSQL);
+    if (!$curDBLSMatchupsQuery) {
         $errno = $conn->errno;
         $error = $conn->error;
         $conn->close();
         die("Selection failed: ($errno) $error.");
     }
-    while ($curSGLSRankingsRow = mysqli_fetch_assoc($curSGLSRankingsQuery)) {
-        $rowNum = $curSGLSRankingsRow["RowNum"];
-        $sglsPlayerID = $curSGLSRankingsRow["ID"];
-        $curSGLSRank = $curSGLSRankingsRow["Rank"];
-        $curSGLSRankFName = $curSGLSRankingsRow["FIRST_NAME"];
-        $curSGLSRankLName = $curSGLSRankingsRow["LAST_NAME"];
-        $curSGLSRankPoints = $curSGLSRankingsRow["SGLS_POINTS"];
+    while ($curDBLSMatchupsRow = mysqli_fetch_assoc($curDBLSMatchupsQuery)) {
+        $dblsPlayer1ID = $curDBLSMatchupsRow["PLAYER1"];
+        $viewPlayer1Sql = "SELECT `LAST_NAME` FROM `PLAYERS` WHERE `ID` LIKE '".$dblsPlayer1ID."'";
+        $viewPlayer1Query = @$conn->query($viewPlayer1Sql);
+        while ($viewPlayer1Row=mysqli_fetch_assoc($viewPlayer1Query)){
+            $P1LN = $viewPlayer1Row['LAST_NAME'];
+        }
 
-        echo "<tr><td class='tableLeft'>", $curSGLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='singles-player-name' name='viewPlayer' value='",$sglsPlayerID,"'>", $curSGLSRankLName, ", ", $curSGLSRankFName, "</button></form></td><td class='tableRight'>", $curSGLSRankPoints, "</td></tr>";
+        $dblsPlayer2ID = $curDBLSMatchupsRow["PLAYER2"];
+        $viewPlayer2Sql = "SELECT `LAST_NAME` FROM `PLAYERS` WHERE `ID` LIKE '".$dblsPlayer2ID."'";
+        $viewPlayer2Query = @$conn->query($viewPlayer2Sql);
+        while ($viewPlayer2Row=mysqli_fetch_assoc($viewPlayer2Query)){
+            $P2LN = $viewPlayer2Row['LAST_NAME'];
+        }
+
+        $dblsPlayer3ID = $curDBLSMatchupsRow["PLAYER3"];
+        $viewPlayer3Sql = "SELECT `LAST_NAME` FROM `PLAYERS` WHERE `ID` LIKE '".$dblsPlayer3ID."'";
+        $viewPlayer3Query = @$conn->query($viewPlayer3Sql);
+        while ($viewPlayer3Row=mysqli_fetch_assoc($viewPlayer3Query)){
+            $P3LN = $viewPlayer3Row['LAST_NAME'];
+        }
+
+        $dblsPlayer4ID = $curDBLSMatchupsRow["PLAYER4"];
+        $viewPlayer4Sql = "SELECT `LAST_NAME` FROM `PLAYERS` WHERE `ID` LIKE '".$dblsPlayer4ID."'";
+        $viewPlayer4Query = @$conn->query($viewPlayer4Sql);
+        while ($viewPlayer4Row=mysqli_fetch_assoc($viewPlayer4Query)){
+            $P4LN = $viewPlayer4Row['LAST_NAME'];
+        }
+
+        echo "<tr><td class='tableLeft'></td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer1ID,"'>", $P1LN, "</button></form>-<form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer2ID,"'>", $P2LN, "</button></form>-<form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer3ID,"'>", $P3LN, "</button></form>-<form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer4ID,"'>", $P4LN, "</button></form></td><td class='tableRight'></td></tr>";
     }
-} */
+}
 
 #endregion

@@ -329,6 +329,14 @@
     min-height: calc(100% - (#{$phone-nav-height} - 5px));
   }
 
+  /********* ADMIN **********/
+  .adminContent {
+    padding-top: $phone-nav-height + 10px;
+    width: 95%;
+    //height: min-content;
+    min-height: calc(100% - (#{$phone-nav-height} - 5px));
+  }
+
   /********* Footer **********/
   footer {
     height: $phone-nav-height - 10px;

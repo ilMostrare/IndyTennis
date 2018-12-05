@@ -17,10 +17,10 @@ require_once ('includes/adminTools.php');
 $user_id = $_SESSION['adminID'];
 
 
-$userSql = "SELECT * FROM `ADMIN` WHERE `ID` = '".$user_id."'";
+/* $userSql = "SELECT * FROM `ADMIN` WHERE `ID` = '".$user_id."'";
 $userQuery = @$conn->query($userSql);
 
-$userRow=mysqli_fetch_assoc($userQuery);
+$userRow=mysqli_fetch_assoc($userQuery); */
 
 ?>
 
@@ -47,14 +47,17 @@ $userRow=mysqli_fetch_assoc($userQuery);
                     }            
                 ?>
             </h1>
-            <h3><?                    
-                    if ($_SESSION['userFN'] != ''){
-                        echo "Welcome, ",$_SESSION['userFN'],"";
-                    } else {
-                        echo "Please Login";
-                    }
-                ?>
-            </h3>
+            <div class='line2'>
+                <h3><?                    
+                        if ($_SESSION['userFN'] != ''){
+                            echo "Welcome, ",$_SESSION['userFN'];
+                        } else {
+                            echo "Please Login";
+                        }
+                    ?>
+                </h3>
+                <!-- <form><button type='submit' class='admin-player-name' name='viewPlayer' value='<? //$_SESSION['adminID'] ?>'><h3>View Player Page</h3></button></form> -->
+            </div>
         </div>
 
         <div class="adminBody">
@@ -90,13 +93,44 @@ $userRow=mysqli_fetch_assoc($userQuery);
                     echo '<div id="createRoundMatches">';
                         echo '<h3>Create Round Matches</h3>';
                         echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
-                        echo "<form><button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value='".$SGLSroundID."'>Create Singles Round #".$SGLSroundID." Matches</button></form>";
+                        echo "<form><label><h4>Singles Round #".$SGLSroundID.": </h4></label><button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value='".$SGLSroundID."'>Create Singles Matches</button></form>";
+                        echo "<form><label><h4>Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createDBLSMatches' class='create-dbls-matches' name='createDBLSMatches' value='".$DBLSroundID."'>Create Doubles Matches</button></form>";
                     echo '</div>';
 
                     echo "<div id='editRoundMatches'>";
                         echo "<h3>Edit Round Matches</h3>";
                         echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
-                        echo "<form action='' method='post'></form>";
+                        echo "<form action='' method='post' class='editSGLSMatch'>";
+                            echo "<label><h4>Edit Singles Match: </h4></label>";
+                            echo "<select name='editSGLSMatchID' id='editsglsMatchID' required><option disabled selected> -- select an option -- </option>", getSGLSMatches() ,"</select>";
+                           
+                            echo "<label><h4>Player 1:</h4></label>";
+                            echo "<div class='sglsSet'><select name='editSGLSP1' id='editSGLSP1'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllSinglesPlayers() ,"</select></div>";
+
+                            echo "<label><h4>Player 2:</h4></label>";
+                            echo "<div class='sglsSet'><select name='editSGLSP2' id='editSGLSP2'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllSinglesPlayers() ,"</select></div>";
+
+                            echo "<input id='sglsMatchEditSubmit' type='submit' value='Submit Singles Match Edit'>";
+                        echo "</form>";
+
+                        echo "<form action='' method='post' class='editDBLSMatch'>";
+                            echo "<label><h4>Edit Doubles Match: </h4></label>";
+                            echo "<select name='editDBLSMatchID' id='editdblsMatchID' required><option disabled selected> -- select an option -- </option>", getDBLSMatches() ,"</select>";
+                           
+                            echo "<label><h4>Player 1:</h4></label>";
+                            echo "<div class='dblsSet'><select name='editDBLSP1' id='editDBLSP1'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesPlayers() ,"</select></div>";
+
+                            echo "<label><h4>Player 2:</h4></label>";
+                            echo "<div class='dblsSet'><select name='editDBLSP2' id='editDBLSP2'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesPlayers() ,"</select></div>";
+
+                            echo "<label><h4>Player 3:</h4></label>";
+                            echo "<div class='dblsSet'><select name='editDBLSP3' id='editDBLSP3'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesPlayers() ,"</select></div>";
+
+                            echo "<label><h4>Player 4:</h4></label>";
+                            echo "<div class='dblsSet'><select name='editDBLSP4' id='editDBLSP4'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesPlayers() ,"</select></div>";
+
+                            echo "<input id='dblsMatchEditSubmit' type='submit' value='Submit Doubles Match Edit'>";
+                        echo "</form>";
                     echo "</div>";
 
                     echo "<div id='enterSGLSScoreResults'>";
@@ -105,7 +139,7 @@ $userRow=mysqli_fetch_assoc($userQuery);
                         echo "<form action='' method='post' class='enterSGLSScores'>";
                             
                             echo "<label><h4>Match: </h4></label>";
-                            echo "<select name='SGLSMatchID' id='sglsMatchID' required>", getSGLSMatches() ,"</select>";
+                            echo "<select name='SGLSMatchID' id='sglsMatchID' required><option disabled selected value> -- select an option -- </option>", getSGLSMatches() ,"</select>";
                            
                             echo "<label><h4>Set 1 (Player 1 First):</h4></label>";
                             echo "<div class='sglsSet'><input type='number' name='sglsSet1P1' id='sglsSet1P1' min='0' max='7' required></input><input type='number' name='sglsSet1P2' id='sglsSet1P2' min='0' max='7'></input></div>";
@@ -130,9 +164,25 @@ $userRow=mysqli_fetch_assoc($userQuery);
                         echo "<div class='roundNumbers'><span>Current Doubles Round: ".$DBLSroundID."</span></div><br />";
                         echo "<form action='' method='post' class='enterDBLSScores'>";
                             
-                            /* echo "<label>Match:</label>";
-                            echo "<select name='MatchID' required>", getMatches() ,"</select>"; */
+                            echo "<label><h4>Match: </h4></label>";
+                            echo "<select name='DBLSMatchID' id='DBlsMatchID' required><option disabled selected value> -- select an option -- </option>", getDBLSMatches() ,"</select>";
                            
+                            echo "<label><h4>Set 1 (Team 1 First - P1/P2 vs P3/P4):</h4></label>";
+                            echo "<div class='DBlsSet'><input type='number' name='DBlsSet1T1' id='DBlsSet1T1' min='0' max='7' required></input><input type='number' name='DBlsSet1T2' id='DBlsSet1T2' min='0' max='7'></input></div>";
+                            // echo "<div class='DBlsSet winnerSelect'><label><h4>Set 1 Winner?:</h4></label><span><input type='radio' name='DBlsSet1Winner' value='1' required><label>Team 1</label></input><input type='radio' name='DBlsSet1Winner' value='2'><label>Team 2</label></input></span></div>";
+
+                            echo "<label><h4>Set 2 (Team 1 First - P1/P3 vs P2/P4):</h4></label>";
+                            echo "<div class='DBlsSet'><input type='number' name='DBlsSet2T1' id='DBlsSet2T1' min='0' max='7' required></input><input type='number' name='DBlsSet2T2' id='DBlsSet2T2' min='0' max='7' required></input></div>";
+                            // echo "<div class='DBlsSet winnerSelect'><label><h4>Set 2 Winner?:</h4></label><span><input type='radio' name='DBlsSet2Winner' value='1' required><label>Team 1</label></input><input type='radio' name='DBlsSet2Winner' value='2'><label>Team 2</label></input></span></div>";
+
+                            echo "<label><h4>Set 3 (Team 1 First - P1/P4 vs P2/P3):</h4></label>";
+                            echo "<div class='DBlsSet'><input type='number' name='DBlsSet3T1' id='DBlsSet3T1' min='0' max='7'></input><input type='number' name='DBlsSet3T2' id='DBlsSet3T2' min='0' max='7'></input></div>";
+                            // echo "<div class='DBlsSet winnerSelect'><label><h4>Set 3 Winner?:</h4></label><span><input type='radio' name='DBlsSet3Winner' value='1' required><label>Team 1</label></input><input type='radio' name='DBlsSet3Winner' value='2'><label>Team 2</label></input></span></div>";
+
+                            echo "<div class='DBlsSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='DBlsPlayoff' id='DBlsPlayoff' value='pl'></input><label><h4>Challenge Match?:</h4></label><input type='checkbox' name='DBlsChallenge' id='DBlsChallenge' value='ch'></input></div>";
+
+                            echo "<input id='DBlsScoreSubmit' type='submit' value='Submit'>";
+
                         echo "</form>";
                     echo "</div>";
 
@@ -183,11 +233,12 @@ $userRow=mysqli_fetch_assoc($userQuery);
 
                     echo "<div id='changePW'>";
                         echo "<h3>Change Password</h3>";
-                        echo "<form action='' method='post' class='updatePW'>";
-                            echo "<label><h4>Select Player: </h4></label>";
+                        echo "<form action='' method='post' class='updatePW'>";                            
                             if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com"){
+                                echo "<label><h4>Select Player: </h4></label>";
                                 echo "<select name='userNewPWID' id='userNewPWID' required>", getAllPlayers() ,"</select>";
                             } else {
+                                echo "<label><h4>Name: </h4></label>";
                                 echo "<select name='userNewPWID' id='userNewPWID' required>", getSinglePlayer($_SESSION['adminID']) ,"</select>";
                             }
 
@@ -200,11 +251,12 @@ $userRow=mysqli_fetch_assoc($userQuery);
                     
                     echo "<div id='changeEM'>";
                         echo "<h3>Change Email</h3>";
-                        echo "<form action='' method='post' class='updateEM'>";
-                            echo "<label><h4>Select Player: </h4></label>";
+                        echo "<form action='' method='post' class='updateEM'>";                            
                             if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com"){
+                                echo "<label><h4>Select Player: </h4></label>";
                                 echo "<select name='userNewEMID' id='userNewEMID' required>", getAllPlayers() ,"</select>";
                             } else {
+                                echo "<label><h4>Name: </h4></label>";
                                 echo "<select name='userNewEMID' id='userNewEMID' required>", getSinglePlayer($_SESSION['adminID']) ,"</select>";
                             }
 
@@ -218,10 +270,11 @@ $userRow=mysqli_fetch_assoc($userQuery);
                     echo "<div id='changePH'>";
                         echo "<h3>Change Phone Number</h3>";
                         echo "<form action='' method='post' class='updatePN'>";
-                            echo "<label><h4>Select Player: </h4></label>";
                             if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com"){
+                                echo "<label><h4>Select Player: </h4></label>";
                                 echo "<select name='userNewPNID' id='userNewPNID' required>", getAllPlayers() ,"</select>";
                             } else {
+                                echo "<label><h4>Name: </h4></label>";
                                 echo "<select name='userNewPNID' id='userNewPNID' required>", getSinglePlayer($_SESSION['adminID']) ,"</select>";
                             }
 

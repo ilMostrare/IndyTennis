@@ -31,7 +31,7 @@ require_once ('includes/adminLogin.php');
 
         echo '<div class="matchesContent" id="style-2">';
             echo '<div class="header">';
-                echo '<h1><? echo date("Y") ?>Weekly Matches</h1>';
+                echo '<h1>Current Round Matches</h1>';
                 echo '<h3><a href="Ladder">Back to Ladder</a></h3>';
             echo '</div>';
             echo '<div class="displayMatches">';
@@ -45,7 +45,7 @@ require_once ('includes/adminLogin.php');
                 echo '<div class="right">';
                     echo '<h2>Doubles - Round ',$DBLSroundID,'</h2>';
                     echo '<table id="doublesMU">';
-                        //printDBLSMatchups();
+                        printDBLSMatchups();
                     echo '</table>';
                 echo '</div>';            
             echo '</div>';

@@ -12,55 +12,464 @@ function createSGLSMatches(){
     global $sznID;
     global $SGLSroundID;
 
-    $resultSet = array();
+    // $resultSet = array();
 
-    $allSinglesPlayersSQL = "SELECT `ID` FROM `PLAYERS` WHERE `SGLS_PLAYER`=1 AND `SEASON_NUM`='" . $sznID . "'";
+    $allSinglesPlayersSQL = "SELECT `PLAYER_ID` FROM `SGLSLADDER`  ORDER BY `ID`";
     $allSinglesPlayersQuery = @$conn->query($allSinglesPlayersSQL);
-    while ($all_SGLS_Players_Row = mysqli_fetch_assoc($allSinglesPlayersQuery)) {
-        $resultSet = $all_SGLS_Players_Row;
+    while ($all_SGLS_Players_Row = mysqli_fetch_array($allSinglesPlayersQuery)) {
+        $resultSet[] = $all_SGLS_Players_Row;
         // echo $resultSet;
     }
     foreach ($resultSet as &$player) {
-        echo "$player";
-    }
+        $player1 = $player[0];
+        echo $player1," vs ";
 
-    /* foreach($resultSet as &$player){
-        $j = rand(1, 3);
-        $player2 = $player + $j;
+        $player1SQL = "SELECT `ID` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '" . $player1 . "'";
+        $player1Query = @$conn->query($player1SQL);
+        while ($p1_Players_Row = mysqli_fetch_array($player1Query)) {
+            $player1Rank = $p1_Players_Row["ID"];
+            // echo $player1Rank;
+        }
 
-        $existsSQL = "SELECT * FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player . "') OR (`PLAYER2` = '" . $player . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
+        if ($SGLSroundID % 3 == 1){
+            $j = 1;
+        } else if ($SGLSroundID % 3 == 2){
+            $j = 2;
+        } else {
+            $j = 3;
+        }
+        // $j = rand(1,3);
+        
+        $player2Rank = $player1Rank + $j;
+        // echo $player2Rank," ";
+
+        $player2SQL = "SELECT `PLAYER_ID` FROM `SGLSLADDER` WHERE `ID` = '" . $player2Rank . "'";
+        $player2Query = @$conn->query($player2SQL);
+        while ($p2_Players_Row = mysqli_fetch_array($player2Query)) {
+            $player2 = $p2_Players_Row["PLAYER_ID"];
+            echo $player2;
+        }
+
+        $existsSQL = "SELECT COUNT(*) as 'COUNT' FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player1 . "') OR (`PLAYER2` = '" . $player1 . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
         $existsQRY = @$conn->query($existsSQL);
-        $alreadyExistsROW = mysqli_num_rows(($existsQRY));
+        while ($exists_Row = mysqli_fetch_assoc($existsQRY)) {
+            $exists = $exists_Row["COUNT"];
+        }
+        echo "exists",$exists;
 
-
-        $totalSGLSplayersSQL = "SELECT * FROM `PLAYERS` WHERE `SGLS_PLAYER`=1 AND `SEASON_NUM`='" . $sznID . "'";
+        $totalSGLSplayersSQL = "SELECT * FROM `SGLSLADDER`";
         $totalSGLSplayersQRY = @$conn->query($totalSGLSplayersSQL);
         $totalSGLSplayersROW = mysqli_num_rows($totalSGLSplayersQRY);
+        echo "rows",$totalSGLSplayersROW," \n";
 
-        if ($alreadyExistsROW > 0) {
-            //$i++;
-            echo "Player exists, do nothing";
+        if ($exists > 0) {
+            echo "Player exists, do nothing\n";
         } else {
             if ($player2 > $totalSGLSplayersROW) {
-                $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`) VALUES (NULL, '" . $player . "', NULL, " . $SGLSroundID . ", " . $sznID . ", '0', '0', '0', '0', '0', '0', '0', '0', '0')";
+                $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11' ," . $SGLSroundID . ", " . $sznID . ")";
                 @$conn->query($createMatchSQL);
-                //$i++;
             } else {
-                $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`) VALUES (NULL, '" . $player . "', '" . $player2 . "', '" . $SGLSroundID . "', '" . $sznID . "', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-                @$conn->query($createMatchSQL);
-                //$i++;
+                $exists2SQL = "SELECT COUNT(*) as 'COUNT' FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player2 . "') OR (`PLAYER2` = '" . $player2 . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
+                $exists2QRY = @$conn->query($exists2SQL);
+                while ($exists2_Row = mysqli_fetch_assoc($exists2QRY)) {
+                    $exists2 = $exists2_Row["COUNT"];
+                }
+
+                if($exists2 > 0){
+                    $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11' ," . $SGLSroundID . ", " . $sznID . ")";
+                    @$conn->query($createMatchSQL);
+                } else {
+                    $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '" . $SGLSroundID . "', '" . $sznID . "')";
+                    @$conn->query($createMatchSQL);
+                }                
             }
         }
-    } */
+
+    }
 }
-
-
 
 if (isset($_POST['createSGLSID'])){
 
     createSGLSMatches();
 
 }
+
+function createDBLSMatches(){
+    global $conn;
+    global $sznID;
+    global $DBLSroundID;
+
+    // $resultSet = array();
+
+    $allDoublesPlayersSQL = "SELECT `PLAYER_ID` FROM `DBLSLADDER`  ORDER BY `ID`";
+    $allDoublesPlayersQuery = @$conn->query($allDoublesPlayersSQL);
+    while ($all_DBLS_Players_Row = mysqli_fetch_array($allDoublesPlayersQuery)) {
+        $resultSet[] = $all_DBLS_Players_Row;
+        // echo $resultSet;
+    }
+    foreach ($resultSet as &$player) {
+        $player1 = $player[0];
+        echo $player1," - ";
+
+        $player1SQL = "SELECT `ID` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '" . $player1 . "'";
+        $player1Query = @$conn->query($player1SQL);
+        while ($p1_Players_Row = mysqli_fetch_array($player1Query)) {
+            $player1Rank = $p1_Players_Row["ID"];
+            // echo $player1Rank;
+        }
+        
+        $player2Rank = $player1Rank + 1;
+        $player2SQL = "SELECT `PLAYER_ID` FROM `DBLSLADDER` WHERE `ID` = '" . $player2Rank . "'";
+        $player2Query = @$conn->query($player2SQL);
+        while ($p2_Players_Row = mysqli_fetch_array($player2Query)) {
+            $player2 = $p2_Players_Row["PLAYER_ID"];
+        }
+        echo $player2," - ";
+
+        $player3Rank = $player1Rank + 2;
+        $player3SQL = "SELECT `PLAYER_ID` FROM `DBLSLADDER` WHERE `ID` = '" . $player3Rank . "'";
+        $player3Query = @$conn->query($player3SQL);
+        while ($p3_Players_Row = mysqli_fetch_array($player3Query)) {
+            $player3 = $p3_Players_Row["PLAYER_ID"];
+        }
+        echo $player3," - ";
+
+        $player4Rank = $player1Rank + 3;
+        $player4SQL = "SELECT `PLAYER_ID` FROM `DBLSLADDER` WHERE `ID` = '" . $player4Rank . "'";
+        $player4Query = @$conn->query($player4SQL);
+        while ($p4_Players_Row = mysqli_fetch_array($player4Query)) {
+            $player4 = $p4_Players_Row["PLAYER_ID"];
+        }
+        echo $player4,"\n";
+
+        $existsSQL = "SELECT COUNT(*) as 'COUNT' FROM `DBLSMATCH` WHERE ((`PLAYER1` = '" . $player1 . "') OR (`PLAYER2` = '" . $player1 . "') OR (`PLAYER3` = '" . $player1 . "') OR (`PLAYER4` = '" . $player1 . "')) AND `ROUND_NUM` = '" . $DBLSroundID . "'";
+        $existsQRY = @$conn->query($existsSQL);
+        while ($exists_Row = mysqli_fetch_assoc($existsQRY)) {
+            $exists = $exists_Row["COUNT"];
+        }
+        echo "exists",$exists;
+
+        $totalDBLSplayersSQL = "SELECT * FROM `DBLSLADDER`";
+        $totalDBLSplayersQRY = @$conn->query($totalDBLSplayersSQL);
+        $totalDBLSplayersROW = mysqli_num_rows($totalDBLSplayersQRY);
+        echo "rows",$totalDBLSplayersROW," \n";
+
+        if ($exists > 0) {
+            echo "Player exists, do nothing\n";
+        } else {
+            if ($player2 > $totalDBLSplayersROW) {
+                $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11', '11', '11'," . $DBLSroundID . ", " . $sznID . ")";
+                @$conn->query($createMatchSQL);
+            } else if ($player3 > $totalDBLSplayersROW) {
+                $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '11', '11'," . $DBLSroundID . ", " . $sznID . ")";
+                @$conn->query($createMatchSQL);
+            } else if ($player4 > $totalDBLSplayersROW) {
+                $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '" . $player3 . "', '11'," . $DBLSroundID . ", " . $sznID . ")";
+                @$conn->query($createMatchSQL);
+            } else {
+                $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '" . $player3 . "', '" . $player4 . "', '" . $DBLSroundID . "', '" . $sznID . "')";
+                @$conn->query($createMatchSQL);        
+            }
+        }
+
+    }
+}
+
+if (isset($_POST['createDBLSID'])){
+
+    createDBLSMatches();
+
+}
+
+#endregion
+
+#region Edit Matches
+
+    #region Edit Singles Match
+    function getAllSinglesPlayers(){
+        global $conn;
+        global $sznID;
+
+        $playerListSQL = "SELECT `SGLSLADDER`.`PLAYER_ID` as `PLAYER_ID`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`PLAYERS`.`FIRST_NAME` as `FIRST_NAME` FROM `SGLSLADDER` INNER JOIN `PLAYERS` ON `SGLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` ORDER BY `PLAYERS`.`LAST_NAME`";
+        $playerListQuery = @$conn->query($playerListSQL);
+        if (!$playerListQuery) {
+            $errno = $conn->errno;
+            $error = $conn->error;
+            $conn->close();
+            die("Selection failed: ($errno) $error.");
+        }
+        while ($playerListRow = mysqli_fetch_assoc($playerListQuery)) {
+            $playerID = $playerListRow["PLAYER_ID"];
+            $playerFName = $playerListRow["FIRST_NAME"];
+            $playerLName = $playerListRow["LAST_NAME"];
+            
+            // echo "<li>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</li>";
+            echo "<option value='",$playerID,"'>",$playerLName,", ",$playerFName,"</option>";
+        }
+
+    }
+
+    function editSinglesMatch($_matchID,$_player1,$_player2){
+        global $conn;
+
+        // echo $_matchID," ", $_player1," ", $_player2;
+
+        if(($_player1 > 0) && ($_player2 == 0)){
+            $editMatchSQL = "UPDATE `SGLSMATCH` SET `SGLSMATCH`.`PLAYER1` = '".$_player1."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            // echo $_matchID," ", $_player1," ", $_player2;
+
+            $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $selectTBDQuery = @$conn->query($selectTBDSQL);
+            if (!$selectTBDQuery) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($selectTBDRow = mysqli_fetch_assoc($selectTBDQuery)) {
+                $matchTBDID = $selectTBDRow["ID"];
+                $matchTBDP1 = $selectTBDRow["PLAYER1"];
+                $matchTBDP2 = $selectTBDRow["PLAYER2"];
+            }
+
+            // echo "matchtbdid ",$matchTBDID," p1 ",$matchTBDP1," p2 ",$matchTBDP2;
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_player1){
+                    $setTBDSQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else if ($matchTBDP2 == $_player1){
+                    $setTBDSQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+
+            // echo $_matchID," ", $_player1," ", $_player2;
+
+        } else if (($_player1 == 0) && ($_player2 > 0)){
+            $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player2."' OR `PLAYER2` = '".$_player2."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $selectTBDQuery = @$conn->query($selectTBDSQL);
+            if (!$selectTBDQuery) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($selectTBDRow = mysqli_fetch_assoc($selectTBDQuery)) {
+                $matchTBDID = $selectTBDRow["ID"];
+                $matchTBDP1 = $selectTBDRow["PLAYER1"];
+                $matchTBDP2 = $selectTBDRow["PLAYER2"];
+            }
+
+            // echo "matchtbdid ",$matchTBDID," p1 ",$matchTBDP1," p2 ",$matchTBDP2;
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_player2){
+                    $setTBDSQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else if ($matchTBDP2 == $_player2){
+                    $setTBDSQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+
+        } else {
+            $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = '".$_player1."', `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            $setTBD1SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $setTBD1Query = @$conn->query($setTBD1SQL);
+            if (!$setTBD1Query) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($setTBD1Row = mysqli_fetch_assoc($setTBD1Query)) {
+                $matchTBDID = $setTBD1Row["ID"];
+                $matchTBDP1 = $setTBD1Row["PLAYER1"];
+                $matchTBDP2 = $setTBD1Row["PLAYER2"];
+            }
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_player1){
+                    $setTBD1SQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD1SQL);
+                } else if ($matchTBDP2 == $_player1){
+                    $setTBD1SQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD1SQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+
+            $setTBD2SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE `PLAYER1` = '".$_player2."' OR `PLAYER2` = '".$_player2."' AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $setTBD2Query = @$conn->query($setTBD2SQL);
+            if (!$setTBD2Query) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($setTBD2Row = mysqli_fetch_assoc($setTBD2Query)) {
+                $matchTBD2ID = $setTBD2Row["ID"];
+                $matchTBD2P1 = $setTBD2Row["PLAYER1"];
+                $matchTBD2P2 = $setTBD2Row["PLAYER2"];
+            }
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_player2){
+                    $setTBD2SQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD2SQL);
+                } else if ($matchTBDP2 == $_player2){
+                    $setTBD2SQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = 11 WHERE `SGLSMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD2SQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+        }
+    }
+
+    if (isset($_POST['ntrEditsglsMatchID'])){
+
+        $editsglsMatchID = isset($_POST['ntrEditsglsMatchID']) ? $_POST['ntrEditsglsMatchID'] : 'No data found';
+        $editSGLSP1 = isset($_POST['ntrEditSGLSP1']) ? $_POST['ntrEditSGLSP1'] : 'No data found';
+        $editSGLSP2 = isset($_POST['ntrEditSGLSP2']) ? $_POST['ntrEditSGLSP2'] : 'No data found';    
+
+        editSinglesMatch($editsglsMatchID, $editSGLSP1, $editSGLSP2);
+
+    }
+
+    #endregion
+
+    #region Doubles Match Edit
+    function getAllDoublesPlayers(){
+        global $conn;
+        global $sznID;
+
+        $playerListSQL = "SELECT `DBLSLADDER`.`PLAYER_ID` as `PLAYER_ID`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`PLAYERS`.`FIRST_NAME` as `FIRST_NAME` FROM `DBLSLADDER` INNER JOIN `PLAYERS` ON `DBLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` ORDER BY `PLAYERS`.`LAST_NAME`";
+        $playerListQuery = @$conn->query($playerListSQL);
+        if (!$playerListQuery) {
+            $errno = $conn->errno;
+            $error = $conn->error;
+            $conn->close();
+            die("Selection failed: ($errno) $error.");
+        }
+        while ($playerListRow = mysqli_fetch_assoc($playerListQuery)) {
+            $playerID = $playerListRow["PLAYER_ID"];
+            $playerFName = $playerListRow["FIRST_NAME"];
+            $playerLName = $playerListRow["LAST_NAME"];
+            
+            // echo "<li>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</li>";
+            echo "<option value='",$playerID,"'>",$playerLName,", ",$playerFName,"</option>";
+        }
+
+    }
+
+    function editDoublesMatch($_matchID,$_player1,$_player2,$_player3,$_player4){
+        global $conn;
+        
+        $player_arr = array($_player1,$_player2,$_player3,$_player4);
+
+        foreach($player_arr as $key => $plyr){
+
+            if($plyr > 0){
+                if($key == 0){
+                    $editMatchSQL = "UPDATE `DBLSMATCH` SET `DBLSMATCH`.`PLAYER1` = '".$plyr."' WHERE `DBLSMATCH`.`ID` = '".$_matchID."'";
+                    @$conn->query($editMatchSQL);
+                } else if ($key == 1) {
+                    $editMatchSQL = "UPDATE `DBLSMATCH` SET `DBLSMATCH`.`PLAYER2` = '".$plyr."' WHERE `DBLSMATCH`.`ID` = '".$_matchID."'";
+                    @$conn->query($editMatchSQL);
+                } else if ($key == 2) {
+                    $editMatchSQL = "UPDATE `DBLSMATCH` SET `DBLSMATCH`.`PLAYER3` = '".$plyr."' WHERE `DBLSMATCH`.`ID` = '".$_matchID."'";
+                    @$conn->query($editMatchSQL);
+                } else if ($key == 3){
+                    $editMatchSQL = "UPDATE `DBLSMATCH` SET `DBLSMATCH`.`PLAYER4` = '".$plyr."' WHERE `DBLSMATCH`.`ID` = '".$_matchID."'";
+                    @$conn->query($editMatchSQL);
+                } else {
+                    // do nothing
+                }
+
+                $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2`,`PLAYER3`,`PLAYER4` FROM `DBLSMATCH` WHERE (`PLAYER1` = '".$plyr."' OR `PLAYER2` = '".$plyr."' OR `PLAYER3` = '".$plyr."' OR `PLAYER4` = '".$plyr."') AND NOT `DBLSMATCH`.`ID` = '".$_matchID."'";
+                $selectTBDQuery = @$conn->query($selectTBDSQL);
+                if (!$selectTBDQuery) {
+                    $errno = $conn->errno;
+                    $error = $conn->error;
+                    $conn->close();
+                    die("Selection failed: ($errno) $error.");
+                }
+                while ($selectTBDRow = mysqli_fetch_assoc($selectTBDQuery)) {
+                    $matchTBDID = $selectTBDRow["ID"];
+                    $matchTBDP1 = $selectTBDRow["PLAYER1"];
+                    $matchTBDP2 = $selectTBDRow["PLAYER2"];
+                    $matchTBDP3 = $selectTBDRow["PLAYER3"];
+                    $matchTBDP4 = $selectTBDRow["PLAYER4"];
+                }
+
+                if ($matchTBDID != ''){
+                    if ($matchTBDP1 == $plyr){
+                        $setTBDSQL = "UPDATE `DBLSMATCH` SET `PLAYER1` = 11 WHERE `DBLSMATCH`.`ID` = '".$matchTBDID."'";
+                        @$conn->query($setTBDSQL);
+                    } else if ($matchTBDP2 == $plyr){
+                        $setTBDSQL = "UPDATE `DBLSMATCH` SET `PLAYER2` = 11 WHERE `DBLSMATCH`.`ID` = '".$matchTBDID."'";
+                        @$conn->query($setTBDSQL);
+                    } else if ($matchTBDP3 == $plyr){
+                        $setTBDSQL = "UPDATE `DBLSMATCH` SET `PLAYER3` = 11 WHERE `DBLSMATCH`.`ID` = '".$matchTBDID."'";
+                        @$conn->query($setTBDSQL);
+                    } else if ($matchTBDP4 == $plyr){
+                        $setTBDSQL = "UPDATE `DBLSMATCH` SET `PLAYER4` = 11 WHERE `DBLSMATCH`.`ID` = '".$matchTBDID."'";
+                        @$conn->query($setTBDSQL);
+                    } else {
+                        // do nothing
+                    }
+                } else {
+                    echo "no secondary match to be updated";
+                }
+            } else {
+                // do nothing
+            }
+
+            $i++;
+            unset($matchTBDID,$matchTBDP1,$matchTBDP2,$matchTBDP3,$matchTBDP4);
+        }
+
+        unset($player_arr,$i);
+
+    }
+
+    if (isset($_POST['ntrEditdblsMatchID'])){
+
+        $editdblsMatchID = isset($_POST['ntrEditdblsMatchID']) ? $_POST['ntrEditdblsMatchID'] : 'No data found';
+        $editDBLSP1 = isset($_POST['ntrEditDBLSP1']) ? $_POST['ntrEditDBLSP1'] : 'No data found';
+        $editDBLSP2 = isset($_POST['ntrEditDBLSP2']) ? $_POST['ntrEditDBLSP2'] : 'No data found';    
+        $editDBLSP3 = isset($_POST['ntrEditDBLSP3']) ? $_POST['ntrEditDBLSP3'] : 'No data found';
+        $editDBLSP4 = isset($_POST['ntrEditDBLSP4']) ? $_POST['ntrEditDBLSP4'] : 'No data found';  
+
+        editDoublesMatch($editdblsMatchID, $editDBLSP1, $editDBLSP2, $editDBLSP3, $editDBLSP4);
+
+    }
+    #endregion
 
 #endregion
 
@@ -69,10 +478,9 @@ if (isset($_POST['createSGLSID'])){
 function getSGLSMatches(){
     global $conn;
     global $sznID;
-    // global $currentRound;
     global $SGLSroundID;
 
-    $optSGLSMatchupsSQL = "SELECT `SGLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `SGLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `SGLSMATCH`.`PLAYER2` WHERE `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."' AND `SGLSMATCH`.`MATCHWINNER` = 0";
+    $optSGLSMatchupsSQL = "SELECT `SGLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `SGLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `SGLSMATCH`.`PLAYER2` WHERE `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."' AND `SGLSMATCH`.`MATCHWINNER` = 0 AND `SGLSMATCH`.`DNP` = 0";
     $optSGLSMatchupsQuery = @$conn->query($optSGLSMatchupsSQL);
     if (!$optSGLSMatchupsQuery) {
         $errno = $conn->errno;
@@ -85,13 +493,12 @@ function getSGLSMatches(){
         $sglsMatchPlayer1 = $optSGLSMatchupsRow["P_1"];
         $sglsMatchPlayer2 = $optSGLSMatchupsRow["P_2"];
         
-        // echo "<li>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</li>";
         echo "<option value='",$sglsMatchID,"'>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</option>";
     }
 
 }
 
-function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3,$_playoff,$_challenge,$_winner){
+function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3,$_playoff,$_challenge,$_winner,$_DNP){
     global $conn;
     global $sznID;
     global $SGLSroundID;
@@ -172,8 +579,15 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
     
     #region Insert Scores
-    $insrtSGLSScores = "UPDATE `SGLSMATCH` SET `P1_SET1` = '".$_p1s1."', `P1_SET2` = '".$_p1s2."', `P1_SET3` = '".$_p1s3."', `P2_SET1` = '".$_p2s1."', `P2_SET2` = '".$_p2s2."', `P2_SET3` = '".$_p2s3."', `MATCHWINNER` = '".$_winner."', `CHALLENGE` = '".$_challenge."', `PLAYOFF` = '".$_playoff."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
-    @$conn->query($insrtSGLSScores);
+
+    if($_DNP == 1){
+        $insrtSGLSDNP = "UPDATE `SGLSMATCH` SET `DNP` = '".$_DNP."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
+        @$conn->query($insrtSGLSDNP);
+    } else {
+        $insrtSGLSScores = "UPDATE `SGLSMATCH` SET `P1_SET1` = '".$_p1s1."', `P1_SET2` = '".$_p1s2."', `P1_SET3` = '".$_p1s3."', `P2_SET1` = '".$_p2s1."', `P2_SET2` = '".$_p2s2."', `P2_SET3` = '".$_p2s3."', `MATCHWINNER` = '".$_winner."', `CHALLENGE` = '".$_challenge."', `PLAYOFF` = '".$_playoff."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
+        @$conn->query($insrtSGLSScores);
+    }
+
     #endregion
 
     #region Calculate # of games won
@@ -286,9 +700,10 @@ if (isset($_POST['ntrSGLSMatchID'])){
     $sglsPlayoff = isset($_POST['ntrSGLSPlayoff']) ? $_POST['ntrSGLSPlayoff'] : 'No data found';
     $sglsChallenge = isset($_POST['ntrSGLSChallenge']) ? $_POST['ntrSGLSChallenge'] : 'No data found';
     $sglsWinner = isset($_POST['ntrSGLSWinner']) ? $_POST['ntrSGLSWinner'] : 'No data found';
+    $sglsDNP = isset($_POST['ntrsglsDNP']) ? $_POST['ntrsglsDNP'] : 'No data found';
 
 
-    ntrSGLSScores($SGLSMatchID, $sglsp1s1, $sglsp1s2, $sglsp1s3, $sglsp2s1, $sglsp2s2, $sglsp2s3,$sglsPlayoff,$sglsChallenge,$sglsWinner);
+    ntrSGLSScores($SGLSMatchID, $sglsp1s1, $sglsp1s2, $sglsp1s3, $sglsp2s1, $sglsp2s2, $sglsp2s3,$sglsPlayoff,$sglsChallenge,$sglsWinner,$sglsDNP);
 
 }
 
@@ -296,6 +711,250 @@ if (isset($_POST['ntrSGLSMatchID'])){
 #endregion
 
 #region Enter Doubles Scores
+
+function getDBLSMatches(){
+    global $conn;
+    global $sznID;
+    global $DBLSroundID;
+
+    $optDBLSMatchupsSQL = "SELECT `DBLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2`, `P3`.`LAST_NAME` as `P_3`, `P4`.`LAST_NAME` as `P_4` FROM `DBLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `DBLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `DBLSMATCH`.`PLAYER2` INNER JOIN `PLAYERS` as `P3` ON `P3`.`ID` = `DBLSMATCH`.`PLAYER3` INNER JOIN `PLAYERS` as `P4` ON `P4`.`ID` = `DBLSMATCH`.`PLAYER4` WHERE `DBLSMATCH`.`ROUND_NUM` = '".$DBLSroundID."' AND `DBLSMATCH`.`SET1WINNER` = 0 AND `DBLSMATCH`.`SET2WINNER` = 0 AND `DBLSMATCH`.`SET3WINNER` = 0 AND `DBLSMATCH`.`DNP` = 0";
+    $optDBLSMatchupsQuery = @$conn->query($optDBLSMatchupsSQL);
+    if (!$optDBLSMatchupsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($optDBLSMatchupsRow = mysqli_fetch_assoc($optDBLSMatchupsQuery)) {
+        $DBlsMatchID = $optDBLSMatchupsRow["ID"];
+        $DBlsMatchPlayer1 = $optDBLSMatchupsRow["P_1"];
+        $DBlsMatchPlayer2 = $optDBLSMatchupsRow["P_2"];
+        $DBlsMatchPlayer3 = $optDBLSMatchupsRow["P_3"];
+        $DBlsMatchPlayer4 = $optDBLSMatchupsRow["P_4"];
+        
+        echo "<option value='",$DBlsMatchID,"'>",$DBlsMatchPlayer1,", ",$DBlsMatchPlayer2,", ",$DBlsMatchPlayer3,", ",$DBlsMatchPlayer4,"</option>";
+    }
+
+}
+
+function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$_Playoff,$_Challenge,$_Set1Winner,$_Set2Winner,$_Set3Winner,$_DNP){
+    global $conn;
+    global $sznID;
+    global $DBLSroundID;
+
+
+    #region get match players
+    $dblsMatchPlayersSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2`,`PLAYER3`,`PLAYER4` FROM `DBLSMATCH` WHERE `ID` = '".$_MatchID."'";
+    $dblsMatchPlayersQuery = @$conn->query($dblsMatchPlayersSQL);
+    #region error handling
+    if (!$dblsMatchPlayersQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($dblsMatchPlayersRow = mysqli_fetch_assoc($dblsMatchPlayersQuery)) {
+        $dblsMatchNum = $dblsMatchPlayersRow["ID"];
+        $dblsMatchP1 = $dblsMatchPlayersRow["PLAYER1"];
+        $dblsMatchP2 = $dblsMatchPlayersRow["PLAYER2"];
+        $dblsMatchP3 = $dblsMatchPlayersRow["PLAYER3"];
+        $dblsMatchP4 = $dblsMatchPlayersRow["PLAYER4"];
+    }
+
+    #endregion
+
+    #region Insert Scores
+    if($_DNP == 1){
+        $insrtDBLSdnp = "UPDATE `DBLSMATCH` SET `DNP` = '".$_DNP."' WHERE `DBLSMATCH`.`ID` = '".$_MatchID."'";
+        @$conn->query($insrtDBLSdnp);
+    } else {
+        $insrtDBLSScores = "UPDATE `DBLSMATCH` SET `T1_SET1` = '".$_T1s1."', `T1_SET2` = '".$_T1s2."', `T1_SET3` = '".$_T1s3."', `T2_SET1` = '".$_T2s1."', `T2_SET2` = '".$_T2s2."', `T2_SET3` = '".$_T2s3."', `SET1WINNER` = '".$_Set1Winner."', `SET2WINNER` = '".$_Set2Winner."', `SET3WINNER` = '".$_Set3Winner."' WHERE `DBLSMATCH`.`ID` = '".$_MatchID."'";
+        @$conn->query($insrtDBLSScores);
+    }
+    #endregion
+
+    #region Get Current Points
+    $player1curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP1."'";
+    $player1curDBLSPTSQuery = @$conn->query($player1curDBLSPTSSQL);
+    #region error handling
+    if (!$player1curDBLSPTSQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($player1curDBLSPTSRow = mysqli_fetch_assoc($player1curDBLSPTSQuery)) {
+        $player1curDBLSPTS = $player1curDBLSPTSRow["DBLS_POINTS"];
+    }
+
+    $player2curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP2."'";
+    $player2curDBLSPTSQuery = @$conn->query($player2curDBLSPTSSQL);
+    #region error handling
+    if (!$player2curDBLSPTSQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($player2curDBLSPTSRow = mysqli_fetch_assoc($player2curDBLSPTSQuery)) {
+        $player2curDBLSPTS = $player2curDBLSPTSRow["DBLS_POINTS"];
+    }
+
+    $player3curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP3."'";
+    $player3curDBLSPTSQuery = @$conn->query($player3curDBLSPTSSQL);
+    #region error handling
+    if (!$player3curDBLSPTSQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($player3curDBLSPTSRow = mysqli_fetch_assoc($player3curDBLSPTSQuery)) {
+        $player3curDBLSPTS = $player3curDBLSPTSRow["DBLS_POINTS"];
+    }
+
+    $player4curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP4."'";
+    $player4curDBLSPTSQuery = @$conn->query($player4curDBLSPTSSQL);
+    #region error handling
+    if (!$player4curDBLSPTSQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($player4curDBLSPTSRow = mysqli_fetch_assoc($player4curDBLSPTSQuery)) {
+        $player4curDBLSPTS = $player4curDBLSPTSRow["DBLS_POINTS"];
+    }
+    #endregion
+    
+    #region Calculate Points
+    $player1Points = $player1curDBLSPTS;
+    $player2Points = $player2curDBLSPTS;
+    $player3Points = $player3curDBLSPTS;
+    $player4Points = $player4curDBLSPTS;
+
+    if ($_Set1Winner == 1){
+        $player3Points += $_T2s1;
+        $player4Points += $_T2s1;
+
+        $player1Points += (6 + ($_T1s1 - $_T2s1) );
+        $player2Points += (6 + ($_T1s1 - $_T2s1) );
+    } else if ($_Set1Winner == 2){
+        $player1Points += $_T1s1;
+        $player2Points += $_T1s1;
+
+        $player3Points += (6 + ($_T2s1 - $_T1s1) );
+        $player4Points += (6 + ($_T2s1 - $_T1s1) );
+    } else {
+        $player1Points = $player1curPTS;
+        $player2Points = $player2curPTS;
+        $player3Points = $player3curPTS;
+        $player4Points = $player4curPTS;
+    }
+
+    if($_Set2Winner == 1){
+        $player2Points += $_T2s2;
+        $player4Points += $_T2s2;
+
+        $player1Points += (6 + ($_T1s2 - $_T2s2) );
+        $player3Points += (6 + ($_T1s2 - $_T2s2) );
+    } else if($_Set2Winner == 2){
+        $player1Points += $_T1s2;
+        $player3Points += $_T1s2;
+
+        $player2Points += (6 + ($_T2s2 - $_T1s2) );
+        $player4Points += (6 + ($_T2s2 - $_T1s2) );
+    } else {
+        $player1Points = $player1curDBLSPTS;
+        $player2Points = $player2curDBLSPTS;
+        $player3Points = $player3curDBLSPTS;
+        $player4Points = $player4curDBLSPTS;
+    }
+
+    if($_Set3Winner == 1){
+        $player2Points += $_T2s3;
+        $player3Points += $_T2s3;
+
+        $player1Points += (6 + ($_T1s3 - $_T2s3) );
+        $player4Points += (6 + ($_T1s3 - $_T2s3) );
+    } else if($_Set3Winner == 2){
+        $player1Points += $_T1s3;
+        $player4Points += $_T1s3;
+
+        $player2Points += (6 + ($_T2s2 - $_T1s3) );
+        $player3Points += (6 + ($_T2s2 - $_T1s3) );
+    } else {
+        $player1Points = $player1curPTS;
+        $player2Points = $player2curPTS;
+        $player3Points = $player3curPTS;
+        $player4Points = $player4curPTS;
+    }
+
+    if ($_playoff == 1){
+        $player1Points = $player1curDBLSPTS;
+        $player2Points = $player2curDBLSPTS;
+        $player3Points = $player3curDBLSPTS;
+        $player4Points = $player4curDBLSPTS;
+    }
+    #endregion
+
+    #region Insert Points
+    $updateDBLSScoresP1 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player2Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP1."'";
+    if ($conn->query($updateDBLSScoresP1) === TRUE) {
+        echo "Records added successfully.";
+        //header("Location: Admin.php");
+    }
+    $updateDBLSScoresP2 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player2Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP2."'";
+    if ($conn->query($updateDBLSScoresP2) === TRUE) {
+        echo "Records added successfully.";
+        //header("Location: Admin.php");
+    }
+    $updateDBLSScoresP3 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player3Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP3."'";
+    if ($conn->query($updateDBLSScoresP3) === TRUE) {
+        echo "Records added successfully.";
+        //header("Location: Admin.php");
+    }
+    $updateDBLSScoresP4 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player4Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP4."'";
+    if ($conn->query($updateDBLSScoresP4) === TRUE) {
+        echo "Records added successfully.";
+        //header("Location: Admin.php");
+    }
+
+    $dropPrimarydblsSQL = "ALTER TABLE `DBLSLADDER` DROP COLUMN `ID`";
+    @$conn->query($dropPrimarydblsSQL);
+    $sortTabledblsSQL = "ALTER TABLE `DBLSLADDER` ORDER BY `DBLS_POINTS` DESC";
+    @$conn->query($sortTabledblsSQL);
+    $addPrimarydblsSQL = "ALTER TABLE `DBLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
+    @$conn->query($addPrimarydblsSQL);
+    #endregion
+    
+}
+
+if (isset($_POST['ntrDBLSMatchID'])){
+
+    $DBLSMatchID = isset($_POST['ntrDBLSMatchID']) ? $_POST['ntrDBLSMatchID'] : 'No data found';
+    $dblsT1s1 = isset($_POST['ntrDBLSS1T1']) ? $_POST['ntrDBLSS1T1'] : 'No data found';
+    $dblsT1s2 = isset($_POST['ntrDBLSS2T1']) ? $_POST['ntrDBLSS2T1'] : 'No data found';
+    $dblsT1s3 = isset($_POST['ntrDBLSS3T1']) ? $_POST['ntrDBLSS3T1'] : 'No data found';
+    $dblsT2s1 = isset($_POST['ntrDBLSS1T2']) ? $_POST['ntrDBLSS1T2'] : 'No data found';
+    $dblsT2s2 = isset($_POST['ntrDBLSS2T2']) ? $_POST['ntrDBLSS2T2'] : 'No data found';
+    $dblsT2s3 = isset($_POST['ntrDBLSS3T2']) ? $_POST['ntrDBLSS3T2'] : 'No data found';
+    $dblsPlayoff = isset($_POST['ntrDBLSPlayoff']) ? $_POST['ntrDBLSPlayoff'] : 'No data found';
+    $dblsChallenge = isset($_POST['ntrDBLSChallenge']) ? $_POST['ntrDBLSChallenge'] : 'No data found';
+    $dblsSet1Winner = isset($_POST['ntrDBLSSet1Winner']) ? $_POST['ntrDBLSSet1Winner'] : 'No data found';
+    $dblsSet2Winner = isset($_POST['ntrDBLSSet2Winner']) ? $_POST['ntrDBLSSet2Winner'] : 'No data found';
+    $dblsSet3Winner = isset($_POST['ntrDBLSSet3Winner']) ? $_POST['ntrDBLSSet3Winner'] : 'No data found';
+    $dblsDNP = isset($_POST['ntrDBlsDNP']) ? $_POST['ntrDBlsDNP'] : 'No data found';
+
+
+    ntrDBLSScores($DBLSMatchID, $dblsT1s1, $dblsT1s2, $dblsT1s3, $dblsT2s1, $dblsT2s2, $dblsT2s3,$dblsPlayoff,$dblsChallenge,$dblsSet1Winner,$dblsSet2Winner,$dblsSet3Winner,$dblsDNP);
+
+}
 
 #endregion
 
@@ -333,7 +992,7 @@ function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$
         $dropPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` DROP COLUMN `ID`";
         @$conn->query($dropPrimarySGLSSQL);
         $sortTableSGLSSQL = "ALTER TABLE `SGLSLADDER` ORDER BY `SGLS_POINTS` DESC";
-        @$conn->query($sortTableSQL);
+        @$conn->query($sortTableSGLSSQL);
         $addPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
         @$conn->query($addPrimarySGLSSQL);
     }
@@ -410,7 +1069,7 @@ function getAllPlayers(){
     global $conn;
     global $sznID;
 
-    $playerListSQL = "SELECT `ID`,`FIRST_NAME`,`LAST_NAME`,`SEASON_NUM` FROM `PLAYERS` WHERE `SEASON_NUM` = '".$sznID."'";
+    $playerListSQL = "SELECT `ID`,`FIRST_NAME`,`LAST_NAME`,`SEASON_NUM` FROM `PLAYERS` WHERE `SEASON_NUM` = '".$sznID."' AND NOT `ID` = 11 ORDER BY `LAST_NAME` ASC";
     $playerListQuery = @$conn->query($playerListSQL);
     if (!$playerListQuery) {
         $errno = $conn->errno;

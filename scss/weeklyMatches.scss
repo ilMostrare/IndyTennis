@@ -187,36 +187,20 @@
         margin: 0 auto;
         padding-bottom: 7px;
         text-decoration: underline;
-
-        .rnk{
-          width: 20%;
-          //background-color: #A5DC86;
-          margin: auto;
-          text-align: center;
-
-        }
-        .nme{
-          width: 60%;
-          //background-color: #f06e57;
-          text-align: center;
-          margin: auto;
-        }
-        .pts{
-          width: 20%;
-          //background-color: cornflowerblue;
-          text-align: center;
-          margin: auto;
-        }
       }
 
       #doublesMU{
         width: 100%;
-        //background-color: #53A548;
+        // background-color: rgb(193, 214, 190);
         //border: none;
         margin: 0 auto;
         padding: 5px auto 5px auto;
         //border: 1px solid #CCC;
         border-collapse: collapse;
+
+        tr:nth-child(odd) {
+          background-color: #dcdcdc;
+        }
 
         td{
           padding-top: .5em;
@@ -225,20 +209,23 @@
         }
 
         .tableLeft{
-          width: 20%;
-          //background-color: #A5DC86;
-          text-align: center;
+          width: 10%;
+          // background-color: royalblue;
+          text-align: left;
           padding: 5px auto;
         }
         .tableCenter{
-          width: 60%;
-          //background-color: #f06e57;
+          width: 80%;
+          // background-color: #A5DC86;
           text-align: center;
           padding: 5px auto;
-
+          display: flex;
+          margin: auto;
 
           form{
-            .doubles-player-name{
+            margin: auto;
+
+            .doublesMatch-player-name{
               text-decoration: none;
               background: none;
               border: none;
@@ -257,8 +244,8 @@
           }
         }
         .tableRight{
-          width: 20%;
-          //background-color: cornflowerblue;
+          width: 10%;
+          // background-color: cornflowerblue;
           text-align: center;
           padding: 5px auto;
 
