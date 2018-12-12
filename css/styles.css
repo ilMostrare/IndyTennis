@@ -679,6 +679,9 @@ nav .navContainer .navRight div {
   margin: 0 auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
 }
 
 .playerContent .header h1 {
@@ -693,6 +696,10 @@ nav .navContainer .navRight div {
   margin: 0 auto;
   text-align: center;
   letter-spacing: 3px;
+  color: #333333;
+}
+
+.playerContent .header h3 {
   color: #333333;
 }
 
@@ -714,6 +721,148 @@ nav .navContainer .navRight div {
   margin: 0 auto 20px auto;
   width: 49%;
   text-align: left;
+}
+
+.playerContent .upcomingMatches {
+  width: 90%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 0 auto 20px auto;
+}
+
+.playerContent .upcomingMatches h4 {
+  padding-left: 30px;
+  color: #333333;
+}
+
+.playerContent .upcomingMatches .printMatch {
+  width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  border-top-style: solid;
+  border-top-width: .5px;
+  border-top-color: lightgrey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.playerContent .upcomingMatches .printMatch table {
+  table-layout: fixed;
+  width: 80%;
+  margin: auto auto auto 10px;
+  border: none;
+}
+
+.playerContent .upcomingMatches .printMatch table th {
+  width: 25%;
+  margin: 10px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.playerContent .upcomingMatches .printMatch table td {
+  width: 25%;
+  margin: 10px;
+  vertical-align: middle;
+}
+
+.playerContent .upcomingMatches .printMatch table td .viewPlayer {
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1em;
+  color: #53A548;
+}
+
+.playerContent .upcomingMatches .printMatch table td .viewPlayer:hover {
+  color: #EEF95D;
+}
+
+.playerContent .upcomingMatches .printMatch table td .viewPlayer:active {
+  color: #53A548;
+}
+
+.playerContent .matchHistory {
+  width: 90%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  margin: 0 auto 15px auto;
+}
+
+.playerContent .matchHistory h4 {
+  padding-left: 30px;
+  color: #333333;
+}
+
+.playerContent .matchHistory .printMatch {
+  width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  border-top-style: solid;
+  border-top-width: .5px;
+  border-top-color: lightgrey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.playerContent .matchHistory .printMatch table {
+  table-layout: fixed;
+  width: 100%;
+  margin: auto auto auto 10px;
+  border: none;
+}
+
+.playerContent .matchHistory .printMatch table th {
+  min-width: 14%;
+  margin: 10px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.playerContent .matchHistory .printMatch table .mid {
+  min-width: 14%;
+  margin: 10px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.playerContent .matchHistory .printMatch table .mid2 {
+  min-width: 14%;
+  margin: 10px;
+  text-align: center;
+}
+
+.playerContent .matchHistory .printMatch table td {
+  min-width: 16.5%;
+  margin: 10px;
+  text-align: left;
+}
+
+.playerContent .matchHistory .printMatch table td .viewPlayer {
+  text-align: left;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1em;
+  color: #53A548;
+}
+
+.playerContent .matchHistory .printMatch table td .viewPlayer:hover {
+  color: #EEF95D;
+}
+
+.playerContent .matchHistory .printMatch table td .viewPlayer:active {
+  color: #53A548;
 }
 
 .playerContent .loginDiv {
@@ -936,7 +1085,7 @@ nav .navContainer .navRight div {
   vertical-align: middle;
 }
 
-.adminContent .header .line2 h3 {
+.adminContent .header .line2 h2 {
   margin: 0 auto 5px auto;
   text-align: center;
   letter-spacing: 3px;
@@ -1206,6 +1355,117 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #editRoundMatches form input[type=submit]:hover {
+  background-color: darkgrey;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch {
+  margin-top: 35px;
+  display: none;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch h3 {
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .roundNumbers {
+  width: 100%;
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .roundNumbers span {
+  margin: auto;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet input {
+  margin-bottom: 10px;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch .sglsSet label {
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch form input {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  padding-left: 5px;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch form select {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  padding-left: 5px;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch form input[type=submit] {
+  height: 40px;
+  width: 300px;
+  min-width: 145px;
+  border: none;
+  border-radius: 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+  margin: 10px auto 35px auto;
+  padding: 0;
+}
+
+.adminContent .adminBody .adminForms #addChallengeMatch form input[type=submit]:hover {
   background-color: darkgrey;
 }
 
@@ -2136,302 +2396,6 @@ footer .shoe .footerRight a:active {
   color: #53A548;
 }
 
-@media all and (max-width: 1320px) {
-  /********* Nav **********/
-  nav .navContainer .navLeft .navLinks {
-    margin: auto;
-  }
-  nav .navContainer .navLeft .navLinks li {
-    margin: auto;
-    width: -webkit-min-content;
-    width: -moz-min-content;
-    width: min-content;
-    float: left;
-  }
-  nav .navContainer .navLeft .navLinks li a#tourney {
-    display: none;
-  }
-}
-
-@media all and (max-width: 1280px) {
-  /********* Index **********/
-  .homeContent .hmRight h3 {
-    width: 95%;
-  }
-  .homeContent .hmRight p {
-    font-size: 80%;
-  }
-  .homeContent .hmRight h4 {
-    font-size: 80%;
-  }
-  /********* About **********/
-  .aboutContent .hmRight h3 {
-    width: 95%;
-  }
-  .aboutContent .hmRight p {
-    font-size: 80%;
-  }
-  .aboutContent .hmRight h4 {
-    font-size: 80%;
-  }
-}
-
-@media only screen and (max-device-width: 1080px) {
-  /********* Nav **********/
-  nav .navContainer {
-    width: 95%;
-  }
-  nav .navContainer .navLeft .navLinks {
-    margin: auto;
-  }
-  nav .navContainer .navLeft .navLinks li {
-    margin: auto;
-    font-size: larger;
-    width: -webkit-min-content;
-    width: -moz-min-content;
-    width: min-content;
-    float: left;
-  }
-  nav .navContainer .navLeft .navLinks li a#tourney {
-    display: none;
-  }
-  nav .navContainer #navCenter #navLiCenter #logo a svg {
-    margin: auto auto;
-  }
-  /********* Index **********/
-  .homeContent {
-    width: 95%;
-    display: block;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  .homeContent .hmLeft {
-    width: 100%;
-    margin: 0 auto 20px auto;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-    border-radius: 10px;
-  }
-  .homeContent .hmLeft img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px 10px 0 0;
-  }
-  .homeContent .hmRight {
-    width: 100%;
-    margin: auto auto 20px auto;
-    padding: 0 5% 15px 5%;
-    border-radius: 10px;
-  }
-  .homeContent .hmRight h3 {
-    font-size: 2em;
-  }
-  .homeContent .hmRight p {
-    width: 100%;
-    padding-left: 0;
-  }
-  .homeContent .hmRight h4 {
-    width: 100%;
-    padding-left: 0;
-  }
-  /********* About **********/
-  .aboutContent {
-    width: 95%;
-    display: block;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  .aboutContent .abtLeft {
-    width: 100%;
-    margin: 0 auto 20px auto;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-    border-radius: 10px;
-  }
-  .aboutContent .abtLeft img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px 10px 0 0;
-  }
-  .aboutContent .hmRight {
-    width: 100%;
-    margin: auto auto 20px auto;
-    padding: 0 5% 15px 5%;
-    border-radius: 10px;
-  }
-  .aboutContent .hmRight h3 {
-    font-size: 2em;
-  }
-  .aboutContent .hmRight p {
-    width: 100%;
-    padding-left: 0;
-  }
-  .aboutContent .hmRight h4 {
-    width: 100%;
-    padding-left: 0;
-  }
-  /********* Ladder **********/
-  .ladderContent {
-    width: 95%;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  /********* Footer **********/
-  footer .shoe {
-    width: 95%;
-  }
-}
-
-@media only screen and (max-device-width: 1080px) and (orientation: portrait) {
-  /********* Nav **********/
-  nav {
-    height: 120px;
-  }
-  nav .navContainer {
-    width: 95%;
-  }
-  nav .navContainer .navLeft .navLinks {
-    margin: auto;
-  }
-  nav .navContainer .navLeft .navLinks li {
-    margin: auto;
-    font-size: 150%;
-    width: -webkit-min-content;
-    width: -moz-min-content;
-    width: min-content;
-    float: left;
-  }
-  nav .navContainer .navLeft .navLinks li .listA {
-    height: 120px;
-    line-height: 120px;
-    margin: auto;
-  }
-  nav .navContainer .navLeft .navLinks li a#tourney {
-    display: none;
-  }
-  nav .navContainer #navCenter #navLiCenter {
-    width: 100%;
-  }
-  nav .navContainer #navCenter #navLiCenter #logo {
-    width: 100%;
-  }
-  nav .navContainer #navCenter #navLiCenter #logo a {
-    width: 100%;
-  }
-  nav .navContainer #navCenter #navLiCenter #logo a svg {
-    width: 100%;
-    margin: auto auto;
-  }
-  nav .navContainer .navRight div {
-    display: none;
-  }
-  /********* Index **********/
-  .homeContent {
-    padding-top: 140px;
-    width: 95%;
-    display: block;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  .homeContent .hmLeft {
-    width: 100%;
-    margin: 0 auto 20px auto;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  .homeContent .hmRight {
-    width: 100%;
-    margin: auto auto 15px auto;
-    padding: 0 5% 15px 5%;
-  }
-  .homeContent .hmRight h3 {
-    font-size: 2em;
-  }
-  .homeContent .hmRight p {
-    width: 100%;
-    padding-left: 0;
-  }
-  .homeContent .hmRight h4 {
-    width: 100%;
-    padding-left: 0;
-  }
-  /********* About **********/
-  .aboutContent {
-    padding-top: 140px;
-    width: 95%;
-    display: block;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  .aboutContent .abtLeft {
-    width: 100%;
-    margin: 0 auto 20px auto;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
-  }
-  .aboutContent .hmRight {
-    width: 100%;
-    margin: auto auto 15px auto;
-    padding: 0 5% 15px 5%;
-  }
-  .aboutContent .hmRight h3 {
-    font-size: 2em;
-  }
-  .aboutContent .hmRight p {
-    width: 100%;
-    padding-left: 0;
-  }
-  .aboutContent .hmRight h4 {
-    width: 100%;
-    padding-left: 0;
-  }
-  /********* Ladder **********/
-  .ladderContent {
-    padding-top: 130px;
-    width: 95%;
-    min-height: calc(100% - (120px - 5px));
-  }
-  /********* ADMIN **********/
-  .adminContent {
-    padding-top: 130px;
-    width: 95%;
-    min-height: calc(100% - (120px - 5px));
-  }
-  /********* Footer **********/
-  footer {
-    height: 110px;
-  }
-  footer .shoe {
-    width: 95%;
-  }
-  footer .shoe .footerCopy {
-    height: 110px;
-  }
-  footer .shoe .footerCopy p {
-    font-size: x-large;
-  }
-  footer .shoe .footerSocial {
-    height: 110px;
-  }
-  footer .shoe .footerSocial a img {
-    margin: auto;
-    height: 45px;
-    width: 45px;
-  }
-  footer .shoe .footerRight {
-    height: 110px;
-  }
-}
-
 .matchesContent {
   padding-top: 80px;
   width: 80%;
@@ -2502,34 +2466,6 @@ footer .shoe .footerRight a:active {
   text-align: center;
   color: #333333;
   padding-bottom: 10px;
-}
-
-.matchesContent .displayMatches .left div {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0 auto;
-  padding-bottom: 7px;
-  text-decoration: underline;
-}
-
-.matchesContent .displayMatches .left div .rnk {
-  width: 20%;
-  margin: auto;
-  text-align: center;
-}
-
-.matchesContent .displayMatches .left div .nme {
-  width: 60%;
-  text-align: center;
-  margin: auto;
-}
-
-.matchesContent .displayMatches .left div .pts {
-  width: 20%;
-  text-align: center;
-  margin: auto;
 }
 
 .matchesContent .displayMatches .left #singlesMU {
@@ -2680,5 +2616,622 @@ footer .shoe .footerRight a:active {
   width: 10%;
   text-align: center;
   padding: 5px auto;
+}
+
+@media all and (max-width: 1320px) {
+  /********* Nav **********/
+  nav .navContainer .navLeft .navLinks {
+    margin: auto;
+  }
+  nav .navContainer .navLeft .navLinks li {
+    margin: auto;
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+    float: left;
+  }
+  nav .navContainer .navLeft .navLinks li a#tourney {
+    display: none;
+  }
+}
+
+@media all and (max-width: 1280px) {
+  /********* Index **********/
+  .homeContent .hmRight h3 {
+    width: 95%;
+  }
+  .homeContent .hmRight p {
+    font-size: 80%;
+  }
+  .homeContent .hmRight h4 {
+    font-size: 80%;
+  }
+  /********* About **********/
+  .aboutContent .hmRight h3 {
+    width: 95%;
+  }
+  .aboutContent .hmRight p {
+    font-size: 80%;
+  }
+  .aboutContent .hmRight h4 {
+    font-size: 80%;
+  }
+}
+
+@media only screen and (max-device-width: 1080px) {
+  /********* Nav **********/
+  nav .navContainer {
+    width: 95%;
+  }
+  nav .navContainer .navLeft .navLinks {
+    margin: auto;
+  }
+  nav .navContainer .navLeft .navLinks li {
+    margin: auto;
+    font-size: larger;
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+    float: left;
+  }
+  nav .navContainer .navLeft .navLinks li a#tourney {
+    display: none;
+  }
+  nav .navContainer #navCenter #navLiCenter #logo a svg {
+    margin: auto auto;
+  }
+  /********* Index **********/
+  .homeContent {
+    width: 95%;
+    display: block;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .homeContent .hmLeft {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+    border-radius: 10px;
+  }
+  .homeContent .hmLeft img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+  }
+  .homeContent .hmRight {
+    width: 100%;
+    margin: auto auto 20px auto;
+    padding: 0 5% 15px 5%;
+    border-radius: 10px;
+  }
+  .homeContent .hmRight h3 {
+    font-size: 2em;
+  }
+  .homeContent .hmRight p {
+    width: 100%;
+    padding-left: 0;
+  }
+  .homeContent .hmRight h4 {
+    width: 100%;
+    padding-left: 0;
+  }
+  /********* About **********/
+  .aboutContent {
+    width: 95%;
+    display: block;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .aboutContent .abtLeft {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+    border-radius: 10px;
+  }
+  .aboutContent .abtLeft img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+  }
+  .aboutContent .hmRight {
+    width: 100%;
+    margin: auto auto 20px auto;
+    padding: 0 5% 15px 5%;
+    border-radius: 10px;
+  }
+  .aboutContent .hmRight h3 {
+    font-size: 2em;
+  }
+  .aboutContent .hmRight p {
+    width: 100%;
+    padding-left: 0;
+  }
+  .aboutContent .hmRight h4 {
+    width: 100%;
+    padding-left: 0;
+  }
+  /********* Ladder **********/
+  .ladderContent {
+    width: 95%;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  /********* Ladder **********/
+  .matchesContent {
+    width: 95%;
+  }
+  /********* Player **********/
+  .playerContent {
+    width: 95%;
+  }
+  .playerContent .upcomingMatches {
+    width: 95%;
+  }
+  .playerContent .upcomingMatches h4 {
+    font-size: x-large;
+  }
+  .playerContent .upcomingMatches .printMatch table {
+    width: 100%;
+  }
+  .playerContent .upcomingMatches .printMatch table th {
+    font-size: large;
+  }
+  .playerContent .upcomingMatches .printMatch table td {
+    font-size: large;
+  }
+  .playerContent .matchHistory {
+    width: 95%;
+  }
+  .playerContent .matchHistory h4 {
+    font-size: x-large;
+  }
+  .playerContent .matchHistory .printMatch table {
+    width: 100%;
+  }
+  .playerContent .matchHistory .printMatch table th {
+    font-size: large;
+  }
+  .playerContent .matchHistory .printMatch table td {
+    font-size: large;
+  }
+  /********* Admin **********/
+  .adminContent {
+    width: 95%;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .adminContent .adminBody {
+    width: 95%;
+  }
+  .adminContent .adminBody .adminOptions {
+    margin: 0 auto 0 0;
+  }
+  .adminContent .adminBody .adminOptions .optionsList li {
+    font-size: large;
+  }
+  /********* Footer **********/
+  footer .shoe {
+    width: 95%;
+  }
+  footer a {
+    font-size: x-large;
+  }
+}
+
+@media only screen and (max-device-width: 1080px) and (orientation: portrait) {
+  /********* Nav **********/
+  nav {
+    height: 120px;
+  }
+  nav .navContainer {
+    width: 95%;
+  }
+  nav .navContainer .navLeft .navLinks {
+    margin: auto;
+  }
+  nav .navContainer .navLeft .navLinks li {
+    margin: auto;
+    font-size: 150%;
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+    float: left;
+  }
+  nav .navContainer .navLeft .navLinks li .listA {
+    height: 120px;
+    line-height: 120px;
+    margin: auto;
+  }
+  nav .navContainer .navLeft .navLinks li a#tourney {
+    display: none;
+  }
+  nav .navContainer #navCenter #navLiCenter {
+    width: 100%;
+  }
+  nav .navContainer #navCenter #navLiCenter #logo {
+    width: 100%;
+  }
+  nav .navContainer #navCenter #navLiCenter #logo a {
+    width: 100%;
+  }
+  nav .navContainer #navCenter #navLiCenter #logo a svg {
+    width: 100%;
+    margin: auto auto;
+  }
+  nav .navContainer .navRight div {
+    display: none;
+  }
+  /********* Index **********/
+  .homeContent {
+    padding-top: 140px;
+    width: 95%;
+    display: block;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .homeContent .hmLeft {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .homeContent .hmRight {
+    width: 100%;
+    margin: auto auto 15px auto;
+    padding: 0 5% 15px 5%;
+  }
+  .homeContent .hmRight h3 {
+    font-size: 2em;
+  }
+  .homeContent .hmRight p {
+    width: 100%;
+    padding-left: 0;
+  }
+  .homeContent .hmRight h4 {
+    width: 100%;
+    padding-left: 0;
+  }
+  /********* About **********/
+  .aboutContent {
+    padding-top: 140px;
+    width: 95%;
+    display: block;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .aboutContent .abtLeft {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
+  }
+  .aboutContent .hmRight {
+    width: 100%;
+    margin: auto auto 15px auto;
+    padding: 0 5% 15px 5%;
+  }
+  .aboutContent .hmRight h3 {
+    font-size: 2em;
+  }
+  .aboutContent .hmRight p {
+    width: 100%;
+    padding-left: 0;
+  }
+  .aboutContent .hmRight h4 {
+    width: 100%;
+    padding-left: 0;
+  }
+  /********* Ladder **********/
+  .ladderContent {
+    padding-top: 140px;
+    width: 95%;
+    min-height: calc(100% - (120px));
+  }
+  .ladderContent .header {
+    margin-bottom: 20px;
+  }
+  .ladderContent h3 a {
+    font-size: x-large;
+  }
+  .ladderContent .standings {
+    width: 95%;
+    display: block;
+  }
+  .ladderContent .standings .left {
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+  .ladderContent .standings .left h2 {
+    font-size: xx-large;
+  }
+  .ladderContent .standings .left div .rnk {
+    font-size: x-large;
+  }
+  .ladderContent .standings .left div .nme {
+    font-size: x-large;
+  }
+  .ladderContent .standings .left div .pts {
+    font-size: x-large;
+  }
+  .ladderContent .standings .left #singles tr .tableLeft {
+    font-size: x-large;
+  }
+  .ladderContent .standings .left #singles tr .tableCenter form #playerInfo {
+    font-size: x-large;
+  }
+  .ladderContent .standings .left #singles tr .tableRight {
+    font-size: x-large;
+  }
+  .ladderContent .standings .right {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: lightgrey;
+  }
+  .ladderContent .standings .right h2 {
+    margin-top: 20px;
+    font-size: xx-large;
+  }
+  .ladderContent .standings .right div .rnk {
+    font-size: x-large;
+  }
+  .ladderContent .standings .right div .nme {
+    font-size: x-large;
+  }
+  .ladderContent .standings .right div .pts {
+    font-size: x-large;
+  }
+  .ladderContent .standings .right #doubles tr .tableLeft {
+    font-size: x-large;
+  }
+  .ladderContent .standings .right #doubles tr .tableCenter form #playerInfo {
+    font-size: x-large;
+  }
+  .ladderContent .standings .right #doubles tr .tableRight {
+    font-size: x-large;
+  }
+  /********* Match List **********/
+  .matchesContent {
+    padding-top: 140px;
+    width: 95%;
+    height: calc(100% - (120px));
+  }
+  .matchesContent h3 {
+    margin-bottom: 20px;
+  }
+  .matchesContent h3 a {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches {
+    width: 95%;
+  }
+  .matchesContent .displayMatches .left #singlesMU tr .tableLeft #playerInfo {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .left #singlesMU tr .tableCenter {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .left #singlesMU tr .tableRight #playerInfo {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableLeft {
+    width: 0;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableLeft form input[type=submit] {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableCenter {
+    width: 100%;
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableRight {
+    width: 0;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableRight form input[type=submit] {
+    font-size: x-large;
+  }
+  /********* Player **********/
+  .playerContent {
+    padding-top: 140px;
+    width: 95%;
+    min-height: calc(100% - (120px - 5px));
+  }
+  .playerContent .upcomingMatches {
+    width: 95%;
+    margin: 0 auto 40px auto;
+  }
+  .playerContent .upcomingMatches h4 {
+    font-size: x-large;
+  }
+  .playerContent .upcomingMatches .printMatch table {
+    width: 100%;
+  }
+  .playerContent .upcomingMatches .printMatch table th {
+    font-size: large;
+  }
+  .playerContent .upcomingMatches .printMatch table td {
+    font-size: large;
+  }
+  .playerContent .matchHistory {
+    width: 95%;
+  }
+  .playerContent .matchHistory h4 {
+    font-size: x-large;
+  }
+  .playerContent .matchHistory .printMatch table {
+    width: 100%;
+  }
+  .playerContent .matchHistory .printMatch table th {
+    font-size: large;
+  }
+  .playerContent .matchHistory .printMatch table td {
+    font-size: large;
+  }
+  /********* ADMIN **********/
+  .adminContent {
+    padding-top: 140px;
+    width: 95%;
+    height: calc(100% - (120px));
+  }
+  .adminContent .adminBody {
+    width: 95%;
+  }
+  .adminContent .adminBody .adminOptions {
+    margin: 0 auto 0 0;
+  }
+  .adminContent .adminBody .adminOptions .optionsList li {
+    margin: 50px auto;
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #createRoundMatches h3 {
+    font-size: xx-large;
+  }
+  .adminContent .adminBody .adminForms #createRoundMatches .roundNumbers {
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #createRoundMatches .roundNumbers span {
+    font-size: larger;
+  }
+  .adminContent .adminBody .adminForms #createRoundMatches form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #createRoundMatches form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #editRoundMatches h3 {
+    font-size: xx-large;
+  }
+  .adminContent .adminBody .adminForms #editRoundMatches .roundNumbers {
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #editRoundMatches .roundNumbers span {
+    font-size: larger;
+  }
+  .adminContent .adminBody .adminForms #editRoundMatches form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #editRoundMatches form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #enterSGLSScoreResults h3 {
+    font-size: xx-large;
+  }
+  .adminContent .adminBody .adminForms #enterSGLSScoreResults .roundNumbers {
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #enterSGLSScoreResults .roundNumbers span {
+    font-size: larger;
+  }
+  .adminContent .adminBody .adminForms #enterSGLSScoreResults form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #enterSGLSScoreResults form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #enterDBLSScoreResults h3 {
+    font-size: xx-large;
+  }
+  .adminContent .adminBody .adminForms #enterDBLSScoreResults .roundNumbers {
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #enterDBLSScoreResults .roundNumbers span {
+    font-size: larger;
+  }
+  .adminContent .adminBody .adminForms #enterDBLSScoreResults form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #enterDBLSScoreResults form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #addNewPlayers h3 {
+    font-size: xx-large;
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #addNewPlayers form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #addNewPlayers form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #addAnnouncement h3 {
+    font-size: xx-large;
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #addAnnouncement form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #addAnnouncement form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #changePW h3 {
+    font-size: xx-large;
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #changePW form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #changePW form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #changePH h3 {
+    font-size: xx-large;
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #changePH form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #changePH form input[type=submit] {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #changeEM h3 {
+    font-size: xx-large;
+    margin-bottom: 15px;
+  }
+  .adminContent .adminBody .adminForms #changeEM form label {
+    font-size: x-large;
+  }
+  .adminContent .adminBody .adminForms #changeEM form input[type=submit] {
+    font-size: x-large;
+  }
+  /********* Footer **********/
+  footer {
+    height: 110px;
+  }
+  footer .shoe {
+    width: 95%;
+  }
+  footer .shoe .footerCopy {
+    height: 110px;
+  }
+  footer .shoe .footerCopy p {
+    font-size: x-large;
+  }
+  footer .shoe .footerSocial {
+    height: 110px;
+  }
+  footer .shoe .footerSocial a img {
+    margin: auto;
+    height: 45px;
+    width: 45px;
+  }
+  footer .shoe .footerRight {
+    height: 110px;
+  }
+  footer .shoe .footerRight a {
+    font-size: x-large;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

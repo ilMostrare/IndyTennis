@@ -25,13 +25,7 @@ Doubles Points Calc
 
 To Work On:
 
-Admin.php / adminTools.php
-    - IF Byron or Dan, display full controls
-        - Create Round Matches
-        - Edit Matches
-        - Enter Doubles Scores
-
-Player.php
-    - Display match history
+Playoffs??
+Singles Challenge Matches
 
 MAKE EVERYTHING MOBILE FRIENDLY

@@ -28,10 +28,11 @@ require_once ('includes/adminLogin.php');
 
     <? 
         require "includes/nav.html";
+        echo '<div class="ladderContent" id="style-2">';
 
         if ($isLadderLive > 0) {
-
-            echo '<div class="ladderContent" id="style-2">';
+            
+            if( ($SGLSroundPLAYOFF != 1) && ($DBLSroundPLAYOFF != 1) ){
                 echo '<div class="header">';
                     echo '<h1><? echo date("Y") ?> Ladder Standings</h1>';
                     echo '<h3><a href="RoundMatches">View This Round\'s Matchups</a></h3>';
@@ -53,21 +54,24 @@ require_once ('includes/adminLogin.php');
                         echo '</table>';
                     echo '</div>';
                 echo '</div>';
-            echo '</div>';
-
+            } else {
+                echo '<div class="header">';
+                    echo '<h1>Playoffs</h1>';
+                echo '</div>';
+            }
+            
         } else {
 
-            echo '<div class="ladderContent" id="style-2">';
-                echo '<div class="header">';
-                    echo '<h1>Coming Soon!</h1>';
-                    echo '<h3>Under Construction. Coming Next Season!</h3>';
-                echo '</div>';
-                echo '<div class="ctIMG">';
-                    echo '<img src="includes/images/tennis-court-dimensions-and-layout.jpg">';
-                echo '</div>';
+            echo '<div class="header">';
+                echo '<h1>Coming Soon!</h1>';
+                echo '<h3>Under Construction. Coming Next Season!</h3>';
+            echo '</div>';
+            echo '<div class="ctIMG">';
+                echo '<img src="includes/images/tennis-court-dimensions-and-layout.jpg">';
             echo '</div>';
 
         }
+        echo '</div>';
 
 
 

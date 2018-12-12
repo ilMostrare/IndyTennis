@@ -15,8 +15,8 @@
         </div>
         <div class="navRight">
             <div>Current Ladder Round #</div>
-            <div>Singles: <? echo $SGLSroundID  ?></div>
-            <div>Doubles: <? echo $DBLSroundID  ?></div>
+            <div><? if($SGLSroundPLAYOFF == 1){echo "Singles: Playoff";} else if ($SGLSroundID == ''){echo "Singles: Out of Season";} else {echo "Singles: ", $SGLSroundID;}  ?></div>
+            <div><? if($DBLSroundPLAYOFF == 1){echo "Doubles: Playoff";} else if ($DBLSroundID == ''){echo "Doubles: Out of Season";} else {echo "Doubles: ", $DBLSroundID;}  ?></div>
         </div>
     </div>
 </nav>

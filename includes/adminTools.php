@@ -473,6 +473,26 @@ if (isset($_POST['createDBLSID'])){
 
 #endregion
 
+#region Insert Challenge Match
+function addChallengeMatch($player1,$player2){
+    global $conn;
+    global $sznID;
+    global $SGLSroundID;
+
+    $insertChallengeSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$player1."', '".$player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', CURRENT_TIMESTAMP)";
+    @$conn->query($insertChallengeSQL);
+}
+
+if (isset($_POST['ntrAddChallengeP1'])){
+
+    $addChallengeP1 = isset($_POST['ntrAddChallengeP1']) ? $_POST['ntrAddChallengeP1'] : 'No data found';
+    $addChallengeP2 = isset($_POST['ntrAddChallengeP2']) ? $_POST['ntrAddChallengeP2'] : 'No data found';
+
+    addChallengeMatch($addChallengeP1, $addChallengeP2);
+
+}
+#endregion
+
 #region Enter Singles Scores
 
 function getSGLSMatches(){
@@ -549,7 +569,7 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
         $player2Rank = $player2RankRow["Rank"];
     }
 
-    $player1curPTSSQL = "SELECT `SGLSLADDER`.`SGLS_POINTS` AS `SGLS_POINTS` FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP1."'";
+    $player1curPTSSQL = "SELECT `SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP1."'";
     $player1curPTSQuery = @$conn->query($player1curPTSSQL);
     #region error handling
     if (!$player1curPTSQuery) {
@@ -561,9 +581,11 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
     while ($player1curPTSRow = mysqli_fetch_assoc($player1curPTSQuery)) {
         $player1curPTS = $player1curPTSRow["SGLS_POINTS"];
+        $player1curWins = $player1curPTSRow["SGLS_WINS"];
+        $player1curLosses = $player1curPTSRow["SGLS_LOSSES"];
     }
 
-    $player2curPTSSQL = "SELECT `SGLSLADDER`.`SGLS_POINTS` AS `SGLS_POINTS` FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP2."'";
+    $player2curPTSSQL = "SELECT `SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP2."'";
     $player2curPTSQuery = @$conn->query($player2curPTSSQL);
     #region error handling
     if (!$player2curPTSQuery) {
@@ -575,6 +597,8 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
     while ($player2curPTSRow = mysqli_fetch_assoc($player2curPTSQuery)) {
         $player2curPTS = $player2curPTSRow["SGLS_POINTS"];
+        $player2curWins = $player2curPTSRow["SGLS_WINS"];
+        $player2curLosses = $player2curPTSRow["SGLS_LOSSES"];
     }
     #endregion
     
@@ -599,8 +623,15 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #region calculate points
     $player1Points = $player1curPTS;
     $player2Points = $player2curPTS;
+    $p1Wins = $player1curWins;
+    $p2Wins = $player2curWins;
+    $p1Losses = $player1curLosses;
+    $p2Losses = $player2curLosses;
 
     if($_winner == 1){
+        $p1Wins++;
+        $p2Losses++;
+
         if ($player2GamesWon > 10){
             $player2Points += 10;
         } else {
@@ -625,6 +656,9 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
         }
 
     } elseif ($_winner == 2) {
+        $p2Wins++;
+        $p1Losses++;
+
         if ($player1GamesWon > 10){
             $player1Points += 10;
         } else {
@@ -648,6 +682,10 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
             }
         }
     } else {
+        $p1Wins = $player1curWins;
+        $p2Wins = $player2curWins;
+        $p1Losses = $player1curLosses;
+        $p2Losses = $player2curLosses;
         $player1Points = $player1curPTS;
         $player2Points = $player2curPTS;
     }
@@ -665,13 +703,12 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
 
     #region insert points
-    // UPDATE `SGLSLADDER` SET `SGLS_POINTS` = '12' WHERE `SGLSLADDER`.`PLAYER_ID` = 1
-    $updateSGLSScoresP1 = "UPDATE `SGLSLADDER` SET `SGLS_POINTS` = '".$player1Points."' WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP1."'";
+    $updateSGLSScoresP1 = "UPDATE `SGLSLADDER` SET `SGLS_POINTS` = '".$player1Points."', `SGLS_WINS` = '".$p1Wins."', `SGLS_LOSSES` = '".$p1Losses."' WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP1."'";
     if ($conn->query($updateSGLSScoresP1) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");
     }
-    $updateSGLSScoresP2 = "UPDATE `SGLSLADDER` SET `SGLS_POINTS` = '".$player2Points."' WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP2."'";
+    $updateSGLSScoresP2 = "UPDATE `SGLSLADDER` SET `SGLS_POINTS` = '".$player2Points."', `SGLS_WINS` = '".$p2Wins."', `SGLS_LOSSES` = '".$p2Losses."' WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP2."'";
     if ($conn->query($updateSGLSScoresP2) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");
@@ -775,7 +812,7 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     #endregion
 
     #region Get Current Points
-    $player1curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP1."'";
+    $player1curDBLSPTSSQL = "SELECT `DBLS_POINTS`,`DBLS_WINS`,`DBLS_LOSSES` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP1."'";
     $player1curDBLSPTSQuery = @$conn->query($player1curDBLSPTSSQL);
     #region error handling
     if (!$player1curDBLSPTSQuery) {
@@ -787,9 +824,11 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     #endregion
     while ($player1curDBLSPTSRow = mysqli_fetch_assoc($player1curDBLSPTSQuery)) {
         $player1curDBLSPTS = $player1curDBLSPTSRow["DBLS_POINTS"];
+        $player1curWins = $player1curDBLSPTSRow["DBLS_WINS"];
+        $player1curLosses = $player1curDBLSPTSRow["DBLS_LOSSES"];
     }
 
-    $player2curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP2."'";
+    $player2curDBLSPTSSQL = "SELECT `DBLS_POINTS`,`DBLS_WINS`,`DBLS_LOSSES` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP2."'";
     $player2curDBLSPTSQuery = @$conn->query($player2curDBLSPTSSQL);
     #region error handling
     if (!$player2curDBLSPTSQuery) {
@@ -801,9 +840,11 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     #endregion
     while ($player2curDBLSPTSRow = mysqli_fetch_assoc($player2curDBLSPTSQuery)) {
         $player2curDBLSPTS = $player2curDBLSPTSRow["DBLS_POINTS"];
+        $player2curWins = $player2curDBLSPTSRow["DBLS_WINS"];
+        $player2curLosses = $player2curDBLSPTSRow["DBLS_LOSSES"];
     }
 
-    $player3curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP3."'";
+    $player3curDBLSPTSSQL = "SELECT `DBLS_POINTS`,`DBLS_WINS`,`DBLS_LOSSES` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP3."'";
     $player3curDBLSPTSQuery = @$conn->query($player3curDBLSPTSSQL);
     #region error handling
     if (!$player3curDBLSPTSQuery) {
@@ -815,9 +856,11 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     #endregion
     while ($player3curDBLSPTSRow = mysqli_fetch_assoc($player3curDBLSPTSQuery)) {
         $player3curDBLSPTS = $player3curDBLSPTSRow["DBLS_POINTS"];
+        $player3curWins = $player3curDBLSPTSRow["DBLS_WINS"];
+        $player3curLosses = $player3curDBLSPTSRow["DBLS_LOSSES"];
     }
 
-    $player4curDBLSPTSSQL = "SELECT `DBLS_POINTS` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP4."'";
+    $player4curDBLSPTSSQL = "SELECT `DBLS_POINTS`,`DBLS_WINS`,`DBLS_LOSSES` FROM `DBLSLADDER` WHERE `PLAYER_ID` = '".$dblsMatchP4."'";
     $player4curDBLSPTSQuery = @$conn->query($player4curDBLSPTSSQL);
     #region error handling
     if (!$player4curDBLSPTSQuery) {
@@ -829,6 +872,8 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     #endregion
     while ($player4curDBLSPTSRow = mysqli_fetch_assoc($player4curDBLSPTSQuery)) {
         $player4curDBLSPTS = $player4curDBLSPTSRow["DBLS_POINTS"];
+        $player4curWins = $player4curDBLSPTSRow["DBLS_WINS"];
+        $player4curLosses = $player4curDBLSPTSRow["DBLS_LOSSES"];
     }
     #endregion
     
@@ -837,57 +882,105 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     $player2Points = $player2curDBLSPTS;
     $player3Points = $player3curDBLSPTS;
     $player4Points = $player4curDBLSPTS;
+    $p1Wins = $player1curWins;
+    $p2Wins = $player2curWins;
+    $p1Losses = $player1curLosses;
+    $p2Losses = $player2curLosses;
+    $p3Wins = $player3curWins;
+    $p4Wins = $player4curWins;
+    $p3Losses = $player3curLosses;
+    $p4Losses = $player4curLosses;
 
     if ($_Set1Winner == 1){
         $player3Points += $_T2s1;
         $player4Points += $_T2s1;
+        $p3Losses++;
+        $p4Losses++;
 
         $player1Points += (6 + ($_T1s1 - $_T2s1) );
         $player2Points += (6 + ($_T1s1 - $_T2s1) );
+        $p1Wins++;
+        $p2Wins++;
     } else if ($_Set1Winner == 2){
         $player1Points += $_T1s1;
         $player2Points += $_T1s1;
+        $p1Losses++;
+        $p2Losses++;
 
         $player3Points += (6 + ($_T2s1 - $_T1s1) );
         $player4Points += (6 + ($_T2s1 - $_T1s1) );
+        $p3Wins++;
+        $p4Wins++;
     } else {
         $player1Points = $player1curPTS;
         $player2Points = $player2curPTS;
         $player3Points = $player3curPTS;
         $player4Points = $player4curPTS;
+        $p1Wins = $player1curWins;
+        $p2Wins = $player2curWins;
+        $p1Losses = $player1curLosses;
+        $p2Losses = $player2curLosses;
+        $p3Wins = $player3curWins;
+        $p4Wins = $player4curWins;
+        $p3Losses = $player3curLosses;
+        $p4Losses = $player4curLosses;
     }
 
     if($_Set2Winner == 1){
         $player2Points += $_T2s2;
         $player4Points += $_T2s2;
+        $p2Losses++;
+        $p4Losses++;
 
         $player1Points += (6 + ($_T1s2 - $_T2s2) );
         $player3Points += (6 + ($_T1s2 - $_T2s2) );
+        $p1Wins++;
+        $p3Wins++;
     } else if($_Set2Winner == 2){
         $player1Points += $_T1s2;
         $player3Points += $_T1s2;
+        $p1Losses++;
+        $p3Losses++;
 
         $player2Points += (6 + ($_T2s2 - $_T1s2) );
         $player4Points += (6 + ($_T2s2 - $_T1s2) );
+        $p2Wins++;
+        $p4Wins++;
     } else {
         $player1Points = $player1curDBLSPTS;
         $player2Points = $player2curDBLSPTS;
         $player3Points = $player3curDBLSPTS;
         $player4Points = $player4curDBLSPTS;
+        $p1Wins = $player1curWins;
+        $p2Wins = $player2curWins;
+        $p1Losses = $player1curLosses;
+        $p2Losses = $player2curLosses;
+        $p3Wins = $player3curWins;
+        $p4Wins = $player4curWins;
+        $p3Losses = $player3curLosses;
+        $p4Losses = $player4curLosses;
     }
 
     if($_Set3Winner == 1){
         $player2Points += $_T2s3;
         $player3Points += $_T2s3;
+        $p2Losses++;
+        $p3Losses++;
 
         $player1Points += (6 + ($_T1s3 - $_T2s3) );
         $player4Points += (6 + ($_T1s3 - $_T2s3) );
+        $p1Wins++;
+        $p4Wins++;
     } else if($_Set3Winner == 2){
         $player1Points += $_T1s3;
         $player4Points += $_T1s3;
+        $p1Losses++;
+        $p4Losses++;
 
         $player2Points += (6 + ($_T2s2 - $_T1s3) );
         $player3Points += (6 + ($_T2s2 - $_T1s3) );
+        $p2Wins++;
+        $p3Wins++;
     } else {
         $player1Points = $player1curPTS;
         $player2Points = $player2curPTS;
@@ -904,22 +997,22 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
     #endregion
 
     #region Insert Points
-    $updateDBLSScoresP1 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player2Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP1."'";
+    $updateDBLSScoresP1 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player1Points."',`DBLS_WINS` = '".$p1Wins."',`DBLS_LOSSES` = '".$p1Losses."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP1."'";
     if ($conn->query($updateDBLSScoresP1) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");
     }
-    $updateDBLSScoresP2 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player2Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP2."'";
+    $updateDBLSScoresP2 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player2Points."',`DBLS_WINS` = '".$p2Wins."',`DBLS_LOSSES` = '".$p2Losses."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP2."'";
     if ($conn->query($updateDBLSScoresP2) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");
     }
-    $updateDBLSScoresP3 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player3Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP3."'";
+    $updateDBLSScoresP3 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player3Points."',`DBLS_WINS` = '".$p3Wins."',`DBLS_LOSSES` = '".$p3Losses."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP3."'";
     if ($conn->query($updateDBLSScoresP3) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");
     }
-    $updateDBLSScoresP4 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player4Points."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP4."'";
+    $updateDBLSScoresP4 = "UPDATE `DBLSLADDER` SET `DBLS_POINTS` = '".$player4Points."',`DBLS_WINS` = '".$p4Wins."',`DBLS_LOSSES` = '".$p4Losses."' WHERE `DBLSLADDER`.`PLAYER_ID` = '".$dblsMatchP4."'";
     if ($conn->query($updateDBLSScoresP4) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");

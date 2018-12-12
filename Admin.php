@@ -48,14 +48,14 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                 ?>
             </h1>
             <div class='line2'>
-                <h3><?                    
+                <h2><?                    
                         if ($_SESSION['userFN'] != ''){
                             echo "Welcome, ",$_SESSION['userFN'];
                         } else {
                             echo "Please Login";
                         }
                     ?>
-                </h3>
+                </h2>
                 <!-- <form><button type='submit' class='admin-player-name' name='viewPlayer' value='<? //$_SESSION['adminID'] ?>'><h3>View Player Page</h3></button></form> -->
             </div>
         </div>
@@ -69,6 +69,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
 
                         echo '<li id="createMatches">Create Round Matches</li>';
                         echo '<li id="editMatches">Edit Matchups</li>';
+                        echo '<li id="addChallengeM">Add Challenge Match</li>';
                         echo '<li id="enterSGLSScores">Enter Singles Scores</li>';
                         echo '<li id="enterDBLSScores">Enter Doubles Scores</li>';
                         echo '<li id="addPlayers">Add Players</li>';
@@ -76,6 +77,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         echo '<li id="changePassword">Change Password</li>';
                         echo '<li id="changeEmail">Change Email</li>';
                         echo '<li id="changePhone">Change Phone Number</li>';
+                        echo '<li id="viewPlayerPage" data-value="'.$_SESSION['adminID'].'">Go to My Player Page</li>';
                         echo '<li id="loggoutt">Logout</li>';
 
                     } else {
@@ -83,6 +85,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         echo '<li id="changePassword">Change Password</li>';
                         echo '<li id="changeEmail">Change Email</li>';
                         echo '<li id="changePhone">Change Phone Number</li>';
+                        echo '<li id="viewPlayerPage" data-value="'.$_SESSION['adminID'].'">Go to My Player Page</li>';
                         echo '<li id="loggoutt">Logout</li>';
 
                     }
@@ -130,6 +133,20 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<div class='dblsSet'><select name='editDBLSP4' id='editDBLSP4'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesPlayers() ,"</select></div>";
 
                             echo "<input id='dblsMatchEditSubmit' type='submit' value='Submit Doubles Match Edit'>";
+                        echo "</form>";
+                    echo "</div>";
+
+                    echo "<div id='addChallengeMatch'>";
+                        echo "<h3>Add Challenge Match</h3>";
+                        echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
+                        echo "<form action='' method='post' class='addChallenge'>";
+                            echo "<label><h4>Player 1:</h4></label>";
+                            echo "<div class='sglsSet'><select name='addChallengeP1' id='addChallengeP1'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllSinglesPlayers() ,"</select></div>";
+
+                            echo "<label><h4>Player 2:</h4></label>";
+                            echo "<div class='sglsSet'><select name='addChallengeP2' id='addChallengeP2'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllSinglesPlayers() ,"</select></div>";
+
+                            echo "<input id='addChallengeSubmit' type='submit' value='Submit Singles Match Edit'>";
                         echo "</form>";
                     echo "</div>";
 
