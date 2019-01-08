@@ -1116,7 +1116,8 @@ function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$
         </head>
         <body>
             <h3>You've been registered for the 2019 season!</h3>
-            <p><i>Please change your password upon first login (Settings -> Change Password)</i></p>
+            <p><i>Please change your password upon first login.</i></p>
+            <p>Go to <a href='www.indytennis.com'>indytennis.com -> Settings -> Login -> Change Password</p>
             <table>
             <tr>
                 <th>Firstname</th>
