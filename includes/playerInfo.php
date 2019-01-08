@@ -133,7 +133,7 @@ function GetPlayerCurrentMatches($playerID){
                     echo "<table>";
                         echo "<td>SG",$matchRoundNum,"</td>";
                         echo "<td><button class='viewPlayer' value='".$matchPlayer2."'>",$sglsOpponentLName,", ",$sglsOpponentFName," (",$sglsOpponentRank,")</button></td>";
-                        if($matchPlayoff == 1){echo "<td>Yes</td>";} else {echo "<td>No</td>";}
+                        if($matchPlayoff == 1){echo "<td>Win</td>";} else {echo "<td>No</td>";}
                         echo "<td>",$matchEndDate,"</td>";
                     echo "</table>";
                 echo "</div>";                
@@ -159,7 +159,7 @@ function GetPlayerCurrentMatches($playerID){
                     echo "<table>";
                         echo "<td>SG",$matchRoundNum,"</td>";
                         echo "<td><button class='viewPlayer' value='".$matchPlayer1."'>",$sglsOpponentLName,", ",$sglsOpponentFName," (",$sglsOpponentRank,")</button></td>";
-                        if($matchPlayoff == 1){echo "<td>Yes</td>";} else {echo "<td>No</td>";}
+                        if($matchPlayoff == 1){echo "<td>Win</td>";} else {echo "<td>No</td>";}
                         echo "<td>",$matchEndDate,"</td>";
                     echo "</table>";
                 echo "</div>";       
@@ -254,7 +254,7 @@ function GetPlayerCurrentMatches($playerID){
                     echo "<tr>";
                         echo "<td rowspan='3'>DB",$matchRoundNum,"</td>";
                         echo "<td><button class='viewPlayer' value='".$opponent1."'>",$dblsOpponent1FName,", ",$dblsOpponent1LName," (",$dblsOpponent1Rank,")</button></td>";
-                        if($matchPlayoff == 1){echo "<td rowspan='3'>Yes</td>";} else {echo "<td rowspan='3'>No</td>";}
+                        if($matchPlayoff == 1){echo "<td rowspan='3'>Win</td>";} else {echo "<td rowspan='3'>No</td>";}
                         echo "<td rowspan='3'>",$matchEndDate,"</td>";
                     echo "</tr>";
                     echo "<tr>";
@@ -341,9 +341,9 @@ function GetPlayerPastMatches($playerID){
                     }
 
                     if ($matchWinner == 1){
-                        $matchSGResult = "Yes";
+                        $matchSGResult = "Win";
                     } else {
-                        $matchSGResult = "No";
+                        $matchSGResult = "Loss";
                     } 
     
                     echo "<div class='printMatch'>";
@@ -375,9 +375,9 @@ function GetPlayerPastMatches($playerID){
                     }
 
                     if ($matchWinner == 1){
-                        $matchSGResult = "No";
+                        $matchSGResult = "Loss";
                     } else {
-                        $matchSGResult = "Yes";
+                        $matchSGResult = "Win";
                     } 
 
                     echo "<div class='printMatch'>";
@@ -426,21 +426,21 @@ function GetPlayerPastMatches($playerID){
                     $set3Score = $DBT1S3." - ".$DBT2S3;
 
                     if ($DBset1Winner == 1){
-                        $set1Result = "Yes";
+                        $set1Result = "Win";
                     } else {
-                        $set1Result = "No";
+                        $set1Result = "Loss";
                     }
 
                     if ($DBset2Winner == 1){
-                        $set2Result = "Yes";
+                        $set2Result = "Win";
                     } else {
-                        $set2Result = "No";
+                        $set2Result = "Loss";
                     }
 
                     if ($DBset3Winner == 1){
-                        $set3Result = "Yes";
+                        $set3Result = "Win";
                     } else {
-                        $set3Result = "No";
+                        $set3Result = "Loss";
                     }
 
                 } else if ($DBPlayer2 == $playerID){
@@ -452,22 +452,22 @@ function GetPlayerPastMatches($playerID){
                     $set3Score = $DBT2S3." - ".$DBT1S3;                    
 
                     if ($DBset1Winner == 1){
-                        $set1Result = "Yes";
+                        $set1Result = "Win";
                     } else {
-                        $set1Result = "No";
+                        $set1Result = "Loss";
                         $set1Score = $DBT1S1." - ".$DBT2S1;
                     }
 
                     if ($DBset2Winner == 2){
-                        $set2Result = "Yes";
+                        $set2Result = "Win";
                     } else {
-                        $set2Result = "No";
+                        $set2Result = "Loss";
                     }
 
                     if ($DBset3Winner == 2){
-                        $set3Result = "Yes";
+                        $set3Result = "Win";
                     } else {
-                        $set3Result = "No";
+                        $set3Result = "Loss";
                         $set3Score = $DBT2S3." - ".$DBT1S3;
                     }
                        
@@ -480,21 +480,21 @@ function GetPlayerPastMatches($playerID){
                     $set3Score = $DBT2S3." - ".$DBT1S3;
 
                     if ($DBset1Winner == 2){
-                        $set1Result = "Yes";
+                        $set1Result = "Win";
                     } else {
-                        $set1Result = "No";
+                        $set1Result = "Loss";
                     }
 
                     if ($DBset2Winner == 1){
-                        $set2Result = "Yes";
+                        $set2Result = "Win";
                     } else {
-                        $set2Result = "No";
+                        $set2Result = "Loss";
                     }
 
                     if ($DBset3Winner == 2){
-                        $set3Result = "Yes";
+                        $set3Result = "Win";
                     } else {
-                        $set3Result = "No";
+                        $set3Result = "Loss";
                     }
                     
                 } else {
@@ -506,21 +506,21 @@ function GetPlayerPastMatches($playerID){
                     $set3Score = $DBT1S3." - ".$DBT2S3;
 
                     if ($DBset1Winner == 2){
-                        $set1Result = "Yes";
+                        $set1Result = "Win";
                     } else {
-                        $set1Result = "No";
+                        $set1Result = "Loss";
                     }
 
                     if ($DBset2Winner == 2){
-                        $set2Result = "Yes";
+                        $set2Result = "Win";
                     } else {
-                        $set2Result = "No";
+                        $set2Result = "Loss";
                     }
 
                     if ($DBset3Winner == 1){
-                        $set3Result = "Yes";
+                        $set3Result = "Win";
                     } else {
-                        $set3Result = "No";
+                        $set3Result = "Loss";
                     }
                 }
                 #endregion
@@ -579,7 +579,5 @@ function GetPlayerPastMatches($playerID){
 
     #endregion
     
-
-
 }
 #endregion

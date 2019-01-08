@@ -1102,6 +1102,44 @@ function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$
         @$conn->query($addPrimaryDBLSSQL);
     }
 
+    $emSubject = "Welcome to IndyTennis!";
+    $emHeaders = "MIME-Version: 1.0" . "\r\n";
+    $emHeaders .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $emHeaders .= 'From: contact@indytennis.com' . "\r\n" .
+    'Reply-To: contact@indytennis.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+    $emContents = 
+    "<html>
+        <head>
+        <title>Welcome to IndyTennis</title>
+        </head>
+        <body>
+            <h3>You've been registered for the 2019 season!</h3>
+            <p><i>Please change your password upon first login (Settings -> Change Password)</i></p>
+            <table>
+            <tr>
+                <th>Firstname</th>
+                <td>".$_fName."</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>".$_lName."</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>".$_email."</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>".$_password."</td>
+            </tr>
+            </table>
+        </body>
+    </html>";
+
+    mail($_email,$emSubject,$emContents,$emHeaders);
+
 }
 
 if (isset($_POST['ntrNewFName'])){

@@ -47,12 +47,20 @@ require_once ('includes/adminLogin.php');
                     echo '</div>';
 
                     echo '<div class="right">';
-                        echo '<h2>Doubles</h2>';
+                        echo '<h2>Doubles - Individual</h2>';
                         echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';
                         echo '<table id="doubles">';
                             printDBLSRankings();
                         echo '</table>';
                     echo '</div>';
+
+                    // echo '<div class="farRight">';
+                    //     echo '<h2>Doubles - Team</h2>';
+                    //     echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';
+                    //     echo '<table id="teamDoubles">';
+                    //         printTeamDBLSRankings();
+                    //     echo '</table>';
+                    // echo '</div>';
                 echo '</div>';
             } else {
                 echo '<div class="header">';
