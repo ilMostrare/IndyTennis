@@ -7,6 +7,7 @@
 
 #region Create Matches Function
 
+    #region singles
 function createSGLSMatches(){
     global $conn;
     global $sznID;
@@ -47,7 +48,7 @@ function createSGLSMatches(){
         $player2Query = @$conn->query($player2SQL);
         while ($p2_Players_Row = mysqli_fetch_array($player2Query)) {
             $player2 = $p2_Players_Row["PLAYER_ID"];
-            echo $player2;
+            echo $player2," \n";
         }
 
         $existsSQL = "SELECT COUNT(*) as 'COUNT' FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player1 . "') OR (`PLAYER2` = '" . $player1 . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
@@ -93,7 +94,9 @@ if (isset($_POST['createSGLSID'])){
     createSGLSMatches();
 
 }
+    #endregion
 
+    #region doubles
 function createDBLSMatches(){
     global $conn;
     global $sznID;
@@ -180,6 +183,99 @@ if (isset($_POST['createDBLSID'])){
     createDBLSMatches();
 
 }
+#endregion
+
+    #region team doubles
+function createTDMatches(){
+    global $conn;
+    global $sznID;
+    global $DBLSroundID;
+
+    // $resultSet = array();
+
+    $allTeamsSQL = "SELECT `TEAM_ID` FROM `TDLADDER`  ORDER BY `ID`";
+    $allTeamsQuery = @$conn->query($allTeamsSQL);
+    while ($all_TD_Teams_Row = mysqli_fetch_array($allTeamsQuery)) {
+        $resultSet[] = $all_TD_Teams_Row;
+        // echo $resultSet;
+    }
+    foreach ($resultSet as &$team) {
+        $team1 = $team[0];
+        echo $team1," vs ";
+
+        $team1SQL = "SELECT `ID` FROM `TDLADDER` WHERE `TEAM_ID` = '" . $team1 . "'";
+        $team1Query = @$conn->query($team1SQL);
+        while ($p1_Teams_Row = mysqli_fetch_array($team1Query)) {
+            $team1Rank = $p1_Teams_Row["ID"];
+            // echo $team1Rank;
+        }
+
+        if ($DBLSroundID % 3 == 1){
+            $j = 1;
+        } else if ($DBLSroundID % 3 == 2){
+            $j = 2;
+        } else {
+            $j = 3;
+        }
+        // $j = rand(1,3);
+        
+        $team2Rank = $team1Rank + $j;
+        // echo $team2Rank," ";
+
+        $team2SQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE `ID` = '" . $team2Rank . "'";
+        $team2Query = @$conn->query($team2SQL);
+        while ($p2_Teams_Row = mysqli_fetch_array($team2Query)) {
+            $team2 = $p2_Teams_Row["TEAM_ID"];
+            echo $team2," \n";
+        }
+
+        $existsSQL = "SELECT COUNT(*) as 'COUNT' FROM `TDMATCH` WHERE ((`TEAM1` = '" . $team1 . "') OR (`TEAM2` = '" . $team1 . "')) AND `ROUND_NUM` = '" . $DBLSroundID . "'";
+        $existsQRY = @$conn->query($existsSQL);
+        while ($exists_Row = mysqli_fetch_assoc($existsQRY)) {
+            $exists = $exists_Row["COUNT"];
+        }
+        echo "exists",$exists;
+
+        $totalTDteamsSQL = "SELECT * FROM `TDLADDER`";
+        $totalTDteamsQRY = @$conn->query($totalTDteamsSQL);
+        $totalTDteamsROW = mysqli_num_rows($totalTDteamsQRY);
+        echo "rows",$totalTDteamsROW," \n";
+
+        $prefix = $sznID+'.'+$DBLSroundID+'.';
+        $TDmatchID = uniqid($prefix,FALSE);
+
+        if ($exists > 0) {
+            echo "Team exists, do nothing\n";
+        } else {
+            if (!($team2)) {
+                $createMatchSQL = "INSERT INTO `TDMATCH` (`ID`, `TEAM1`, `TEAM2`, `ROUND_NUM`, `SEASON_NUM`) VALUES ('" . $TDmatchID . "', '" . $team1 . "', '11' ," . $DBLSroundID . ", " . $sznID . ")";
+                @$conn->query($createMatchSQL);
+            } else {
+                $exists2SQL = "SELECT COUNT(*) as 'COUNT' FROM `TDMATCH` WHERE ((`TEAM1` = '" . $team2 . "') OR (`TEAM2` = '" . $team2 . "')) AND `ROUND_NUM` = '" . $DBLSroundID . "'";
+                $exists2QRY = @$conn->query($exists2SQL);
+                while ($exists2_Row = mysqli_fetch_assoc($exists2QRY)) {
+                    $exists2 = $exists2_Row["COUNT"];
+                }
+
+                if($exists2 > 0){
+                    $createMatchSQL = "INSERT INTO `TDMATCH` (`ID`, `TEAM1`, `TEAM2`, `ROUND_NUM`, `SEASON_NUM`) VALUES ('" . $TDmatchID . "', '" . $team1 . "', '11' ," . $DBLSroundID . ", " . $sznID . ")";
+                    @$conn->query($createMatchSQL);
+                } else {
+                    $createMatchSQL = "INSERT INTO `TDMATCH` (`ID`, `TEAM1`, `TEAM2`, `ROUND_NUM`, `SEASON_NUM`) VALUES ('" . $TDmatchID . "', '" . $team1 . "', '" . $team2 . "', '" . $DBLSroundID . "', '" . $sznID . "')";
+                    @$conn->query($createMatchSQL);
+                }                
+            }
+        }
+
+    }
+}
+
+if (isset($_POST['createTDID'])){
+
+    createTDMatches();
+
+}
+#endregion
 
 #endregion
 
@@ -1157,6 +1253,39 @@ if (isset($_POST['ntrNewFName'])){
 
 
     addNewPlayer($newFName, $newLName, $newEmail, $newPhone, $newPassword, $newSGLSPoints, $newDBLSPoints, $newSGLSPlayer,$newDBLSPlayer);
+
+}
+
+#endregion
+
+#region Add Team Doubles Team
+
+function addTDTeam($_player1,$_player2,$_startingPoints){
+    global $conn;
+    global $sznID;
+
+    $teamID = uniqid($sznID,FALSE);
+    
+    $insertTDTeamSQL = "INSERT INTO `TDLADDER` (`ID`, `TEAM_ID`, `PLYR1_ID`, `PLYR2_ID`, `TD_LOSSES`, `TD_POINTS`, `TD_WINS`) VALUES (NULL, '".$teamID."', '".$_player1."', '".$_player2."', 0, '".$_startingPoints."', 0)";
+    @$conn->query($insertTDTeamSQL);
+
+    $dropPrimaryTDSQL = "ALTER TABLE `TDLADDER` DROP COLUMN `ID`";
+    @$conn->query($dropPrimaryTDSQL);
+    $sortTableTDSQL = "ALTER TABLE `TDLADDER` ORDER BY `TD_POINTS` DESC";
+    @$conn->query($sortTableTDSQL);
+    $addPrimaryTDSQL = "ALTER TABLE `TDLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
+    @$conn->query($addPrimaryTDSQL);
+
+}
+
+if (isset($_POST['ntrUserNewTDID1'])){
+
+    $userNewTDID1 = isset($_POST['ntrUserNewTDID1']) ? $_POST['ntrUserNewTDID1'] : 'No data found';
+    $userNewTDID2 = isset($_POST['ntrUserNewTDID2']) ? $_POST['ntrUserNewTDID2'] : 'No data found';
+    $newTDPoints = isset($_POST['ntrNewTDPoints']) ? $_POST['ntrNewTDPoints'] : 'No data found';
+
+
+    addTDTeam($userNewTDID1, $userNewTDID2,$newTDPoints);
 
 }
 

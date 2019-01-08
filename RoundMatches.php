@@ -43,11 +43,19 @@ require_once ('includes/adminLogin.php');
                 echo '</div>';
 
                 echo '<div class="right">';
-                    echo '<h2>Doubles - Round ',$DBLSroundID,'</h2>';
+                    echo '<h2>Doubles - Individual - Round ',$DBLSroundID,'</h2>';
                     echo '<table id="doublesMU">';
                         printDBLSMatchups();
                     echo '</table>';
-                echo '</div>';            
+                echo '</div>';     
+                
+                echo '<div class="farRight">';
+                        echo '<h2>Doubles - Team - Round ',$DBLSroundID,'</h2>';
+                        echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';
+                        echo '<table id="teamDoubles">';
+                            // printTeamDBLSMatchups();
+                        echo '</table>';
+                echo '</div>';
             echo '</div>';
         echo '</div>';
         

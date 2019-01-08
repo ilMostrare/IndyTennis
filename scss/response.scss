@@ -352,7 +352,8 @@
     padding-top: $phone-nav-height + 20px;
     width: 95%;
     display: block;
-    height: min-content;
+    // height: min-content;
+    min-height: calc(100% - (#{$phone-nav-height}));
 
     .hmLeft{
       width: 100%;
@@ -472,6 +473,52 @@
 
       }
       .right{        
+        width: 100%;
+        margin: 0 auto 20px auto;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: lightgrey;
+
+        h2{
+          margin-top: 20px;
+          font-size: xx-large;
+        }
+        div{
+          // display: none;
+          
+          .rnk{
+            font-size: x-large;
+          }
+          .nme{
+            font-size: x-large;
+          }
+          .pts{
+            font-size: x-large;
+          }
+        }
+        #doubles{
+          // display: none;
+
+          tr{
+            .tableLeft{
+              font-size: x-large;
+            }
+            .tableCenter{
+              form{
+                #playerInfo{
+                  font-size: x-large;
+                }
+              }   
+            }
+            .tableRight{
+              font-size: x-large;
+            }
+            
+          }
+        }
+
+      }
+      .farRight{        
         width: 100%;
         margin: 0 auto 20px auto;
         border-top-style: solid;

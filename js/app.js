@@ -24,6 +24,9 @@ function setBindings() {
     $("#doubles tr:odd").css({
         "background-color":"#dcdcdc"
     });
+    $("#teamDoubles tr:even").css({
+        "background-color":"#dcdcdc"
+    });
 
     $("#loginSubmit").click(function (evt) {
         evt.preventDefault();
@@ -73,6 +76,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"block"});
         $('#editRoundMatches').css({"display":"none"});
@@ -85,6 +89,7 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -96,6 +101,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#editMatches').click(function(){
         $('#editMatches').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -109,6 +115,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
         
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"block"});
@@ -121,6 +128,7 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -132,6 +140,7 @@ function setBindings() {
         $(".addChallenge")[0].reset();
         // $(".editSGLSMatch")[0].reset();
         // $(".editDBLSMatch")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#addChallengeM').click(function(){
         $('#addChallengeM').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -145,6 +154,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
         
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -157,6 +167,7 @@ function setBindings() {
         $('#changePH').css({"display":"none"});
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -168,6 +179,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         // $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#enterSGLSScores').click(function(){
         $('#enterSGLSScores').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -181,6 +193,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -193,6 +206,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         // $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -204,6 +218,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#enterDBLSScores').click(function(){
         $('#enterDBLSScores').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -217,6 +232,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -229,6 +245,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -240,6 +257,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#addAnnounce').click(function(){
         $('#addAnnounce').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -253,6 +271,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -265,6 +284,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -276,6 +296,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#changePassword').click(function(){
         $('#changePassword').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -289,6 +310,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -301,6 +323,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -312,6 +335,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#addPlayers').click(function(){
         $('#addPlayers').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -325,6 +349,7 @@ function setBindings() {
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -337,12 +362,53 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         // $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updateEM")[0].reset();
+        $(".updatePN")[0].reset();
+        $(".enterDBLSScores")[0].reset();
+        $(".editSGLSMatch")[0].reset();
+        $(".editDBLSMatch")[0].reset();
+        $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
+    });
+    $('#addTDTeam').click(function(){
+        $('#addTDTeam').css({"background-color":"#ECECEC","border-radius":"5px"});
+        $('#createMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#editMatches').css({"background-color":"white","border-radius":"5px"});
+        $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
+        $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
+        $('#changePassword').css({"background-color":"white","border-radius":"5px"});
+        $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
+        $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
+        $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+
+        $('#addNewTDTeam').css({"display":"block"});
+        $('#createRoundMatches').css({"display":"none"});
+        $('#editRoundMatches').css({"display":"none"});
+        $('#addChallengeMatch').css({"display":"none"});
+        $('#enterSGLSScoreResults').css({"display":"none"});
+        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#addAnnouncement').css({"display":"none"});
+        $('#changePW').css({"display":"none"});
+        $('#addNewPlayers').css({"display":"none"});
+        $('#changePH').css({"display":"none"});
+        $('#changeEM').css({"display":"none"});
+        $('#logout').css({"display":"none"});
+
+        //$(".addNewTD")[0].reset();
+        $(".enterSGLSScores")[0].reset();
+        $(".addNewPLYR")[0].reset();
+        $(".updatePW")[0].reset();
+        $(".updateEM")[0].reset();
+        $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
         $(".editSGLSMatch")[0].reset();
@@ -361,6 +427,7 @@ function setBindings() {
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -373,6 +440,7 @@ function setBindings() {
         $('#changeEM').css({"display":"block"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -384,6 +452,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#changePhone').click(function(){
         $('#changePhone').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -397,6 +466,7 @@ function setBindings() {
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#loggoutt').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -409,6 +479,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
@@ -420,6 +491,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
     });
     $('#loggoutt').click(function(){
         $('#loggoutt').css({"background-color":"#ECECEC","border-radius":"5px"});
@@ -433,6 +505,7 @@ function setBindings() {
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
         $('#changePhone').css({"background-color":"white","border-radius":"5px"});
+        $('#addTDTeam').css({"background-color":"white","border-radius":"5px"});
 
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
@@ -445,6 +518,7 @@ function setBindings() {
         $('#changeEM').css({"display":"none"});
         $('#logout').css({"display":"block"});
         $('#addChallengeMatch').css({"display":"none"});
+        $('#addNewTDTeam').css({"display":"none"});
 
         $(".enterSGLSScores")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -456,6 +530,7 @@ function setBindings() {
         $(".editSGLSMatch")[0].reset();
         $(".editDBLSMatch")[0].reset();
         $(".addChallenge")[0].reset();
+        $(".addNewTD")[0].reset();
 
         var logoutID = 1;
 
@@ -512,6 +587,29 @@ function setBindings() {
         })
     });
     $("form .doubles-player-name").click(function (evt) {
+        evt.preventDefault();
+
+        var viewPlayer = $(this).val();
+        console.log(viewPlayer);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                viewPlayerID: viewPlayer
+            },
+            success: function(data){
+                //console.log("Success"),
+                //console.log(data);
+                window.location.href = "Player"
+            },
+            error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+              }
+        })
+    });
+    $("form .TD-player-name").click(function (evt) {
         evt.preventDefault();
 
         var viewPlayer = $(this).val();
@@ -686,7 +784,7 @@ function setBindings() {
             }
         }).done(function (data) {
             //console.log("Success");
-            //console.log(data);
+            // console.log(data);
             swal({title: "Success", text: "Singles Matches Created!", type: "success"},
                 function(){ 
                     location.reload();
@@ -711,6 +809,29 @@ function setBindings() {
             //console.log("Success");
             //console.log(data);
             swal({title: "Success", text: "Doubles Matches Created!", type: "success"},
+                function(){ 
+                    location.reload();
+                }
+            );
+        });
+    });
+
+    $("form .create-TD-matches").click(function (evt) {
+        evt.preventDefault();
+
+        var createTDMatches = $(this).val();
+        console.log(createTDMatches);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                createTDID: createTDMatches
+            }
+        }).done(function (data) {
+            //console.log("Success");
+            // console.log(data);
+            swal({title: "Success", text: "Team Doubles Matches Created!", type: "success"},
                 function(){ 
                     location.reload();
                 }
@@ -1239,6 +1360,53 @@ function setBindings() {
                             }
                         );
                 $(".addNewPLYR")[0].reset();
+            });
+
+            //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
+
+        } 
+
+    });
+
+    $("form #newTDTSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var newPlayer1 = $("#userNewTDID1").val();
+        var newPlayer2 = $("#userNewTDID2").val();
+        var newTDStartPoints = $("#newTDPoints").val();
+
+        //#region Value Handling
+        if(newTDStartPoints == ''){
+            newTDStartPoints = 0;
+        } else {
+            newTDStartPoints = parseInt(newTDStartPoints);
+        };
+        //#endregion
+
+        //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
+
+        if (!(newPlayer1 > 0)){
+            swal("Oops...", "Please Select a Player 1", "error");
+        } else if (!(newPlayer2 > 0)){
+            swal("Oops...", "Please Select a Player 2", "error");
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrUserNewTDID1: newPlayer1,
+                    ntrUserNewTDID2: newPlayer2,
+                    ntrNewTDPoints: newTDStartPoints
+                }
+            }).done(function (data) {
+                //console.log("Success");
+                //console.log(data);
+                swal({title: "Success", text: "Team Entered", type: "success"},
+                            function(){ 
+                                location.reload();
+                            }
+                        );
+                $(".addNewTD")[0].reset();
             });
 
             //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);

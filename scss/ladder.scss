@@ -66,7 +66,7 @@
     background-color: white;
 
     .left{
-      width: 48%;
+      width: 32.5%;
       // background-color: cornflowerblue;
       margin: 0 auto auto 0;
 
@@ -161,9 +161,9 @@
     }
 
     .right{
-      width: 48%;
+      width: 32.5%;
       // background-color: #F8D486;
-      margin: 0 0 auto auto;
+      margin: 0 auto auto auto;
 
       h2{
         text-align: center;
@@ -229,6 +229,102 @@
 
           form{
             .doubles-player-name{
+              text-decoration: none;
+              background: none;
+              border: none;
+              padding: 0;
+              cursor: pointer;
+              font-size: 1em;
+
+              &:hover {
+                color: #EEF95D;
+              }
+
+              &:active {
+                color: #53A548;
+              }
+            }
+          }
+        }
+        .tableRight{
+          width: 20%;
+          //background-color: cornflowerblue;
+          text-align: center;
+          padding: 5px auto;
+
+        }
+      }
+    }
+
+    .farRight{
+      width: 32.5%;
+      // background-color: cornflowerblue;
+      margin: 0 0 auto auto;
+
+      h2{
+        text-align: center;
+        color: #333333;
+        padding-bottom: 10px;
+      }
+
+      div{
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+        padding-bottom: 7px;
+        text-decoration: underline;
+
+        .rnk{
+          width: 20%;
+          //background-color: #A5DC86;
+          margin: auto;
+          text-align: center;
+
+        }
+        .nme{
+          width: 60%;
+          //background-color: #f06e57;
+          text-align: center;
+          margin: auto;
+        }
+        .pts{
+          width: 20%;
+          //background-color: cornflowerblue;
+          text-align: center;
+          margin: auto;
+        }
+      }
+
+      table{
+        width: 100%;
+        //background-color: #53A548;
+        //border: none;
+        margin: 0 auto;
+        padding: 5px auto 5px auto;
+        //border: 1px solid #CCC;
+        border-collapse: collapse;
+
+        td{
+          padding-top: .5em;
+          padding-bottom: .5em;
+          border: none;
+        }
+
+        .tableLeft{
+          width: 20%;
+          //background-color: #A5DC86;
+          text-align: center;
+          padding: 5px auto;
+        }
+        .tableCenter{
+          width: 60%;
+          //background-color: #f06e57;
+          text-align: center;
+          padding: 5px auto;
+
+
+          form{
+            .TD-player-name{
               text-decoration: none;
               background: none;
               border: none;

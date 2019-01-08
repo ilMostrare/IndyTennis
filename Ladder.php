@@ -54,13 +54,13 @@ require_once ('includes/adminLogin.php');
                         echo '</table>';
                     echo '</div>';
 
-                    // echo '<div class="farRight">';
-                    //     echo '<h2>Doubles - Team</h2>';
-                    //     echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';
-                    //     echo '<table id="teamDoubles">';
-                    //         printTeamDBLSRankings();
-                    //     echo '</table>';
-                    // echo '</div>';
+                    echo '<div class="farRight">';
+                        echo '<h2>Doubles - Team</h2>';
+                        echo '<div><span class="rnk">Rank</span><span class="nme">Team</span><span class="pts"># of Points</span></div>';
+                        echo '<table id="teamDoubles">';
+                            printTeamDBLSRankings();
+                        echo '</table>';
+                    echo '</div>';
                 echo '</div>';
             } else {
                 echo '<div class="header">';

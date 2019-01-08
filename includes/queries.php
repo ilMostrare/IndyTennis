@@ -147,6 +147,33 @@ function printDBLSRankings()
         echo "<tr><td class='tableLeft'>", $curDBLSRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='doubles-player-name' name='viewPlayer' value='",$dblsPlayerID,"'>", $curDBLSRankLName, ", ", $curDBLSRankFName, "</button></form></td><td class='tableRight'>", $curDBLSRankPoints, "</td></tr>";
     }
 }
+
+function printTeamDBLSRankings()
+{
+    global $conn;
+    global $sznID;
+
+    $curTDRankingsSQL = "SELECT `TDLADDER`.`ID` AS `Rank`, `TDLADDER`.`PLYR1_ID` AS `P1_ID`, `P1`.`LAST_NAME` AS `P1_LNAME`, `TDLADDER`.`PLYR2_ID` AS `P2_ID`, `P2`.`LAST_NAME` AS `P2_LNAME`, `TDLADDER`.`TD_POINTS` AS `TD_POINTS` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `TDLADDER`.`PLYR1_ID` = `P1`.`ID` LEFT JOIN `PLAYERS` AS `P2` ON `TDLADDER`.`PLYR2_ID` = `P2`.`ID` WHERE `TDLADDER`.`TEAM_ID` != 11 ORDER BY `TDLADDER`.`ID`";
+    
+    $curTDRankingsQuery = @$conn->query($curTDRankingsSQL);
+    if (!$curTDRankingsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curTDRankingsRow = mysqli_fetch_assoc($curTDRankingsQuery)) {
+        
+        $curTDRank = $curTDRankingsRow["Rank"];
+        $curTDP1ID = $curTDRankingsRow["P1_ID"];
+        $curTDP1LName = $curTDRankingsRow["P1_LNAME"];
+        $curTDP2ID = $curTDRankingsRow["P2_ID"];
+        $curTDP2LName = $curTDRankingsRow["P2_LNAME"];
+        $curTDRankPoints = $curTDRankingsRow["TD_POINTS"];
+
+        echo "<tr><td class='tableLeft'>", $curTDRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='TD-player-name' name='viewPlayer' value='",$curTDP1ID,"'>", $curTDP1LName , "</button></form><form><button type='submit' id='playerInfo' class='TD-player-name' name='viewPlayer' value='",$curTDP2ID,"'>", $curTDP2LName , "</button></form></td><td class='tableRight'>", $curTDRankPoints, "</td></tr>";
+    }
+}
 #endregion
 
 #region Print out weekly matchups

@@ -73,6 +73,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         echo '<li id="enterSGLSScores">Enter Singles Scores</li>';
                         echo '<li id="enterDBLSScores">Enter Doubles Scores</li>';
                         echo '<li id="addPlayers">Add Players</li>';
+                        echo '<li id="addTDTeam">Add Team Doubles Team</li>';
                         echo '<li id="addAnnounce">Add Announcement</li>';
                         echo '<li id="changePassword">Change Password</li>';
                         echo '<li id="changeEmail">Change Email</li>';
@@ -97,7 +98,9 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         echo '<h3>Create Round Matches</h3>';
                         echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
                         echo "<form><label><h4>Singles Round #".$SGLSroundID.": </h4></label><button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value='".$SGLSroundID."'>Create Singles Matches</button></form>";
-                        echo "<form><label><h4>Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createDBLSMatches' class='create-dbls-matches' name='createDBLSMatches' value='".$DBLSroundID."'>Create Doubles Matches</button></form>";
+                        echo "<form><label><h4>Ind. Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createDBLSMatches' class='create-dbls-matches' name='createDBLSMatches' value='".$DBLSroundID."'>Create Doubles Matches</button></form>";
+                        echo "<form><label><h4>Team Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createTDMatches' class='create-TD-matches' name='createTDMatches' value='".$DBLSroundID."'>Create Doubles Matches</button></form>";
+
                     echo '</div>';
 
                     echo "<div id='editRoundMatches'>";
@@ -226,6 +229,21 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<div class='newPlayer'><label><h4>Starting Singles<br />Points (if any):</h4></label><input type='number' name='newSGLSPoints' id='newSGLSPoints' min='0'></input><label><h4>Starting Doubles<br />Points (if any):</h4></label><input type='number' name='newDBLSPoints' id='newDBLSPoints' min='0'></input></div>";
 
                             echo "<input id='newPlayerSubmit' type='submit' value='Submit'>";
+                        echo "</form>";
+                    echo "</div>";
+
+                    echo "<div id='addNewTDTeam'>";
+                        echo "<h3>Add New Team Doubles Team</h3>";
+                        echo "<form action='' method='post' class='addNewTD'>";                            
+                            echo "<label><h4>Select Player 1: </h4></label>";
+                            echo "<select name='userNewTDID1' id='userNewTDID1' required><option disabled selected value> -- select an player -- </option>", getAllPlayers() ,"</select>";
+
+                            echo "<label><h4>Select Player 2: </h4></label>";
+                            echo "<select name='userNewTDID2' id='userNewTDID2' required><option disabled selected value> -- select an player -- </option>", getAllPlayers() ,"</select>";
+
+                            echo "<div class='newPlayer'><label><h4>Starting Points (if any):</h4></label><input type='number' name='newTDPoints' id='newTDPoints' min='0'></input></div>";
+
+                            echo "<input id='newTDTSubmit' type='submit' value='Submit'>";
                         echo "</form>";
                     echo "</div>";
 
