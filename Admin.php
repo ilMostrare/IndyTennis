@@ -99,7 +99,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
                         echo "<form><label><h4>Singles Round #".$SGLSroundID.": </h4></label><button type='submit' id='createSGLSMatches' class='create-sgls-matches' name='createSGLSMatches' value='".$SGLSroundID."'>Create Singles Matches</button></form>";
                         echo "<form><label><h4>Ind. Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createDBLSMatches' class='create-dbls-matches' name='createDBLSMatches' value='".$DBLSroundID."'>Create Doubles Matches</button></form>";
-                        echo "<form><label><h4>Team Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createTDMatches' class='create-TD-matches' name='createTDMatches' value='".$DBLSroundID."'>Create Doubles Matches</button></form>";
+                        echo "<form><label><h4>Team Doubles Round #".$DBLSroundID.": </h4></label><button type='submit' id='createTDMatches' class='create-TD-matches' name='createTDMatches' value='".$DBLSroundID."'>Create Team Doubles Matches</button></form>";
 
                     echo '</div>';
 
@@ -136,6 +136,19 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<div class='dblsSet'><select name='editDBLSP4' id='editDBLSP4'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesPlayers() ,"</select></div>";
 
                             echo "<input id='dblsMatchEditSubmit' type='submit' value='Submit Doubles Match Edit'>";
+                        echo "</form>";
+
+                        echo "<form action='' method='post' class='editTDMatch'>";
+                            echo "<label><h4>Edit Team Doubles Match: </h4></label>";
+                            echo "<select name='editTDMatchID' id='editTDMatchID' required><option disabled selected> -- select an option -- </option>", getTDMatches() ,"</select>";
+                           
+                            echo "<label><h4>Team 1:</h4></label>";
+                            echo "<div class='dblsSet'><select name='editTDT1' id='editTDT1'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesTeam() ,"</select></div>";
+
+                            echo "<label><h4>Team 2:</h4></label>";
+                            echo "<div class='dblsSet'><select name='editTDT2' id='editTDT2'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllDoublesTeam() ,"</select></div>";
+
+                            echo "<input id='TDMatchEditSubmit' type='submit' value='Submit Team Doubles Match Edit'>";
                         echo "</form>";
                     echo "</div>";
 
@@ -180,7 +193,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                     echo "</div>";
 
                     echo "<div id='enterDBLSScoreResults'>";
-                        echo "<h3>Enter Doubles Scores</h3>";
+                        echo "<h3>Enter Ind. Doubles Scores</h3>";
                         echo "<div class='roundNumbers'><span>Current Doubles Round: ".$DBLSroundID."</span></div><br />";
                         echo "<form action='' method='post' class='enterDBLSScores'>";
                             
@@ -189,21 +202,40 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                            
                             echo "<label><h4>Set 1 (Team 1 First - P1/P2 vs P3/P4):</h4></label>";
                             echo "<div class='DBlsSet'><input type='number' name='DBlsSet1T1' id='DBlsSet1T1' min='0' max='7' required></input><input type='number' name='DBlsSet1T2' id='DBlsSet1T2' min='0' max='7'></input></div>";
-                            // echo "<div class='DBlsSet winnerSelect'><label><h4>Set 1 Winner?:</h4></label><span><input type='radio' name='DBlsSet1Winner' value='1' required><label>Team 1</label></input><input type='radio' name='DBlsSet1Winner' value='2'><label>Team 2</label></input></span></div>";
 
                             echo "<label><h4>Set 2 (Team 1 First - P1/P3 vs P2/P4):</h4></label>";
                             echo "<div class='DBlsSet'><input type='number' name='DBlsSet2T1' id='DBlsSet2T1' min='0' max='7' required></input><input type='number' name='DBlsSet2T2' id='DBlsSet2T2' min='0' max='7' required></input></div>";
-                            // echo "<div class='DBlsSet winnerSelect'><label><h4>Set 2 Winner?:</h4></label><span><input type='radio' name='DBlsSet2Winner' value='1' required><label>Team 1</label></input><input type='radio' name='DBlsSet2Winner' value='2'><label>Team 2</label></input></span></div>";
 
                             echo "<label><h4>Set 3 (Team 1 First - P1/P4 vs P2/P3):</h4></label>";
                             echo "<div class='DBlsSet'><input type='number' name='DBlsSet3T1' id='DBlsSet3T1' min='0' max='7'></input><input type='number' name='DBlsSet3T2' id='DBlsSet3T2' min='0' max='7'></input></div>";
-                            // echo "<div class='DBlsSet winnerSelect'><label><h4>Set 3 Winner?:</h4></label><span><input type='radio' name='DBlsSet3Winner' value='1' required><label>Team 1</label></input><input type='radio' name='DBlsSet3Winner' value='2'><label>Team 2</label></input></span></div>";
 
-                            echo "<div class='DBlsSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='DBlsPlayoff' id='DBlsPlayoff' value='pl'></input><label><h4>Challenge Match?:</h4></label><input type='checkbox' name='DBlsChallenge' id='DBlsChallenge' value='ch'></input></div>";
+                            echo "<div class='DBlsSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='DBlsPlayoff' id='DBlsPlayoff' value='pl'></input></div>";
 
                             echo "<input id='DBlsScoreSubmit' type='submit' value='Submit'>";
 
                         echo "</form>";
+                        
+                        echo "<h3>Enter Team Doubles Scores</h3>";
+                        echo "<form action='' method='post' class='enterTDScores'>";
+                            
+                            echo "<label><h4>Match: </h4></label>";
+                            echo "<select name='TDMatchID' id='TDMatchID' required><option disabled selected value> -- select an option -- </option>", getTDMatches() ,"</select>";
+                           
+                            echo "<label><h4>Set 1 (Team 1 First):</h4></label>";
+                            echo "<div class='TDSet'><input type='number' name='TDSet1T1' id='TDSet1T1' min='0' max='7' required></input><input type='number' name='TDSet1T2' id='TDSet1T2' min='0' max='7'></input></div>";
+
+                            echo "<label><h4>Set 2 (Team 1 First):</h4></label>";
+                            echo "<div class='TDSet'><input type='number' name='TDSet2T1' id='TDSet2T1' min='0' max='7' required></input><input type='number' name='TDSet2T2' id='TDSet2T2' min='0' max='7' required></input></div>";
+
+                            echo "<label><h4>Set 3 (Team 1 First):</h4></label>";
+                            echo "<div class='TDSet'><input type='number' name='TDSet3T1' id='TDSet3T1' min='0' max='7'></input><input type='number' name='TDSet3T2' id='TDSet3T2' min='0' max='7'></input></div>";
+
+                            echo "<div class='TDSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='TDPlayoff' id='TDPlayoff' value='pl'></input></div>";
+
+                            echo "<input id='TDScoreSubmit' type='submit' value='Submit'>";
+
+                        echo "</form>";
+                        
                     echo "</div>";
 
                     echo "<div id='addNewPlayers'>";

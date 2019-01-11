@@ -716,6 +716,34 @@ function setBindings() {
         }
     });
 
+    $("form .TDMatch-player-name").click(function (evt) {
+        evt.preventDefault();
+
+        var viewPlayer = $(this).val();
+        console.log(viewPlayer);
+
+        if (viewPlayer == 11){
+            //do nothing
+        } else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    viewMatchPlayerID: viewPlayer
+                },
+                success: function(data){
+                    //console.log("Success"),
+                    ////console.log(data);
+                    window.location.href = "Player"
+                },
+                error: function(xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                }
+            })
+        }
+    });
+
     $("#viewPlayerPage").click(function (evt) {
         evt.preventDefault();
 
@@ -807,7 +835,7 @@ function setBindings() {
             }
         }).done(function (data) {
             //console.log("Success");
-            //console.log(data);
+            // console.log(data);
             swal({title: "Success", text: "Doubles Matches Created!", type: "success"},
                 function(){ 
                     location.reload();
@@ -938,6 +966,49 @@ function setBindings() {
                 }
             );
             $(".editDBLSMatch")[0].reset();
+        });
+    });
+
+    $("form #TDMatchEditSubmit").click(function (evt) {
+        evt.preventDefault();
+
+        var editTDMatchID = $("#editTDMatchID").val();
+        var editTDT1 = $("#editTDT1").val();
+        var editTDT2 = $("#editTDT2").val();
+
+        //#region Value Handling
+        if (editTDT1 == ''){
+            editTDT1 = 0;
+        } else {
+            editTDT1 = editTDT1;
+        }
+
+        if (editTDT2 == ''){
+            editTDT2 = 0;
+        } else {
+            editTDT2 = editTDT2;
+        }
+        //#endregion
+
+        // console.log(editTDMatchID+" "+editTDT1+" "+editTDT2);
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                ntrEditTDMatchID: editTDMatchID,
+                ntrEditTDT1: editTDT1,
+                ntrEditTDT2: editTDT2
+            }
+        }).done(function (data) {
+            //console.log("Success");
+            console.log(data);
+            swal({title: "Success", text: "Team Doubles Match Updated!", type: "success"},
+                function(){ 
+                    location.reload();
+                }
+            );
+            $(".editTDMatch")[0].reset();
         });
     });
 
@@ -1150,7 +1221,7 @@ function setBindings() {
         var DBlsSet3Winner;
         var DBlsDNP;
 
-        var DBlsMatchID = parseInt($("#DBlsMatchID").val());
+        var DBlsMatchID = $("#DBlsMatchID").val();
         var DBlsSet1T1 = parseInt($("#DBlsSet1T1").val());
         var DBlsSet2T1 = parseInt($("#DBlsSet2T1").val());
         var DBlsSet3T1 = parseInt($("#DBlsSet3T1").val());
@@ -1158,7 +1229,6 @@ function setBindings() {
         var DBlsSet2T2 = parseInt($("#DBlsSet2T2").val());
         var DBlsSet3T2 = parseInt($("#DBlsSet3T2").val());
         var DBlsPlayoff = $("#DBlsPlayoff").prop("checked");
-        var DBlsChallenge = $("#DBlsChallenge").prop("checked");
 
         //#region Value Handling
         if(DBlsSet1T1 > DBlsSet1T2){
@@ -1286,6 +1356,137 @@ function setBindings() {
         }
     });
 
+    $("form #TDScoreSubmit").click(function (evt) {
+        evt.preventDefault();
+        var TDWinner;
+        var team1Sets = 0;
+        var team2Sets = 0;
+        var TDDNP;
+
+        var TDMatchID = $("#TDMatchID").val();
+        var TDSet1T1 = parseInt($("#TDSet1T1").val());
+        var TDSet2T1 = parseInt($("#TDSet2T1").val());
+        var TDSet3T1 = parseInt($("#TDSet3T1").val());
+        var TDSet1T2 = parseInt($("#TDSet1T2").val());
+        var TDSet2T2 = parseInt($("#TDSet2T2").val());
+        var TDSet3T2 = parseInt($("#TDSet3T2").val());
+        var TDPlayoff = $("#TDPlayoff").prop("checked");
+
+        //#region Value Handling
+        if( (TDSet1T1 > TDSet1T2) ){
+            team1Sets++;
+        } else {
+            team2Sets++;
+        } 
+        if( (TDSet2T1 > TDSet2T2) ){
+            team1Sets++;
+        } else {
+            team2Sets++;
+        } 
+        if( (TDSet3T1 > TDSet3T2) ){
+            team1Sets++;
+        } else {
+            team2Sets++;
+        } 
+
+        if(team1Sets > team2Sets){
+            TDWinner = 1;
+        } else {
+            TDWinner = 2;
+        }
+        
+        if( (TDSet1T1 == 0) && (TDSet2T1 == 0) && (TDSet3T1 == 0) && (TDSet1T2 == 0) && (TDSet2T2 == 0) && (TDSet3T2 == 0) ){
+            TDDNP = 1;
+            TDWinner = 0;
+        } else {
+            TDDNP = 0;
+        }
+        //#endregion
+
+
+        if ((TDSet1T1 > 7) || isNaN(TDSet1T1)){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if ((TDSet2T1 > 7) || isNaN(TDSet2T1)){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if ((TDSet3T1 > 7) || isNaN(TDSet3T1)){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if ((TDSet1T2 > 7) || isNaN(TDSet2T1)){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if ((TDSet2T2 > 7) || isNaN(TDSet2T1)){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else if ((TDSet3T2 > 7) || isNaN(TDSet3T2)){
+            swal("Oops...", "Score Entered is Invalid!", "error");
+        } else {
+            // console.log(TDMatchID," ",TDSet1T1," ",TDSet2T1," ",TDSet3T1," ",TDSet1T2," ",TDSet2T2," ",TDSet3T2," ",TDPlayoff," ",TDChallenge," ",TDSet1Winner," ",TDSet2Winner," ",TDSet3Winner," ",TDDNP);
+
+            if(TDDNP == 1){
+                swal({
+                    title: 'Match Not Played?',
+                    text: "",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#53A548',
+                    cancelButtonColor: 'dimgrey',
+                    confirmButtonText: 'Submit',
+                    closeOnConfirm: false
+                },function () {                           
+                    $.ajax({
+                        url: '',
+                        type: 'POST',
+                        data: {
+                            ntrTDMatchID: TDMatchID,
+                            ntrTDS1T1: TDSet1T1,
+                            ntrTDS2T1: TDSet2T1,
+                            ntrTDS3T1: TDSet3T1,
+                            ntrTDS1T2: TDSet1T2,
+                            ntrTDS2T2: TDSet2T2,
+                            ntrTDS3T2: TDSet3T2,
+                            ntrTDPlayoff: TDPlayoff,
+                            ntrTDWinner: TDWinner,
+                            ntrTDDNP: TDDNP
+                        }
+                    }).done(function (data) {
+                        //console.log("Success");
+                        //console.log(data);
+                        swal({title: "Success", text: "Scores Entered", type: "success"},
+                            function(){ 
+                                location.reload();
+                            }
+                        );
+                        $(".enterTDScores")[0].reset();
+                    });
+                })
+            } else {
+                $.ajax({
+                    url: '',
+                    type: 'POST',
+                    data: {
+                        ntrTDMatchID: TDMatchID,
+                        ntrTDS1T1: TDSet1T1,
+                        ntrTDS2T1: TDSet2T1,
+                        ntrTDS3T1: TDSet3T1,
+                        ntrTDS1T2: TDSet1T2,
+                        ntrTDS2T2: TDSet2T2,
+                        ntrTDS3T2: TDSet3T2,
+                        ntrTDPlayoff: TDPlayoff,
+                        ntrTDWinner: TDWinner,
+                        ntrTDDNP: TDDNP
+                    }
+                }).done(function (data) {
+                    //console.log("Success");
+                    //console.log(data);
+                    swal({title: "Success", text: "Scores Entered", type: "success"},
+                            function(){ 
+                                location.reload();
+                            }
+                        );
+                    $(".enterTDScores")[0].reset();
+                });
+            }
+            
+        }
+    });
+
     $("form #newPlayerSubmit").click(function (evt){
         evt.preventDefault();
 
@@ -1383,7 +1584,6 @@ function setBindings() {
         };
         //#endregion
 
-        //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
 
         if (!(newPlayer1 > 0)){
             swal("Oops...", "Please Select a Player 1", "error");

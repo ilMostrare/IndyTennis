@@ -542,7 +542,7 @@
             font-size: x-large;
           }
         }
-        #doubles{
+        #teamDoubles{
           // display: none;
 
           tr{
@@ -572,10 +572,13 @@
     padding-top: $phone-nav-height + 20px;
     width: 95%;
     //height: min-content;
-    height: calc(100% - (#{$phone-nav-height}));
+    min-height: calc(100% - (#{$phone-nav-height}));
+
+    .header{
+      margin-bottom: 20px;
+    }
 
     h3{
-      margin-bottom: 20px;
       a{
         font-size: x-large;
       }
@@ -583,8 +586,16 @@
 
     .displayMatches{
       width: 95%;
+      display: block;
 
       .left{
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        h2{
+          font-size: xx-large;
+        }
+
         #singlesMU{
           tr{
             .tableLeft{
@@ -605,7 +616,57 @@
 
       }
       .right{
+        width: 100%;
+        margin: 0 auto 20px auto;
+        padding-top: 20px;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: lightgrey;
+
+        h2{
+          font-size: xx-large;
+        }
+
         #doublesMU{
+          tr{
+            .tableLeft{
+              width: 0;
+              form{
+                input[type=submit] {
+                  font-size: x-large;
+                }
+              }
+            }
+            .tableCenter{
+              width: 100%;
+              font-size: x-large;                
+            }
+            .tableRight{
+              width: 0;
+              form{
+                input[type=submit] {
+                  font-size: x-large;
+                }
+              }              
+            }
+          }
+        }
+
+      }
+
+      .farRight{
+        width: 100%;
+        margin: 0 auto 20px auto;
+        padding-top: 20px;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: lightgrey;
+
+        h2{
+          font-size: xx-large;
+        }
+
+        #teamDoubles2{
           tr{
             .tableLeft{
               width: 0;

@@ -274,7 +274,7 @@ function GetPlayerCurrentMatches($playerID){
 }
 #endregion
 
-#region /// get player past matches
+#region get player past matches
 function GetPlayerPastMatches($playerID){
     global $conn;
     $playerInfoSql = "SELECT `ID`,`SGLS_PLAYER`,`DBLS_PLAYER` FROM `PLAYERS` WHERE `ID` LIKE '".$playerID."'";

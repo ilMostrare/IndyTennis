@@ -23,7 +23,7 @@ function createSGLSMatches(){
     }
     foreach ($resultSet as &$player) {
         $player1 = $player[0];
-        echo $player1," vs ";
+        // echo $player1," vs ";
 
         $player1SQL = "SELECT `ID` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '" . $player1 . "'";
         $player1Query = @$conn->query($player1SQL);
@@ -48,7 +48,7 @@ function createSGLSMatches(){
         $player2Query = @$conn->query($player2SQL);
         while ($p2_Players_Row = mysqli_fetch_array($player2Query)) {
             $player2 = $p2_Players_Row["PLAYER_ID"];
-            echo $player2," \n";
+            // echo $player2," \n";
         }
 
         $existsSQL = "SELECT COUNT(*) as 'COUNT' FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player1 . "') OR (`PLAYER2` = '" . $player1 . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
@@ -56,12 +56,15 @@ function createSGLSMatches(){
         while ($exists_Row = mysqli_fetch_assoc($existsQRY)) {
             $exists = $exists_Row["COUNT"];
         }
-        echo "exists",$exists;
+        // echo "exists",$exists;
 
         $totalSGLSplayersSQL = "SELECT * FROM `SGLSLADDER`";
         $totalSGLSplayersQRY = @$conn->query($totalSGLSplayersSQL);
         $totalSGLSplayersROW = mysqli_num_rows($totalSGLSplayersQRY);
-        echo "rows",$totalSGLSplayersROW," \n";
+        // echo "rows",$totalSGLSplayersROW," \n";
+
+        /* $prefix = $sznID+'.'+$SGLSroundID+'.';
+        $SGLSmatchID = uniqid($prefix,FALSE); */
 
         if ($exists > 0) {
             echo "Player exists, do nothing\n";
@@ -160,13 +163,13 @@ function createDBLSMatches(){
         if ($exists > 0) {
             echo "Player exists, do nothing\n";
         } else {
-            if ($player2 > $totalDBLSplayersROW) {
+            if ($player2Rank > $totalDBLSplayersROW) {
                 $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11', '11', '11'," . $DBLSroundID . ", " . $sznID . ")";
                 @$conn->query($createMatchSQL);
-            } else if ($player3 > $totalDBLSplayersROW) {
+            } else if ($player3Rank > $totalDBLSplayersROW) {
                 $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '11', '11'," . $DBLSroundID . ", " . $sznID . ")";
                 @$conn->query($createMatchSQL);
-            } else if ($player4 > $totalDBLSplayersROW) {
+            } else if ($player4Rank > $totalDBLSplayersROW) {
                 $createMatchSQL = "INSERT INTO `DBLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `PLAYER3`, `PLAYER4`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '" . $player3 . "', '11'," . $DBLSroundID . ", " . $sznID . ")";
                 @$conn->query($createMatchSQL);
             } else {
@@ -193,7 +196,7 @@ function createTDMatches(){
 
     // $resultSet = array();
 
-    $allTeamsSQL = "SELECT `TEAM_ID` FROM `TDLADDER`  ORDER BY `ID`";
+    $allTeamsSQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE `TEAM_ID` != 11 ORDER BY `ID`";
     $allTeamsQuery = @$conn->query($allTeamsSQL);
     while ($all_TD_Teams_Row = mysqli_fetch_array($allTeamsQuery)) {
         $resultSet[] = $all_TD_Teams_Row;
@@ -203,11 +206,10 @@ function createTDMatches(){
         $team1 = $team[0];
         echo $team1," vs ";
 
-        $team1SQL = "SELECT `ID` FROM `TDLADDER` WHERE `TEAM_ID` = '" . $team1 . "'";
-        $team1Query = @$conn->query($team1SQL);
-        while ($p1_Teams_Row = mysqli_fetch_array($team1Query)) {
-            $team1Rank = $p1_Teams_Row["ID"];
-            // echo $team1Rank;
+        $team1curRankSQL = "SELECT `Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$team1."'";
+        $team1curRankQuery = @$conn->query($team1curRankSQL);
+        while ($team1curRankRow = mysqli_fetch_assoc($team1curRankQuery)) {
+            $team1Rank = $team1curRankRow["Rank"];
         }
 
         if ($DBLSroundID % 3 == 1){
@@ -222,7 +224,7 @@ function createTDMatches(){
         $team2Rank = $team1Rank + $j;
         // echo $team2Rank," ";
 
-        $team2SQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE `ID` = '" . $team2Rank . "'";
+        $team2SQL = "SELECT `TEAM_ID`, `Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `Rank` = '" . $team2Rank . "'";
         $team2Query = @$conn->query($team2SQL);
         while ($p2_Teams_Row = mysqli_fetch_array($team2Query)) {
             $team2 = $p2_Teams_Row["TEAM_ID"];
@@ -384,9 +386,6 @@ if (isset($_POST['createTDID'])){
 
         } else {
             $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = '".$_player1."', `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
-            @$conn->query($editMatchSQL);
-
-            $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
             @$conn->query($editMatchSQL);
 
             $setTBD1SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
@@ -567,6 +566,208 @@ if (isset($_POST['createTDID'])){
     }
     #endregion
 
+    #region Team Doubles Match Edit
+    function getAllDoublesTeam(){
+        global $conn;
+
+        $teamListSQL = "SELECT `TDLADDER`.`TEAM_ID` as `TEAM_ID`,`P1`.`LAST_NAME` as `P1`,`P2`.`LAST_NAME` as `P2` FROM `TDLADDER` INNER JOIN `PLAYERS` AS `P1` ON `TDLADDER`.`PLYR1_ID` = `P1`.`ID` INNER JOIN `PLAYERS` AS `P2` ON `TDLADDER`.`PLYR2_ID` = `P2`.`ID` ORDER BY `P1`.`LAST_NAME`";
+        $teamListQuery = @$conn->query($teamListSQL);
+        if (!$teamListQuery) {
+            $errno = $conn->errno;
+            $error = $conn->error;
+            $conn->close();
+            die("Selection failed: ($errno) $error.");
+        }
+        while ($teamListRow = mysqli_fetch_assoc($teamListQuery)) {
+            $teamID = $teamListRow["TEAM_ID"];
+            $teamP1 = $teamListRow["P1"];
+            $teamP2 = $teamListRow["P2"];
+            
+            // echo "<li>",$sglsMatchPlayer1," vs. ",$sglsMatchPlayer2,"</li>";
+            echo "<option value='",$teamID,"'>",$teamP1," - ",$teamP2,"</option>";
+        }
+
+    }
+
+    function getTDMatches(){
+        global $conn;
+        global $sznID;
+        global $DBLSroundID;
+    
+        $optTDMatchupsSQL = "SELECT `TDMATCH`.`ID`,`P1`.`LAST_NAME` AS `PY1`,`P2`.`LAST_NAME` AS `PY2`,`P3`.`LAST_NAME` AS `PY3`,`P4`.`LAST_NAME` AS `PY4` FROM `TDMATCH` LEFT JOIN `TDLADDER` AS `T1` ON `TDMATCH`.`TEAM1` = `T1`.`TEAM_ID` LEFT JOIN `TDLADDER` AS `T2` ON `TDMATCH`.`TEAM2` = `T2`.`TEAM_ID` LEFT JOIN `PLAYERS` AS `P1` ON `T1`.`PLYR1_ID` = `P1`.`ID` LEFT JOIN `PLAYERS` AS `P2` ON `T1`.`PLYR2_ID` = `P2`.`ID` LEFT JOIN `PLAYERS` AS `P3` ON `T2`.`PLYR1_ID` = `P3`.`ID` LEFT JOIN `PLAYERS` AS `P4` ON `T2`.`PLYR2_ID` = `P4`.`ID` WHERE `TDMATCH`.`ROUND_NUM` = '".$DBLSroundID."' AND `TDMATCH`.`MATCHWINNER` = 0 AND `TDMATCH`.`DNP` = 0 ";
+        $optTDMatchupsQuery = @$conn->query($optTDMatchupsSQL);
+        if (!$optTDMatchupsQuery) {
+            $errno = $conn->errno;
+            $error = $conn->error;
+            $conn->close();
+            die("Selection failed: ($errno) $error.");
+        }
+        while ($optTDMatchupsRow = mysqli_fetch_assoc($optTDMatchupsQuery)) {
+            $TDMatchID = $optTDMatchupsRow["ID"];
+            $TDMatchPlayer1 = $optTDMatchupsRow["PY1"];
+            $TDMatchPlayer2 = $optTDMatchupsRow["PY2"];
+            $TDMatchPlayer3 = $optTDMatchupsRow["PY3"];
+            $TDMatchPlayer4 = $optTDMatchupsRow["PY4"];
+            
+            echo "<option value='",$TDMatchID,"'>",$TDMatchPlayer1," / ",$TDMatchPlayer2," vs ",$TDMatchPlayer3," / ",$TDMatchPlayer4,"</option>";
+        }
+    
+    }
+
+    function editTeamDoublesMatch($_matchID,$_team1,$_team2){
+        global $conn;
+
+        // echo $_matchID," ", $_team1," ", $_team2;
+
+        if(($_team1 != 0) && ($_team2 == 0)){
+            // if changing team 1 and not team 2
+            $editMatchSQL = "UPDATE `TDMATCH` SET `TDMATCH`.`TEAM1` = '".$_team1."' WHERE `TDMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            // echo $_matchID," ", $_team1," ", $_team2;
+
+            $selectTBDSQL = "SELECT `ID`,`TEAM1`,`TEAM2` FROM `TDMATCH` WHERE (`TEAM1` = '".$_team1."' OR `TEAM2` = '".$_team1."') AND NOT `TDMATCH`.`ID` = '".$_matchID."'";
+            $selectTBDQuery = @$conn->query($selectTBDSQL);
+            if (!$selectTBDQuery) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($selectTBDRow = mysqli_fetch_assoc($selectTBDQuery)) {
+                $matchTBDID = $selectTBDRow["ID"];
+                $matchTBDP1 = $selectTBDRow["TEAM1"];
+                $matchTBDP2 = $selectTBDRow["TEAM2"];
+            }
+
+            // echo "matchtbdid ",$matchTBDID," p1 ",$matchTBDP1," p2 ",$matchTBDP2;
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_team1){
+                    $setTBDSQL = "UPDATE `TDMATCH` SET `TEAM1` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else if ($matchTBDP2 == $_team1){
+                    $setTBDSQL = "UPDATE `TDMATCH` SET `TEAM2` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+
+            // echo $_matchID," ", $_team1," ", $_team2;
+
+        } else if (($_team1 == 0) && ($_team2 != 0)){
+            // if changing team 2 and not team 1            
+            $editMatchSQL = "UPDATE `TDMATCH` SET `TEAM2` = '".$_team2."' WHERE `TDMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            $selectTBDSQL = "SELECT `ID`,`TEAM1`,`TEAM2` FROM `TDMATCH` WHERE (`TEAM1` = '".$_team2."' OR `TEAM2` = '".$_team2."') AND NOT `TDMATCH`.`ID` = '".$_matchID."'";
+            $selectTBDQuery = @$conn->query($selectTBDSQL);
+            if (!$selectTBDQuery) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($selectTBDRow = mysqli_fetch_assoc($selectTBDQuery)) {
+                $matchTBDID = $selectTBDRow["ID"];
+                $matchTBDP1 = $selectTBDRow["TEAM1"];
+                $matchTBDP2 = $selectTBDRow["TEAM2"];
+            }
+
+            echo "matchtbdid ",$matchTBDID," p1 ",$matchTBDP1," p2 ",$matchTBDP2;
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_team2){
+                    $setTBDSQL = "UPDATE `TDMATCH` SET `TEAM1` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else if ($matchTBDP2 == $_team2){
+                    $setTBDSQL = "UPDATE `TDMATCH` SET `TEAM2` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBDSQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+
+        } else {
+            // if changing both teams
+            $editMatchSQL = "UPDATE `TDMATCH` SET `TEAM1` = '".$_team1."', `TEAM2` = '".$_team2."' WHERE `TDMATCH`.`ID` = '".$_matchID."'";
+            @$conn->query($editMatchSQL);
+
+            $setTBD1SQL = "SELECT `ID`,`TEAM1`,`TEAM2` FROM `TDMATCH` WHERE (`TEAM1` = '".$_team1."' OR `TEAM2` = '".$_team1."') AND NOT `TDMATCH`.`ID` = '".$_matchID."'";
+            $setTBD1Query = @$conn->query($setTBD1SQL);
+            if (!$setTBD1Query) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+
+            while ($setTBD1Row = mysqli_fetch_assoc($setTBD1Query)) {
+                $matchTBDID = $setTBD1Row["ID"];
+                $matchTBDP1 = $setTBD1Row["TEAM1"];
+                $matchTBDP2 = $setTBD1Row["TEAM2"];
+            }
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_team1){
+                    $setTBD1SQL = "UPDATE `TDMATCH` SET `TEAM1` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD1SQL);
+                } else if ($matchTBDP2 == $_team1){
+                    $setTBD1SQL = "UPDATE `TDMATCH` SET `TEAM2` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD1SQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+
+            $setTBD2SQL = "SELECT `ID`,`TEAM1`,`TEAM2` FROM `TDMATCH` WHERE `TEAM1` = '".$_team2."' OR `TEAM2` = '".$_team2."' AND NOT `TDMATCH`.`ID` = '".$_matchID."'";
+            $setTBD2Query = @$conn->query($setTBD2SQL);
+            if (!$setTBD2Query) {
+                $errno = $conn->errno;
+                $error = $conn->error;
+                $conn->close();
+                die("Selection failed: ($errno) $error.");
+            }
+            while ($setTBD2Row = mysqli_fetch_assoc($setTBD2Query)) {
+                $matchTBD2ID = $setTBD2Row["ID"];
+                $matchTBD2P1 = $setTBD2Row["TEAM1"];
+                $matchTBD2P2 = $setTBD2Row["TEAM2"];
+            }
+
+            if ($matchTBDID != ''){
+                if ($matchTBDP1 == $_team2){
+                    $setTBD2SQL = "UPDATE `TDMATCH` SET `TEAM1` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD2SQL);
+                } else if ($matchTBDP2 == $_team2){
+                    $setTBD2SQL = "UPDATE `TDMATCH` SET `TEAM2` = 11 WHERE `TDMATCH`.`ID` = '".$matchTBDID."'";
+                    @$conn->query($setTBD2SQL);
+                } else {
+                    // do nothing
+                }
+            } else {
+                echo "no secondary match to be updated";
+            }
+        }
+    }
+
+    if (isset($_POST['ntrEditTDMatchID'])){
+
+        $editTDMatchID = isset($_POST['ntrEditTDMatchID']) ? $_POST['ntrEditTDMatchID'] : 'No data found';
+        $editTDT1 = isset($_POST['ntrEditTDT1']) ? $_POST['ntrEditTDT1'] : 'No data found';
+        $editTDT2 = isset($_POST['ntrEditTDT2']) ? $_POST['ntrEditTDT2'] : 'No data found';    
+
+        editTeamDoublesMatch($editTDMatchID, $editTDT1, $editTDT2);
+
+    }
+    #endregion
+
 #endregion
 
 #region Insert Challenge Match
@@ -638,34 +839,8 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
 
     #region Get Ranks
-    $player1RankSQL = "SELECT `SGLSLADDER`.`ID` AS `Rank` FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` = '".$sglsMatchP1."'";
-    $player1RankQuery = @$conn->query($player1RankSQL);
-    #region error handling
-    if (!$player1RankQuery) {
-        $errno = $conn->errno;
-        $error = $conn->error;
-        $conn->close();
-        die("Selection failed: ($errno) $error.");
-    }
-    #endregion
-    while ($player1RankRow = mysqli_fetch_assoc($player1RankQuery)) {
-        $player1Rank = $player1RankRow["Rank"];
-    }
-    $player2RankSQL = "SELECT `SGLSLADDER`.`ID` AS `Rank` FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` =  '".$sglsMatchP2."'";
-    $player2RankQuery = @$conn->query($player2RankSQL);
-    #region error handling
-    if (!$player2RankQuery) {
-        $errno = $conn->errno;
-        $error = $conn->error;
-        $conn->close();
-        die("Selection failed: ($errno) $error.");
-    }
-    #endregion
-    while ($player2RankRow = mysqli_fetch_assoc($player2RankQuery)) {
-        $player2Rank = $player2RankRow["Rank"];
-    }
-
-    $player1curPTSSQL = "SELECT `SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP1."'";
+    
+    $player1curPTSSQL = "SELECT `ID` AS `Rank`,`SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP1."'";
     $player1curPTSQuery = @$conn->query($player1curPTSSQL);
     #region error handling
     if (!$player1curPTSQuery) {
@@ -676,12 +851,13 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     }
     #endregion
     while ($player1curPTSRow = mysqli_fetch_assoc($player1curPTSQuery)) {
+        $player1Rank = $player1curPTSRow["Rank"];
         $player1curPTS = $player1curPTSRow["SGLS_POINTS"];
         $player1curWins = $player1curPTSRow["SGLS_WINS"];
         $player1curLosses = $player1curPTSRow["SGLS_LOSSES"];
     }
 
-    $player2curPTSSQL = "SELECT `SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP2."'";
+    $player2curPTSSQL = "SELECT `ID` AS `Rank`,`SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP2."'";
     $player2curPTSQuery = @$conn->query($player2curPTSSQL);
     #region error handling
     if (!$player2curPTSQuery) {
@@ -692,6 +868,7 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     }
     #endregion
     while ($player2curPTSRow = mysqli_fetch_assoc($player2curPTSQuery)) {
+        $player2Rank = $player2curPTSRow["Rank"];
         $player2curPTS = $player2curPTSRow["SGLS_POINTS"];
         $player2curWins = $player2curPTSRow["SGLS_WINS"];
         $player2curLosses = $player2curPTSRow["SGLS_LOSSES"];
@@ -870,7 +1047,7 @@ function getDBLSMatches(){
 
 }
 
-function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$_Playoff,$_Challenge,$_Set1Winner,$_Set2Winner,$_Set3Winner,$_DNP){
+function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$_Playoff,$_Set1Winner,$_Set2Winner,$_Set3Winner,$_DNP){
     global $conn;
     global $sznID;
     global $DBLSroundID;
@@ -1134,14 +1311,214 @@ if (isset($_POST['ntrDBLSMatchID'])){
     $dblsT2s2 = isset($_POST['ntrDBLSS2T2']) ? $_POST['ntrDBLSS2T2'] : 'No data found';
     $dblsT2s3 = isset($_POST['ntrDBLSS3T2']) ? $_POST['ntrDBLSS3T2'] : 'No data found';
     $dblsPlayoff = isset($_POST['ntrDBLSPlayoff']) ? $_POST['ntrDBLSPlayoff'] : 'No data found';
-    $dblsChallenge = isset($_POST['ntrDBLSChallenge']) ? $_POST['ntrDBLSChallenge'] : 'No data found';
     $dblsSet1Winner = isset($_POST['ntrDBLSSet1Winner']) ? $_POST['ntrDBLSSet1Winner'] : 'No data found';
     $dblsSet2Winner = isset($_POST['ntrDBLSSet2Winner']) ? $_POST['ntrDBLSSet2Winner'] : 'No data found';
     $dblsSet3Winner = isset($_POST['ntrDBLSSet3Winner']) ? $_POST['ntrDBLSSet3Winner'] : 'No data found';
     $dblsDNP = isset($_POST['ntrDBlsDNP']) ? $_POST['ntrDBlsDNP'] : 'No data found';
 
 
-    ntrDBLSScores($DBLSMatchID, $dblsT1s1, $dblsT1s2, $dblsT1s3, $dblsT2s1, $dblsT2s2, $dblsT2s3,$dblsPlayoff,$dblsChallenge,$dblsSet1Winner,$dblsSet2Winner,$dblsSet3Winner,$dblsDNP);
+    ntrDBLSScores($DBLSMatchID, $dblsT1s1, $dblsT1s2, $dblsT1s3, $dblsT2s1, $dblsT2s2, $dblsT2s3,$dblsPlayoff,$dblsSet1Winner,$dblsSet2Winner,$dblsSet3Winner,$dblsDNP);
+
+}
+
+#endregion
+
+#region Enter Team Doubles Scores
+
+function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$_playoff,$_winner,$_DNP){
+    global $conn;
+    global $sznID;
+    global $DBLSroundID;
+
+    #region get match teams
+    $TDMatchTeamsSQL = "SELECT `TEAM1`,`TEAM2` FROM `TDMATCH` WHERE `ID` = '".$_matchID."'";
+    $TDMatchTeamsQuery = @$conn->query($TDMatchTeamsSQL);
+    #region error handling
+    if (!$TDMatchTeamsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($TDMatchTeamsRow = mysqli_fetch_assoc($TDMatchTeamsQuery)) {
+        $TDMatchT1 = $TDMatchTeamsRow["TEAM1"];
+        $TDMatchT2 = $TDMatchTeamsRow["TEAM2"];
+    }
+    #endregion
+
+    #region Get Ranks
+
+    $team1curRankSQL = "SELECT `Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$TDMatchT1."'";
+    $team1curRankQuery = @$conn->query($team1curRankSQL);
+    while ($team1curRankRow = mysqli_fetch_assoc($team1curRankQuery)) {
+        $team1Rank = $team1curRankRow["Rank"];
+    }
+    $team2curRankSQL = "SELECT `Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$TDMatchT2."')";
+    $team2curRankQuery = @$conn->query($team2curRankSQL);
+    while ($team2curRankRow = mysqli_fetch_assoc($team2curRankQuery)) {
+        $team2Rank = $team2curRankRow["Rank"];
+    }
+    
+    $team1curPTSSQL = "SELECT `TD_POINTS`,`TD_WINS`,`TD_LOSSES` FROM `TDLADDER` WHERE `TEAM_ID` = '".$TDMatchT1."'";
+    $team1curPTSQuery = @$conn->query($team1curPTSSQL);
+    #region error handling
+    if (!$team1curPTSQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($team1curPTSRow = mysqli_fetch_assoc($team1curPTSQuery)) {
+        $team1curPTS = $team1curPTSRow["TD_POINTS"];
+        $team1curWins = $team1curPTSRow["TD_WINS"];
+        $team1curLosses = $team1curPTSRow["TD_LOSSES"];
+    }
+
+    $team2curPTSSQL = "SELECT `TD_POINTS`,`TD_WINS`,`TD_LOSSES` FROM `TDLADDER` WHERE `TEAM_ID` = '".$TDMatchT2."'";
+    $team2curPTSQuery = @$conn->query($team2curPTSSQL);
+    #region error handling
+    if (!$team2curPTSQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    #endregion
+    while ($team2curPTSRow = mysqli_fetch_assoc($team2curPTSQuery)) {
+        $team2curPTS = $team2curPTSRow["TD_POINTS"];
+        $team2curWins = $team2curPTSRow["TD_WINS"];
+        $team2curLosses = $team2curPTSRow["TD_LOSSES"];
+    }
+    #endregion
+    
+    #region Insert Scores
+
+    if($_DNP == 1){
+        $insrtTDDNP = "UPDATE `TDMATCH` SET `DNP` = '".$_DNP."' WHERE `TDMATCH`.`ID` = '".$_matchID."'";
+        @$conn->query($insrtTDDNP);
+    } else {
+        $insrtTDScores = "UPDATE `TDMATCH` SET `T1_SET1` = '".$_T1s1."', `T1_SET2` = '".$_T1s2."', `T1_SET3` = '".$_T1s3."', `T2_SET1` = '".$_T2s1."', `T2_SET2` = '".$_T2s2."', `T2_SET3` = '".$_T2s3."', `MATCHWINNER` = '".$_winner."', `PLAYOFF` = '".$_playoff."' WHERE `TDMATCH`.`ID` = '".$_matchID."'";
+        @$conn->query($insrtTDScores);
+    }
+
+    #endregion
+
+    #region Calculate # of games won
+    $team1GamesWon = ($_T1s1 + $_T1s2 + $_T1s3);
+    $team2GamesWon = ($_T2s1 + $_T2s2 + $_T2s3);
+
+    #endregion
+
+    #region calculate points
+    $team1Points = $team1curPTS;
+    $team2Points = $team2curPTS;
+    $T1Wins = $team1curWins;
+    $T2Wins = $team2curWins;
+    $T1Losses = $team1curLosses;
+    $T2Losses = $team2curLosses;
+
+    if($_winner == 1){
+        $T1Wins++;
+        $T2Losses++;
+
+        if ($team2GamesWon > 10){
+            $team2Points += 10;
+        } else {
+            $team2Points += $team2GamesWon;
+        }
+
+        if (($team2Rank - $team1Rank) >= 2){
+            $team1Points += (10 + ($team1GamesWon - $team2GamesWon) + (($team1GamesWon - $team2GamesWon)/2));
+
+            if($team1Points < 15){
+                $team1Points += 15;
+            } 
+            if ($team1Points > 25){
+                $team1Points += 25;
+            } 
+        } else {
+            $team1Points += (10 + ($team1GamesWon - $team2GamesWon));
+        
+            if ($team1Points < 11){
+                $team1Points += 11;
+            }
+        }
+
+    } elseif ($_winner == 2) {
+        $T2Wins++;
+        $T1Losses++;
+
+        if ($team1GamesWon > 10){
+            $team1Points += 10;
+        } else {
+            $team1Points += $team1GamesWon;
+        }
+        
+        if (($team1Rank - $team2Rank) >= 2){
+            $team1Points += (10 + ($team2GamesWon - $team1GamesWon) + (($team2GamesWon - $team1GamesWon)/2));
+        
+            if ($team2GamesWon < 15){
+                $team2Points += 15;
+            }
+            if ($team2GamesWon > 25){
+                $team2Points += 25;
+            }
+        } else {
+            $team2Points += (10 + ($team2GamesWon - $team1GamesWon));
+        
+            if ($team2GamesWon < 11){
+                $team2Points += 11;
+            }
+        }
+    } else {
+        $T1Wins = $team1curWins;
+        $T2Wins = $team2curWins;
+        $T1Losses = $team1curLosses;
+        $T2Losses = $team2curLosses;
+        $team1Points = $team1curPTS;
+        $team2Points = $team2curPTS;
+    }
+
+    if ($_playoff == 1){
+        $team1Points = $team1curPTS;
+        $team2Points = $team2curPTS;
+    }
+    
+    #endregion
+
+    #region insert points
+    $updateTDScoresT1 = "UPDATE `TDLADDER` SET `TD_POINTS` = '".$team1Points."', `TD_WINS` = '".$T1Wins."', `TD_LOSSES` = '".$T1Losses."' WHERE `TDLADDER`.`TEAM_ID` = '".$TDMatchT1."'";
+    if ($conn->query($updateTDScoresT1) === TRUE) {
+        echo "Records added successfully.";
+        //header("Location: Admin.php");
+    }
+    $updateTDScoresT2 = "UPDATE `TDLADDER` SET `TD_POINTS` = '".$team2Points."', `TD_WINS` = '".$T2Wins."', `TD_LOSSES` = '".$T2Losses."' WHERE `TDLADDER`.`TEAM_ID` = '".$TDMatchT2."'";
+    if ($conn->query($updateTDScoresT2) === TRUE) {
+        echo "Records added successfully.";
+        //header("Location: Admin.php");
+    }
+
+    #endregion
+}
+
+
+if (isset($_POST['ntrTDMatchID'])){
+
+    $TDMatchID = isset($_POST['ntrTDMatchID']) ? $_POST['ntrTDMatchID'] : 'No data found';
+    $TDT1s1 = isset($_POST['ntrTDS1T1']) ? $_POST['ntrTDS1T1'] : 'No data found';
+    $TDT1s2 = isset($_POST['ntrTDS2T1']) ? $_POST['ntrTDS2T1'] : 'No data found';
+    $TDT1s3 = isset($_POST['ntrTDS3T1']) ? $_POST['ntrTDS3T1'] : 'No data found';
+    $TDT2s1 = isset($_POST['ntrTDS1T2']) ? $_POST['ntrTDS1T2'] : 'No data found';
+    $TDT2s2 = isset($_POST['ntrTDS2T2']) ? $_POST['ntrTDS2T2'] : 'No data found';
+    $TDT2s3 = isset($_POST['ntrTDS3T2']) ? $_POST['ntrTDS3T2'] : 'No data found';
+    $TDPlayoff = isset($_POST['ntrTDPlayoff']) ? $_POST['ntrTDPlayoff'] : 'No data found';
+    $TDWinner = isset($_POST['ntrTDWinner']) ? $_POST['ntrTDWinner'] : 'No data found';
+    $TDDNP = isset($_POST['ntrTDDNP']) ? $_POST['ntrTDDNP'] : 'No data found';
+
+
+    ntrTDScores($TDMatchID, $TDT1s1, $TDT1s2, $TDT1s3, $TDT2s1, $TDT2s2, $TDT2s3,$TDPlayoff,$TDWinner,$TDDNP);
 
 }
 
@@ -1269,12 +1646,6 @@ function addTDTeam($_player1,$_player2,$_startingPoints){
     $insertTDTeamSQL = "INSERT INTO `TDLADDER` (`ID`, `TEAM_ID`, `PLYR1_ID`, `PLYR2_ID`, `TD_LOSSES`, `TD_POINTS`, `TD_WINS`) VALUES (NULL, '".$teamID."', '".$_player1."', '".$_player2."', 0, '".$_startingPoints."', 0)";
     @$conn->query($insertTDTeamSQL);
 
-    $dropPrimaryTDSQL = "ALTER TABLE `TDLADDER` DROP COLUMN `ID`";
-    @$conn->query($dropPrimaryTDSQL);
-    $sortTableTDSQL = "ALTER TABLE `TDLADDER` ORDER BY `TD_POINTS` DESC";
-    @$conn->query($sortTableTDSQL);
-    $addPrimaryTDSQL = "ALTER TABLE `TDLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
-    @$conn->query($addPrimaryTDSQL);
 
 }
 

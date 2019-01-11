@@ -1680,6 +1680,10 @@ nav .navContainer .navRight div {
   margin: auto;
 }
 
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .enterDBLSScores {
+  border-bottom: .5px, solid, #333333;
+}
+
 .adminContent .adminBody .adminForms #enterDBLSScoreResults .DBlsSet {
   width: 90%;
   display: -webkit-box;
@@ -1723,6 +1727,52 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #enterDBLSScoreResults .DBlsSet label {
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet input {
+  margin-bottom: 10px;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #enterDBLSScoreResults .TDSet label {
   white-space: nowrap;
 }
 
@@ -2647,7 +2697,7 @@ footer .shoe .footerRight a:active {
 }
 
 .matchesContent .displayMatches .left {
-  width: 48%;
+  width: 32.5%;
   margin: 0 auto auto 0;
 }
 
@@ -2727,24 +2777,14 @@ footer .shoe .footerRight a:active {
 }
 
 .matchesContent .displayMatches .right {
-  width: 48%;
-  margin: 0 0 auto auto;
+  width: 32.5%;
+  margin: 0 auto auto auto;
 }
 
 .matchesContent .displayMatches .right h2 {
   text-align: center;
   color: #333333;
   padding-bottom: 10px;
-}
-
-.matchesContent .displayMatches .right div {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0 auto;
-  padding-bottom: 7px;
-  text-decoration: underline;
 }
 
 .matchesContent .displayMatches .right #doublesMU {
@@ -2802,6 +2842,77 @@ footer .shoe .footerRight a:active {
 }
 
 .matchesContent .displayMatches .right #doublesMU .tableRight {
+  width: 10%;
+  text-align: center;
+  padding: 5px auto;
+}
+
+.matchesContent .displayMatches .farRight {
+  width: 32.5%;
+  margin: 0 0 auto auto;
+}
+
+.matchesContent .displayMatches .farRight h2 {
+  text-align: center;
+  color: #333333;
+  padding-bottom: 10px;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 {
+  width: 100%;
+  margin: 0 auto;
+  padding: 5px auto 5px auto;
+  border-collapse: collapse;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 tr:nth-child(even) {
+  background-color: #dcdcdc;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 td {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  border: none;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableLeft {
+  width: 10%;
+  text-align: left;
+  padding: 5px auto;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableCenter {
+  width: 80%;
+  text-align: center;
+  padding: 5px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableCenter form {
+  margin: auto;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableCenter form .TDMatch-player-name {
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableCenter form .TDMatch-player-name:hover {
+  color: #EEF95D;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableCenter form .TDMatch-player-name:active {
+  color: #53A548;
+}
+
+.matchesContent .displayMatches .farRight #teamDoubles2 .tableRight {
   width: 10%;
   text-align: center;
   padding: 5px auto;
@@ -3210,22 +3321,22 @@ footer .shoe .footerRight a:active {
   .ladderContent .standings .farRight div .pts {
     font-size: x-large;
   }
-  .ladderContent .standings .farRight #doubles tr .tableLeft {
+  .ladderContent .standings .farRight #teamDoubles tr .tableLeft {
     font-size: x-large;
   }
-  .ladderContent .standings .farRight #doubles tr .tableCenter form #playerInfo {
+  .ladderContent .standings .farRight #teamDoubles tr .tableCenter form #playerInfo {
     font-size: x-large;
   }
-  .ladderContent .standings .farRight #doubles tr .tableRight {
+  .ladderContent .standings .farRight #teamDoubles tr .tableRight {
     font-size: x-large;
   }
   /********* Match List **********/
   .matchesContent {
     padding-top: 140px;
     width: 95%;
-    height: calc(100% - (120px));
+    min-height: calc(100% - (120px));
   }
-  .matchesContent h3 {
+  .matchesContent .header {
     margin-bottom: 20px;
   }
   .matchesContent h3 a {
@@ -3233,6 +3344,14 @@ footer .shoe .footerRight a:active {
   }
   .matchesContent .displayMatches {
     width: 95%;
+    display: block;
+  }
+  .matchesContent .displayMatches .left {
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+  .matchesContent .displayMatches .left h2 {
+    font-size: xx-large;
   }
   .matchesContent .displayMatches .left #singlesMU tr .tableLeft #playerInfo {
     font-size: x-large;
@@ -3242,6 +3361,17 @@ footer .shoe .footerRight a:active {
   }
   .matchesContent .displayMatches .left #singlesMU tr .tableRight #playerInfo {
     font-size: x-large;
+  }
+  .matchesContent .displayMatches .right {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    padding-top: 20px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: lightgrey;
+  }
+  .matchesContent .displayMatches .right h2 {
+    font-size: xx-large;
   }
   .matchesContent .displayMatches .right #doublesMU tr .tableLeft {
     width: 0;
@@ -3257,6 +3387,33 @@ footer .shoe .footerRight a:active {
     width: 0;
   }
   .matchesContent .displayMatches .right #doublesMU tr .tableRight form input[type=submit] {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .farRight {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    padding-top: 20px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: lightgrey;
+  }
+  .matchesContent .displayMatches .farRight h2 {
+    font-size: xx-large;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableLeft {
+    width: 0;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableLeft form input[type=submit] {
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableCenter {
+    width: 100%;
+    font-size: x-large;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableRight {
+    width: 0;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableRight form input[type=submit] {
     font-size: x-large;
   }
   /********* Player **********/

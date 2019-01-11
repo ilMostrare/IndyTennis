@@ -152,8 +152,9 @@ function printTeamDBLSRankings()
 {
     global $conn;
     global $sznID;
+    $i = 1;
 
-    $curTDRankingsSQL = "SELECT `TDLADDER`.`ID` AS `Rank`, `TDLADDER`.`PLYR1_ID` AS `P1_ID`, `P1`.`LAST_NAME` AS `P1_LNAME`, `TDLADDER`.`PLYR2_ID` AS `P2_ID`, `P2`.`LAST_NAME` AS `P2_LNAME`, `TDLADDER`.`TD_POINTS` AS `TD_POINTS` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `TDLADDER`.`PLYR1_ID` = `P1`.`ID` LEFT JOIN `PLAYERS` AS `P2` ON `TDLADDER`.`PLYR2_ID` = `P2`.`ID` WHERE `TDLADDER`.`TEAM_ID` != 11 ORDER BY `TDLADDER`.`ID`";
+    $curTDRankingsSQL = "SELECT `TDLADDER`.`TEAM_ID` AS `TEAM_ID`, `TDLADDER`.`PLYR1_ID` AS `P1_ID`, `P1`.`LAST_NAME` AS `P1_LNAME`, `TDLADDER`.`PLYR2_ID` AS `P2_ID`, `P2`.`LAST_NAME` AS `P2_LNAME`, `TDLADDER`.`TD_POINTS` AS `TD_POINTS` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `TDLADDER`.`PLYR1_ID` = `P1`.`ID` LEFT JOIN `PLAYERS` AS `P2` ON `TDLADDER`.`PLYR2_ID` = `P2`.`ID` WHERE `TDLADDER`.`TEAM_ID` != 11 ORDER BY `TDLADDER`.`TD_POINTS` DESC";
     
     $curTDRankingsQuery = @$conn->query($curTDRankingsSQL);
     if (!$curTDRankingsQuery) {
@@ -162,16 +163,22 @@ function printTeamDBLSRankings()
         $conn->close();
         die("Selection failed: ($errno) $error.");
     }
-    while ($curTDRankingsRow = mysqli_fetch_assoc($curTDRankingsQuery)) {
-        
-        $curTDRank = $curTDRankingsRow["Rank"];
+    while ($curTDRankingsRow = mysqli_fetch_assoc($curTDRankingsQuery)) {   
+        $curTDTeamID = $curTDRankingsRow["TEAM_ID"];
         $curTDP1ID = $curTDRankingsRow["P1_ID"];
         $curTDP1LName = $curTDRankingsRow["P1_LNAME"];
         $curTDP2ID = $curTDRankingsRow["P2_ID"];
         $curTDP2LName = $curTDRankingsRow["P2_LNAME"];
         $curTDRankPoints = $curTDRankingsRow["TD_POINTS"];
 
-        echo "<tr><td class='tableLeft'>", $curTDRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='TD-player-name' name='viewPlayer' value='",$curTDP1ID,"'>", $curTDP1LName , "</button></form><form><button type='submit' id='playerInfo' class='TD-player-name' name='viewPlayer' value='",$curTDP2ID,"'>", $curTDP2LName , "</button></form></td><td class='tableRight'>", $curTDRankPoints, "</td></tr>";
+        $teamRankSQL = "SELECT `TEAM_ID`,`Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$curTDTeamID."'";
+        $teamRankQuery = @$conn->query($teamRankSQL);
+        while ($teamRankRow = mysqli_fetch_assoc($teamRankQuery)) {
+            $teamRank = $teamRankRow["Rank"];
+        }
+
+        echo "<tr><td class='tableLeft'>", $teamRank, "</td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='TD-player-name' name='viewPlayer' value='",$curTDP1ID,"'>", $curTDP1LName , "</button></form><form><button type='submit' id='playerInfo' class='TD-player-name' name='viewPlayer' value='",$curTDP2ID,"'>", $curTDP2LName , "</button></form></td><td class='tableRight'>", $curTDRankPoints, "</td></tr>";
+        $i++;
     }
 }
 #endregion
@@ -256,6 +263,45 @@ function printDBLSMatchups()
         }
 
         echo "<tr><td class='tableLeft'></td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer1ID,"'>", $P1LN, "</button></form>-<form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer2ID,"'>", $P2LN, "</button></form>-<form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer3ID,"'>", $P3LN, "</button></form>-<form><button type='submit' id='playerInfo' class='doublesMatch-player-name' name='viewPlayer' value='",$dblsPlayer4ID,"'>", $P4LN, "</button></form></td><td class='tableRight'></td></tr>";
+    }
+}
+
+function printTeamDBLSMatchups()
+{
+    global $conn;
+    global $DBLSroundID;
+
+    $curTDMatchupsSQL = "SELECT `TEAM1`,`TEAM2` FROM `TDMATCH` WHERE `ROUND_NUM` = '".$DBLSroundID."' ";
+    $curTDMatchupsQuery = @$conn->query($curTDMatchupsSQL);
+    if (!$curTDMatchupsQuery) {
+        $errno = $conn->errno;
+        $error = $conn->error;
+        $conn->close();
+        die("Selection failed: ($errno) $error.");
+    }
+    while ($curTDMatchupsRow = mysqli_fetch_assoc($curTDMatchupsQuery)) {
+
+        $dblsTeam1ID = $curTDMatchupsRow["TEAM1"];
+        $viewTeam1Sql = "SELECT `TDLADDER`.`PLYR1_ID` AS `P1ID`,`TDLADDER`.`PLYR2_ID` AS `P2ID`,`P1`.`LAST_NAME` AS `P1LN`,`P2`.`LAST_NAME` AS `P2LN` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `P1`.`ID` = `TDLADDER`.`PLYR1_ID` LEFT JOIN `PLAYERS` AS `P2` ON `P2`.`ID` = `TDLADDER`.`PLYR2_ID` WHERE `TDLADDER`.`TEAM_ID` LIKE '".$dblsTeam1ID."'";
+        $viewTeam1Query = @$conn->query($viewTeam1Sql);
+        while ($viewTeam1Row=mysqli_fetch_assoc($viewTeam1Query)){
+            $P1LN = $viewTeam1Row['P1LN'];
+            $P2LN = $viewTeam1Row['P2LN'];
+            $P1ID = $viewTeam1Row['P1ID'];
+            $P2ID = $viewTeam1Row['P2ID'];
+        }
+
+        $dblsTeam2ID = $curTDMatchupsRow["TEAM2"];
+        $viewTeam2Sql = "SELECT `TDLADDER`.`PLYR1_ID` AS `P3ID`,`TDLADDER`.`PLYR2_ID` AS `P4ID`,`P1`.`LAST_NAME` AS `P3LN`,`P2`.`LAST_NAME` AS `P4LN` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `P1`.`ID` = `TDLADDER`.`PLYR1_ID` LEFT JOIN `PLAYERS` AS `P2` ON `P2`.`ID` = `TDLADDER`.`PLYR2_ID` WHERE `TDLADDER`.`TEAM_ID` LIKE '".$dblsTeam2ID."'";
+        $viewTeam2Query = @$conn->query($viewTeam2Sql);
+        while ($viewTeam2Row=mysqli_fetch_assoc($viewTeam2Query)){
+            $P3LN = $viewTeam2Row['P3LN'];
+            $P4LN = $viewTeam2Row['P4LN'];
+            $P3ID = $viewTeam2Row['P3ID'];
+            $P4ID = $viewTeam2Row['P4ID'];
+        }
+
+        echo "<tr><td class='tableLeft'></td><td class='tableCenter'><form><button type='submit' id='playerInfo' class='TDMatch-player-name' name='viewPlayer' value='",$P1ID,"'>", $P1LN, "</button></form>/<form><button type='submit' id='playerInfo' class='TDMatch-player-name' name='viewPlayer' value='",$P2ID,"'>", $P2LN, "</button></form>vs<form><button type='submit' id='playerInfo' class='TDMatch-player-name' name='viewPlayer' value='",$P3ID,"'>", $P3LN, "</button></form>/<form><button type='submit' id='playerInfo' class='TDMatch-player-name' name='viewPlayer' value='",$P4ID,"'>", $P4LN, "</button></form></td><td class='tableRight'></td></tr>";
     }
 }
 
