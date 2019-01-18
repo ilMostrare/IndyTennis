@@ -57,7 +57,7 @@ require "includes/nav.html";
             echo "</div>";
 
             echo "<div class='matchHistory'>";
-                echo "<h4>Past Singles Matches</h4>";
+                echo "<h4>Past Matches</h4>";
                 echo "<div class='printMatch'>";
                     echo "<table>";
                         echo "<th>Round Number</th>";

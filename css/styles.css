@@ -485,6 +485,14 @@ nav .navContainer .navRight div {
   background-color: white;
 }
 
+.ladderContent .standings #mobileViewController {
+  display: none;
+}
+
+.ladderContent .standings #mobileViewController #sglsLadderView {
+  display: none;
+}
+
 .ladderContent .standings .left {
   width: 32.5%;
   margin: 0 auto auto 0;
@@ -763,7 +771,7 @@ nav .navContainer .navRight div {
 
 .playerContent .header {
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 15px auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   height: -webkit-min-content;
@@ -805,9 +813,15 @@ nav .navContainer .navRight div {
 }
 
 .playerContent .header .rankings .right {
-  margin: 0 auto 20px auto;
+  margin: 0 auto auto 20px;
   width: 49%;
   text-align: left;
+}
+
+.playerContent .header .rankings .bottom {
+  margin: 0 auto;
+  text-align: center;
+  color: #333333;
 }
 
 .playerContent .upcomingMatches {
@@ -3247,11 +3261,76 @@ footer .shoe .footerRight a:active {
     width: 95%;
     display: block;
   }
+  .ladderContent .standings #mobileViewController {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    padding-bottom: 10px;
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+  .ladderContent .standings #mobileViewController #sglsLadderView {
+    width: 33%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #333333;
+    font-size: xx-large;
+    margin: auto;
+    border-bottom: #333333 solid .5px;
+  }
+  .ladderContent .standings #mobileViewController #sglsLadderView:hover {
+    color: #333333;
+  }
+  .ladderContent .standings #mobileViewController #sglsLadderView:active {
+    color: #0f0f0f;
+  }
+  .ladderContent .standings #mobileViewController #dblsLadderView {
+    width: 33%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #868686;
+    font-size: xx-large;
+    margin: auto;
+  }
+  .ladderContent .standings #mobileViewController #dblsLadderView:hover {
+    color: #333333;
+  }
+  .ladderContent .standings #mobileViewController #dblsLadderView:active {
+    color: #0f0f0f;
+  }
+  .ladderContent .standings #mobileViewController #TDLadderView {
+    width: 33%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #868686;
+    font-size: xx-large;
+    margin: auto;
+  }
+  .ladderContent .standings #mobileViewController #TDLadderView:hover {
+    color: #333333;
+  }
+  .ladderContent .standings #mobileViewController #TDLadderView:active {
+    color: #0f0f0f;
+  }
   .ladderContent .standings .left {
     width: 100%;
     margin: 0 auto 20px auto;
   }
   .ladderContent .standings .left h2 {
+    display: none;
     font-size: xx-large;
   }
   .ladderContent .standings .left div .rnk {
@@ -3275,13 +3354,12 @@ footer .shoe .footerRight a:active {
   .ladderContent .standings .right {
     width: 100%;
     margin: 0 auto 20px auto;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: lightgrey;
+    display: none;
   }
   .ladderContent .standings .right h2 {
     margin-top: 20px;
     font-size: xx-large;
+    display: none;
   }
   .ladderContent .standings .right div .rnk {
     font-size: x-large;
@@ -3304,13 +3382,12 @@ footer .shoe .footerRight a:active {
   .ladderContent .standings .farRight {
     width: 100%;
     margin: 0 auto 20px auto;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: lightgrey;
+    display: none;
   }
   .ladderContent .standings .farRight h2 {
     margin-top: 20px;
     font-size: xx-large;
+    display: none;
   }
   .ladderContent .standings .farRight div .rnk {
     font-size: x-large;

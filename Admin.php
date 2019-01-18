@@ -312,6 +312,9 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<label><h4>New Password:</h4></label>";
                             echo "<div class='newPlayer'><input type='password' name='userNewPW' id='userNewPW' required></input></div>";
 
+                            echo "<label><h4>Repeat New Password:</h4></label>";
+                            echo "<div class='newPlayer'><input type='password' name='userNewPW2' id='userNewPW2' required></input></div>";
+
                             echo "<input id='newPasswordSubmit' type='submit' value='Submit'>";
                         echo "</form>";
                     echo "</div>";

@@ -59,16 +59,54 @@ function GetPlayerInfo($playerID){
         $playerInfoDBLS = $playerInfoRow["DBLS_PLAYER"];
     }
 
+    $teamDBLSCheckSQL = "SELECT COUNT(*) as `COUNT` FROM `TDLADDER` WHERE `PLYR1_ID` LIKE '".$playerID."' OR `PLYR2_ID` LIKE '".$playerID."'";
+    $teamDBLSCheckQuery = @$conn->query($teamDBLSCheckSQL);
+    while ($teamDBLSCheckRow = mysqli_fetch_assoc($teamDBLSCheckQuery)) {
+        $teamDBLSCheckVal = $teamDBLSCheckRow["COUNT"];
+    }
+    if($teamDBLSCheckVal > 0){
+        $isTDPlayer = 1;
+    } else {
+        $isTDPlayer = 0;
+    }
+
     echo "<div class='header'><h1>", $playerInfoFN, " ", $playerInfoLN ,"</h1>";
     echo "<h4>", $playerInfoEM, " - (", substr($playerInfoPN, 0, 3) ,") ",substr($playerInfoPN, 3, 3),"-",substr($playerInfoPN, 6, 4),"</h4>";
 
-    if ($playerInfoSGLS != 1 && $playerInfoDBLS = 1){
-        echo "<div class='rankings'><h3 class='left'></h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
-    } elseif ($playerInfoDBLS != 1 && $playerInfoSGLS = 1){
-        echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'></h3></div></div>";
+    if($isTDPlayer == 1){
+        //select partner, points, wins, losses, rank
+        $TDplayerInfoSQL = "SELECT `Rank`.`TEAM_ID`, `Rank`.`Rank`, `Rank`.`TD_POINTS`, `Rank`.`TD_WINS`, `Rank`.`TD_LOSSES`, `P`.`LAST_NAME`, `P`.`FIRST_NAME` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` LEFT JOIN `PLAYERS` AS `P` ON `P`.`ID` = (CASE WHEN `Rank`.`PLYR1_ID` = '".$playerID."' THEN `Rank`.`PLYR2_ID` ELSE `Rank`.`PLYR1_ID` END) WHERE (`PLYR1_ID` = '".$playerID."' OR `PLYR2_ID` = '".$playerID."')";
+        $TDplayerInfoQuery = @$conn->query($TDplayerInfoSQL);
+        while ($TDPlayerInfoRow = mysqli_fetch_assoc($TDplayerInfoQuery)){
+            $TDRank = $TDPlayerInfoRow["Rank"];
+            $TDPoints = $TDPlayerInfoRow["TD_POINTS"];
+            $TDWins = $TDPlayerInfoRow["TD_WINS"];
+            $TDLosses = $TDPlayerInfoRow["TD_LOSSES"];
+            $TDPartnerLN = $TDPlayerInfoRow["LAST_NAME"];
+            $TDPartnerFN = $TDPlayerInfoRow["FIRST_NAME"];
+        }
+
+        if ($playerInfoSGLS != 1 && $playerInfoDBLS == 1){
+            echo "<div class='rankings'><h3 class='left'></h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div>";
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>"; ////////////////////////////////////////
+        } elseif ($playerInfoDBLS != 1 && $playerInfoSGLS == 1){
+            echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'></h3></div>";
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>"; ////////////////////////////////////////
+        } else {
+            echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div>";
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>"; ////////////////////////////////////////
+        }
     } else {
-        echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
+        if ($playerInfoSGLS != 1 && $playerInfoDBLS == 1){
+            echo "<div class='rankings'><h3 class='left'></h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
+        } elseif ($playerInfoDBLS != 1 && $playerInfoSGLS == 1){
+            echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'></h3></div></div>";
+        } else {
+            echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
+        }
     }
+
+    
 
 }
 #endregion
@@ -76,6 +114,7 @@ function GetPlayerInfo($playerID){
 #region get player current matches
 function GetPlayerCurrentMatches($playerID){
     global $conn;
+
     $playerInfoSql = "SELECT `ID`,`SGLS_PLAYER`,`DBLS_PLAYER` FROM `PLAYERS` WHERE `ID` LIKE '".$playerID."'";
     $playerInfoQuery = @$conn->query($playerInfoSql);
     #region error handling
@@ -90,6 +129,17 @@ function GetPlayerCurrentMatches($playerID){
         $playerInfoID = $playerInfoRow["ID"];
         $playerInfoSGLS = $playerInfoRow["SGLS_PLAYER"];
         $playerInfoDBLS = $playerInfoRow["DBLS_PLAYER"];
+    }
+
+    $teamDBLSCheckSQL = "SELECT COUNT(*) as `COUNT` FROM `TDLADDER` WHERE `PLYR1_ID` LIKE '".$playerID."' OR `PLYR2_ID` LIKE '".$playerID."'";
+    $teamDBLSCheckQuery = @$conn->query($teamDBLSCheckSQL);
+    while ($teamDBLSCheckRow = mysqli_fetch_assoc($teamDBLSCheckQuery)) {
+        $teamDBLSCheckVal = $teamDBLSCheckRow["COUNT"];
+    }
+    if($teamDBLSCheckVal > 0){
+        $isTDPlayer = 1;
+    } else {
+        $isTDPlayer = 0;
     }
 
     #region get current singles matches
@@ -133,7 +183,7 @@ function GetPlayerCurrentMatches($playerID){
                     echo "<table>";
                         echo "<td>SG",$matchRoundNum,"</td>";
                         echo "<td><button class='viewPlayer' value='".$matchPlayer2."'>",$sglsOpponentLName,", ",$sglsOpponentFName," (",$sglsOpponentRank,")</button></td>";
-                        if($matchPlayoff == 1){echo "<td>Win</td>";} else {echo "<td>No</td>";}
+                        if($matchPlayoff == 1){echo "<td>Yes</td>";} else {echo "<td>No</td>";}
                         echo "<td>",$matchEndDate,"</td>";
                     echo "</table>";
                 echo "</div>";                
@@ -159,7 +209,7 @@ function GetPlayerCurrentMatches($playerID){
                     echo "<table>";
                         echo "<td>SG",$matchRoundNum,"</td>";
                         echo "<td><button class='viewPlayer' value='".$matchPlayer1."'>",$sglsOpponentLName,", ",$sglsOpponentFName," (",$sglsOpponentRank,")</button></td>";
-                        if($matchPlayoff == 1){echo "<td>Win</td>";} else {echo "<td>No</td>";}
+                        if($matchPlayoff == 1){echo "<td>Yes</td>";} else {echo "<td>No</td>";}
                         echo "<td>",$matchEndDate,"</td>";
                     echo "</table>";
                 echo "</div>";       
@@ -177,7 +227,7 @@ function GetPlayerCurrentMatches($playerID){
     } else {
         echo "<div class='printMatch'>";
             echo "<table>";
-                echo "<td>No matches to display</td>";
+                echo "<td>No Singles matches to display</td>";
             echo "</table>";
         echo "</div>";                
     }
@@ -253,21 +303,141 @@ function GetPlayerCurrentMatches($playerID){
                 echo "<table>";
                     echo "<tr>";
                         echo "<td rowspan='3'>DB",$matchRoundNum,"</td>";
-                        echo "<td><button class='viewPlayer' value='".$opponent1."'>",$dblsOpponent1FName,", ",$dblsOpponent1LName," (",$dblsOpponent1Rank,")</button></td>";
-                        if($matchPlayoff == 1){echo "<td rowspan='3'>Win</td>";} else {echo "<td rowspan='3'>No</td>";}
+                        echo "<td><button class='viewPlayer' value='".$opponent1."'>",$dblsOpponent1LName,", ",$dblsOpponent1FName," (",$dblsOpponent1Rank,")</button></td>";
+                        if($matchPlayoff == 1){echo "<td rowspan='3'>Yes</td>";} else {echo "<td rowspan='3'>No</td>";}
                         echo "<td rowspan='3'>",$matchEndDate,"</td>";
                     echo "</tr>";
                     echo "<tr>";
-                        echo "<td><button class='viewPlayer' value='".$opponent2."'>",$dblsOpponent2FName,", ",$dblsOpponent2LName," (",$dblsOpponent2Rank,")</button></td>";
+                        echo "<td><button class='viewPlayer' value='".$opponent2."'>",$dblsOpponent2LName,", ",$dblsOpponent2FName," (",$dblsOpponent2Rank,")</button></td>";
                     echo "</tr>";
                     echo "<tr>";
-                        echo "<td><button class='viewPlayer' value='".$opponent3."'>",$dblsOpponent3FName,", ",$dblsOpponent3LName," (",$dblsOpponent3Rank,")</button></td>";
+                        echo "<td><button class='viewPlayer' value='".$opponent3."'>",$dblsOpponent3LName,", ",$dblsOpponent3FName," (",$dblsOpponent3Rank,")</button></td>";
                     echo "</tr>";
                 echo "</table>";
             echo "</div>";
 
 
         } 
+    } else {
+        echo "<div class='printMatch'>";
+            echo "<table>";
+                echo "<td>No Doubles matches to display</td>";
+            echo "</table>";
+        echo "</div>";                
+    }
+    #endregion
+
+    #region get current team doubles matches
+    if( ($isTDPlayer == 1) ){
+        $plyrTDTeamSQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE `PLYR1_ID` = '".$playerID."' OR `PLYR2_ID` = '".$playerID."'";
+        $plyrTDTeamQuery = @$conn->query($plyrTDTeamSQL);
+        #region error handling
+        if (!$plyrTDTeamQuery) {
+            $errno = $conn->errno;
+            $error = $conn->error;
+            $conn->close();
+            die("Selection failed: ($errno) $error.");
+        }
+        #endregion
+        while ($plyrTDTeamRow = mysqli_fetch_assoc($plyrTDTeamQuery)){
+            $teamID = $plyrTDTeamRow["TEAM_ID"];
+        }
+        
+        $plyrTDMatchesSQL = "SELECT `TDMATCH`.`TEAM1` AS `TM1`, `TDMATCH`.`TEAM2` AS `TM2`, `PL1`.`LAST_NAME` AS `P1LN`, `PL2`.`LAST_NAME` AS `P2LN`, `PL3`.`LAST_NAME` AS `P3LN`, `PL4`.`LAST_NAME` AS `P4LN`, `PL1`.`FIRST_NAME` AS `P1FN`, `PL2`.`FIRST_NAME` AS `P2FN`, `PL3`.`FIRST_NAME` AS `P3FN`, `PL4`.`FIRST_NAME` AS `P4FN`, `PL1`.`ID` AS `P1ID`, `PL2`.`ID` AS `P2ID`, `PL3`.`ID` AS `P3ID`, `PL4`.`ID` AS `P4ID`, `TDMATCH`.`ROUND_NUM`, `TDMATCH`.`PLAYOFF`, `DBLSROUND`.`END_DATE` FROM `TDMATCH` LEFT JOIN `DBLSROUND` ON `TDMATCH`.`ROUND_NUM` = `DBLSROUND`.`ID` LEFT JOIN `TDLADDER` AS `T1` ON `TDMATCH`.`TEAM1` = `T1`.`TEAM_ID` LEFT JOIN `TDLADDER` AS `T2` ON `TDMATCH`.`TEAM2` = `T2`.`TEAM_ID` LEFT JOIN `PLAYERS` AS `PL1` ON `T1`.`PLYR1_ID` = `PL1`.`ID` LEFT JOIN `PLAYERS` AS `PL2` ON `T1`.`PLYR2_ID` = `PL2`.`ID` LEFT JOIN `PLAYERS` AS `PL3` ON `T2`.`PLYR1_ID` = `PL3`.`ID` LEFT JOIN `PLAYERS` AS `PL4` ON `T2`.`PLYR2_ID` = `PL4`.`ID` WHERE (`TDMATCH`.`TEAM1` = '".$teamID."' OR `TDMATCH`.`TEAM2` = '".$teamID."') AND (`TDMATCH`.`MATCHWINNER` = 0 AND `TDMATCH`.`DNP` = 0)";
+        $plyrTDMatchesQuery = @$conn->query($plyrTDMatchesSQL);
+
+        while ($plyrTDMatchesRow = mysqli_fetch_assoc($plyrTDMatchesQuery)) {
+            $TDTeam1 = $plyrTDMatchesRow["TM1"];
+            $TDTeam2 = $plyrTDMatchesRow["TM2"];
+            $matchPlayer1LN = $plyrTDMatchesRow["P1LN"];
+            $matchPlayer2LN = $plyrTDMatchesRow["P2LN"];
+            $matchPlayer3LN = $plyrTDMatchesRow["P3LN"];
+            $matchPlayer4LN = $plyrTDMatchesRow["P4LN"];
+
+            $matchPlayer1FN = $plyrTDMatchesRow["P1FN"];
+            $matchPlayer2FN = $plyrTDMatchesRow["P2FN"];
+            $matchPlayer3FN = $plyrTDMatchesRow["P3FN"];
+            $matchPlayer4FN = $plyrTDMatchesRow["P4FN"];
+
+            $matchPlayer1ID = $plyrTDMatchesRow["P1ID"];
+            $matchPlayer2ID = $plyrTDMatchesRow["P2ID"];
+            $matchPlayer3ID = $plyrTDMatchesRow["P3ID"];
+            $matchPlayer4ID = $plyrTDMatchesRow["P4ID"];
+
+            $matchRoundNum = $plyrTDMatchesRow["ROUND_NUM"];
+            $matchPlayoff = $plyrTDMatchesRow["PLAYOFF"];
+            $matchEndDate = $plyrTDMatchesRow["END_DATE"];
+
+            if ($TDTeam1 == $teamID){
+                $TDOpponentSQL = "SELECT `TEAM_ID`,`Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$TDTeam2."'";
+                $TDOpponentQuery = @$conn->query($TDOpponentSQL);
+                #region error handling
+                if (!$TDOpponentQuery) {
+                    $errno = $conn->errno;
+                    $error = $conn->error;
+                    $conn->close();
+                    die("Selection failed: ($errno) $error.");
+                }
+                #endregion
+                while ($TDOpponentRow = mysqli_fetch_assoc($TDOpponentQuery)) {
+                    $TDOpponentRank = $TDOpponentRow["Rank"];
+                }
+
+                echo "<div class='printMatch'>";
+                    echo "<table>";
+                        echo "<tr>";
+                            echo "<td rowspan='2'>TD",$matchRoundNum,"</td>";
+                            echo "<td><button class='viewPlayer' value='".$matchPlayer3ID."'>",$matchPlayer3LN,", ",$matchPlayer3FN," (",$TDOpponentRank,")</button></td>";
+                            if($matchPlayoff == 1){echo "<td rowspan='2'>Yes</td>";} else {echo "<td rowspan='2'>No</td>";}
+                            echo "<td rowspan='2'>",$matchEndDate,"</td>";
+                        echo "</tr>";
+                        echo "<tr>";
+                            echo "<td><button class='viewPlayer' value='".$matchPlayer4ID."'>",$matchPlayer4LN,", ",$matchPlayer4FN," (",$TDOpponentRank,")</button></td>";
+                        echo "</tr>";
+                    echo "</table>";
+                echo "</div>";               
+
+            } else if ($TDTeam2 == $teamID) {
+                $TDOpponentSQL = "SELECT `TEAM_ID`,`Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$TDTeam1."'";
+                $TDOpponentQuery = @$conn->query($TDOpponentSQL);
+                #region error handling
+                if (!$TDOpponentQuery) {
+                    $errno = $conn->errno;
+                    $error = $conn->error;
+                    $conn->close();
+                    die("Selection failed: ($errno) $error.");
+                }
+                #endregion
+                while ($TDOpponentRow = mysqli_fetch_assoc($TDOpponentQuery)) {
+                    $TDOpponentRank = $TDOpponentRow["Rank"];
+                }
+
+                echo "<div class='printMatch'>";
+                    echo "<table>";
+                        echo "<tr>";
+                            echo "<td rowspan='2'>TD",$matchRoundNum,"</td>";
+                            echo "<td><button class='viewPlayer' value='".$matchPlayer1ID."'>",$matchPlayer1LN,", ",$matchPlayer1FN," (",$TDOpponentRank,")</button></td>";
+                            if($matchPlayoff == 1){echo "<td rowspan='2'>Yes</td>";} else {echo "<td rowspan='2'>No</td>";}
+                            echo "<td rowspan='2'>",$matchEndDate,"</td>";
+                        echo "</tr>";
+                        echo "<tr>";
+                            echo "<td><button class='viewPlayer' value='".$matchPlayer2ID."'>",$matchPlayer2LN,", ",$matchPlayer2FN," (",$TDOpponentRank,")</button></td>";
+                        echo "</tr>";
+                    echo "</table>";
+                echo "</div>";        
+
+            } else {
+                echo "<div class='printMatch'>";
+                    echo "<table>";
+                        echo "<td>No Team Doubles matches to display</td>";
+                    echo "</table>";
+                echo "</div>";                
+            }
+            
+        }
+
+    } else {
+        // do nothing                
     }
     #endregion
     

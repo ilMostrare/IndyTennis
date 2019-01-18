@@ -34,10 +34,11 @@ require_once ('includes/adminLogin.php');
             
             if( ($SGLSroundPLAYOFF != 1) && ($DBLSroundPLAYOFF != 1) ){
                 echo '<div class="header">';
-                    echo '<h1><? echo date("Y") ?> Ladder Standings</h1>';
+                    echo '<h1>'.date("Y").' Ladder Standings</h1>';
                     echo '<h3><a href="RoundMatches">View This Round\'s Matchups</a></h3>';
                 echo '</div>';
                 echo '<div class="standings">';
+                    echo '<div id="mobileViewController" display="none"><h2 id="sglsLadderView">Singles</h2><h2 id="dblsLadderView">Doubles - Ind.</h2><h2 id="TDLadderView">Doubles - Team</h2></div>';
                     echo '<div class="left">';
                         echo '<h2>Singles</h2>';
                         echo '<div><span class="rnk">Rank</span><span class="nme">Player</span><span class="pts"># of Points</span></div>';

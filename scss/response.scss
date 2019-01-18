@@ -433,11 +433,71 @@
       width: 95%;
       display: block;
 
+      #mobileViewController{
+        display: flex;
+        text-align: center;        
+        padding-bottom: 10px;
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        #sglsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #333333;
+          font-size: xx-large;
+          margin: auto;
+          border-bottom: #333333 solid .5px;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #dblsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #TDLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+      }
+      
+
       .left{
         width: 100%;
         margin: 0 auto 20px auto;
 
         h2{
+          display: none;
           font-size: xx-large;
         }
         div{
@@ -475,13 +535,12 @@
       .right{        
         width: 100%;
         margin: 0 auto 20px auto;
-        border-top-style: solid;
-        border-top-width: 1px;
-        border-top-color: lightgrey;
+        display: none;
 
         h2{
           margin-top: 20px;
           font-size: xx-large;
+          display: none;
         }
         div{
           // display: none;
@@ -521,13 +580,12 @@
       .farRight{        
         width: 100%;
         margin: 0 auto 20px auto;
-        border-top-style: solid;
-        border-top-width: 1px;
-        border-top-color: lightgrey;
+        display: none;
 
         h2{
           margin-top: 20px;
           font-size: xx-large;
+          display: none;
         }
         div{
           // display: none;

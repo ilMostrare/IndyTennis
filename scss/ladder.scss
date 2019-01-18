@@ -65,6 +65,14 @@
     display: flex;
     background-color: white;
 
+    #mobileViewController{
+      display: none;
+
+      #sglsLadderView{
+        display: none;
+      }
+    }
+
     .left{
       width: 32.5%;
       // background-color: cornflowerblue;

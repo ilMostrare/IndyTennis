@@ -790,7 +790,9 @@ if (isset($_POST['ntrAddChallengeP1'])){
 }
 #endregion
 
-#region Enter Singles Scores
+#region Enter Scores
+
+    #region Enter Singles Scores
 
 function getSGLSMatches(){
     global $conn;
@@ -1020,7 +1022,7 @@ if (isset($_POST['ntrSGLSMatchID'])){
 
 #endregion
 
-#region Enter Doubles Scores
+    #region Enter Doubles Scores
 
 function getDBLSMatches(){
     global $conn;
@@ -1323,7 +1325,7 @@ if (isset($_POST['ntrDBLSMatchID'])){
 
 #endregion
 
-#region Enter Team Doubles Scores
+    #region Enter Team Doubles Scores
 
 function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$_playoff,$_winner,$_DNP){
     global $conn;
@@ -1521,6 +1523,8 @@ if (isset($_POST['ntrTDMatchID'])){
     ntrTDScores($TDMatchID, $TDT1s1, $TDT1s2, $TDT1s3, $TDT2s1, $TDT2s2, $TDT2s3,$TDPlayoff,$TDWinner,$TDDNP);
 
 }
+
+#endregion
 
 #endregion
 

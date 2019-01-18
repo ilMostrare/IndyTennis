@@ -61,6 +61,43 @@ function setBindings() {
         }
     });
 
+    $("#sglsLadderView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#dblsLadderView").css({"border": "none", "color": "#868686"});
+        $("#TDLadderView").css({"border": "none", "color": "#868686"});
+
+        $(".left").css({"display":"block"});
+        $(".right").css({"display":"none"});
+        $(".farRight").css({"display":"none"});
+    });
+    $("#dblsLadderView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#sglsLadderView").css({"border": "none", "color": "#868686"});
+        $("#TDLadderView").css({"border": "none", "color": "#868686"});
+
+        $(".left").css({"display":"none"});
+        $(".right").css({"display":"block"});
+        $(".farRight").css({"display":"none"});
+    });
+    $("#TDLadderView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#dblsLadderView").css({"border": "none", "color": "#868686"});
+        $("#sglsLadderView").css({"border": "none", "color": "#868686"});
+
+        $(".left").css({"display":"none"});
+        $(".right").css({"display":"none"});
+        $(".farRight").css({"display":"block"});
+    });
+
+    $( window ).on( "orientationchange", function( evt ) {
+        // $( "#orientation" ).text( "This device is in " + evt.orientation + " mode!" );
+        if(evt.orientation == 'landscape'){
+            $(".left").css({"display":"block"});
+            $(".right").css({"display":"block"});
+            $(".farRight").css({"display":"block"});
+        }
+      });
+
     //#endregion
 
     //#region Admin Functions
@@ -1620,8 +1657,11 @@ function setBindings() {
 
         var userNewPWID = $("#userNewPWID").val();
         var newUserPW = $("#userNewPW").val();
+        var newUserPW2 = $("#userNewPW2").val();
 
-        if ((newUserPW == '') || (newUserPW.length < 8)){
+        if (!(newUserPW === newUserPW2)){
+            swal("Oops...", "Passwords do not match!", "error");            
+        } else if ((newUserPW == '') || (newUserPW.length < 8)) {
             swal("Oops...", "Please Enter a Valid Password (Must be at least 8 characters)", "error");
         } else {
 
