@@ -35,6 +35,7 @@ require_once ('includes/adminLogin.php');
                 echo '<h3><a href="Ladder">Back to Ladder</a></h3>';
             echo '</div>';
             echo '<div class="displayMatches">';
+                echo '<div id="mobileViewController" display="none"><h2 id="sglsLadderView">Singles</h2><h2 id="dblsLadderView">Doubles - Ind.</h2><h2 id="TDLadderView">Doubles - Team</h2></div>';
                 echo '<div class="left">';
                     echo '<h2>Singles - Round ',$SGLSroundID,'</h2>';
                     echo '<table id="singlesMU">';

@@ -465,7 +465,7 @@ function GetPlayerPastMatches($playerID){
 
     #region /// get past matches
 
-    $pastMatchesSQL = "SELECT * FROM ( (SELECT CONCAT('SG',`SGLSMATCH`.`ID`) AS `ID`, `SGLSMATCH`.`LAST_MODIFIED` AS `LASTMODIFIED` FROM `SGLSMATCH` WHERE (`SGLSMATCH`.`PLAYER1` = '".$playerID."' OR `SGLSMATCH`.`PLAYER2` = '".$playerID."') AND `SGLSMATCH`.`MATCHWINNER` != 0) UNION ALL (SELECT CONCAT('DB',`DBLSMATCH`.`ID`) AS `ID`, `DBLSMATCH`.`LAST_MODIFIED` AS `LASTMODIFIED` FROM `DBLSMATCH` WHERE (`DBLSMATCH`.`PLAYER1` = '".$playerID."' OR `DBLSMATCH`.`PLAYER2` = '".$playerID."' OR `DBLSMATCH`.`PLAYER3` = '".$playerID."' OR `DBLSMATCH`.`PLAYER4` = '".$playerID."') AND `DBLSMATCH`.`SET1WINNER` != 0) ) `RESULTS` ORDER BY `LASTMODIFIED` ASC";
+    $pastMatchesSQL = "SELECT * FROM ( (SELECT CONCAT('SG',`SGLSMATCH`.`ID`) AS `ID`, `SGLSMATCH`.`LAST_MODIFIED` AS `LASTMODIFIED` FROM `SGLSMATCH` WHERE (`SGLSMATCH`.`PLAYER1` = '". $playerID ."' OR `SGLSMATCH`.`PLAYER2` = '". $playerID ."') AND `SGLSMATCH`.`MATCHWINNER` != 0) UNION ALL (SELECT CONCAT('DB',`DBLSMATCH`.`ID`) AS `ID`, `DBLSMATCH`.`LAST_MODIFIED` AS `LASTMODIFIED` FROM `DBLSMATCH` WHERE (`DBLSMATCH`.`PLAYER1` = '". $playerID ."' OR `DBLSMATCH`.`PLAYER2` = '". $playerID ."' OR `DBLSMATCH`.`PLAYER3` = '". $playerID ."' OR `DBLSMATCH`.`PLAYER3` = '". $playerID ."') AND `DBLSMATCH`.`SET1WINNER` != 0) UNION ALL (SELECT CONCAT('TD',`TDMATCH`.`ID`) AS `ID`, `TDMATCH`.`LAST_MODIFIED` AS `LASTMODIFIED` FROM `TDMATCH` LEFT JOIN `TDLADDER` AS `T1` ON `T1`.`TEAM_ID` = `TDMATCH`.`TEAM1` LEFT JOIN `TDLADDER` AS `T2` ON `T2`.`TEAM_ID` = `TDMATCH`.`TEAM2` WHERE (`T1`.`PLYR1_ID` = '". $playerID ."' OR `T1`.`PLYR2_ID` = '". $playerID ."' OR `T2`.`PLYR1_ID` = '". $playerID ."' OR `T2`.`PLYR2_ID` = '". $playerID ."') AND `TDMATCH`.`MATCHWINNER` != 0) ) `RESULTS` ORDER BY `LASTMODIFIED` ASC";
     $pastMatchesQuery = @$conn->query($pastMatchesSQL);
     while ($pastMatchesRow = mysqli_fetch_assoc($pastMatchesQuery)) {
         $pastMatchID = $pastMatchesRow["ID"];
@@ -741,6 +741,52 @@ function GetPlayerPastMatches($playerID){
                 echo "</div>";    
             }
             #endregion
+        } else if ($identifier == 'TD') {
+            $TDMatchID = substr($pastMatchID,-11);
+
+            /*
+            SELECT t.`ID`,
+                (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
+                    THEN `T2`.`PLYR1_ID`
+                ELSE `T1`.`PLYR1_ID` END)  AS `OPP1`,
+                
+                (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
+                    THEN `T2`.`PLYR2_ID`
+                ELSE `T1`.`PLYR2_ID` END) AS `OPP2`,
+
+                (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
+                    THEN `T2`.`TEAM_ID`
+                ELSE `T1`.`TEAM_ID` END) AS `OPP_TEAM`,
+                
+                t.`ROUND_NUM`,
+                t.`T1_SET1`,
+                t.`T1_SET2`,
+                t.`T1_SET3`,
+                t.`T2_SET1`,
+                t.`T2_SET2`,
+                t.`T2_SET3`,
+                t.`MATCHWINNER`
+
+            FROM `TDMATCH` AS t
+
+            LEFT JOIN `TDLADDER` AS `T1`
+            ON t.`TEAM1` = `T1`.`TEAM_ID`
+
+            LEFT JOIN `TDLADDER` AS `T2`
+            ON t.`TEAM2` = `T2`.`TEAM_ID`
+
+            LEFT JOIN
+
+            WHERE t.`ID` = '85c38c35714'
+            */
+
+            $TDMatchInfoSQL = "";
+            $TDMatchInfoQuery = @$conn->query($TDMatchInfoSQL);
+            while ($TDMatchInfoRow = mysqli_fetch_assoc($TDMatchInfoQuery)) {
+                
+            }
+
+            
         } else {
             // do nothing
         }

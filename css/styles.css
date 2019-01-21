@@ -2710,6 +2710,14 @@ footer .shoe .footerRight a:active {
   background-color: white;
 }
 
+.matchesContent .displayMatches #mobileViewController {
+  display: none;
+}
+
+.matchesContent .displayMatches #mobileViewController #sglsLadderView {
+  display: none;
+}
+
 .matchesContent .displayMatches .left {
   width: 32.5%;
   margin: 0 auto auto 0;
@@ -2972,7 +2980,7 @@ footer .shoe .footerRight a:active {
   }
 }
 
-@media only screen and (max-device-width: 1080px) {
+@media only screen and (max-device-width: 1080px) and (orientation: landscape) {
   /********* Nav **********/
   nav .navContainer {
     width: 95%;
@@ -3073,6 +3081,7 @@ footer .shoe .footerRight a:active {
   /********* Ladder **********/
   .ladderContent {
     width: 95%;
+    display: block;
     height: -webkit-min-content;
     height: -moz-min-content;
     height: min-content;
@@ -3080,6 +3089,25 @@ footer .shoe .footerRight a:active {
   /********* Ladder **********/
   .matchesContent {
     width: 95%;
+    display: block;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableLeft {
+    display: none;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableCenter {
+    width: 95%;
+  }
+  .matchesContent .displayMatches .right #doublesMU tr .tableRight {
+    display: none;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableLeft {
+    display: none;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableCenter {
+    width: 95%;
+  }
+  .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableRight {
+    display: none;
   }
   /********* Player **********/
   .playerContent {
@@ -3423,12 +3451,77 @@ footer .shoe .footerRight a:active {
     width: 95%;
     display: block;
   }
+  .matchesContent .displayMatches #mobileViewController {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    padding-bottom: 10px;
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+  .matchesContent .displayMatches #mobileViewController #sglsLadderView {
+    width: 33%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #333333;
+    font-size: xx-large;
+    margin: auto;
+    border-bottom: #333333 solid .5px;
+  }
+  .matchesContent .displayMatches #mobileViewController #sglsLadderView:hover {
+    color: #333333;
+  }
+  .matchesContent .displayMatches #mobileViewController #sglsLadderView:active {
+    color: #0f0f0f;
+  }
+  .matchesContent .displayMatches #mobileViewController #dblsLadderView {
+    width: 33%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #868686;
+    font-size: xx-large;
+    margin: auto;
+  }
+  .matchesContent .displayMatches #mobileViewController #dblsLadderView:hover {
+    color: #333333;
+  }
+  .matchesContent .displayMatches #mobileViewController #dblsLadderView:active {
+    color: #0f0f0f;
+  }
+  .matchesContent .displayMatches #mobileViewController #TDLadderView {
+    width: 33%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: #868686;
+    font-size: xx-large;
+    margin: auto;
+  }
+  .matchesContent .displayMatches #mobileViewController #TDLadderView:hover {
+    color: #333333;
+  }
+  .matchesContent .displayMatches #mobileViewController #TDLadderView:active {
+    color: #0f0f0f;
+  }
   .matchesContent .displayMatches .left {
     width: 100%;
     margin: 0 auto 20px auto;
   }
   .matchesContent .displayMatches .left h2 {
     font-size: xx-large;
+    display: none;
   }
   .matchesContent .displayMatches .left #singlesMU tr .tableLeft #playerInfo {
     font-size: x-large;
@@ -3443,12 +3536,11 @@ footer .shoe .footerRight a:active {
     width: 100%;
     margin: 0 auto 20px auto;
     padding-top: 20px;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: lightgrey;
+    display: none;
   }
   .matchesContent .displayMatches .right h2 {
     font-size: xx-large;
+    display: none;
   }
   .matchesContent .displayMatches .right #doublesMU tr .tableLeft {
     width: 0;
@@ -3470,12 +3562,11 @@ footer .shoe .footerRight a:active {
     width: 100%;
     margin: 0 auto 20px auto;
     padding-top: 20px;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: lightgrey;
+    display: none;
   }
   .matchesContent .displayMatches .farRight h2 {
     font-size: xx-large;
+    display: none;
   }
   .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableLeft {
     width: 0;

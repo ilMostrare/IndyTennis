@@ -62,7 +62,7 @@
   }
 }
 
-@media only screen and (max-device-width : 1080px) {
+@media only screen and (max-device-width : 1080px) and (orientation: landscape) {
 
   /********* Nav **********/
   nav {
@@ -185,7 +185,7 @@
   /********* Ladder **********/
   .ladderContent {
     width: 95%;
-    // display: block;
+    display: block;
     height: min-content;
 
   }
@@ -193,8 +193,42 @@
   /********* Ladder **********/
   .matchesContent {
     width: 95%;
-    // display: block;
+    display: block;
     // height: min-content;
+
+    .displayMatches{
+
+      .right{
+        #doublesMU{
+          tr{
+            .tableLeft{
+              display: none;
+            }
+            .tableCenter{
+              width: 95%;
+            }
+            .tableRight{
+              display: none;
+            }
+          }
+        }
+      }
+      .farRight{
+        #teamDoubles2{
+          tr{
+            .tableLeft{
+              display: none;
+            }
+            .tableCenter{
+              width: 95%;
+            }
+            .tableRight{
+              display: none;
+            }
+          }
+        }
+      }
+    }
 
   }
 
@@ -646,12 +680,72 @@
       width: 95%;
       display: block;
 
+      #mobileViewController{
+        display: flex;
+        text-align: center;        
+        padding-bottom: 10px;
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        #sglsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #333333;
+          font-size: xx-large;
+          margin: auto;
+          border-bottom: #333333 solid .5px;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #dblsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #TDLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+      }
+      
+
       .left{
         width: 100%;
         margin: 0 auto 20px auto;
 
         h2{
           font-size: xx-large;
+          display: none;
         }
 
         #singlesMU{
@@ -677,12 +771,11 @@
         width: 100%;
         margin: 0 auto 20px auto;
         padding-top: 20px;
-        border-top-style: solid;
-        border-top-width: 1px;
-        border-top-color: lightgrey;
+        display: none;
 
         h2{
           font-size: xx-large;
+          display: none;
         }
 
         #doublesMU{
@@ -716,12 +809,11 @@
         width: 100%;
         margin: 0 auto 20px auto;
         padding-top: 20px;
-        border-top-style: solid;
-        border-top-width: 1px;
-        border-top-color: lightgrey;
+        display: none;
 
         h2{
           font-size: xx-large;
+          display: none;
         }
 
         #teamDoubles2{
