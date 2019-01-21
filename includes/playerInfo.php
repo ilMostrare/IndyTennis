@@ -745,6 +745,7 @@ function GetPlayerPastMatches($playerID){
             $TDMatchID = substr($pastMatchID,-11);
 
             /*
+            
             SELECT t.`ID`,
                 (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
                     THEN `T2`.`PLYR1_ID`
