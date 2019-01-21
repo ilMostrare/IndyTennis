@@ -61,6 +61,7 @@ function setBindings() {
         }
     });
 
+    var ladderView = 1;
     $("#sglsLadderView").click(function (evt){
         $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
         $("#dblsLadderView").css({"border": "none", "color": "#868686"});
@@ -69,6 +70,8 @@ function setBindings() {
         $(".left").css({"display":"block"});
         $(".right").css({"display":"none"});
         $(".farRight").css({"display":"none"});
+
+        ladderView = 1;
     });
     $("#dblsLadderView").click(function (evt){
         $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
@@ -78,6 +81,8 @@ function setBindings() {
         $(".left").css({"display":"none"});
         $(".right").css({"display":"block"});
         $(".farRight").css({"display":"none"});
+
+        ladderView = 2;
     });
     $("#TDLadderView").click(function (evt){
         $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
@@ -87,16 +92,32 @@ function setBindings() {
         $(".left").css({"display":"none"});
         $(".right").css({"display":"none"});
         $(".farRight").css({"display":"block"});
+
+        ladderView = 3
     });
 
-    $( window ).on( "orientationchange", function( evt ) {
+    $( window ).resize( function( evt ) {
         // $( "#orientation" ).text( "This device is in " + evt.orientation + " mode!" );
-        if(evt.orientation == 'landscape'){
+        if(window.innerWidth > window.innerHeight){
             $(".left").css({"display":"block"});
             $(".right").css({"display":"block"});
             $(".farRight").css({"display":"block"});
+        } else {
+            if(ladderView == 1){
+                $(".left").css({"display":"block"});
+                $(".right").css({"display":"none"});
+                $(".farRight").css({"display":"none"});
+            } else if (ladderView == 2){
+                $(".left").css({"display":"none"});
+                $(".right").css({"display":"block"});
+                $(".farRight").css({"display":"none"});
+            } else {
+                $(".left").css({"display":"none"});
+                $(".right").css({"display":"none"});
+                $(".farRight").css({"display":"block"});
+            }
         }
-      });
+    });
 
     //#endregion
 
