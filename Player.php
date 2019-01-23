@@ -45,7 +45,7 @@ require "includes/nav.html";
 
             echo "<div class='upcomingMatches'>";
                 echo "<h4>Current Matches</h4>";
-                echo "<div class='printMatch'>";
+                echo "<div class='printMatch tblHead'>";
                     echo "<table>";
                         echo "<th>Round Number</td>";
                         echo "<th>Opponent(s)</td>";
@@ -58,7 +58,7 @@ require "includes/nav.html";
 
             echo "<div class='matchHistory'>";
                 echo "<h4>Past Matches</h4>";
-                echo "<div class='printMatch'>";
+                echo "<div class='printMatch tblHead'>";
                     echo "<table>";
                         echo "<th>Round Number</th>";
                         echo "<th>Opponent(s)</th>";

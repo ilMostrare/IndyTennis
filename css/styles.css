@@ -837,6 +837,10 @@ nav .navContainer .navRight div {
   color: #333333;
 }
 
+.playerContent .upcomingMatches .tblHead {
+  background-color: lightgrey;
+}
+
 .playerContent .upcomingMatches .printMatch {
   width: 100%;
   height: -webkit-min-content;
@@ -899,6 +903,10 @@ nav .navContainer .navRight div {
 .playerContent .matchHistory h4 {
   padding-left: 30px;
   color: #333333;
+}
+
+.playerContent .matchHistory .tblHead {
+  background-color: lightgrey;
 }
 
 .playerContent .matchHistory .printMatch {
