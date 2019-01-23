@@ -744,47 +744,60 @@ function GetPlayerPastMatches($playerID){
         } else if ($identifier == 'TD') {
             $TDMatchID = substr($pastMatchID,-11);
 
-            /*
-            
-            SELECT t.`ID`,
-                (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
-                    THEN `T2`.`PLYR1_ID`
-                ELSE `T1`.`PLYR1_ID` END)  AS `OPP1`,
-                
-                (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
-                    THEN `T2`.`PLYR2_ID`
-                ELSE `T1`.`PLYR2_ID` END) AS `OPP2`,
-
-                (CASE WHEN `T1`.`PLYR1_ID` = '4' OR `T1`.`PLYR2_ID` = '4'
-                    THEN `T2`.`TEAM_ID`
-                ELSE `T1`.`TEAM_ID` END) AS `OPP_TEAM`,
-                
-                t.`ROUND_NUM`,
-                t.`T1_SET1`,
-                t.`T1_SET2`,
-                t.`T1_SET3`,
-                t.`T2_SET1`,
-                t.`T2_SET2`,
-                t.`T2_SET3`,
-                t.`MATCHWINNER`
-
-            FROM `TDMATCH` AS t
-
-            LEFT JOIN `TDLADDER` AS `T1`
-            ON t.`TEAM1` = `T1`.`TEAM_ID`
-
-            LEFT JOIN `TDLADDER` AS `T2`
-            ON t.`TEAM2` = `T2`.`TEAM_ID`
-
-            LEFT JOIN
-
-            WHERE t.`ID` = '85c38c35714'
-            */
-
-            $TDMatchInfoSQL = "";
+            $TDMatchInfoSQL = "SELECT t.`ID`, t.`TEAM1`, t.`TEAM2`, (CASE WHEN `T1`.`PLYR1_ID` = '". $playerID ."' OR `T1`.`PLYR2_ID` = '". $playerID ."' THEN `T2`.`TEAM_ID` ELSE `T1`.`TEAM_ID` END) AS `OPP_TEAM`, t.`ROUND_NUM`, t.`T1_SET1`, t.`T1_SET2`, t.`T1_SET3`, t.`T2_SET1`, t.`T2_SET2`, t.`T2_SET3`, t.`MATCHWINNER` FROM `TDMATCH` AS t LEFT JOIN `TDLADDER` AS `T1` ON t.`TEAM1` = `T1`.`TEAM_ID` LEFT JOIN `TDLADDER` AS `T2` ON t.`TEAM2` = `T2`.`TEAM_ID` WHERE t.`ID` = '". $TDMatchID ."'";
             $TDMatchInfoQuery = @$conn->query($TDMatchInfoSQL);
             while ($TDMatchInfoRow = mysqli_fetch_assoc($TDMatchInfoQuery)) {
-                
+                $team1ID = $TDMatchInfoRow["TEAM1"];
+                $team2ID = $TDMatchInfoRow["TEAM2"];
+                $oppTeamID = $TDMatchInfoRow["OPP_TEAM"];
+                $TDRoundNum = $TDMatchInfoRow["ROUND_NUM"];
+                $T1Set1 = $TDMatchInfoRow["T1_SET1"];
+                $T1Set2 = $TDMatchInfoRow["T1_SET2"];
+                $T1Set3 = $TDMatchInfoRow["T1_SET3"];
+                $T2Set1 = $TDMatchInfoRow["T2_SET1"];
+                $T2Set2 = $TDMatchInfoRow["T2_SET2"];
+                $T2Set3 = $TDMatchInfoRow["T2_SET3"];
+                $TDwinner = $TDMatchInfoRow["MATCHWINNER"];
+
+                $oppInfoSQL = "SELECT `Rank`.`TEAM_ID`, `Rank`.`Rank`, `P1`.`LAST_NAME` as `p1ln`, `P1`.`FIRST_NAME` as `p1fn`,`P1`.`ID` as `p1ID`, `P2`.`LAST_NAME` as `p2ln`, `P2`.`FIRST_NAME` as `p2fn`, `P2`.`ID` as `p2ID` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` LEFT JOIN `PLAYERS` AS `P1` ON `P1`.`ID` = `Rank`.`PLYR1_ID` LEFT JOIN `PLAYERS` AS `P2` ON `P2`.`ID` = `Rank`.`PLYR2_ID` WHERE (`Rank`.`TEAM_ID` = '". $oppTeamID ."')";
+                $oppInfoQuery = @$conn->query($oppInfoSQL);
+                while ($oppInfoRow = mysqli_fetch_assoc($oppInfoQuery)) {
+                    $TDoppRank = $oppInfoRow["Rank"];
+                    $TDopp1FN = $oppInfoRow["p1fn"];
+                    $TDopp1LN = $oppInfoRow["p1ln"];
+                    $TDopp1ID = $oppInfoRow["p1ID"];
+                    $TDopp2FN = $oppInfoRow["p2fn"];
+                    $TDopp2LN = $oppInfoRow["p2ln"];
+                    $TDopp2ID = $oppInfoRow["p2ID"];
+                }
+
+                if( (($team1ID != $oppTeamID) && ($TDwinner == 1)) || (($team2ID != $oppTeamID) && ($TDwinner == 2)) ){
+                    $TDresult = "Win";
+                    $set1Score = $T1Set1." - ".$T2Set1;
+                    $set2Score = $T1Set2." - ".$T2Set2;
+                    $set3Score = $T1Set3." - ".$T2Set3;
+                } else {
+                    $TDresult = "Loss";
+                    $set1Score = $T2Set1." - ".$T1Set1;
+                    $set2Score = $T2Set2." - ".$T1Set2;
+                    $set3Score = $T2Set3." - ".$T1Set3;
+                }
+
+                echo "<div class='printMatch'>";
+                    echo "<table>";
+                        echo "<tr>";
+                            echo "<td rowspan='2'>TD",$TDRoundNum,"</td>";
+                            echo "<td><button class='viewPlayer' value='".$TDopp1ID."'>",$TDopp1LN,", ",$TDopp1FN," (",$TDoppRank,")</button></td>";
+                            echo "<td class='mid2' rowspan='2'>",$TDresult,"</td>";
+                            echo "<td class='mid2' rowspan='2'>",$set1Score,"</td>";
+                            echo "<td class='mid2' rowspan='2'>",$set2Score,"</td>";
+                            echo "<td class='mid2' rowspan='2'>",$set3Score,"</td>";
+                        echo "</tr>";
+                            echo "<td><button class='viewPlayer' value='".$TDopp2ID."'>",$TDopp2LN,", ",$TDopp2FN," (",$TDoppRank,")</button></td>";
+                        echo "<tr>";
+                    echo "</table>";
+                echo "</div>"; 
+
             }
 
             
