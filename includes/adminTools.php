@@ -196,7 +196,7 @@ function createTDMatches(){
 
     // $resultSet = array();
 
-    $allTeamsSQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE `TEAM_ID` != 11 ORDER BY `ID`";
+    $allTeamsSQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE `TEAM_ID` != 11 AND `INACTIVE` != 1 ORDER BY `ID`";
     $allTeamsQuery = @$conn->query($allTeamsSQL);
     while ($all_TD_Teams_Row = mysqli_fetch_array($allTeamsQuery)) {
         $resultSet[] = $all_TD_Teams_Row;
@@ -224,11 +224,16 @@ function createTDMatches(){
         $team2Rank = $team1Rank + $j;
         // echo $team2Rank," ";
 
-        $team2SQL = "SELECT `TEAM_ID`, `Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `Rank` = '" . $team2Rank . "'";
+        $team2SQL = "SELECT `INACTIVE`,`TEAM_ID`, `Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `Rank` = '" . $team2Rank . "'";
         $team2Query = @$conn->query($team2SQL);
         while ($p2_Teams_Row = mysqli_fetch_array($team2Query)) {
             $team2 = $p2_Teams_Row["TEAM_ID"];
+            $team2innact = $p2_Teams_Row["INACTIVE"];
             echo $team2," \n";
+        }
+
+        if($team2innact == 1){
+            $team2 = 11;
         }
 
         $existsSQL = "SELECT COUNT(*) as 'COUNT' FROM `TDMATCH` WHERE ((`TEAM1` = '" . $team1 . "') OR (`TEAM2` = '" . $team1 . "')) AND `ROUND_NUM` = '" . $DBLSroundID . "'";
@@ -1664,6 +1669,113 @@ if (isset($_POST['ntrUserNewTDID1'])){
 
 }
 
+#endregion
+
+#region Drop Player from Ladder
+function dropPlayer($_playerID,$_dropSingles,$_dropDubs,$_dropTeamDubs){
+    global $conn;
+    global $sznID;
+
+    if($_dropSingles == 1){
+        #region drop from ladder, re-evaluate ladder
+        $dropSglsSQL = "DELETE FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` = '".$_playerID."'";
+        @$conn->query($dropSglsSQL);
+    
+        $dropPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` DROP COLUMN `ID`";
+        @$conn->query($dropPrimarySGLSSQL);
+        $sortTableSGLSSQL = "ALTER TABLE `SGLSLADDER` ORDER BY `SGLS_POINTS` DESC";
+        @$conn->query($sortTableSGLSSQL);
+        $addPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
+        @$conn->query($addPrimarySGLSSQL);
+        #endregion
+
+        #region find current round matches with no winner, set to DNP
+        $findDNPSglsSQL = "SELECT `ID` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_playerID."' OR `PLAYER2` = '".$_playerID."') AND `MATCHWINNER` = 0";
+        $findDNPSglsQuery = @$conn->query($findDNPSglsSQL);
+        while ($findDNPSglsRow = mysqli_fetch_assoc($findDNPSglsQuery)) {
+            $sglsMatchID = $findDNPSglsRow["ID"];
+            
+            $setSGLSDNP = "UPDATE `SGLSMATCH` SET `DNP` = 1 WHERE `SGLSMATCH`.`ID` = '".$sglsMatchID."'";
+            @$conn->query($setSGLSDNP);
+        }
+        #endregion
+
+        #region set "SGLSPlayer" in players table to 0
+        $setSGLSPlayerSQL = "UPDATE `PLAYERS` SET `SGLS_PLAYER` = 0 WHERE `PLAYERS`.`ID` = '".$_playerID."'";
+        @$conn->query($setSGLSPlayerSQL);
+        #endregion
+    }
+
+    if($_dropDubs == 1){
+        #region drop from ladder, re-evaluate ladder
+        $dropDBlsSQL = "DELETE FROM `DBLSLADDER` WHERE `DBLSLADDER`.`PLAYER_ID` = '".$_playerID."'";
+        @$conn->query($dropDBlsSQL);
+    
+        $dropPrimaryDBLSSQL = "ALTER TABLE `DBLSLADDER` DROP COLUMN `ID`";
+        @$conn->query($dropPrimaryDBLSSQL);
+        $sortTableDBLSSQL = "ALTER TABLE `DBLSLADDER` ORDER BY `DBLS_POINTS` DESC";
+        @$conn->query($sortTableDBLSSQL);
+        $addPrimaryDBLSSQL = "ALTER TABLE `DBLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
+        @$conn->query($addPrimaryDBLSSQL);
+        #endregion
+
+        #region find current round matches with no winner, set to DNP
+        $findDNPDBlsSQL = "SELECT `ID` FROM `DBLSMATCH` WHERE (`PLAYER1` = '".$_playerID."' OR `PLAYER2` = '".$_playerID."'  OR `PLAYER3` = '".$_playerID."'  OR `PLAYER4` = '".$_playerID."') AND `SET1WINNER` = 0 AND `SET2WINNER` = 0 AND `SET3WINNER` = 0";
+        $findDNPDBlsQuery = @$conn->query($findDNPDBlsSQL);
+        while ($findDNPDBlsRow = mysqli_fetch_assoc($findDNPDBlsQuery)) {
+            $dblsMatchID = $findDNPDBlsRow["ID"];
+            
+            $setDBLSDNP = "UPDATE `DBLSMATCH` SET `DNP` = 1 WHERE `DBLSMATCH`.`ID` = '".$dblsMatchID."'";
+            @$conn->query($setDBLSDNP);
+        }
+        #endregion
+
+        #region set "DBLSPlayer" in players table to 0
+        $setDBLSPlayerSQL = "UPDATE `PLAYERS` SET `DBLS_PLAYER` = 0 WHERE `PLAYERS`.`ID` = '".$_playerID."'";
+        @$conn->query($setDBLSPlayerSQL);
+        #endregion
+    }
+
+    if($_dropTeamDubs == 1){
+        #region drop team from ladder, re-evaluate ladder
+        $findTDTeamSQL = "SELECT `TEAM_ID` FROM `TDLADDER` WHERE (`PLYR1_ID` = '".$_playerID."' OR `PLYR2_ID` = '".$_playerID."')";
+        $findTDTeamQuery = @$conn->query($findTDTeamSQL);
+        while ($findTDTeamRow = mysqli_fetch_assoc($findTDTeamQuery)) {
+            $findTDTeamID = $findTDTeamRow["TEAM_ID"];
+            echo $findTDTeamID;
+            
+            $dropTDSQL = "UPDATE `TDLADDER` SET `INACTIVE` = 1, `TD_POINTS` = 0 WHERE `TDLADDER`.`TEAM_ID` = '".$findTDTeamID."'";
+            @$conn->query($dropTDSQL);
+            echo "dropped";
+
+            #region find current round matches with no winner, set to DNP
+            $findTDMatchesSQL = "SELECT `ID` FROM `TDMATCH` WHERE (`TEAM1` = '".$findTDTeamID."' OR `TEAM2` = '".$findTDTeamID."') AND `MATCHWINNER` = 0";
+            $findTDMatchesQuery = @$conn->query($findTDMatchesSQL);
+            while ($findTDMatchesRow = mysqli_fetch_assoc($findTDMatchesQuery)) {
+                $findTDMatchesID = $findTDMatchesRow["ID"];
+                echo $findTDMatchesID;
+            
+                $setTDDNP = "UPDATE `TDMATCH` SET `DNP` = 1 WHERE `TDMATCH`.`ID` = '".$findTDMatchesID."'";
+                @$conn->query($setTDDNP);
+                echo "set to dnp";
+            }
+            #endregion
+        }        
+        #endregion
+    }
+}
+
+if (isset($_POST['ntrDropPlayerID'])){
+
+    $dropPlayerID = isset($_POST['ntrDropPlayerID']) ? $_POST['ntrDropPlayerID'] : 'No data found';
+    $dropSingles = isset($_POST['ntrDropSGLS']) ? $_POST['ntrDropSGLS'] : 'No data found';
+    $dropDubs = isset($_POST['ntrDropDBLS']) ? $_POST['ntrDropDBLS'] : 'No data found';    
+    $dropTeamDubs = isset($_POST['ntrDropTD']) ? $_POST['ntrDropTD'] : 'No data found';
+
+
+    dropPlayer($dropPlayerID, $dropSingles,$dropDubs,$dropTeamDubs);
+
+}
 #endregion
 
 #region Add Announcement

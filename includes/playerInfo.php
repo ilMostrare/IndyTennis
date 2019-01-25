@@ -59,7 +59,7 @@ function GetPlayerInfo($playerID){
         $playerInfoDBLS = $playerInfoRow["DBLS_PLAYER"];
     }
 
-    $teamDBLSCheckSQL = "SELECT COUNT(*) as `COUNT` FROM `TDLADDER` WHERE `PLYR1_ID` LIKE '".$playerID."' OR `PLYR2_ID` LIKE '".$playerID."'";
+    $teamDBLSCheckSQL = "SELECT COUNT(*) as `COUNT` FROM `TDLADDER` WHERE (`PLYR1_ID` LIKE '".$playerID."' OR `PLYR2_ID` LIKE '".$playerID."') AND `INACTIVE` != 1";
     $teamDBLSCheckQuery = @$conn->query($teamDBLSCheckSQL);
     while ($teamDBLSCheckRow = mysqli_fetch_assoc($teamDBLSCheckQuery)) {
         $teamDBLSCheckVal = $teamDBLSCheckRow["COUNT"];
@@ -87,22 +87,26 @@ function GetPlayerInfo($playerID){
         }
 
         if ($playerInfoSGLS != 1 && $playerInfoDBLS == 1){
-            echo "<div class='rankings'><h3 class='left'></h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div>";
-            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>"; ////////////////////////////////////////
+            echo "<div class='rankings'><h3 class='bottom'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div>";
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>";
         } elseif ($playerInfoDBLS != 1 && $playerInfoSGLS == 1){
-            echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'></h3></div>";
-            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>"; ////////////////////////////////////////
-        } else {
+            echo "<div class='rankings'><h3 class='bottom'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3></div>";
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>";
+        } elseif ($playerInfoDBLS == 1 && $playerInfoSGLS == 1) {
             echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div>";
-            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>"; ////////////////////////////////////////
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>";
+        } else {
+            echo "<div class='rankings'><h3 class='bottom'>Team Doubles: #",$TDRank," (",$TDPoints," PTS, ",$TDWins,"-",$TDLosses,", Partner: ",$TDPartnerLN,", ",$TDPartnerFN,")</h3></div></div>";
         }
     } else {
         if ($playerInfoSGLS != 1 && $playerInfoDBLS == 1){
-            echo "<div class='rankings'><h3 class='left'></h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
+            echo "<div class='rankings'><h3 class='bottom'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
         } elseif ($playerInfoDBLS != 1 && $playerInfoSGLS == 1){
-            echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'></h3></div></div>";
-        } else {
+            echo "<div class='rankings'><h3 class='bottom'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3></div></div>";
+        } elseif ($playerInfoDBLS == 1 && $playerInfoSGLS == 1) {
             echo "<div class='rankings'><h3 class='left'>Singles: #",$curSGLSRank," (",$curSGLSRankPoints," PTS, ",$curSGLSWins,"-",$curSGLSLosses,")</h3><h3 class='right'>Doubles: #",$curDBLSRank," (",$curDBLSRankPoints," PTS, ",$curDBLSWins,"-",$curDBLSLosses,")</h3></div></div>";
+        } else {
+            echo "</div>";
         }
     }
 
@@ -131,7 +135,7 @@ function GetPlayerCurrentMatches($playerID){
         $playerInfoDBLS = $playerInfoRow["DBLS_PLAYER"];
     }
 
-    $teamDBLSCheckSQL = "SELECT COUNT(*) as `COUNT` FROM `TDLADDER` WHERE `PLYR1_ID` LIKE '".$playerID."' OR `PLYR2_ID` LIKE '".$playerID."'";
+    $teamDBLSCheckSQL = "SELECT COUNT(*) as `COUNT` FROM `TDLADDER` WHERE (`PLYR1_ID` LIKE '".$playerID."' OR `PLYR2_ID` LIKE '".$playerID."') AND `INACTIVE` != 1";
     $teamDBLSCheckQuery = @$conn->query($teamDBLSCheckSQL);
     while ($teamDBLSCheckRow = mysqli_fetch_assoc($teamDBLSCheckQuery)) {
         $teamDBLSCheckVal = $teamDBLSCheckRow["COUNT"];
@@ -225,11 +229,7 @@ function GetPlayerCurrentMatches($playerID){
         }
 
     } else {
-        echo "<div class='printMatch'>";
-            echo "<table>";
-                echo "<td>No Singles matches to display</td>";
-            echo "</table>";
-        echo "</div>";                
+        // do nothing                  
     }
     #endregion
 
@@ -319,11 +319,7 @@ function GetPlayerCurrentMatches($playerID){
 
         } 
     } else {
-        echo "<div class='printMatch'>";
-            echo "<table>";
-                echo "<td>No Doubles matches to display</td>";
-            echo "</table>";
-        echo "</div>";                
+        // do nothing                  
     }
     #endregion
 
@@ -437,7 +433,7 @@ function GetPlayerCurrentMatches($playerID){
         }
 
     } else {
-        // do nothing                
+        // do nothing        
     }
     #endregion
     
@@ -494,7 +490,7 @@ function GetPlayerPastMatches($playerID){
                 $matchEndDate = $pastSGLSMatchesRow["END_DATE"];
 
                 if ($matchPlayer1 == $playerID){
-                    $sglsOpponentSQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`SGLSLADDER`.`ID` as `RANK` FROM `SGLSLADDER` INNER JOIN `PLAYERS` ON `SGLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` WHERE `PLAYERS`.`ID` = '".$matchPlayer2."'";
+                    $sglsOpponentSQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME` FROM `PLAYERS` WHERE `PLAYERS`.`ID` = '".$matchPlayer2."'";
                     $sglsOpponentQuery = @$conn->query($sglsOpponentSQL);
                     #region error handling
                     if (!$sglsOpponentQuery) {
@@ -507,7 +503,24 @@ function GetPlayerPastMatches($playerID){
                     while ($sglsOpponentRow = mysqli_fetch_assoc($sglsOpponentQuery)) {
                         $sglsOpponentFName = $sglsOpponentRow["FIRST_NAME"];
                         $sglsOpponentLName = $sglsOpponentRow["LAST_NAME"];
-                        $sglsOpponentRank = $sglsOpponentRow["RANK"];
+                    }
+
+                    $sglsOpponentRankSQL = "SELECT `SGLSLADDER`.`ID` as `RANK` FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` = '".$matchPlayer2."'";
+                    $sglsOpponentRankQuery = @$conn->query($sglsOpponentRankSQL);
+                    #region error handling
+                    if (!$sglsOpponentRankQuery) {
+                        $errno = $conn->errno;
+                        $error = $conn->error;
+                        $conn->close();
+                        die("Selection failed: ($errno) $error.");
+                    }
+                    #endregion
+                    while ($sglsOpponentRankRow = mysqli_fetch_assoc($sglsOpponentRankQuery)) {
+                        $sglsOpponentRank = $sglsOpponentRankRow["RANK"];
+                    }
+
+                    if ($sglsOpponentRank == ''){
+                        $sglsOpponentRank = "NR";
                     }
 
                     if ($matchWinner == 1){
@@ -528,7 +541,7 @@ function GetPlayerPastMatches($playerID){
                     echo "</div>";                
                     
                 } else if ($matchPlayer2 == $playerID){
-                    $sglsOpponentSQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`SGLSLADDER`.`ID` as `RANK` FROM `SGLSLADDER` INNER JOIN `PLAYERS` ON `SGLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` WHERE `PLAYERS`.`ID` = '".$matchPlayer1."'";
+                    $sglsOpponentSQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME` FROM `PLAYERS` WHERE `PLAYERS`.`ID` = '".$matchPlayer1."'";
                     $sglsOpponentQuery = @$conn->query($sglsOpponentSQL);
                     #region error handling
                     if (!$sglsOpponentQuery) {
@@ -541,7 +554,24 @@ function GetPlayerPastMatches($playerID){
                     while ($sglsOpponentRow = mysqli_fetch_assoc($sglsOpponentQuery)) {
                         $sglsOpponentFName = $sglsOpponentRow["FIRST_NAME"];
                         $sglsOpponentLName = $sglsOpponentRow["LAST_NAME"];
-                        $sglsOpponentRank = $sglsOpponentRow["RANK"];
+                    }
+
+                    $sglsOpponentRankSQL = "SELECT `SGLSLADDER`.`ID` as `RANK` FROM `SGLSLADDER` WHERE `SGLSLADDER`.`PLAYER_ID` = '".$matchPlayer1."'";
+                    $sglsOpponentRankQuery = @$conn->query($sglsOpponentRankSQL);
+                    #region error handling
+                    if (!$sglsOpponentRankQuery) {
+                        $errno = $conn->errno;
+                        $error = $conn->error;
+                        $conn->close();
+                        die("Selection failed: ($errno) $error.");
+                    }
+                    #endregion
+                    while ($sglsOpponentRankRow = mysqli_fetch_assoc($sglsOpponentRankQuery)) {
+                        $sglsOpponentRank = $sglsOpponentRankRow["RANK"];
+                    }
+
+                    if ($sglsOpponentRank == ''){
+                        $sglsOpponentRank = "NR";
                     }
 
                     if ($matchWinner == 1){
@@ -696,28 +726,54 @@ function GetPlayerPastMatches($playerID){
                 #endregion
     
                 #region opponent ranks
-                $dblsOpponent1SQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`DBLSLADDER`.`ID` as `RANK` FROM `DBLSLADDER` INNER JOIN `PLAYERS` ON `DBLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` WHERE `PLAYERS`.`ID` = '".$set1Partner."'";
+                $dblsOpponent1SQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME` FROM `PLAYERS` WHERE `PLAYERS`.`ID` = '".$set1Partner."'";
                 $dblsOpponent1Query = @$conn->query($dblsOpponent1SQL);
                 while ($dblsOpponent1Row = mysqli_fetch_assoc($dblsOpponent1Query)) {
                     $dblsOpponent1FName = $dblsOpponent1Row["FIRST_NAME"];
                     $dblsOpponent1LName = $dblsOpponent1Row["LAST_NAME"];
-                    $dblsOpponent1Rank = $dblsOpponent1Row["RANK"];
+                }
+                $dblsOpponent1RankSQL = "SELECT `DBLSLADDER`.`ID` as `RANK` FROM `DBLSLADDER` WHERE `DBLSLADDER`.`PLAYER_ID` = '".$set1Partner."'";
+                $dblsOpponent1RankQuery = @$conn->query($dblsOpponent1RankSQL);
+                while ($dblsOpponent1RankRow = mysqli_fetch_assoc($dblsOpponent1RankQuery)) {
+                    $dblsOpponent1Rank = $dblsOpponent1RankRow["RANK"];
+                }
+
+                if ($dblsOpponent1Rank == ''){
+                    $dblsOpponent1Rank = "NR";
                 }
     
-                $dblsOpponent2SQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`DBLSLADDER`.`ID` as `RANK` FROM `DBLSLADDER` INNER JOIN `PLAYERS` ON `DBLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` WHERE `PLAYERS`.`ID` = '".$set2Partner."'";
+                $dblsOpponent2SQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME` FROM `PLAYERS` WHERE `PLAYERS`.`ID` = '".$set2Partner."'";
                 $dblsOpponent2Query = @$conn->query($dblsOpponent2SQL);
                 while ($dblsOpponent2Row = mysqli_fetch_assoc($dblsOpponent2Query)) {
                     $dblsOpponent2FName = $dblsOpponent2Row["FIRST_NAME"];
                     $dblsOpponent2LName = $dblsOpponent2Row["LAST_NAME"];
-                    $dblsOpponent2Rank = $dblsOpponent2Row["RANK"];
+                }
+
+                $dblsOpponent2RankSQL = "SELECT `DBLSLADDER`.`ID` as `RANK` FROM `DBLSLADDER` WHERE `DBLSLADDER`.`PLAYER_ID` = '".$set2Partner."'";
+                $dblsOpponent2RankQuery = @$conn->query($dblsOpponent2RankSQL);
+                while ($dblsOpponent2RankRow = mysqli_fetch_assoc($dblsOpponent2RankQuery)) {
+                    $dblsOpponent2Rank = $dblsOpponent2RankRow["RANK"];
+                }
+
+                if ($dblsOpponent2Rank == ''){
+                    $dblsOpponent2Rank = "NR";
                 }
     
-                $dblsOpponent3SQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME`,`DBLSLADDER`.`ID` as `RANK` FROM `DBLSLADDER` INNER JOIN `PLAYERS` ON `DBLSLADDER`.`PLAYER_ID` = `PLAYERS`.`ID` WHERE `PLAYERS`.`ID` = '".$set3Partner."'";
+                $dblsOpponent3SQL = "SELECT `PLAYERS`.`FIRST_NAME` as `FIRST_NAME`,`PLAYERS`.`LAST_NAME` as `LAST_NAME` FROM `PLAYERS` WHERE `PLAYERS`.`ID` = '".$set3Partner."'";
                 $dblsOpponent3Query = @$conn->query($dblsOpponent3SQL);
                 while ($dblsOpponent3Row = mysqli_fetch_assoc($dblsOpponent3Query)) {
                     $dblsOpponent3FName = $dblsOpponent3Row["FIRST_NAME"];
                     $dblsOpponent3LName = $dblsOpponent3Row["LAST_NAME"];
-                    $dblsOpponent3Rank = $dblsOpponent3Row["RANK"];
+                }
+
+                $dblsOpponent3RankSQL = "SELECT `DBLSLADDER`.`ID` as `RANK` FROM `DBLSLADDER` WHERE `DBLSLADDER`.`PLAYER_ID` = '".$set3Partner."'";
+                $dblsOpponent3RankQuery = @$conn->query($dblsOpponent3RankSQL);
+                while ($dblsOpponent3RankRow = mysqli_fetch_assoc($dblsOpponent3RankQuery)) {
+                    $dblsOpponent3Rank = $dblsOpponent3RankRow["RANK"];
+                }
+
+                if ($dblsOpponent3Rank == ''){
+                    $dblsOpponent3Rank = "NR";
                 }
                 #endregion
 
@@ -742,6 +798,7 @@ function GetPlayerPastMatches($playerID){
             }
             #endregion
         } else if ($identifier == 'TD') {
+            #region past team dubs matches
             $TDMatchID = substr($pastMatchID,-11);
 
             $TDMatchInfoSQL = "SELECT t.`ID`, t.`TEAM1`, t.`TEAM2`, (CASE WHEN `T1`.`PLYR1_ID` = '". $playerID ."' OR `T1`.`PLYR2_ID` = '". $playerID ."' THEN `T2`.`TEAM_ID` ELSE `T1`.`TEAM_ID` END) AS `OPP_TEAM`, t.`ROUND_NUM`, t.`T1_SET1`, t.`T1_SET2`, t.`T1_SET3`, t.`T2_SET1`, t.`T2_SET2`, t.`T2_SET3`, t.`MATCHWINNER` FROM `TDMATCH` AS t LEFT JOIN `TDLADDER` AS `T1` ON t.`TEAM1` = `T1`.`TEAM_ID` LEFT JOIN `TDLADDER` AS `T2` ON t.`TEAM2` = `T2`.`TEAM_ID` WHERE t.`ID` = '". $TDMatchID ."'";
@@ -759,9 +816,10 @@ function GetPlayerPastMatches($playerID){
                 $T2Set3 = $TDMatchInfoRow["T2_SET3"];
                 $TDwinner = $TDMatchInfoRow["MATCHWINNER"];
 
-                $oppInfoSQL = "SELECT `Rank`.`TEAM_ID`, `Rank`.`Rank`, `P1`.`LAST_NAME` as `p1ln`, `P1`.`FIRST_NAME` as `p1fn`,`P1`.`ID` as `p1ID`, `P2`.`LAST_NAME` as `p2ln`, `P2`.`FIRST_NAME` as `p2fn`, `P2`.`ID` as `p2ID` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` LEFT JOIN `PLAYERS` AS `P1` ON `P1`.`ID` = `Rank`.`PLYR1_ID` LEFT JOIN `PLAYERS` AS `P2` ON `P2`.`ID` = `Rank`.`PLYR2_ID` WHERE (`Rank`.`TEAM_ID` = '". $oppTeamID ."')";
+                $oppInfoSQL = "SELECT `Rank`.`INACTIVE`, `Rank`.`TEAM_ID`, `Rank`.`Rank`, `P1`.`LAST_NAME` as `p1ln`, `P1`.`FIRST_NAME` as `p1fn`,`P1`.`ID` as `p1ID`, `P2`.`LAST_NAME` as `p2ln`, `P2`.`FIRST_NAME` as `p2fn`, `P2`.`ID` as `p2ID` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` LEFT JOIN `PLAYERS` AS `P1` ON `P1`.`ID` = `Rank`.`PLYR1_ID` LEFT JOIN `PLAYERS` AS `P2` ON `P2`.`ID` = `Rank`.`PLYR2_ID` WHERE (`Rank`.`TEAM_ID` = '". $oppTeamID ."')";
                 $oppInfoQuery = @$conn->query($oppInfoSQL);
                 while ($oppInfoRow = mysqli_fetch_assoc($oppInfoQuery)) {
+                    $TDoppInnactive = $oppInfoRow["INACTIVE"];
                     $TDoppRank = $oppInfoRow["Rank"];
                     $TDopp1FN = $oppInfoRow["p1fn"];
                     $TDopp1LN = $oppInfoRow["p1ln"];
@@ -783,6 +841,10 @@ function GetPlayerPastMatches($playerID){
                     $set3Score = $T2Set3." - ".$T1Set3;
                 }
 
+                if($TDoppInnactive == 1){
+                    $TDoppRank = "NR";
+                }
+
                 echo "<div class='printMatch'>";
                     echo "<table>";
                         echo "<tr>";
@@ -799,8 +861,7 @@ function GetPlayerPastMatches($playerID){
                 echo "</div>"; 
 
             }
-
-            
+            #endregion
         } else {
             // do nothing
         }

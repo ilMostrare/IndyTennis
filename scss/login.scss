@@ -13,7 +13,7 @@
       // background-color: orangered;
       height: 100%;
       display: block;
-      padding: 0 15px 0 15px
+      padding: 0 15px 0 15px;
 
       h1{
         text-align: center;
@@ -63,4 +63,52 @@
           }
       }
     }
+}
+
+@media only screen and (max-device-width : 1080px) and (orientation: portrait) {
+  /******** Login *********/
+  .loginDiv{
+    width: 90%;
+    // background-color: #A5DC86;
+    margin: 20px auto;
+    min-height: 95%; 
+    display: flex;
+
+    .loginForm{
+      width:100%;
+      // background-color: orangered;
+      height: 100%;
+      display: block;
+      padding: 0 15px 0 15px;
+
+      label{
+        font-size: xx-large;
+      }
+
+      input[type=email] {
+        height: 70px;
+        width: 90%;
+        padding-left: 15px;
+        // background-color: yellow;
+        font-size: xx-large;
+        margin-bottom: 50px;
+      }
+
+      input[type=password] {
+        height: 70px;
+        width: 90%;
+        padding-left: 15px;
+        // background-color: yellow;
+        font-size: xx-large;
+        margin-bottom: 50px;
+      }
+    
+      input[type=submit] {
+        height: 70px;
+        width: 300px;
+        font-size: xx-large;
+        margin: 0 auto auto auto;
+      }
+    }
   }
+}

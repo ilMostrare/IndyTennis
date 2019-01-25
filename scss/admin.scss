@@ -160,6 +160,24 @@
         margin-top: 35px;
         display: none;
 
+        #editMatchesController{
+          display: flex;
+          margin: auto auto 15px auto;
+    
+          #editSGView{
+            margin: auto;
+            cursor: pointer;
+          }
+          #editDBView{
+            margin: auto;
+            cursor: pointer;
+          }
+          #editTDView{
+            margin: auto;
+            cursor: pointer;
+          }
+        }
+
         h3{
           text-align: center;
         }
@@ -421,6 +439,24 @@
         margin-top: 35px;
         display: none;
 
+        #enterScoresController{
+          display: flex;
+          margin: auto auto 15px auto;
+    
+          #enterSGView{
+            margin: auto;
+            cursor: pointer;
+          }
+          #enterDBView{
+            margin: auto;
+            cursor: pointer;
+          }
+          #enterTDView{
+            margin: auto;
+            cursor: pointer;
+          }
+        }
+
         h3{
           text-align: center;
         }
@@ -435,6 +471,92 @@
         }
 
         .sglsSet{
+          width: 90%;
+          display: flex;
+          // background-color: aquamarine;
+
+          input {
+            margin-bottom: 10px;
+          }
+          input[type=number] {
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+          }
+          input[type=checkbox] {
+            height: 1em;
+          }
+
+          span{
+            width: 50%;
+            display: flex;
+            // background-color: chocolate;
+
+            label{
+              margin-left: 30px;
+              display: block;
+              white-space: nowrap;
+            }
+
+            input[type=radio] {
+              height: 1em;
+              white-space: nowrap;
+              width: 60%;
+              // background-color: chocolate;
+              float: left;
+            }
+          }
+          
+          label{
+            white-space: nowrap;
+          }
+        }
+
+        .DBlsSet{
+          width: 90%;
+          display: flex;
+          // background-color: aquamarine;
+
+          input {
+            margin-bottom: 10px;
+          }
+          input[type=number] {
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+          }
+          input[type=checkbox] {
+            height: 1em;
+          }
+
+          span{
+            width: 50%;
+            display: flex;
+            // background-color: chocolate;
+
+            label{
+              margin-left: 30px;
+              display: block;
+              white-space: nowrap;
+            }
+
+            input[type=radio] {
+              height: 1em;
+              white-space: nowrap;
+              width: 60%;
+              // background-color: chocolate;
+              float: left;
+            }
+          }
+          
+          label{
+            white-space: nowrap;
+          }
+        }
+
+        .TDSet{
           width: 90%;
           display: flex;
           // background-color: aquamarine;
@@ -889,6 +1011,107 @@
 
       }
 
+      #dropLadderDiv{
+        margin-top: 35px;
+        display: none;
+
+        h3{
+          text-align: center;
+        }
+
+        .newPlayer{
+          width: 90%;
+          display: flex;
+          margin-bottom: 20px; 
+
+          input[type=number] {
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+            // margin: 0 5px 0 5px;
+          }
+
+          #newTDPoints{
+            border-radius: 5px;
+            border-style: solid;
+            border-width: .5px;
+            border-color: lightgrey;
+            margin: 0 10px 0 10px;
+          }
+          input[type=checkbox] {
+            height: 1em;
+          }
+
+          span{
+            width: 50%;
+            display: flex;
+            // background-color: chocolate;
+
+            label{
+              margin-left: 30px;
+              display: block;
+              white-space: nowrap;
+            }
+
+            input[type=radio] {
+              height: 1em;
+              white-space: nowrap;
+              width: 60%;
+              // background-color: chocolate;
+              float: left;
+            }
+          }
+          
+          label{
+            white-space: nowrap;
+          }
+        }
+
+        form input{
+          display: block;
+          width: 90%;
+          height: 40px;
+          margin-bottom: 10px;
+          font-size: 16px;
+          border-radius: 5px;
+          border-style: solid;
+          border-width: .5px;
+          border-color: lightgrey;
+          padding-left: 5px;
+        }
+
+        form select{
+          display: block;
+          width: 90%;
+          height: 40px;
+          margin-bottom: 35px;
+          font-size: 16px;
+        }
+
+        form label {
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        form input[type=submit] {
+          height: 40px;
+          width: 300px;
+          min-width: 145px;
+          border: none;
+          border-radius: 10px;
+          background-color: lightgrey;
+          cursor: pointer;
+          margin: 10px auto;
+          padding: 0;
+
+          &:hover{
+            background-color: darkgrey;
+          }
+        }
+
+      }
+
       #addAnnouncement{
         margin-top: 35px;
         display: none;
@@ -978,6 +1201,24 @@
       #changePW{
         margin-top: 35px;
         display: none;
+
+        #editPlayerController{
+          display: flex;
+          margin: auto auto 15px auto;
+    
+          #passwordView{
+            margin: auto;
+            cursor: pointer;
+          }
+          #emailView{
+            margin: auto;
+            cursor: pointer;
+          }
+          #phoneView{
+            margin: auto;
+            cursor: pointer;
+          }
+        }
 
         h3{
           text-align: center;

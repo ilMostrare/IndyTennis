@@ -61,6 +61,7 @@ function setBindings() {
         }
     });
 
+    //#region ladder mobile view controller
     var ladderView = 1;
     $("#sglsLadderView").click(function (evt){
         $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
@@ -95,6 +96,115 @@ function setBindings() {
 
         ladderView = 3
     });
+    //#endregion
+
+    //#region edit player view controller
+    $(".updateEM").css({"display":"none"});
+    $(".updatePN").css({"display":"none"});
+    $("#passwordView").css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+    $("#phoneView").css({"border": "none", "color": "#868686"});
+    $("#emailView").css({"border": "none", "color": "#868686"});
+
+    $("#passwordView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#phoneView").css({"border": "none", "color": "#868686"});
+        $("#emailView").css({"border": "none", "color": "#868686"});
+
+        $(".updatePW").css({"display":"block"});
+        $(".updateEM").css({"display":"none"});
+        $(".updatePN").css({"display":"none"});
+    });
+    $("#emailView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#passwordView").css({"border": "none", "color": "#868686"});
+        $("#phoneView").css({"border": "none", "color": "#868686"});
+
+        $(".updatePW").css({"display":"none"});
+        $(".updateEM").css({"display":"block"});
+        $(".updatePN").css({"display":"none"});
+    });
+    $("#phoneView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#passwordView").css({"border": "none", "color": "#868686"});
+        $("#emailView").css({"border": "none", "color": "#868686"});
+
+        $(".updatePW").css({"display":"none"});
+        $(".updateEM").css({"display":"none"});
+        $(".updatePN").css({"display":"block"});
+    });
+    //#endregion
+
+    //#region edit matches view controller
+    $(".editDBLSMatch").css({"display":"none"});
+    $(".editTDMatch").css({"display":"none"});
+    $("#editSGView").css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+    $("#editDBView").css({"border": "none", "color": "#868686"});
+    $("#editTDView").css({"border": "none", "color": "#868686"});
+
+    $("#editSGView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#editTDView").css({"border": "none", "color": "#868686"});
+        $("#editDBView").css({"border": "none", "color": "#868686"});
+
+        $(".editSGLSMatch").css({"display":"block"});
+        $(".editDBLSMatch").css({"display":"none"});
+        $(".editTDMatch").css({"display":"none"});
+    });
+    $("#editDBView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#editSGView").css({"border": "none", "color": "#868686"});
+        $("#editTDView").css({"border": "none", "color": "#868686"});
+
+        $(".editSGLSMatch").css({"display":"none"});
+        $(".editDBLSMatch").css({"display":"block"});
+        $(".editTDMatch").css({"display":"none"});
+    });
+    $("#editTDView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#editSGView").css({"border": "none", "color": "#868686"});
+        $("#editDBView").css({"border": "none", "color": "#868686"});
+
+        $(".editSGLSMatch").css({"display":"none"});
+        $(".editDBLSMatch").css({"display":"none"});
+        $(".editTDMatch").css({"display":"block"});
+    });
+    //#endregion
+    
+    //#region enter scores view controller
+    $(".enterDBLSScores").css({"display":"none"});
+    $(".enterTDScores").css({"display":"none"});
+    $("#enterSGView").css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+    $("#enterDBView").css({"border": "none", "color": "#868686"});
+    $("#enterTDView").css({"border": "none", "color": "#868686"});
+
+    $("#enterSGView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#enterTDView").css({"border": "none", "color": "#868686"});
+        $("#enterDBView").css({"border": "none", "color": "#868686"});
+
+        $(".enterSGLSScores").css({"display":"block"});
+        $(".enterDBLSScores").css({"display":"none"});
+        $(".enterTDScores").css({"display":"none"});
+    });
+    $("#enterDBView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#enterSGView").css({"border": "none", "color": "#868686"});
+        $("#enterTDView").css({"border": "none", "color": "#868686"});
+
+        $(".enterSGLSScores").css({"display":"none"});
+        $(".enterDBLSScores").css({"display":"block"});
+        $(".enterTDScores").css({"display":"none"});
+    });
+    $("#enterTDView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#enterSGView").css({"border": "none", "color": "#868686"});
+        $("#enterDBView").css({"border": "none", "color": "#868686"});
+
+        $(".enterSGLSScores").css({"display":"none"});
+        $(".enterDBLSScores").css({"display":"none"});
+        $(".enterTDScores").css({"display":"block"});
+    });
+    //#endregion
 
     $( window ).resize( function( evt ) {
         // $( "#orientation" ).text( "This device is in " + evt.orientation + " mode!" );
@@ -127,7 +237,7 @@ function setBindings() {
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -140,7 +250,7 @@ function setBindings() {
         $('#editRoundMatches').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -152,7 +262,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -166,7 +276,7 @@ function setBindings() {
         $('#createMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -179,7 +289,7 @@ function setBindings() {
         $('#editRoundMatches').css({"display":"block"});
         $('#addChallengeMatch').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -191,7 +301,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -205,7 +315,7 @@ function setBindings() {
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#createMatches').css({"background-color":"white","border-radius":"5px"});
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -218,7 +328,7 @@ function setBindings() {
         $('#editRoundMatches').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"block"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -230,7 +340,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -244,7 +354,7 @@ function setBindings() {
         $('#createMatches').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -256,7 +366,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"block"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -269,7 +379,7 @@ function setBindings() {
         // $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -278,8 +388,8 @@ function setBindings() {
         $(".addChallenge")[0].reset();
         $(".addNewTD")[0].reset();
     });
-    $('#enterDBLSScores').click(function(){
-        $('#enterDBLSScores').css({"background-color":"#ECECEC","border-radius":"5px"});
+    $('#dropLadderView').click(function(){
+        $('#dropLadderView').css({"background-color":"#ECECEC","border-radius":"5px"});
         $('#createMatches').css({"background-color":"white","border-radius":"5px"});
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
@@ -295,7 +405,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"block"});
+        $('#dropLadderDiv').css({"display":"block"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -308,7 +418,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         // $(".enterDBLSScores")[0].reset();
@@ -323,7 +433,7 @@ function setBindings() {
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
@@ -334,7 +444,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"block"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -347,7 +457,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         // $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -362,7 +472,7 @@ function setBindings() {
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
@@ -373,7 +483,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"block"});
         $('#addNewPlayers').css({"display":"none"});
@@ -386,7 +496,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         // $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -401,7 +511,7 @@ function setBindings() {
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#changeEmail').css({"background-color":"white","border-radius":"5px"});
@@ -412,7 +522,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"block"});
@@ -426,7 +536,7 @@ function setBindings() {
         // $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
         $(".addAnnounce")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
         $(".editSGLSMatch")[0].reset();
@@ -440,7 +550,7 @@ function setBindings() {
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -453,7 +563,7 @@ function setBindings() {
         $('#editRoundMatches').css({"display":"none"});
         $('#addChallengeMatch').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -465,7 +575,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -479,7 +589,7 @@ function setBindings() {
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -490,7 +600,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -504,7 +614,7 @@ function setBindings() {
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
         $(".addAnnounce")[0].reset();
-        // $(".updateEM")[0].reset();
+        // $(".editDBLSMatch")[0].reset();
         $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
         $(".editSGLSMatch")[0].reset();
@@ -518,7 +628,7 @@ function setBindings() {
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -529,7 +639,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -542,7 +652,7 @@ function setBindings() {
         $(".enterSGLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         // $(".updatePN")[0].reset();
         $(".enterDBLSScores")[0].reset();
@@ -557,7 +667,7 @@ function setBindings() {
         $('#enterSGLSScores').css({"background-color":"white","border-radius":"5px"});
         $('#editMatches').css({"background-color":"white","border-radius":"5px"});
         $('#addChallengeM').css({"background-color":"white","border-radius":"5px"});
-        $('#enterDBLSScores').css({"background-color":"white","border-radius":"5px"});
+        $('#dropLadderView').css({"background-color":"white","border-radius":"5px"});
         $('#addAnnounce').css({"background-color":"white","border-radius":"5px"});
         $('#changePassword').css({"background-color":"white","border-radius":"5px"});
         $('#addPlayers').css({"background-color":"white","border-radius":"5px"});
@@ -568,7 +678,7 @@ function setBindings() {
         $('#createRoundMatches').css({"display":"none"});
         $('#editRoundMatches').css({"display":"none"});
         $('#enterSGLSScoreResults').css({"display":"none"});
-        $('#enterDBLSScoreResults').css({"display":"none"});
+        $('#dropLadderDiv').css({"display":"none"});
         $('#addAnnouncement').css({"display":"none"});
         $('#changePW').css({"display":"none"});
         $('#addNewPlayers').css({"display":"none"});
@@ -582,7 +692,7 @@ function setBindings() {
         $(".enterDBLSScores")[0].reset();
         $(".addNewPLYR")[0].reset();
         $(".updatePW")[0].reset();
-        $(".updateEM")[0].reset();
+        $(".editDBLSMatch")[0].reset();
         $(".addAnnounce")[0].reset();
         $(".updatePN")[0].reset();
         $(".editSGLSMatch")[0].reset();
@@ -873,7 +983,7 @@ function setBindings() {
             // console.log(data);
             swal({title: "Success", text: "Singles Matches Created!", type: "success"},
                 function(){ 
-                    location.reload();
+                    // do nothing
                 }
             );
         });
@@ -896,7 +1006,7 @@ function setBindings() {
             // console.log(data);
             swal({title: "Success", text: "Doubles Matches Created!", type: "success"},
                 function(){ 
-                    location.reload();
+                   // do nothing
                 }
             );
         });
@@ -919,7 +1029,7 @@ function setBindings() {
             // console.log(data);
             swal({title: "Success", text: "Team Doubles Matches Created!", type: "success"},
                 function(){ 
-                    location.reload();
+                    // do nothing
                 }
             );
         });
@@ -1101,6 +1211,8 @@ function setBindings() {
         evt.preventDefault();
         var sglsDNP;
         var sglsWalkover;
+        var p1Set = 0;
+        var p2Set = 0;
 
         var sglsMatchID = parseInt($("#sglsMatchID").val());
         var sglsSet1P1 = parseInt($("#sglsSet1P1").val());
@@ -1111,7 +1223,7 @@ function setBindings() {
         var sglsSet3P2 = $("#sglsSet3P2").val();
         var sglsPlayoff = $("#sglsPlayoff").prop("checked");
         var sglsChallenge = $("#sglsChallenge").prop("checked");
-        var sglsWinner = parseInt($('input[name=sglsWinner]:checked').val());
+        // var sglsWinner = parseInt($('input[name=sglsWinner]:checked').val());
         
         //#region Value Handling
         if(sglsPlayoff == true){
@@ -1140,10 +1252,32 @@ function setBindings() {
         } else {
             sglsDNP = 0;
         }
-        if( (sglsSet1P1 == 1) && (sglsSet2P1 == 1) && (sglsSet3P1 == 0)  && (sglsWinner == 1) || (sglsSet1P2 == 1) && (sglsSet2P2 == 1) && (sglsSet3P2 == 0)  && (sglsWinner == 2) ){
+        if( ((sglsSet1P1 == 1) && (sglsSet2P1 == 1) && (sglsSet3P1 == 0) && (sglsSet1P2 == 0) && (sglsSet2P2 == 0) && (sglsSet3P2 == 0)) || ((sglsSet1P2 == 1) && (sglsSet2P2 == 1) && (sglsSet3P2 == 0)  && (sglsSet1P1 == 0) && (sglsSet2P1 == 0) && (sglsSet3P1 == 0)) ){
             sglsWalkover = 1;
         } else {
             sglsWalkover = 0;
+        }
+
+        if(sglsSet1P1 > sglsSet1P2){
+            p1Set++;
+        } else {
+            p2Set++;
+        }
+        if(sglsSet2P1 > sglsSet2P2){
+            p1Set++;
+        } else {
+            p2Set++;
+        }
+        if(sglsSet3P1 > sglsSet3P2){
+            p1Set++;
+        } else {
+            p2Set++;
+        }
+
+        if(p1Set > p2Set){
+            sglsWinner = 1;
+        } else {
+            sglsWinner = 2;
         }
         //#endregion
 
@@ -1309,11 +1443,6 @@ function setBindings() {
         } else {
             DBlsPlayoff = 0;
         };
-        if(DBlsChallenge == true){
-            DBlsChallenge = 1;
-        } else {
-            DBlsChallenge = 0;
-        };
         if( (DBlsSet1T1 == 0) && (DBlsSet2T1 == 0) && (DBlsSet3T1 == 0) && (DBlsSet1T2 == 0) && (DBlsSet2T2 == 0) && (DBlsSet3T2 == 0) ){
             DBlsDNP = 1;
             DBlsSet1Winner = 0;
@@ -1363,7 +1492,6 @@ function setBindings() {
                             ntrDBLSS2T2: DBlsSet2T2,
                             ntrDBLSS3T2: DBlsSet3T2,
                             ntrDBLSPlayoff: DBlsPlayoff,
-                            ntrDBLSChallenge: DBlsChallenge,
                             ntrDBLSSet1Winner: DBlsSet1Winner,
                             ntrDBLSSet2Winner: DBlsSet2Winner,
                             ntrDBLSSet3Winner: DBlsSet3Winner,
@@ -1393,7 +1521,6 @@ function setBindings() {
                         ntrDBLSS2T2: DBlsSet2T2,
                         ntrDBLSS3T2: DBlsSet3T2,
                         ntrDBLSPlayoff: DBlsPlayoff,
-                        ntrDBLSChallenge: DBlsChallenge,
                         ntrDBLSSet1Winner: DBlsSet1Winner,
                         ntrDBLSSet2Winner: DBlsSet2Winner,
                         ntrDBLSSet3Winner: DBlsSet3Winner,
@@ -1614,11 +1741,10 @@ function setBindings() {
                 //console.log("Success");
                 //console.log(data);
                 swal({title: "Success", text: "Player Entered", type: "success"},
-                            function(){ 
-                                location.reload();
-                            }
-                        );
-                $(".addNewPLYR")[0].reset();
+                    function(){ 
+                        $(".addNewPLYR")[0].reset();
+                    }
+                );
             });
 
             //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
@@ -1661,16 +1787,63 @@ function setBindings() {
                 //console.log(data);
                 swal({title: "Success", text: "Team Entered", type: "success"},
                             function(){ 
-                                location.reload();
+                                $(".addNewTD")[0].reset();
                             }
                         );
-                $(".addNewTD")[0].reset();
             });
 
             //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
 
         } 
 
+    });
+
+    $("form #dropLadderSubmit").click(function (evt){
+        evt.preventDefault();
+        
+        var dropPlayerID = parseInt($("#dropLadderID").val());
+        var dropSingles = $("#dropSGLS").prop("checked");
+        var dropDubs = $("#dropDubs").prop("checked");
+        var dropTeamDubs = $("#dropTeamDubs").prop("checked");
+
+        //#region value handling
+        if(dropSingles == true){
+            dropSingles = 1;
+        } else {
+            dropSingles = 0;
+        };
+        if(dropDubs == true){
+            dropDubs = 1;
+        } else {
+            dropDubs = 0;
+        };
+        if(dropTeamDubs == true){
+            dropTeamDubs = 1;
+        } else {
+            dropTeamDubs = 0;
+        };
+        //#endregion
+
+        // console.log(dropPlayerID," ",dropSingles," ",dropDubs," ",dropTeamDubs);
+
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                ntrDropPlayerID: dropPlayerID,
+                ntrDropSGLS: dropSingles,
+                ntrDropDBLS: dropDubs,
+                ntrDropTD: dropTeamDubs
+            }
+        }).done(function (data) {
+            swal({title: "Success", text: "Player Dropped", type: "success"},
+                function(){ 
+                    // console.log(data);
+                    $(".dropLadderForm")[0].reset();  
+                }
+            );             
+        });
     });
 
     $("form #newPasswordSubmit").click(function (evt){
@@ -1693,7 +1866,7 @@ function setBindings() {
                 showCancelButton: true,
                 confirmButtonColor: '#53A548',
                 cancelButtonColor: 'dimgrey',
-                confirmButtonText: 'Logout',
+                confirmButtonText: 'Submit',
                 showLoaderOnConfirm: true,
                 closeOnConfirm: false
             },function () {
@@ -1709,10 +1882,9 @@ function setBindings() {
                     //console.log(data);
                     swal({title: "Success", text: "Password Updated", type: "success"},
                         function(){ 
-                            location.reload();
+                            $(".updatePW")[0].reset();
                         }
                     );
-                    $(".updatePW")[0].reset();
                 });
             })
 
@@ -1737,7 +1909,7 @@ function setBindings() {
                 showCancelButton: true,
                 confirmButtonColor: '#53A548',
                 cancelButtonColor: 'dimgrey',
-                confirmButtonText: 'Logout',
+                confirmButtonText: 'Submit',
                 showLoaderOnConfirm: true,
                 closeOnConfirm: false
             },function () {
@@ -1753,10 +1925,9 @@ function setBindings() {
                     //console.log(data);
                     swal({title: "Success", text: "Email Updated", type: "success"},
                         function(){ 
-                            location.reload();
+                            $(".editDBLSMatch")[0].reset();
                         }
                     );
-                    $(".updateEM")[0].reset();
                 });
             })
 
@@ -1783,7 +1954,7 @@ function setBindings() {
                 showCancelButton: true,
                 confirmButtonColor: '#53A548',
                 cancelButtonColor: 'dimgrey',
-                confirmButtonText: 'Logout',
+                confirmButtonText: 'Submit',
                 showLoaderOnConfirm: true,
                 closeOnConfirm: false
             },function () {
@@ -1799,10 +1970,9 @@ function setBindings() {
                     //console.log(data);
                     swal({title: "Success", text: "Phone Number Updated", type: "success"},
                         function(){ 
-                            location.reload();
+                            $(".updatePN")[0].reset();
                         }
                     );
-                    $(".updatePN")[0].reset();
                 });
             }) 
 
@@ -1835,10 +2005,9 @@ function setBindings() {
                 //console.log(data);
                 swal({title: "Success", text: "Announcement Entered", type: "success"},
                         function(){ 
-                            location.reload();
+                            $(".addAnnounce")[0].reset();
                         }
                     );
-                $(".addAnnounce")[0].reset();
             });
 
             // console.log(newAnnounceTitle, newAnnounceDesc, newAnnounceDate, newAnnounceLink)

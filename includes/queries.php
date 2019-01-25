@@ -154,7 +154,7 @@ function printTeamDBLSRankings()
     global $sznID;
     $i = 1;
 
-    $curTDRankingsSQL = "SELECT `TDLADDER`.`TEAM_ID` AS `TEAM_ID`, `TDLADDER`.`PLYR1_ID` AS `P1_ID`, `P1`.`LAST_NAME` AS `P1_LNAME`, `TDLADDER`.`PLYR2_ID` AS `P2_ID`, `P2`.`LAST_NAME` AS `P2_LNAME`, `TDLADDER`.`TD_POINTS` AS `TD_POINTS` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `TDLADDER`.`PLYR1_ID` = `P1`.`ID` LEFT JOIN `PLAYERS` AS `P2` ON `TDLADDER`.`PLYR2_ID` = `P2`.`ID` WHERE `TDLADDER`.`TEAM_ID` != 11 ORDER BY `TDLADDER`.`TD_POINTS` DESC";
+    $curTDRankingsSQL = "SELECT `TDLADDER`.`TEAM_ID` AS `TEAM_ID`, `TDLADDER`.`PLYR1_ID` AS `P1_ID`, `P1`.`LAST_NAME` AS `P1_LNAME`, `TDLADDER`.`PLYR2_ID` AS `P2_ID`, `P2`.`LAST_NAME` AS `P2_LNAME`, `TDLADDER`.`TD_POINTS` AS `TD_POINTS` FROM `TDLADDER` LEFT JOIN `PLAYERS` AS `P1` ON `TDLADDER`.`PLYR1_ID` = `P1`.`ID` LEFT JOIN `PLAYERS` AS `P2` ON `TDLADDER`.`PLYR2_ID` = `P2`.`ID` WHERE `TDLADDER`.`TEAM_ID` != 11 AND `TDLADDER`.`INACTIVE` != 1 ORDER BY `TDLADDER`.`TD_POINTS` DESC, `TDLADDER`.`INACTIVE` ASC";
     
     $curTDRankingsQuery = @$conn->query($curTDRankingsSQL);
     if (!$curTDRankingsQuery) {
@@ -171,7 +171,7 @@ function printTeamDBLSRankings()
         $curTDP2LName = $curTDRankingsRow["P2_LNAME"];
         $curTDRankPoints = $curTDRankingsRow["TD_POINTS"];
 
-        $teamRankSQL = "SELECT `TEAM_ID`,`Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$curTDTeamID."'";
+        $teamRankSQL = "SELECT `TEAM_ID`,`Rank` FROM ( SELECT * , (@rank := @rank + 1) AS `Rank` FROM `TDLADDER` CROSS JOIN( SELECT @rank := 0 ) AS `SETVAR` ORDER BY `TDLADDER`.`TD_POINTS` DESC ) AS `Rank` WHERE `TEAM_ID` = '".$curTDTeamID."' AND `INACTIVE` != 1";
         $teamRankQuery = @$conn->query($teamRankSQL);
         while ($teamRankRow = mysqli_fetch_assoc($teamRankQuery)) {
             $teamRank = $teamRankRow["Rank"];

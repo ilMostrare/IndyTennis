@@ -986,8 +986,11 @@ nav .navContainer .navRight div {
   margin: 0 auto;
   height: 100%;
   display: block;
-  padding: 0 15px 0 15px h1;
-  padding-text-align: center;
+  padding: 0 15px 0 15px;
+}
+
+.playerContent .loginDiv .loginForm h1 {
+  text-align: center;
 }
 
 .playerContent .loginDiv .loginForm label {
@@ -1030,6 +1033,49 @@ nav .navContainer .navRight div {
 .playerContent .loginDiv .loginForm input[type=submit]:active {
   color: #53A548;
   background-color: #333333;
+}
+
+@media only screen and (max-device-width: 1080px) and (orientation: portrait) {
+  .playerContent {
+    /******** Login *********/
+  }
+  .playerContent .loginDiv {
+    width: 90%;
+    margin: 20px auto;
+    min-height: 95%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .playerContent .loginDiv .loginForm {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 0 15px 0 15px;
+  }
+  .playerContent .loginDiv .loginForm label {
+    font-size: xx-large;
+  }
+  .playerContent .loginDiv .loginForm input[type=email] {
+    height: 70px;
+    width: 90%;
+    padding-left: 15px;
+    font-size: xx-large;
+    margin-bottom: 50px;
+  }
+  .playerContent .loginDiv .loginForm input[type=password] {
+    height: 70px;
+    width: 90%;
+    padding-left: 15px;
+    font-size: xx-large;
+    margin-bottom: 50px;
+  }
+  .playerContent .loginDiv .loginForm input[type=submit] {
+    height: 70px;
+    width: 300px;
+    font-size: xx-large;
+    margin: 0 auto auto auto;
+  }
 }
 
 .aboutContent {
@@ -1315,6 +1361,28 @@ nav .navContainer .navRight div {
   display: none;
 }
 
+.adminContent .adminBody .adminForms #editRoundMatches #editMatchesController {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto auto 15px auto;
+}
+
+.adminContent .adminBody .adminForms #editRoundMatches #editMatchesController #editSGView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #editRoundMatches #editMatchesController #editDBView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #editRoundMatches #editMatchesController #editTDView {
+  margin: auto;
+  cursor: pointer;
+}
+
 .adminContent .adminBody .adminForms #editRoundMatches h3 {
   text-align: center;
 }
@@ -1583,6 +1651,28 @@ nav .navContainer .navRight div {
   display: none;
 }
 
+.adminContent .adminBody .adminForms #enterSGLSScoreResults #enterScoresController {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto auto 15px auto;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults #enterScoresController #enterSGView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults #enterScoresController #enterDBView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults #enterScoresController #enterTDView {
+  margin: auto;
+  cursor: pointer;
+}
+
 .adminContent .adminBody .adminForms #enterSGLSScoreResults h3 {
   text-align: center;
 }
@@ -1639,6 +1729,98 @@ nav .navContainer .navRight div {
 }
 
 .adminContent .adminBody .adminForms #enterSGLSScoreResults .sglsSet label {
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet input {
+  margin-bottom: 10px;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .DBlsSet label {
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet input {
+  margin-bottom: 10px;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #enterSGLSScoreResults .TDSet label {
   white-space: nowrap;
 }
 
@@ -2056,6 +2238,108 @@ nav .navContainer .navRight div {
   background-color: darkgrey;
 }
 
+.adminContent .adminBody .adminForms #dropLadderDiv {
+  margin-top: 35px;
+  display: none;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv h3 {
+  text-align: center;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer input[type=number] {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer #newTDPoints {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  margin: 0 10px 0 10px;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer input[type=checkbox] {
+  height: 1em;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer span {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer span label {
+  margin-left: 30px;
+  display: block;
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer span input[type=radio] {
+  height: 1em;
+  white-space: nowrap;
+  width: 60%;
+  float: left;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv .newPlayer label {
+  white-space: nowrap;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv form input {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: .5px;
+  border-color: lightgrey;
+  padding-left: 5px;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv form select {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv form input[type=submit] {
+  height: 40px;
+  width: 300px;
+  min-width: 145px;
+  border: none;
+  border-radius: 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+  margin: 10px auto;
+  padding: 0;
+}
+
+.adminContent .adminBody .adminForms #dropLadderDiv form input[type=submit]:hover {
+  background-color: darkgrey;
+}
+
 .adminContent .adminBody .adminForms #addAnnouncement {
   margin-top: 35px;
   display: none;
@@ -2149,6 +2433,28 @@ nav .navContainer .navRight div {
 .adminContent .adminBody .adminForms #changePW {
   margin-top: 35px;
   display: none;
+}
+
+.adminContent .adminBody .adminForms #changePW #editPlayerController {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto auto 15px auto;
+}
+
+.adminContent .adminBody .adminForms #changePW #editPlayerController #passwordView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #changePW #editPlayerController #emailView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #changePW #editPlayerController #phoneView {
+  margin: auto;
+  cursor: pointer;
 }
 
 .adminContent .adminBody .adminForms #changePW h3 {
@@ -2523,8 +2829,11 @@ nav .navContainer .navRight div {
   margin: 0 auto;
   height: 100%;
   display: block;
-  padding: 0 15px 0 15px h1;
-  padding-text-align: center;
+  padding: 0 15px 0 15px;
+}
+
+.adminContent .adminBody .loginDiv .loginForm h1 {
+  text-align: center;
 }
 
 .adminContent .adminBody .loginDiv .loginForm label {
@@ -2567,6 +2876,49 @@ nav .navContainer .navRight div {
 .adminContent .adminBody .loginDiv .loginForm input[type=submit]:active {
   color: #53A548;
   background-color: #333333;
+}
+
+@media only screen and (max-device-width: 1080px) and (orientation: portrait) {
+  .adminContent .adminBody {
+    /******** Login *********/
+  }
+  .adminContent .adminBody .loginDiv {
+    width: 90%;
+    margin: 20px auto;
+    min-height: 95%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .adminContent .adminBody .loginDiv .loginForm {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 0 15px 0 15px;
+  }
+  .adminContent .adminBody .loginDiv .loginForm label {
+    font-size: xx-large;
+  }
+  .adminContent .adminBody .loginDiv .loginForm input[type=email] {
+    height: 70px;
+    width: 90%;
+    padding-left: 15px;
+    font-size: xx-large;
+    margin-bottom: 50px;
+  }
+  .adminContent .adminBody .loginDiv .loginForm input[type=password] {
+    height: 70px;
+    width: 90%;
+    padding-left: 15px;
+    font-size: xx-large;
+    margin-bottom: 50px;
+  }
+  .adminContent .adminBody .loginDiv .loginForm input[type=submit] {
+    height: 70px;
+    width: 300px;
+    font-size: xx-large;
+    margin: 0 auto auto auto;
+  }
 }
 
 footer {
@@ -3043,10 +3395,18 @@ footer .shoe .footerRight a:active {
   .homeContent .hmRight p {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
   }
   .homeContent .hmRight h4 {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
+  }
+  .homeContent .hmRight #noAnnounce {
+    font-size: larger;
+  }
+  .homeContent .hmRight #announceDates {
+    font-size: large;
   }
   /********* About **********/
   .aboutContent {
@@ -3081,18 +3441,23 @@ footer .shoe .footerRight a:active {
   .aboutContent .hmRight p {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
   }
   .aboutContent .hmRight h4 {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
+  }
+  .aboutContent .hmRight #noAnnounce {
+    font-size: larger;
+  }
+  .aboutContent .hmRight #announceDates {
+    font-size: large;
   }
   /********* Ladder **********/
   .ladderContent {
     width: 95%;
     display: block;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
   }
   /********* Ladder **********/
   .matchesContent {
@@ -3154,9 +3519,9 @@ footer .shoe .footerRight a:active {
   /********* Admin **********/
   .adminContent {
     width: 95%;
-    height: -webkit-min-content;
-    height: -moz-min-content;
-    height: min-content;
+    min-height: -webkit-min-content;
+    min-height: -moz-min-content;
+    min-height: min-content;
   }
   .adminContent .adminBody {
     width: 95%;
@@ -3224,6 +3589,9 @@ footer .shoe .footerRight a:active {
     padding-top: 140px;
     width: 95%;
     display: block;
+    height: -webkit-min-content;
+    height: -moz-min-content;
+    height: min-content;
     min-height: calc(100% - (120px));
   }
   .homeContent .hmLeft {
@@ -3244,10 +3612,18 @@ footer .shoe .footerRight a:active {
   .homeContent .hmRight p {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
   }
   .homeContent .hmRight h4 {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
+  }
+  .homeContent .hmRight #noAnnounce {
+    font-size: larger;
+  }
+  .homeContent .hmRight #announceDates {
+    font-size: large;
   }
   /********* About **********/
   .aboutContent {
@@ -3276,10 +3652,18 @@ footer .shoe .footerRight a:active {
   .aboutContent .hmRight p {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
   }
   .aboutContent .hmRight h4 {
     width: 100%;
     padding-left: 0;
+    font-size: larger;
+  }
+  .aboutContent .hmRight #noAnnounce {
+    font-size: larger;
+  }
+  .aboutContent .hmRight #announceDates {
+    font-size: large;
   }
   /********* Ladder **********/
   .ladderContent {
@@ -3633,13 +4017,17 @@ footer .shoe .footerRight a:active {
   .adminContent {
     padding-top: 140px;
     width: 95%;
+    min-height: -webkit-min-content;
+    min-height: -moz-min-content;
+    min-height: min-content;
     height: calc(100% - (120px));
   }
   .adminContent .adminBody {
     width: 95%;
+    height: 90%;
   }
   .adminContent .adminBody .adminOptions {
-    margin: 0 auto 0 0;
+    margin: 0 auto 15px 0;
   }
   .adminContent .adminBody .adminOptions .optionsList li {
     margin: 50px auto;
