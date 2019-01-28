@@ -2024,5 +2024,26 @@ function setBindings() {
 $(document).ready(function () {
 
     setBindings();
+
+    var curURLStr = window.location.href;
+    var posLastSlash = curURLStr.lastIndexOf("/");
+    var endStr = curURLStr.substr(posLastSlash , (curURLStr.length - posLastSlash) )
+
+    localStorage.setItem('url',endStr);
+    var curURL = localStorage.getItem('url');
+    // console.log(curURL);
+
+    if(curURL == "/About"){
+        $( "#about" ).closest('li').css({"background-color": "#EEF95D"});
+        $( "#about" ).css({"color": "black"});
+    } else if (curURL == "/Ladder" || curURL == "/RoundMatches") {
+        $( "#ladder" ).closest('li').css({"background-color": "#EEF95D"});
+        $( "#ladder" ).css({"color": "black"}); 
+    } else if (curURL == "/") {
+        $( "#homePage" ).closest('li').css({"background-color": "#EEF95D"});
+        $( "#homePage" ).css({"color": "black"});
+    } else {
+         
+    }
     
 });
