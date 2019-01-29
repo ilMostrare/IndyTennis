@@ -242,8 +242,8 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<label><h4>Phone:</h4></label>";
                             echo "<div class='newPlayer'><input type='number' name='newPhone' id='newPhone' min='0' placeholder='3178885000' required></input></div>";
 
-                            echo "<label><h4>Password:</h4></label>";
-                            echo "<div class='newPlayer'><input type='password' name='newPassword' id='newPassword' required></input></div>";
+                            // echo "<label><h4>Password:</h4></label>";
+                            // echo "<div class='newPlayer'><input type='password' name='newPassword' id='newPassword' required></input></div>";
 
                             echo "<div class='newPlayer'><label><h4>Singles Player?:</h4></label><input type='checkbox' name='newSGLSPlayer' id='newSGLSPlayer' value='sg'></input><label><h4>Doubles Player?:</h4></label><input type='checkbox' name='newDBLSPlayer' id='newDBLSPlayer' value='db'></input></div>";
 

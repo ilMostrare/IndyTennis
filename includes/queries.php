@@ -44,6 +44,20 @@ if (!empty($_POST['viewMatchPlayerID'])){
 
 #endregion
 
+#region upcoming season
+$nxtSZNsql = "SELECT `ID`,`START_DATE`,`END_DATE` FROM `SEASON` WHERE CURRENT_DATE < CAST(`START_DATE` AS date) ORDER BY `ID` LIMIT 1";
+$nxtSZNQuery = @$conn->query($nxtSZNsql);
+if (!$nxtSZNQuery) {
+    $errno = $conn->errno;
+    $error = $conn->error;
+    $conn->close();
+    die("Selection failed: ($errno) $error.");
+}
+while ($NXTsznRow = mysqli_fetch_assoc($nxtSZNQuery)){
+    $NXTsznSTART = $NXTsznRow["START_DATE"];
+}
+
+$PRINTnxtSeasonST = date('M d, Y', strtotime($NXTsznSTART));
 
 #region Get Current Season and Round
 $curSZNsql = "SELECT * FROM `SEASON` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date)";

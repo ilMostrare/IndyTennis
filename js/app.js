@@ -4,6 +4,18 @@ function validateEmail(emailString) {
     return regX.test(emailString);
 }
 
+function pwGen() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (var i = 0; i < 10; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+    return text;
+}
+  
+//   console.log(makeid());
+
 function setBindings() {
 
     //#region MISC
@@ -1679,7 +1691,7 @@ function setBindings() {
         var newLName = $("#newLName").val();
         var newEmail = $("#newEmail").val();
         var newPhone = parseInt($("#newPhone").val());
-        var newPassword = $("#newPassword").val();
+        var newPassword = pwGen();
         var newSGLSPoints = $("#newSGLSPoints").val();
         var newDBLSPoints = $("#newDBLSPoints").val();
         var newSGLSPlayer = $("#newSGLSPlayer").prop("checked");
@@ -2043,7 +2055,7 @@ $(document).ready(function () {
         $( "#homePage" ).closest('li').css({"background-color": "#EEF95D"});
         $( "#homePage" ).css({"color": "black"});
     } else {
-         
+      // do nothing    
     }
     
 });

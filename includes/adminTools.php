@@ -1599,22 +1599,22 @@ function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$
         <body>
             <h3>You've been registered for the 2019 season!</h3>
             <p><i>Please change your password upon first login.</i></p>
-            <p>Go to <a href='www.indytennis.com'>indytennis.com -> Settings -> Login -> Change Password</p>
+            <p>Go to <a href='www.indytennis.com'>indytennis.com</a> -> Settings -> Login -> Change Password</p>
             <table>
             <tr>
-                <th>Firstname</th>
+                <th>Firstname: </th>
                 <td>".$_fName."</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>Lastname: </th>
                 <td>".$_lName."</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>Email: </th>
                 <td>".$_email."</td>
             </tr>
             <tr>
-                <th>Password</th>
+                <th>Password: </th>
                 <td>".$_password."</td>
             </tr>
             </table>

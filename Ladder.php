@@ -30,7 +30,7 @@ require_once ('includes/adminLogin.php');
         require "includes/nav.html";
         echo '<div class="ladderContent" id="style-2">';
 
-        if ($isLadderLive > 0) {
+        if ( $sznID != '' ) {
             
             if( ($SGLSroundPLAYOFF != 1) && ($DBLSroundPLAYOFF != 1) ){
                 echo '<div class="header">';
@@ -73,7 +73,7 @@ require_once ('includes/adminLogin.php');
 
             echo '<div class="header">';
                 echo '<h1>Coming Soon!</h1>';
-                echo '<h3>Under Construction. Coming Next Season!</h3>';
+                echo '<h3>Check back '.$PRINTnxtSeasonST.'</h3>';
             echo '</div>';
             echo '<div class="ctIMG">';
                 echo '<img src="includes/images/tennis-court-dimensions-and-layout.jpg">';
