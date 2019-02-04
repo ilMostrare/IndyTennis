@@ -20,7 +20,7 @@ require_once ('includes/adminLogin.php');
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IndyTennis</title>
+    <title>IndyTennis - About</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/sweetalert.css">
     <link rel="stylesheet" href="css/styles.css">
