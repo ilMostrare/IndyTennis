@@ -28,7 +28,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IndyTennis</title>
+    <title>IndyTennis - Settings</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/sweetalert.css">
     <link rel="stylesheet" href="css/styles.css">
