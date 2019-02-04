@@ -1,10 +1,10 @@
 <?php
 
  //define parameters
-$host = 'itsql.slabach.one';
-$login = 'itdb_admin';
-$password = 'a4pKtUwWReFD';
-$database = 'slabone_itdb';
+$host = '##############';;
+$login = '##############';
+$password = '##############';
+$database = '##############';;
  //Connect to the mysql server
 $conn = @new mysqli($host, $login, $password, $database);
  //handle connection errors
