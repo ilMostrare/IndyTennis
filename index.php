@@ -45,11 +45,13 @@ require_once ('includes/adminLogin.php');
                     </div>
                     <h3>Our Mission</h3>
                     <p>To provide a healthy, accepting, and positive atmosphere for tennis and related activities among LGBT community members, friends, family members and allies.  As with the sport of tennis, IndyTennis starts with LOVE.</p>
+                    <br />
+                    <p>Started in 2004, IndyTennis is a nonproFIT social tennis organization welcoming players of all abilities and backgrounds. The group is affiliated with the Gay & Lesbian Tennis Alliance (GLTA) and the United States Tennis Association’s (USTA) Midwest Section. IndyTennis hosts tennis play and social gatherings year-round, with a season-ending party each November.  IndyTennis is an official USTA community tennis association (CTA).</p>
                     <br /><br />
                     <h3>Come Hit With Us!</h3>
                     <p>Join us at our social plays - Saturday mornings in the summer, 10AM @ Riverside Park or in the Winter, Sunday evenings<br /> @ West Indy Racquet Club</p>
                     <br />
-                    <p>For more information, check out the <a href="About">About Page</a> for contact information!</p>
+                    <p>Check out the <a href="About">About Page</a> for contact information!</p>
             </div>
         </div>
 

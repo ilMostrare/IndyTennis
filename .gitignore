@@ -1,5 +1,6 @@
 .idea/*
 prepros-6.config
 .gitignore
-includes\database.php
+/includes/database.php
 .vscode
+.gitignore
