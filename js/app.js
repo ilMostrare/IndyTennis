@@ -758,7 +758,7 @@ function setBindings() {
             success: function(data){
                 //console.log("Success"),
                 //console.log(data);
-                window.location.href = "Player"
+                window.location.href = "Player.php"
             },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -781,7 +781,7 @@ function setBindings() {
             success: function(data){
                 //console.log("Success"),
                 //console.log(data);
-                window.location.href = "Player"
+                window.location.href = "Player.php"
             },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -804,7 +804,7 @@ function setBindings() {
             success: function(data){
                 //console.log("Success"),
                 //console.log(data);
-                window.location.href = "Player"
+                window.location.href = "Player.php"
             },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -830,7 +830,7 @@ function setBindings() {
                 success: function(data){
                     //console.log("Success"),
                     ////console.log(data);
-                    window.location.href = "Player"
+                    window.location.href = "Player.php"
                 },
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -858,7 +858,7 @@ function setBindings() {
                 success: function(data){
                     //console.log("Success"),
                     ////console.log(data);
-                    window.location.href = "Player"
+                    window.location.href = "Player.php"
                 },
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -886,7 +886,7 @@ function setBindings() {
                 success: function(data){
                     //console.log("Success"),
                     ////console.log(data);
-                    window.location.href = "Player"
+                    window.location.href = "Player.php"
                 },
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -914,7 +914,7 @@ function setBindings() {
                 success: function(data){
                     //console.log("Success"),
                     ////console.log(data);
-                    window.location.href = "Player"
+                    window.location.href = "Player.php"
                 },
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -939,7 +939,7 @@ function setBindings() {
             success: function(data){
                 //console.log("Success"),
                 ////console.log(data);
-                window.location.href = "Player"
+                window.location.href = "Player.php"
             },
             error: function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -965,7 +965,7 @@ function setBindings() {
                 success: function(data){
                     //console.log("Success"),
                     ////console.log(data);
-                    window.location.href = "Player"
+                    window.location.href = "Player.php"
                 },
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -1735,6 +1735,22 @@ function setBindings() {
         } else if ((newPassword == '') || (newPassword.length < 8)){
             swal("Oops...", "Please Enter a Valid Password (Must be at least 8 characters)", "error");
         } else {
+
+            var templateParams = {
+                fname: newFName,
+                lname: newLName,
+                email: newEmail,
+                phone: newPhone,
+                pw: newPassword
+            };
+             
+            emailjs.send('zoho', 'indytenniswelcome', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                }, function(error) {
+                    console.log('FAILED. consol..', error);
+            });
+
             $.ajax({
                 url: '',
                 type: 'POST',
@@ -2045,10 +2061,10 @@ $(document).ready(function () {
     var curURL = localStorage.getItem('url');
     // console.log(curURL);
 
-    if(curURL == "/About"){
+    if(curURL == "/About.php"){
         $( "#about" ).closest('li').css({"background-color": "#EEF95D"});
         $( "#about" ).css({"color": "black"});
-    } else if (curURL == "/Ladder" || curURL == "/RoundMatches") {
+    } else if (curURL == "/Ladder.php" || curURL == "/RoundMatches.php") {
         $( "#ladder" ).closest('li').css({"background-color": "#EEF95D"});
         $( "#ladder" ).css({"color": "black"}); 
     } else if (curURL == "/") {

@@ -28,7 +28,7 @@ require_once ('includes/adminLogin.php');
 
 <body>
 
-    <? require "includes/nav.html"?>
+    <?php require "includes/nav.html"?>
 
     <div class="aboutContent">
 
@@ -68,11 +68,11 @@ require_once ('includes/adminLogin.php');
 
         </div>
 
-        <? displayAnnouncements() ?>
+        <?php displayAnnouncements() ?>
 
     </div>
 
-    <?
+    <?php
 
     if ($isLadderLive > 0){
         require "includes/footer.html";

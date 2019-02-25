@@ -28,7 +28,7 @@ require_once ('includes/adminLogin.php');
 
 <body>
 
-    <? require "includes/nav.html"?>
+    <?php require "includes/nav.html"?>
 
     <div class="homeContent">
 
@@ -51,15 +51,15 @@ require_once ('includes/adminLogin.php');
                     <h3>Come Hit With Us!</h3>
                     <p>Join us at our social plays - Saturday mornings in the summer, 10AM @ Riverside Park or in the Winter, Sunday evenings<br /> @ West Indy Racquet Club</p>
                     <br />
-                    <p>Check out the <a href="About">About Page</a> for contact information!</p>
+                    <p>Check out the <a href="About.php">About Page</a> for contact information!</p>
             </div>
         </div>
 
-        <? displayAnnouncements() ?>
+        <?php displayAnnouncements() ?>
 
     </div>
 
-    <?
+    <?php
 
     if ($isLadderLive > 0){
         require "includes/footer.html";

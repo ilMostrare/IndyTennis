@@ -26,7 +26,7 @@ require_once ('includes/adminLogin.php');
 
 <body>
 
-    <? 
+    <?php 
         require "includes/nav.html";
         echo '<div class="ladderContent" id="style-2">';
 
@@ -35,7 +35,7 @@ require_once ('includes/adminLogin.php');
             if( ($SGLSroundPLAYOFF != 1) && ($DBLSroundPLAYOFF != 1) ){
                 echo '<div class="header">';
                     echo '<h1>'.date("Y").' Ladder Standings</h1>';
-                    echo '<h3><a href="RoundMatches">View This Round\'s Matchups</a></h3>';
+                    echo '<h3><a href="RoundMatches.php">View This Round\'s Matchups</a></h3>';
                 echo '</div>';
                 echo '<div class="standings">';
                     echo '<div id="mobileViewController" display="none"><h2 id="sglsLadderView">Singles</h2><h2 id="dblsLadderView">Doubles - Ind.</h2><h2 id="TDLadderView">Doubles - Team</h2></div>';

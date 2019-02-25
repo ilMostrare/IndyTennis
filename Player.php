@@ -33,7 +33,7 @@ $user_id = $_SESSION['adminID'];
 
 <body>
 
-<?
+<?php
 
 require "includes/nav.html";
 

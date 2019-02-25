@@ -32,15 +32,21 @@ $userRow=mysqli_fetch_assoc($userQuery); */
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/sweetalert.css">
     <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("user_MSNZWnpG9anaIBPkPbzuQ");
+        })();
+    </script>
 </head>
 
 <body>
 
-    <? require "includes/nav.html"?>
+    <?php require "includes/nav.html"?>
 
     <div class="adminContent" id='style-2'>
         <div class="header">
-            <h1><?  if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com") {
+            <h1><?php  if ($_SESSION['userEmail'] == "byron.slabach@gmail.com" || $_SESSION['userEmail'] == "wrathofmath85@gmail.com") {
                         echo "Admin Panel";
                     } else {
                         echo "Settings";
@@ -48,7 +54,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                 ?>
             </h1>
             <div class='line2'>
-                <h2><?                    
+                <h2><?php                    
                         if ($_SESSION['userFN'] != ''){
                             echo "Welcome, ",$_SESSION['userFN'];
                         } else {
@@ -56,12 +62,12 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         }
                     ?>
                 </h2>
-                <!-- <form><button type='submit' class='admin-player-name' name='viewPlayer' value='<? //$_SESSION['adminID'] ?>'><h3>View Player Page</h3></button></form> -->
+                <!-- <form><button type='submit' class='admin-player-name' name='viewPlayer' value='<?php //$_SESSION['adminID'] ?>'><h3>View Player Page</h3></button></form> -->
             </div>
         </div>
 
         <div class="adminBody">
-            <?
+            <?php
             if (!(empty($user_id))) {
                 echo '<div class="adminOptions">';
                     echo '<ul class="optionsList">';
@@ -372,7 +378,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
         </div>
     </div>
             
-    <?
+    <?php
 
     if ($isLadderLive > 0){
         require "includes/footer.html";

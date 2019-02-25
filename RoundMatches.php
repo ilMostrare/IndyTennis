@@ -26,13 +26,13 @@ require_once ('includes/adminLogin.php');
 
 <body>
 
-    <? 
+    <?php 
         require "includes/nav.html";
 
         echo '<div class="matchesContent" id="style-2">';
             echo '<div class="header">';
                 echo '<h1>Current Round Matches</h1>';
-                echo '<h3><a href="Ladder">Back to Ladder</a></h3>';
+                echo '<h3><a href="Ladder.php">Back to Ladder</a></h3>';
             echo '</div>';
             echo '<div class="displayMatches">';
                 echo '<div id="mobileViewController" display="none"><h2 id="sglsLadderView">Singles</h2><h2 id="dblsLadderView">Doubles - Ind.</h2><h2 id="TDLadderView">Doubles - Team</h2></div>';

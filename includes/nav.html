@@ -3,20 +3,20 @@
         <div class="navLeft">
             <ul class="navLinks">
                 <li><a class="listA" id="homePage" href="./">Home</a></li>
-                <li><a class="listA" id="about" href="About">About</a></li>
-                <li><a class="listA" id="ladder" href="Ladder">Ladder</a></li>
+                <li><a class="listA" id="about" href="About.php">About</a></li>
+                <li><a class="listA" id="ladder" href="Ladder.php">Ladder</a></li>
                 <li><a class="listA" id="tourney" href="https://www.theindytennisclassic.org/" target="_blank">IndyTennis Classic</a></li>
             </ul>
         </div>
         <div id="navCenter">
             <div id="navLiCenter">
-                <span id="logo"><a href="#"><? echo file_get_contents("includes/images/IndyTennis_WH.svg"); ?></a></span>
+                <span id="logo"><a href="#"><?php echo file_get_contents("includes/images/IndyTennis_WH.svg"); ?></a></span>
             </div>
         </div>
         <div class="navRight">
             <div>Current Ladder Round #</div>
-            <div><? if($SGLSroundPLAYOFF == 1){echo "Singles: Playoff";} else if ($SGLSroundID == ''){echo "Singles: Out of Season";} else {echo "Singles: ", $SGLSroundID;}  ?></div>
-            <div><? if($DBLSroundPLAYOFF == 1){echo "Doubles: Playoff";} else if ($DBLSroundID == ''){echo "Doubles: Out of Season";} else {echo "Doubles: ", $DBLSroundID;}  ?></div>
+            <div><?php if($SGLSroundPLAYOFF == 1){echo "Singles: Playoff";} else if ($SGLSroundID == ''){echo "Singles: Out of Season";} else {echo "Singles: ", $SGLSroundID;}  ?></div>
+            <div><?php if($DBLSroundPLAYOFF == 1){echo "Doubles: Playoff";} else if ($DBLSroundID == ''){echo "Doubles: Out of Season";} else {echo "Doubles: ", $DBLSroundID;}  ?></div>
         </div>
     </div>
 </nav>
