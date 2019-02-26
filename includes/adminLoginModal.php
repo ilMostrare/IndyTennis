@@ -4,7 +4,6 @@ require_once "queries.php";
 require_once "suli.php";
 
 
-
 echo "<div class='modal-wrapper'>";
 echo "<div class='login-wrapper'>";
 echo "<div class='close-button'>X</div>";
