@@ -80,7 +80,6 @@ require_once ('includes/adminLogin.php');
         require "includes/tempFooter.html";
     }
 
-    //require_once ("includes/adminLoginModal.php");
 
     ?>
 

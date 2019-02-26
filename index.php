@@ -67,8 +67,6 @@ require_once ('includes/adminLogin.php');
         require "includes/tempFooter.html";
     }
 
-    //require_once ("includes/adminLoginModal.php");
-
     ?>
 
     <script src="js/jquery-3.1.1.min.js"></script>

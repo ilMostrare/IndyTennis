@@ -386,7 +386,6 @@ $userRow=mysqli_fetch_assoc($userQuery); */
         require "includes/tempFooter.html";
     }
 
-    //require_once ("includes/adminLoginModal.php");
 
     ?>
 
