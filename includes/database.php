@@ -1,10 +1,10 @@
 <?php
 
  //define parameters
-$host = '157.230.57.0';
-$login = 'byrsla';
-$password = 'oscul6764sal';
-$database = 'slabone_itdb';
+$host = '##################';;
+$login = '##################';;
+$password = '##################';
+$database = '##################';;
  //Connect to the mysql server
 $conn = @new mysqli($host, $login, $password, $database);
  //handle connection errors
