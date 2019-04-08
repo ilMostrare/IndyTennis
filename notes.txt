@@ -1,0 +1,31 @@
+Coinflip/Walkover - Min for winner, no show = 0?
+
+SOS/RPI?
+
+***How is the current mailing list handled?  
+ - The link on the website just sends me an email telling me someone is Interested and I then add their email to our list, which is actually 4 lists because our email server only lets me send email to 49 people at a time. Eye roll
+
+**How do you want to handle entering matchups?  
+ - Ideally it would auto generate, as the excel spreadsheet already does for me. (But then I do tinker with it to avoid repeat matches)
+
+***How do you want to handle score entering?  
+ - Idk if I trust people to enter their own scores
+
+###########################################################################
+Singles Points Calc
+
+Loser Points:		# of games won - maximum of 10
+Winner Points:
+    if higher ranked or 1 rank difference-		10 + difference in games won - Minimum 11
+	if lower ranked by at least 2-		10 + (difference in games won * difference in rankings/2) - Minimum 15, Maximum 25
+
+Doubles Points Calc
+
+###########################################################################
+
+To Work On:
+
+Playoffs??
+Team Doubles Ladder
+
+MAKE EVERYTHING MOBILE FRIENDLY

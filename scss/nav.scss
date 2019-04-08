@@ -1,0 +1,199 @@
+nav {
+  position: fixed;
+  background-color: #333333;
+  //background-color: transparent;
+  width: 100%;
+  height: $nav-height;
+  display: block;
+  z-index: 10;
+  opacity: 90;
+  margin-bottom: 10px;
+  //box-shadow: 3px 3px 8px #888888;
+
+  .navContainer {
+    width: $bodyWidth;
+    height: 100%;
+    margin: auto auto;
+    display: flex;
+
+    .navLeft{
+      width: 40%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      //background-color: #ea7d7d;
+
+      .navLinks{
+        list-style-type: none;
+        margin: auto;
+        height: 100%;
+        //background-color: #b4dbed;
+        width: 100%;
+
+        li{
+          display: inline-block;
+          margin: auto;
+          height: 100%;
+          text-transform: uppercase;
+          font-size: $nav-link-font-size;
+          //background-color: #F8D486;
+          padding-left: 10px;
+          padding-right: 10px;
+          //width: 25%;
+
+          .listA{
+            line-height: $nav-height;
+            margin: auto;
+            white-space: nowrap;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            display: block;
+            //background-color: #A5DC86;
+            vertical-align: middle;
+          }
+
+          &:hover{
+            a{
+              color: black;
+            }
+            height: 100%;
+            background-color: #EEF95D;
+            text-decoration: none;
+          }
+
+          &:active{
+            a{
+              color: black;
+            }
+            height: 100%;
+            background-color: #53A548;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+
+    #navCenter{
+      width: 20%;
+      min-width: 210px;
+      height: 100%;
+      margin: auto auto;
+      display: flex;
+      //background-color: #F8D486;
+
+      #navLiCenter{
+        width: 60%;
+        height: 100%;
+        margin: auto auto;
+        box-sizing: border-box;
+        display: flex;
+        //background-color: #A5DC86;
+
+        #logo{
+          width: 100%;
+          height: 100%;
+          margin: auto auto;
+          display: flex;
+          //background-color: firebrick;
+
+          a{
+            display: flex;
+            height: 100%;
+            width: 100%;
+            margin: auto auto;
+            //background-color: aquamarine;
+
+            svg{
+              height: 75%;
+              //min-height: 130px;
+              margin: auto auto;
+
+            }
+
+            svg:hover{
+              .cls-1,.cls-2,.cls-3{
+                  fill:#EEF95D;
+              }
+              .cls-2,.cls-3{
+                  fill: #EEF95D;
+              }
+            }
+            svg:active{
+              .cls-1,.cls-2,.cls-3{
+                fill:#53A548;
+              }
+              .cls-2,.cls-3{
+                fill: #53A548;
+              }
+            }
+          }
+
+        }
+
+      }
+
+    }
+
+
+    .navRight{
+      width: 40%;
+      height: 100%;
+      margin: auto 0 auto auto;
+      display: block;
+      //background-color: cornflowerblue;
+      padding-top: (($nav-height / 2) - 25px);
+      box-sizing: border-box;
+
+      div{
+        width: 100%;
+        height: 15px;
+        //background-color: orchid;
+        font-size: small;
+        margin: auto auto;
+        padding-right: 25px;
+        text-align: right;
+        box-sizing: border-box;
+        color: #9b9b9b;
+
+      }
+    }
+
+  }
+
+}
+
+
+
+/*
+@media only screen and (max-device-width : 1080px) and (orientation: portrait) {
+
+  nav{
+    height: $phone-nav-height;
+
+    .navContainer{
+      height: $phone-nav-height;
+      width: 100%;
+      padding-left: 30px;
+      padding-right: 30px;
+
+      #pageLinks{
+        a{
+          font-size: xx-large;
+        }
+      }
+
+      #logo{
+        height: $phone-nav-height;
+
+        a{
+          img{
+            height: 50%;
+          }
+        }
+      }
+    }
+  }
+}*/

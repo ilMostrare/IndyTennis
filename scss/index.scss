@@ -1,0 +1,133 @@
+.homeContent {
+  padding-top: $nav-height + 10px;
+  //padding-bottom: 5px;
+  width: $bodyWidth;
+  height: calc(100% - (#{$nav-height} - 5px));
+  margin: 0 auto 0 auto;
+  display: flex;
+  z-index: 3;
+  box-sizing: border-box;
+  //background-color: #A5DC86;
+
+
+  .hmLeft {
+    width: 73%;
+    background-color: $backgroundColor;
+    min-height: 100%;
+    border-radius: 10px 0 0 10px;
+    overflow-x: hidden;
+    //overflow-y: scroll;
+
+    .headerIMG{
+      width: 100%;
+      margin: 0 auto;
+
+
+      img{
+        width: 100%;
+        height: auto;
+        border-radius: 10px 0 0 0;
+      }
+    }
+
+    .homeTxt {
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+      padding: 0 5% 15px 5%;
+      display: block;
+      //background-color: aquamarine;
+
+      .header {
+        width: 100%;
+        margin: 0 auto;
+
+        h1 {
+          margin: 7px auto;
+          text-align: center;
+          font-size: 300%;
+          letter-spacing: 3px;
+          color: #333333;
+        }
+        h2 {
+          margin: 0 auto;
+          text-align: center;
+          letter-spacing: 3px;
+          color: #333333;
+        }
+      }
+
+      a {
+        color: #53A548;
+        text-decoration: none;
+
+        &:hover {
+          color: #EEF95D;
+        }
+
+        &:active {
+          color: #53A548;
+        }
+      }
+    }
+  }
+
+  .hmRight {
+    background-color: white;
+    width: 25%;
+    margin: 0 0 auto auto;
+    //padding: 0 10px auto 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    //overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 0 10px 10px 0;
+    max-height: calc(100% - (#{$nav-height} - 5px));
+
+    #noAnnounce{
+      margin-left: 5%;
+    }
+
+    h3 {
+      color: #333333;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    p {
+      width: 90%;
+      color: #333333;
+      overflow: auto;
+      padding-left: 1em;
+      padding-right: 1em;
+      //font-size: 80%;
+      margin: 0 auto;
+
+      a {
+        color: #53A548;
+        text-decoration: none;
+
+        &:hover {
+          color: #EEF95D;
+        }
+
+        &:active {
+          color: #53A548;
+        }
+      }
+    }
+
+    h4 {
+      color: #333333;
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+
+    #announceDates {
+      width: 95%;
+      color: #333333;
+      font-size: 70%;
+      text-align: right;
+      //padding-right: 1em;
+    }
+  }
+}

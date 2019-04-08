@@ -1,0 +1,71 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html, body{
+  height: 100%;
+
+  @import url('https://fonts.googleapis.com/css?family=Lato|Nunito+Sans');
+  @import url(https://raw.github.com/FortAwesome/Font-Awesome/master/docs/assets/css/font-awesome.min.css);
+}
+
+body{
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #ECECEC;
+}
+
+::selection {
+  background: #EEF95D; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #EEF95D; /* Gecko Browsers */
+}
+
+
+#style-2::-webkit-scrollbar
+{
+  width: 8px;
+  background-color: #F5F5F5;
+  //opacity: .75;
+}
+
+#style-2::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+  background-color: #53A548;
+
+  &:hover {
+    color: #53A548;
+  }
+  &:active {
+    color: #53A548;
+  }
+}
+
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+  font-size: 16px;
+}

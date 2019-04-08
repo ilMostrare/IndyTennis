@@ -1,0 +1,1161 @@
+@media all and (max-width : 1320px) {
+
+  /********* Nav **********/
+  nav {
+    .navContainer {
+      .navLeft{
+        .navLinks{
+          margin: auto;
+          li {
+            //display: flex;
+            margin: auto;
+            //font-size: larger;
+            width: min-content;
+            float: left;
+          }
+          li a#tourney{
+            display: none;
+          }
+
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width : 1280px) {
+
+  /********* Index **********/
+  .homeContent {
+
+    .hmRight {
+
+      h3 {
+        //font-size: 2em;
+        width: 95%;
+      }
+      p {
+        font-size: 80%;
+      }
+      h4 {
+        font-size: 80%;
+      }
+    }
+  }
+
+  /********* About **********/
+  .aboutContent {
+
+    .hmRight {
+
+      h3 {
+        //font-size: 2em;
+        width: 95%;
+      }
+      p {
+        font-size: 80%;
+      }
+      h4 {
+        font-size: 80%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width : 1080px) and (orientation: landscape) {
+
+  /********* Nav **********/
+  nav {
+
+    .navContainer{
+      width: 95%;
+      //margin: auto 2.5% auto 2.5%;
+
+      .navLeft{
+        .navLinks{
+          margin: auto;
+          li {
+            //display: flex;
+            margin: auto;
+            font-size: larger;
+            width: min-content;
+            float: left;
+          }
+          li a#tourney{
+            display: none;
+          }
+
+        }
+      }
+
+      #navCenter{
+        #navLiCenter{
+          #logo{
+            a{
+              svg{
+                margin: auto auto;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+
+  /********* Index **********/
+  .homeContent {
+    width: 95%;
+    display: block;
+    height: min-content;
+
+    .hmLeft{
+      width: 100%;
+      margin: 0 auto 20px auto;
+      height: min-content;
+      border-radius: 10px;
+
+      img{
+        width: 100%;
+        height: auto;
+        border-radius: 10px 10px 0 0;
+      }
+    }
+
+    .hmRight{
+      width: 100%;
+      margin: auto auto 20px auto;
+      padding: 0 5% 15px 5%;
+      border-radius: 10px;
+
+      h3{
+        font-size: 2em;
+      }
+      p {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+      h4 {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+
+      #noAnnounce{
+        font-size: larger;
+      }
+
+      #announceDates {
+        font-size: large;
+      }
+    }
+  }
+
+  /********* About **********/
+  .aboutContent {
+    width: 95%;
+    display: block;
+    height: min-content;
+
+    .abtLeft{
+      width: 100%;
+      margin: 0 auto 20px auto;
+      height: min-content;
+      border-radius: 10px;
+
+      img{
+        width: 100%;
+        height: auto;
+        border-radius: 10px 10px 0 0;
+      }
+    }
+
+    .hmRight{
+      width: 100%;
+      margin: auto auto 20px auto;
+      padding: 0 5% 15px 5%;
+      border-radius: 10px;
+
+      h3{
+        font-size: 2em;
+      }
+      p {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+      h4 {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+
+      #noAnnounce{
+        font-size: larger;
+      }
+
+      #announceDates {
+        font-size: large;
+      }
+    }
+  }
+
+  /********* Ladder **********/
+  .ladderContent {
+    width: 95%;
+    display: block;
+    // height: min-content;
+
+  }
+
+  /********* Ladder **********/
+  .matchesContent {
+    width: 95%;
+    display: block;
+    // height: min-content;
+
+    .displayMatches{
+
+      .right{
+        #doublesMU{
+          tr{
+            .tableLeft{
+              display: none;
+            }
+            .tableCenter{
+              width: 95%;
+            }
+            .tableRight{
+              display: none;
+            }
+          }
+        }
+      }
+      .farRight{
+        #teamDoubles2{
+          tr{
+            .tableLeft{
+              display: none;
+            }
+            .tableCenter{
+              width: 95%;
+            }
+            .tableRight{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  /********* Player **********/
+  .playerContent {
+    width: 95%;
+    // display: block;
+
+    .upcomingMatches{
+      width: 95%;
+
+      h4{
+        font-size: x-large;
+      }
+
+      .printMatch{
+        table{
+          width: 100%;
+
+          th{
+            font-size: large;
+          }
+
+          td{
+            font-size: large;
+          }
+        }
+
+      }
+    }
+
+    .matchHistory{
+      width: 95%;
+
+      h4{
+        font-size: x-large;
+      }
+
+      .printMatch{
+        table{
+          width: 100%;
+
+          th{
+            font-size: large;
+          }
+
+          td{
+            font-size: large;
+          }
+        }
+
+      }
+    }
+
+  }
+
+  /********* Admin **********/
+  .adminContent {
+    // padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    min-height: min-content;
+
+    .adminBody{
+      width: 95%;
+
+      .adminOptions{
+        margin: 0 auto 0 0;
+
+        .optionsList{
+
+          li{
+            font-size: large;
+          }
+        }
+      }
+    }
+
+  }
+
+  /********* Footer **********/
+  footer {
+    .shoe {
+      width: 95%;
+    }
+
+    a{
+      font-size: x-large;
+    }
+  }
+
+}
+
+@media only screen and (max-device-width : 1080px) and (orientation: portrait) {
+
+  /********* Nav **********/
+  nav {
+    height: $phone-nav-height;
+
+    .navContainer{
+      width: 95%;
+      //margin: auto 2.5% auto 2.5%;
+
+      .navLeft{
+        .navLinks{
+          margin: auto;
+          li {
+            margin: auto;
+            //display: flex;
+            font-size: 150%;
+            width: min-content;
+            float: left;
+
+            .listA{
+              height: $phone-nav-height;
+              line-height: $phone-nav-height;
+              margin: auto;
+              //vertical-align: middle;
+            }
+          }
+          li a#tourney{
+            display: none;
+          }
+
+        }
+      }
+
+      #navCenter{
+        #navLiCenter{
+          width: 100%;
+          #logo{
+            width: 100%;
+            a{
+              width: 100%;
+              svg{
+                width: 100%;
+                margin: auto auto;
+
+              }
+            }
+          }
+        }
+      }
+
+      .navRight{
+        div{
+          display: none;
+        }
+      }
+    }
+
+  }
+
+  /********* Index **********/
+  .homeContent {
+    padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    display: block;
+    height: min-content;    
+    min-height: calc(100% - (#{$phone-nav-height}));
+
+    .hmLeft{
+      width: 100%;
+      margin: 0 auto 20px auto;
+      height: min-content;
+    }
+
+    .hmRight{
+      width: 100%;
+      margin: auto auto 15px auto;
+      padding: 0 5% 15px 5%;
+
+      h3{
+        font-size: 2em;
+      }
+      p {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+      h4 {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+
+      #noAnnounce{
+        font-size: larger;
+      }
+
+      #announceDates {
+        font-size: large;
+      }
+    }
+  }
+
+  /********* About **********/
+  .aboutContent {
+    padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    display: block;
+    height: min-content;
+
+    .abtLeft{
+      width: 100%;
+      margin: 0 auto 20px auto;
+      height: min-content;
+    }
+
+    .hmRight{
+      width: 100%;
+      margin: auto auto 15px auto;
+      padding: 0 5% 15px 5%;
+
+      h3{
+        font-size: 2em;
+      }
+      p {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+      h4 {
+        width: 100%;
+        padding-left: 0;
+        font-size: larger;
+      }
+
+      #noAnnounce{
+        font-size: larger;
+      }
+
+      #announceDates {
+        font-size: large;
+      }
+    }
+  }
+
+  /********* Ladder **********/
+  .ladderContent {
+    padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    //height: min-content;
+    min-height: calc(100% - (#{$phone-nav-height}));
+
+    .header{
+      margin-bottom: 20px;
+    }
+
+    h3{
+      a{
+        font-size: x-large;
+      }
+    }
+
+    .standings{
+      width: 95%;
+      display: block;
+
+      #mobileViewController{
+        display: flex;
+        text-align: center;        
+        padding-bottom: 10px;
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        #sglsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #333333;
+          font-size: xx-large;
+          margin: auto;
+          border-bottom: #333333 solid .5px;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #dblsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #TDLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+      }
+      
+
+      .left{
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        h2{
+          display: none;
+          font-size: xx-large;
+        }
+        div{
+          .rnk{
+            font-size: x-large;
+          }
+          .nme{
+            font-size: x-large;
+          }
+          .pts{
+            font-size: x-large;
+          }
+        }
+        #singles{
+          tr{
+            .tableLeft{
+              font-size: x-large;
+            }
+            .tableCenter{
+              form{
+                #playerInfo{
+                  font-size: x-large;
+                }
+              }   
+            }
+            .tableRight{
+              font-size: x-large;
+            }
+            
+          }
+
+        }
+
+      }
+      .right{        
+        width: 100%;
+        margin: 0 auto 20px auto;
+        display: none;
+
+        h2{
+          margin-top: 20px;
+          font-size: xx-large;
+          display: none;
+        }
+        div{
+          // display: none;
+          
+          .rnk{
+            font-size: x-large;
+          }
+          .nme{
+            font-size: x-large;
+          }
+          .pts{
+            font-size: x-large;
+          }
+        }
+        #doubles{
+          // display: none;
+
+          tr{
+            .tableLeft{
+              font-size: x-large;
+            }
+            .tableCenter{
+              form{
+                #playerInfo{
+                  font-size: x-large;
+                }
+              }   
+            }
+            .tableRight{
+              font-size: x-large;
+            }
+            
+          }
+        }
+
+      }
+      .farRight{        
+        width: 100%;
+        margin: 0 auto 20px auto;
+        display: none;
+
+        h2{
+          margin-top: 20px;
+          font-size: xx-large;
+          display: none;
+        }
+        div{
+          // display: none;
+          
+          .rnk{
+            font-size: x-large;
+          }
+          .nme{
+            font-size: x-large;
+          }
+          .pts{
+            font-size: x-large;
+          }
+        }
+        #teamDoubles{
+          // display: none;
+
+          tr{
+            .tableLeft{
+              font-size: x-large;
+            }
+            .tableCenter{
+              form{
+                #playerInfo{
+                  font-size: x-large;
+                }
+              }   
+            }
+            .tableRight{
+              font-size: x-large;
+            }
+            
+          }
+        }
+
+      }
+    }
+  }
+
+  /********* Match List **********/
+  .matchesContent {
+    padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    //height: min-content;
+    min-height: calc(100% - (#{$phone-nav-height}));
+
+    .header{
+      margin-bottom: 20px;
+    }
+
+    h3{
+      a{
+        font-size: x-large;
+      }
+    }
+
+    .displayMatches{
+      width: 95%;
+      display: block;
+
+      #mobileViewController{
+        display: flex;
+        text-align: center;        
+        padding-bottom: 10px;
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        #sglsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #333333;
+          font-size: xx-large;
+          margin: auto;
+          border-bottom: #333333 solid .5px;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #dblsLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+        #TDLadderView{
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          color: #868686;
+          font-size: xx-large;
+          margin: auto;
+
+          &:hover {
+            color: #333333;
+          }
+
+          &:active {
+            color: #0f0f0f;
+          }
+        }
+      }
+      
+
+      .left{
+        width: 100%;
+        margin: 0 auto 20px auto;
+
+        h2{
+          font-size: xx-large;
+          display: none;
+        }
+
+        #singlesMU{
+          tr{
+            .tableLeft{
+              #playerInfo {
+                font-size: x-large;
+              }
+            }
+            .tableCenter{
+              font-size: x-large;                
+            }
+            .tableRight{
+              #playerInfo {
+                  font-size: x-large;
+              }
+            }
+          }
+        }
+
+      }
+      .right{
+        width: 100%;
+        margin: 0 auto 20px auto;
+        padding-top: 20px;
+        display: none;
+
+        h2{
+          font-size: xx-large;
+          display: none;
+        }
+
+        #doublesMU{
+          tr{
+            .tableLeft{
+              width: 0;
+              form{
+                input[type=submit] {
+                  font-size: x-large;
+                }
+              }
+            }
+            .tableCenter{
+              width: 100%;
+              font-size: x-large;                
+            }
+            .tableRight{
+              width: 0;
+              form{
+                input[type=submit] {
+                  font-size: x-large;
+                }
+              }              
+            }
+          }
+        }
+
+      }
+
+      .farRight{
+        width: 100%;
+        margin: 0 auto 20px auto;
+        padding-top: 20px;
+        display: none;
+
+        h2{
+          font-size: xx-large;
+          display: none;
+        }
+
+        #teamDoubles2{
+          tr{
+            .tableLeft{
+              width: 0;
+              form{
+                input[type=submit] {
+                  font-size: x-large;
+                }
+              }
+            }
+            .tableCenter{
+              width: 100%;
+              font-size: x-large;                
+            }
+            .tableRight{
+              width: 0;
+              form{
+                input[type=submit] {
+                  font-size: x-large;
+                }
+              }              
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  /********* Player **********/
+  .playerContent {
+    padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    // display: block;
+    min-height: calc(100% - (#{$phone-nav-height} - 5px));
+
+    .upcomingMatches{
+      width: 95%;
+      margin: 0 auto 40px auto;
+      
+      h4{
+        font-size: x-large;
+      }
+
+      .printMatch{
+        table{
+          width: 100%;
+
+          th{
+            font-size: large;
+          }
+
+          td{
+            font-size: large;
+          }
+        }
+
+      }
+    }
+
+    .matchHistory{
+      width: 95%;
+
+      h4{
+        font-size: x-large;
+      }
+
+      .printMatch{
+        table{
+          width: 100%;
+
+          th{
+            font-size: large;
+          }
+
+          td{
+            font-size: large;
+          }
+        }
+
+      }
+    }
+
+  }
+
+  /********* ADMIN **********/
+  .adminContent {
+    padding-top: $phone-nav-height + 20px;
+    width: 95%;
+    min-height: min-content;
+    height: calc(100% - (#{$phone-nav-height}));
+    // background-color: cadetblue;
+
+    .adminBody{
+      width: 95%;
+      height: 90%;
+
+      .adminOptions{
+        margin: 0 auto 15px 0;
+        // background-color: cadetblue;
+
+
+        .optionsList{
+
+          li{
+            margin: 50px auto;
+            font-size: x-large;
+          }
+        }
+      }
+
+      .adminForms{
+        #createRoundMatches{
+          h3{
+            font-size: xx-large;
+          }
+          .roundNumbers{  
+            margin-bottom: 15px;
+            span{
+              font-size: larger;
+            }
+          }
+          form{
+
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #editRoundMatches{
+          h3{
+            font-size: xx-large;
+          }
+          .roundNumbers{  
+            margin-bottom: 15px;
+            span{
+              font-size: larger;
+            }
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #enterSGLSScoreResults{
+          h3{
+            font-size: xx-large;
+          }
+          .roundNumbers{  
+            margin-bottom: 15px;
+            span{
+              font-size: larger;
+            }
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #enterDBLSScoreResults{
+          h3{
+            font-size: xx-large;
+          }
+          .roundNumbers{  
+            margin-bottom: 15px;
+            span{
+              font-size: larger;
+            }
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #addNewPlayers{
+          h3{
+            font-size: xx-large;
+            margin-bottom: 15px;
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #addAnnouncement{
+          h3{
+            font-size: xx-large;
+            margin-bottom: 15px;
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #changePW{
+          h3{
+            font-size: xx-large;
+            margin-bottom: 15px;
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #changePH{
+          h3{
+            font-size: xx-large;
+            margin-bottom: 15px;
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+        #changeEM{
+          h3{
+            font-size: xx-large;
+            margin-bottom: 15px;
+          }
+          form{
+            label{
+              font-size: x-large;
+            }
+            input[type=submit] {
+              font-size: x-large;
+            }
+          }
+        }
+      }
+
+      // .login{
+
+      // }
+    }
+  }
+
+  /********* Footer **********/
+  footer {
+    height: $phone-nav-height - 10px;
+
+    .shoe {
+      width: 95%;
+
+      .footerCopy {
+        height: $phone-nav-height - 10px;
+
+        p {
+          font-size: x-large;
+        }
+      }
+      .footerSocial {
+        height: $phone-nav-height - 10px;
+
+        a {
+          img {
+            margin: auto;
+            height: 45px;
+            width: 45px;
+          }
+        }
+      }
+      .footerRight {
+        height: $phone-nav-height - 10px;
+        
+        a{
+          font-size: x-large;
+        }
+      }
+    }
+  }
+}
+

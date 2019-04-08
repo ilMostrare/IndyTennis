@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AASA,AAAA,QAAQ,AAAA,CACN,gBAAgB,CAAE,OAAO,CACzB,aAAa,CAAE,GAAG,CAanB,AAfD,AAIE,QAJM,AAIL,MAAM,AAAC,CACN,gBAAgB,CAAE,OAAO,CACzB,KAAK,CAAE,OAAO,CACf,AAPH,AASE,QATM,AASL,OAAO,AAAC,CACP,gBAAgB,CAAE,OAAO,CACzB,KAAK,CAAE,OAAO,CAEf",
+    "sources": [
+        "../../scss/variables.scss"
+    ],
+    "names": [],
+    "file": "variables.min.css"
+}

@@ -1,0 +1,25 @@
+//Header
+$nav-height: 70px;
+$phone-nav-height: 120px;
+$nav-link-font-size: medium;
+$backgroundColor: white;
+$bodyWidth: 80%;
+$highlightLink: #EEF95D;
+$activeLink: #53A548;
+
+.current{
+  background-color: #53A548;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #EEF95D;
+    color: #333333;
+  }
+
+  &:active {
+    background-color: #53A548;
+    color: #333333;
+    
+  }
+
+}

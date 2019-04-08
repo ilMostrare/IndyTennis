@@ -1,0 +1,78 @@
+footer{
+  height: $nav-height - 15px;
+  width: 100%;
+  background-color: darkgrey;
+  display: flex;
+  position: relative;
+  margin-top: 10px;
+  //bottom: 0;
+
+  .shoe {
+    height: 100%;
+    width: $bodyWidth;
+    display: flex;
+    margin: auto;
+    //background-color: #f06e57;
+
+    .footerCopy {
+      width: 33%;
+      height: 100%;
+      margin: auto auto auto 0;
+      display: flex;
+
+      p {
+        margin: auto auto auto 0;
+      }
+
+    }
+    .footerSocial {
+      width: 33%;
+      height: 100%;
+      margin: auto;
+      display: flex;
+
+      a {
+        margin: auto;
+        img {
+          margin: auto;
+          height: 30px;
+          width: 30px;
+        }
+
+        &:hover {
+          -webkit-filter: opacity(35%);
+          filter: opacity(35%);
+        }
+        &:active {
+          -webkit-filter: opacity(85%);
+          filter: opacity(85%);
+        }
+      }
+
+    }
+    .footerRight {
+      width: 33%;
+      height: 100%;
+      margin: auto 0 auto auto;
+      display: flex;
+      text-align: right;
+
+      a {
+        font-size: smaller;
+        margin: auto 0 auto auto;
+        color: #333333;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          color: $highlightLink;
+        }
+        &:active {
+          color: $activeLink;
+        }
+
+      }
+    }
+  }
+}
+
