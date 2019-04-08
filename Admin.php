@@ -17,10 +17,6 @@ require_once ('includes/adminTools.php');
 $user_id = $_SESSION['adminID'];
 
 
-/* $userSql = "SELECT * FROM `ADMIN` WHERE `ID` = '".$user_id."'";
-$userQuery = @$conn->query($userSql);
-
-$userRow=mysqli_fetch_assoc($userQuery); */
 
 ?>
 
