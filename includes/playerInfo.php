@@ -503,7 +503,7 @@ function GetPlayerPastMatches($playerID){
 
         if ($identifier == 'SG'){
             #region past singles matches
-            $pastSGLSMatchSQL = "SELECT `SGLSMATCH`.`ID`,`SGLSMATCH`.`PLAYER1`,`SGLSMATCH`.`PLAYER2`,`SGLSMATCH`.`P1_SET1`,`SGLSMATCH`.`P1_SET2`,`SGLSMATCH`.`P1_SET3`,`SGLSMATCH`.`P2_SET1`,`SGLSMATCH`.`P2_SET2`,`SGLSMATCH`.`P2_SET3`,`SGLSMATCH`.`ROUND_NUM`,`SGLSMATCH`.`MATCHWINNER`,`SGLSMATCH`.`PLAYOFF`,`SGLSROUND`.`END_DATE` FROM `SGLSMATCH` INNER JOIN `SGLSROUND` ON `SGLSMATCH`.`ROUND_NUM` = `SGLSROUND`.`ID` WHERE `SGLSMATCH`.`ID` = '".$mID."'";
+            $pastSGLSMatchSQL = "SELECT `SGLSMATCH`.`ID`,`SGLSMATCH`.`PLAYER1`,`SGLSMATCH`.`PLAYER2`,`SGLSMATCH`.`P1_SET1`,`SGLSMATCH`.`P1_SET2`,`SGLSMATCH`.`P1_SET3`,`SGLSMATCH`.`P2_SET1`,`SGLSMATCH`.`P2_SET2`,`SGLSMATCH`.`P2_SET3`,`SGLSMATCH`.`ROUND_NUM`,`SGLSMATCH`.`MATCHWINNER`,`SGLSMATCH`.`PLAYOFF`,`SGLSMATCH`.`CHALLENGE`,`SGLSROUND`.`END_DATE` FROM `SGLSMATCH` INNER JOIN `SGLSROUND` ON `SGLSMATCH`.`ROUND_NUM` = `SGLSROUND`.`ID` WHERE `SGLSMATCH`.`ID` = '".$mID."'";
             $pastSGLSMatchesQuery = @$conn->query($pastSGLSMatchSQL);
             while ($pastSGLSMatchesRow = mysqli_fetch_assoc($pastSGLSMatchesQuery)) {
                 $matchPlayer1 = $pastSGLSMatchesRow["PLAYER1"];
@@ -515,7 +515,8 @@ function GetPlayerPastMatches($playerID){
                 $matchP2S2 = $pastSGLSMatchesRow["P2_SET2"];
                 $matchP2S3 = $pastSGLSMatchesRow["P2_SET3"];
                 $matchRoundNum = $pastSGLSMatchesRow["ROUND_NUM"];
-                $matchWinner = $pastSGLSMatchesRow["MATCHWINNER"];
+                $matchWinner = $pastSGLSMatchesRow["MATCHWINNER"];                
+                $challenge = $pastSGLSMatchesRow["CHALLENGE"];
                 $matchPlayoff = $pastSGLSMatchesRow["PLAYOFF"];
                 $matchEndDate = $pastSGLSMatchesRow["END_DATE"];
 
@@ -561,7 +562,11 @@ function GetPlayerPastMatches($playerID){
     
                     echo "<div class='printMatch'>";
                         echo "<table>";
-                            echo "<td>SG",$matchRoundNum,"</td>";
+                            if ($challenge == 1){
+                                echo "<td>SG",$matchRoundNum,"-CH</td>";
+                            } else {
+                                echo "<td>SG",$matchRoundNum,"</td>";
+                            }                            
                             echo "<td><button class='viewPlayer' value='".$matchPlayer2."'>",$sglsOpponentLName,", ",$sglsOpponentFName," (",$sglsOpponentRank,")</button></td>";
                             echo "<td class='mid2'>",$matchSGResult,"</td>";
                             echo "<td class='mid2'>",$matchP1S1," - ",$matchP2S1,"</td>";
@@ -616,8 +621,12 @@ function GetPlayerPastMatches($playerID){
                     } 
 
                     echo "<div class='printMatch'>";
-                        echo "<table>";
-                            echo "<td>SG",$matchRoundNum,"</td>";
+                        echo "<table>";                            
+                            if ($challenge == 1){
+                                echo "<td>SG",$matchRoundNum,"-CH</td>";
+                            } else {
+                                echo "<td>SG",$matchRoundNum,"</td>";
+                            }
                             echo "<td><button class='viewPlayer' value='".$matchPlayer1."'>",$sglsOpponentLName,", ",$sglsOpponentFName," (",$sglsOpponentRank,")</button></td>";
                             echo "<td class='mid2'>",$matchSGResult,"</td>";
                             echo "<td class='mid2'>",$matchP2S1," - ",$matchP1S1,"</td>";

@@ -187,7 +187,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<label><h4>Set 3 (Player 1 First):</h4></label>";
                             echo "<div class='sglsSet'><input type='number' name='sglsSet3P1' id='sglsSet3P1' min='0' max='7'></input><input type='number' name='sglsSet3P2' id='sglsSet3P2' min='0' max='7'></input></div>";
 
-                            echo "<div class='sglsSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='sglsPlayoff' id='sglsPlayoff' value='pl'></input><label><h4>Challenge Match?:</h4></label><input type='checkbox' name='sglsChallenge' id='sglsChallenge' value='ch'></input></div>";
+                            echo "<div class='sglsSet'><label><h4>Playoff Match?:</h4></label><input type='checkbox' name='sglsPlayoff' id='sglsPlayoff' value='pl'></input></div>";
 
                             echo "<input id='sglsScoreSubmit' type='submit' value='Submit'>";
                         echo "</form>";

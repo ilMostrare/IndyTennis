@@ -789,6 +789,8 @@ function addChallengeMatch($player1,$player2){
     global $sznID;
     global $SGLSroundID;
 
+    echo $sznID," ", $SGLSroundID," ", $player1," ", $player2;
+
     $insertChallengeSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$player1."', '".$player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', CURRENT_TIMESTAMP)";
     @$conn->query($insertChallengeSQL);
 }
@@ -830,13 +832,13 @@ function getSGLSMatches(){
 
 }
 
-function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3,$_playoff,$_challenge,$_winner,$_DNP){
+function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3,$_playoff,$_winner,$_DNP){
     global $conn;
     global $sznID;
     global $SGLSroundID;
 
-    #region get match players
-    $sglsMatchPlayersSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE `ID` = '".$_matchID."'";
+    #region get match players and if challenge
+    $sglsMatchPlayersSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2`,`CHALLENGE` FROM `SGLSMATCH` WHERE `ID` = '".$_matchID."'";
     $sglsMatchPlayersQuery = @$conn->query($sglsMatchPlayersSQL);
     #region error handling
     if (!$sglsMatchPlayersQuery) {
@@ -850,6 +852,7 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
         $sglsMatchNum = $sglsMatchPlayersRow["ID"];
         $sglsMatchP1 = $sglsMatchPlayersRow["PLAYER1"];
         $sglsMatchP2 = $sglsMatchPlayersRow["PLAYER2"];
+        $_challenge = $sglsMatchPlayersRow["CHALLENGE"];
     }
     #endregion
 
@@ -891,7 +894,7 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
     
     #region Insert Scores
-
+    echo $_DNP;
     if($_DNP == 1){
         $insrtSGLSDNP = "UPDATE `SGLSMATCH` SET `DNP` = '".$_DNP."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
         @$conn->query($insrtSGLSDNP);
@@ -909,12 +912,17 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     #endregion
 
     #region calculate points
-    $player1Points = $player1curPTS;
-    $player2Points = $player2curPTS;
+    $player1Points = 0;
+    $player2Points = 0;
     $p1Wins = $player1curWins;
     $p2Wins = $player2curWins;
     $p1Losses = $player1curLosses;
     $p2Losses = $player2curLosses;
+    
+    echo "p1cur ",$player1curPTS,"\n";
+    echo "p2cur ",$player2curPTS,"\n";
+    echo "p1 ",$player1Points,"\n";
+    echo "p2 ",$player2Points,"\n";
 
     if($_winner == 1){
         $p1Wins++;
@@ -926,22 +934,24 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
             $player2Points += $player2GamesWon;
         }
 
-        if (($player2Rank - $player1Rank) >= 2){
+        if (($player2Rank - $player1Rank) > 3){
             $player1Points += (10 + ($player1GamesWon - $player2GamesWon) + (($player1GamesWon - $player2GamesWon)/2));
 
             if($player1Points < 15){
-                $player1Points += 15;
+                $player1Points = 15;
             } 
             if ($player1Points > 25){
-                $player1Points += 25;
+                $player1Points = 25;
             } 
         } else {
             $player1Points += (10 + ($player1GamesWon - $player2GamesWon));
         
             if ($player1Points < 11){
-                $player1Points += 11;
+                $player1Points = 11;
             }
         }
+        echo "p1 ",$player1Points,"\n";
+        echo "p2 ",$player2Points,"\n";
 
     } elseif ($_winner == 2) {
         $p2Wins++;
@@ -953,29 +963,32 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
             $player1Points += $player1GamesWon;
         }
         
-        if (($player1Rank - $player2Rank) >= 2){
+        if (($player1Rank - $player2Rank) > 3){
             $player1Points += (10 + ($player2GamesWon - $player1GamesWon) + (($player2GamesWon - $player1GamesWon)/2));
         
             if ($player2GamesWon < 15){
-                $player2Points += 15;
+                $player2Points = 15;
             }
             if ($player2GamesWon > 25){
-                $player2Points += 25;
+                $player2Points = 25;
             }
         } else {
             $player2Points += (10 + ($player2GamesWon - $player1GamesWon));
         
             if ($player2GamesWon < 11){
-                $player2Points += 11;
+                $player2Points = 11;
             }
         }
+        echo "p1 ",$player1Points,"\n";
+        echo "p2 ",$player2Points,"\n";
+        
     } else {
         $p1Wins = $player1curWins;
         $p2Wins = $player2curWins;
         $p1Losses = $player1curLosses;
         $p2Losses = $player2curLosses;
-        $player1Points = $player1curPTS;
-        $player2Points = $player2curPTS;
+        $player1Points = 0;
+        $player2Points = 0;
     }
 
     if ($_challenge == 1){
@@ -984,9 +997,19 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     }
 
     if ($_playoff == 1){
-        $player1Points = $player1curPTS;
-        $player2Points = $player2curPTS;
+        $player1Points = 0;
+        $player2Points = 0;
     }
+
+    if($_DNP == 1){
+        $player1Points = 0;
+        $player2Points = 0;
+    }
+
+    $player1Points += $player1curPTS;
+    $player2Points += $player2curPTS;
+    echo "p1 ",$player1Points,"\n";
+    echo "p2 ",$player2Points,"\n";
     
     #endregion
 
@@ -1023,12 +1046,11 @@ if (isset($_POST['ntrSGLSMatchID'])){
     $sglsp2s2 = isset($_POST['ntrSGLSS2P2']) ? $_POST['ntrSGLSS2P2'] : 'No data found';
     $sglsp2s3 = isset($_POST['ntrSGLSS3P2']) ? $_POST['ntrSGLSS3P2'] : 'No data found';
     $sglsPlayoff = isset($_POST['ntrSGLSPlayoff']) ? $_POST['ntrSGLSPlayoff'] : 'No data found';
-    $sglsChallenge = isset($_POST['ntrSGLSChallenge']) ? $_POST['ntrSGLSChallenge'] : 'No data found';
     $sglsWinner = isset($_POST['ntrSGLSWinner']) ? $_POST['ntrSGLSWinner'] : 'No data found';
     $sglsDNP = isset($_POST['ntrsglsDNP']) ? $_POST['ntrsglsDNP'] : 'No data found';
 
 
-    ntrSGLSScores($SGLSMatchID, $sglsp1s1, $sglsp1s2, $sglsp1s3, $sglsp2s1, $sglsp2s2, $sglsp2s3,$sglsPlayoff,$sglsChallenge,$sglsWinner,$sglsDNP);
+    ntrSGLSScores($SGLSMatchID, $sglsp1s1, $sglsp1s2, $sglsp1s3, $sglsp2s1, $sglsp2s2, $sglsp2s3,$sglsPlayoff,$sglsWinner,$sglsDNP);
 
 }
 

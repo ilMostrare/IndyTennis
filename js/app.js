@@ -1205,11 +1205,11 @@ function setBindings() {
             type: 'POST',
             data: {
                 ntrAddChallengeP1: addChallengeP1,
-                ntrAddChallengeP1: addChallengeP2
+                ntrAddChallengeP2: addChallengeP2
             }
         }).done(function (data) {
             //console.log("Success");
-            //console.log(data);
+            console.log(data);
             swal({title: "Success", text: "Challenge Match Entered", type: "success"},
                 function(){ 
                     location.reload();
@@ -1234,7 +1234,6 @@ function setBindings() {
         var sglsSet2P2 = parseInt($("#sglsSet2P2").val());
         var sglsSet3P2 = $("#sglsSet3P2").val();
         var sglsPlayoff = $("#sglsPlayoff").prop("checked");
-        var sglsChallenge = $("#sglsChallenge").prop("checked");
         // var sglsWinner = parseInt($('input[name=sglsWinner]:checked').val());
         
         //#region Value Handling
@@ -1242,11 +1241,6 @@ function setBindings() {
             sglsPlayoff = 1;
         } else {
             sglsPlayoff = 0;
-        };
-        if(sglsChallenge == true){
-            sglsChallenge = 1;
-        } else {
-            sglsChallenge = 0;
         };
         if(sglsSet3P1 == ''){
             sglsSet3P1 = 0;
@@ -1333,13 +1327,12 @@ function setBindings() {
                             ntrSGLSS2P2: sglsSet2P2,
                             ntrSGLSS3P2: sglsSet3P2,
                             ntrSGLSPlayoff: sglsPlayoff,
-                            ntrSGLSChallenge: sglsChallenge,
                             ntrSGLSWinner: sglsWinner,
                             ntrsglsDNP: sglsDNP
                         }
                     }).done(function (data) {
                         //console.log("Success");
-                        //console.log(data);
+                        console.log(data);
                         swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
                                 location.reload();
@@ -1371,13 +1364,12 @@ function setBindings() {
                             ntrSGLSS2P2: sglsSet2P2,
                             ntrSGLSS3P2: sglsSet3P2,
                             ntrSGLSPlayoff: sglsPlayoff,
-                            ntrSGLSChallenge: sglsChallenge,
                             ntrSGLSWinner: sglsWinner,
                             ntrsglsDNP: sglsDNP
                         }
                     }).done(function (data) {
                         //console.log("Success");
-                        //console.log(data);
+                        console.log(data);
                         swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
                                 location.reload();
@@ -1399,13 +1391,12 @@ function setBindings() {
                             ntrSGLSS2P2: sglsSet2P2,
                             ntrSGLSS3P2: sglsSet3P2,
                             ntrSGLSPlayoff: sglsPlayoff,
-                            ntrSGLSChallenge: sglsChallenge,
                             ntrSGLSWinner: sglsWinner,
                             ntrsglsDNP: sglsDNP
                         }
                     }).done(function (data) {
                         //console.log("Success");
-                        //console.log(data);
+                        console.log(data);
                         swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
                                 location.reload();

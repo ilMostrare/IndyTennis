@@ -57,7 +57,9 @@ while ($NXTsznRow = mysqli_fetch_assoc($nxtSZNQuery)){
     $NXTsznSTART = $NXTsznRow["START_DATE"];
 }
 
+
 $PRINTnxtSeasonST = date('M d, Y', strtotime($NXTsznSTART));
+#endregion
 
 #region Get Current Season and Round
 $curSZNsql = "SELECT * FROM `SEASON` WHERE CURRENT_DATE BETWEEN CAST(`START_DATE` AS date) AND CAST(`END_DATE` AS date)";
