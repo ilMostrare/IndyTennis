@@ -322,6 +322,7 @@ if (isset($_POST['createTDID'])){
 
     function editSinglesMatch($_matchID,$_player1,$_player2){
         global $conn;
+        global $SGLSroundID;
 
         // echo $_matchID," ", $_player1," ", $_player2;
 
@@ -331,7 +332,7 @@ if (isset($_POST['createTDID'])){
 
             // echo $_matchID," ", $_player1," ", $_player2;
 
-            $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."' AND `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."'";
             $selectTBDQuery = @$conn->query($selectTBDSQL);
             if (!$selectTBDQuery) {
                 $errno = $conn->errno;
@@ -367,7 +368,7 @@ if (isset($_POST['createTDID'])){
             $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
             @$conn->query($editMatchSQL);
 
-            $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player2."' OR `PLAYER2` = '".$_player2."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $selectTBDSQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player2."' OR `PLAYER2` = '".$_player2."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."' AND `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."'";
             $selectTBDQuery = @$conn->query($selectTBDSQL);
             if (!$selectTBDQuery) {
                 $errno = $conn->errno;
@@ -401,7 +402,7 @@ if (isset($_POST['createTDID'])){
             $editMatchSQL = "UPDATE `SGLSMATCH` SET `PLAYER1` = '".$_player1."', `PLAYER2` = '".$_player2."' WHERE `SGLSMATCH`.`ID` = '".$_matchID."'";
             @$conn->query($editMatchSQL);
 
-            $setTBD1SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $setTBD1SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE (`PLAYER1` = '".$_player1."' OR `PLAYER2` = '".$_player1."') AND NOT `SGLSMATCH`.`ID` = '".$_matchID."' AND `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."'";
             $setTBD1Query = @$conn->query($setTBD1SQL);
             if (!$setTBD1Query) {
                 $errno = $conn->errno;
@@ -429,7 +430,7 @@ if (isset($_POST['createTDID'])){
                 echo "no secondary match to be updated";
             }
 
-            $setTBD2SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE `PLAYER1` = '".$_player2."' OR `PLAYER2` = '".$_player2."' AND NOT `SGLSMATCH`.`ID` = '".$_matchID."'";
+            $setTBD2SQL = "SELECT `ID`,`PLAYER1`,`PLAYER2` FROM `SGLSMATCH` WHERE `PLAYER1` = '".$_player2."' OR `PLAYER2` = '".$_player2."' AND NOT `SGLSMATCH`.`ID` = '".$_matchID."' AND `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."'";
             $setTBD2Query = @$conn->query($setTBD2SQL);
             if (!$setTBD2Query) {
                 $errno = $conn->errno;
@@ -856,6 +857,12 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
     }
     #endregion
 
+    $otherMatchSQL = "SELECT COUNT(*) AS 'COUNT' FROM `SGLSMATCH` WHERE (`PLAYER1` = $sglsMatchP2 OR `PLAYER2` = $sglsMatchP2) AND `ID` != '".$_matchID."' AND `ROUND_NUM` = '".$SGLSroundID."' AND `CHALLENGE` != 1";
+    $otherMatchQuery = @$conn->query($otherMatchSQL);
+    while ($otherMatchRow = mysqli_fetch_assoc($otherMatchQuery)) {
+        $oMCount = $otherMatchRow["COUNT"];
+    }
+
     #region Get Ranks
     
     $player1curPTSSQL = "SELECT `ID` AS `Rank`,`SGLS_POINTS`,`SGLS_WINS`,`SGLS_LOSSES` FROM `SGLSLADDER` WHERE `PLAYER_ID` = '".$sglsMatchP1."'";
@@ -993,6 +1000,10 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
 
     if ($_challenge == 1){
         $player1Points = ($player1Points / 3);
+        $player2Points = ($player2Points / 3);
+    }
+
+    if ($oMCount > 0){
         $player2Points = ($player2Points / 3);
     }
 

@@ -20,28 +20,5 @@
        "> 1%",
        "last 2 versions"
 ],
-"sqltools.connections": [
-    {
-        "askForPassword": false,
-        "connectionTimeout": 30,
-        "database": "indytennisdb",
-        "dialect": "MySQL",
-        "name": "indytennis.com",
-        "password": "oscul6764sal",
-        "port": 3306,
-        "server": "157.230.57.0",
-        "username": "byrsla"
-    },
-    {
-        "askForPassword": false,
-        "connectionTimeout": 30,
-        "database": "slabone_itdb",
-        "dialect": "MySQL",
-        "name": "indytennis-dev",
-        "password": "oscul6764sal",
-        "port": 3306,
-        "server": "157.230.57.0",
-        "username": "byrsla"
-    }
-]
+"sqltools.connections": []
 }
