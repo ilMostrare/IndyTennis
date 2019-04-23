@@ -165,7 +165,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<label><h4>Player 2:</h4></label>";
                             echo "<div class='sglsSet'><select name='addChallengeP2' id='addChallengeP2'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllSinglesPlayers() ,"</select></div>";
 
-                            echo "<input id='addChallengeSubmit' type='submit' value='Submit Singles Match Edit'>";
+                            echo "<input id='addChallengeSubmit' type='submit' value='Add Challenge Match'>";
                         echo "</form>";
                     echo "</div>";
 

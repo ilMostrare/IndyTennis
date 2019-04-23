@@ -1198,7 +1198,7 @@ function setBindings() {
         var addChallengeP1 = $("#addChallengeP1").val();
         var addChallengeP2 = $("#addChallengeP2").val();
 
-        // console.log(editsglsMatchID+" "+editSGLSP1+" "+editSGLSP2);
+        console.log(addChallengeP1+" "+addChallengeP2);
 
         $.ajax({
             url: '',
@@ -1215,7 +1215,7 @@ function setBindings() {
                     location.reload();
                 }
             );
-            $(".editSGLSMatch")[0].reset();
+            $(".addChallenge")[0].reset();
         });
     });
 

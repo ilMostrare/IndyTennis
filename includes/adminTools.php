@@ -785,14 +785,14 @@ if (isset($_POST['createTDID'])){
 #endregion
 
 #region Insert Challenge Match
-function addChallengeMatch($player1,$player2){
+function addChallengeMatch($_player1,$_player2){
     global $conn;
     global $sznID;
     global $SGLSroundID;
 
-    echo $sznID," ", $SGLSroundID," ", $player1," ", $player2;
+    echo $sznID," ", $SGLSroundID," ", $_player1," ", $_player2;
 
-    $insertChallengeSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$player1."', '".$player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', CURRENT_TIMESTAMP)";
+    $insertChallengeSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$_player1."', '".$_player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', CURRENT_TIMESTAMP)";
     @$conn->query($insertChallengeSQL);
 }
 
