@@ -220,13 +220,13 @@ function createTDMatches(){
             echo $team1Rank;
         }
 
-        if ($DBLSroundID % 3 == 1){
-            $j = 1;
-        } else if ($DBLSroundID % 3 == 2){
-            $j = 2;
-        } else {
-            $j = 3;
-        }
+        // if ($DBLSroundID % 3 == 1){
+        $j = 1;
+        // } else if ($DBLSroundID % 3 == 2){
+        //     $j = 2;
+        // } else {
+        //     $j = 3;
+        // }
         // $j = rand(1,3);
         
         $team2Rank = $team1Rank + $j;
@@ -815,7 +815,7 @@ function getSGLSMatches(){
     global $sznID;
     global $SGLSroundID;
 
-    $optSGLSMatchupsSQL = "SELECT `SGLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `SGLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `SGLSMATCH`.`PLAYER2` WHERE `SGLSMATCH`.`ROUND_NUM` = '".$SGLSroundID."' AND `SGLSMATCH`.`MATCHWINNER` = 0 AND `SGLSMATCH`.`DNP` = 0";
+    $optSGLSMatchupsSQL = "SELECT `SGLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2` FROM `SGLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `SGLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `SGLSMATCH`.`PLAYER2` WHERE `SGLSMATCH`.`MATCHWINNER` = 0 AND `SGLSMATCH`.`DNP` = 0";
     $optSGLSMatchupsQuery = @$conn->query($optSGLSMatchupsSQL);
     if (!$optSGLSMatchupsQuery) {
         $errno = $conn->errno;
@@ -953,8 +953,8 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
         } else {
             $player1Points += (10 + ($player1GamesWon - $player2GamesWon));
         
-            if ($player1Points < 11){
-                $player1Points = 11;
+            if ($player1Points < 13){
+                $player1Points = 13;
             }
         }
         echo "p1 ",$player1Points,"\n";
@@ -971,19 +971,19 @@ function ntrSGLSScores($_matchID, $_p1s1, $_p1s2, $_p1s3, $_p2s1, $_p2s2, $_p2s3
         }
         
         if (($player1Rank - $player2Rank) > 3){
-            $player1Points += (10 + ($player2GamesWon - $player1GamesWon) + (($player2GamesWon - $player1GamesWon)/2));
+            $player2Points += (10 + ($player2GamesWon - $player1GamesWon) + (($player2GamesWon - $player1GamesWon)/2));
         
-            if ($player2GamesWon < 15){
+            if ($player2Points < 15){
                 $player2Points = 15;
             }
-            if ($player2GamesWon > 25){
+            if ($player2Points > 25){
                 $player2Points = 25;
             }
         } else {
             $player2Points += (10 + ($player2GamesWon - $player1GamesWon));
         
-            if ($player2GamesWon < 11){
-                $player2Points = 11;
+            if ($player2Points < 13){
+                $player2Points = 13;
             }
         }
         echo "p1 ",$player1Points,"\n";
@@ -1075,7 +1075,7 @@ function getDBLSMatches(){
     global $sznID;
     global $DBLSroundID;
 
-    $optDBLSMatchupsSQL = "SELECT `DBLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2`, `P3`.`LAST_NAME` as `P_3`, `P4`.`LAST_NAME` as `P_4` FROM `DBLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `DBLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `DBLSMATCH`.`PLAYER2` INNER JOIN `PLAYERS` as `P3` ON `P3`.`ID` = `DBLSMATCH`.`PLAYER3` INNER JOIN `PLAYERS` as `P4` ON `P4`.`ID` = `DBLSMATCH`.`PLAYER4` WHERE `DBLSMATCH`.`ROUND_NUM` = '".$DBLSroundID."' AND `DBLSMATCH`.`SET1WINNER` = 0 AND `DBLSMATCH`.`SET2WINNER` = 0 AND `DBLSMATCH`.`SET3WINNER` = 0 AND `DBLSMATCH`.`DNP` = 0";
+    $optDBLSMatchupsSQL = "SELECT `DBLSMATCH`.`ID`, `P1`.`LAST_NAME` as `P_1`, `P2`.`LAST_NAME` as `P_2`, `P3`.`LAST_NAME` as `P_3`, `P4`.`LAST_NAME` as `P_4` FROM `DBLSMATCH` INNER JOIN `PLAYERS` as `P1` ON `P1`.`ID` = `DBLSMATCH`.`PLAYER1` INNER JOIN `PLAYERS` as `P2` ON `P2`.`ID` = `DBLSMATCH`.`PLAYER2` INNER JOIN `PLAYERS` as `P3` ON `P3`.`ID` = `DBLSMATCH`.`PLAYER3` INNER JOIN `PLAYERS` as `P4` ON `P4`.`ID` = `DBLSMATCH`.`PLAYER4` WHERE `DBLSMATCH`.`SET1WINNER` = 0 AND `DBLSMATCH`.`SET2WINNER` = 0 AND `DBLSMATCH`.`SET3WINNER` = 0 AND `DBLSMATCH`.`DNP` = 0";
     $optDBLSMatchupsQuery = @$conn->query($optDBLSMatchupsSQL);
     if (!$optDBLSMatchupsQuery) {
         $errno = $conn->errno;
@@ -1460,12 +1460,17 @@ function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$
     #endregion
 
     #region calculate points
-    $team1Points = $team1curPTS;
-    $team2Points = $team2curPTS;
+    $team1Points = 0;
+    $team2Points = 0;
     $T1Wins = $team1curWins;
     $T2Wins = $team2curWins;
     $T1Losses = $team1curLosses;
     $T2Losses = $team2curLosses;
+    
+    echo "p1cur ",$team1curPTS,"\n";
+    echo "p2cur ",$team2curPTS,"\n";
+    echo "p1 ",$team1Points,"\n";
+    echo "p2 ",$team2Points,"\n";
 
     if($_winner == 1){
         $T1Wins++;
@@ -1505,7 +1510,7 @@ function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$
         }
         
         if (($team1Rank - $team2Rank) >= 2){
-            $team1Points += (10 + ($team2GamesWon - $team1GamesWon) + (($team2GamesWon - $team1GamesWon)/2));
+            $team2Points += (10 + ($team2GamesWon - $team1GamesWon) + (($team2GamesWon - $team1GamesWon)/2));
         
             if ($team2GamesWon < 15){
                 $team2Points += 15;
@@ -1525,24 +1530,33 @@ function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$
         $T2Wins = $team2curWins;
         $T1Losses = $team1curLosses;
         $T2Losses = $team2curLosses;
-        $team1Points = $team1curPTS;
-        $team2Points = $team2curPTS;
+        $team1Points = 0;
+        $team2Points = 0;
     }
 
     if ($_playoff == 1){
-        $team1Points = $team1curPTS;
-        $team2Points = $team2curPTS;
+        $team1Points = 0;
+        $team2Points = 0;
     }
+
+    
+    $team1curPTS += $team1Points;
+    $team2curPTS += $team2Points;
+    
+    echo "p1cur ",$team1curPTS,"\n";
+    echo "p2cur ",$team2curPTS,"\n";
+    echo "p1 ",$team1Points,"\n";
+    echo "p2 ",$team2Points,"\n";
     
     #endregion
 
     #region insert points
-    $updateTDScoresT1 = "UPDATE `TDLADDER` SET `TD_POINTS` = '".$team1Points."', `TD_WINS` = '".$T1Wins."', `TD_LOSSES` = '".$T1Losses."' WHERE `TDLADDER`.`TEAM_ID` = '".$TDMatchT1."'";
+    $updateTDScoresT1 = "UPDATE `TDLADDER` SET `TD_POINTS` = '".$team1curPTS."', `TD_WINS` = '".$T1Wins."', `TD_LOSSES` = '".$T1Losses."' WHERE `TDLADDER`.`TEAM_ID` = '".$TDMatchT1."'";
     if ($conn->query($updateTDScoresT1) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");
     }
-    $updateTDScoresT2 = "UPDATE `TDLADDER` SET `TD_POINTS` = '".$team2Points."', `TD_WINS` = '".$T2Wins."', `TD_LOSSES` = '".$T2Losses."' WHERE `TDLADDER`.`TEAM_ID` = '".$TDMatchT2."'";
+    $updateTDScoresT2 = "UPDATE `TDLADDER` SET `TD_POINTS` = '".$team2curPTS."', `TD_WINS` = '".$T2Wins."', `TD_LOSSES` = '".$T2Losses."' WHERE `TDLADDER`.`TEAM_ID` = '".$TDMatchT2."'";
     if ($conn->query($updateTDScoresT2) === TRUE) {
         echo "Records added successfully.";
         //header("Location: Admin.php");

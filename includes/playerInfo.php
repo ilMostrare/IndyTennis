@@ -916,7 +916,7 @@ function GetPlayerPastMatches($playerID){
                             echo "<td class='mid2' rowspan='2'>",$set1Score,"</td>";
                             echo "<td class='mid2' rowspan='2'>",$set2Score,"</td>";
                             if($set3Score == "0 - 0"){
-                                echo "";
+                                echo "<td class='mid2'> </td>";
                             } else {
                                 echo "<td class='mid2' rowspan='2'>",$set3Score,"</td>";
                             }

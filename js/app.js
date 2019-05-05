@@ -1613,7 +1613,7 @@ function setBindings() {
         } else if ((TDSet3T2 > 7) || isNaN(TDSet3T2)){
             swal("Oops...", "Score Entered is Invalid!", "error");
         } else {
-            // console.log(TDMatchID," ",TDSet1T1," ",TDSet2T1," ",TDSet3T1," ",TDSet1T2," ",TDSet2T2," ",TDSet3T2," ",TDPlayoff," ",TDDNP);
+            console.log(TDMatchID," ",TDSet1T1," ",TDSet2T1," ",TDSet3T1," ",TDSet1T2," ",TDSet2T2," ",TDSet3T2," ",TDPlayoff," ",TDDNP,"-Winner",TDWinner);
 
             if(TDDNP == 1){
                 swal({
@@ -1643,7 +1643,7 @@ function setBindings() {
                         }
                     }).done(function (data) {
                         //console.log("Success");
-                        //console.log(data);
+                        console.log(data);
                         swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
                                 location.reload();
@@ -1670,7 +1670,7 @@ function setBindings() {
                     }
                 }).done(function (data) {
                     //console.log("Success");
-                    //console.log(data);
+                    console.log(data);
                     swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
                                 location.reload();

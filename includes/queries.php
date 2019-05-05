@@ -86,6 +86,7 @@ if (!$curSGLSRNDQuery) {
 }
 while ($SGLSroundRow = mysqli_fetch_assoc($curSGLSRNDQuery)){
     $SGLSroundID = $SGLSroundRow["ROUND_NUM"];
+    // $SGLSroundID = 2;
     $SGLSroundSTART = $SGLSroundRow["START_DATE"];
     $SGLSroundEND = $SGLSroundRow["END_DATE"];
     $SGLSroundSZNID = $SGLSroundRow["SEASON_NUM"];
