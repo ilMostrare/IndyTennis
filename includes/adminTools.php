@@ -1608,7 +1608,7 @@ if (isset($_POST['ntrTDMatchID'])){
  
 #region Add Player
 
-function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$_dblsPoints,$_sglsPlayer,$_dblsPlayer){
+function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints){
     global $conn;
     global $sznID;
     global $SGLSroundID;
@@ -1616,7 +1616,7 @@ function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$
 
     $hashedPassword = password_hash($_password, PASSWORD_BCRYPT, $options);
 
-    $insertPlayerSQL = "INSERT INTO `PLAYERS` (`ID`, `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE_NUM`, `JOIN_DATE`, `SGLS_PLAYER`, `DBLS_PLAYER`, `SEASON_NUM`, `PASSWORD`) VALUES (NULL, '".$_fName."', '".$_lName."', '".$_email."', '".$_phone."', CURDATE(), '".$_sglsPlayer."', '".$_dblsPlayer."', '".$sznID."', '".$hashedPassword."')";
+    $insertPlayerSQL = "INSERT INTO `PLAYERS` (`ID`, `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PHONE_NUM`, `JOIN_DATE`, `SGLS_PLAYER`, `DBLS_PLAYER`, `SEASON_NUM`, `PASSWORD`) VALUES (NULL, '".$_fName."', '".$_lName."', '".$_email."', '".$_phone."', CURDATE(), 0, 0, '".$sznID."', '".$hashedPassword."')";
     @$conn->query($insertPlayerSQL);
 
     $selectInsertedSQL = "SELECT `ID` FROM `PLAYERS` WHERE `EMAIL` = '".$_email."'";
@@ -1632,30 +1632,6 @@ function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$
     while ($selectInsertedRow = mysqli_fetch_assoc($selectInsertedQuery)) {
         $selectInsertedID = $selectInsertedRow["ID"];
     }
-
-    if ($_sglsPlayer == 1){
-        $insertStartingSGLSPointsSQL = "INSERT INTO `SGLSLADDER` (`PLAYER_ID`, `SGLS_POINTS`, `ID`) VALUES ('".$selectInsertedID."', '".$_sglsPoints."', NULL)";
-        @$conn->query($insertStartingSGLSPointsSQL);
-    
-        $dropPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` DROP COLUMN `ID`";
-        @$conn->query($dropPrimarySGLSSQL);
-        $sortTableSGLSSQL = "ALTER TABLE `SGLSLADDER` ORDER BY `SGLS_POINTS` DESC";
-        @$conn->query($sortTableSGLSSQL);
-        $addPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
-        @$conn->query($addPrimarySGLSSQL);
-    }
-    
-    if($_dblsPlayer == 1){
-        $insertStartingDBLSPointsSQL = "INSERT INTO `DBLSLADDER` (`PLAYER_ID`, `DBLS_POINTS`, `ID`) VALUES ('".$selectInsertedID."', '".$_dblsPoints."', NULL)";
-        @$conn->query($insertStartingDBLSPointsSQL);
-    
-        $dropPrimaryDBLSSQL = "ALTER TABLE `DBLSLADDER` DROP COLUMN `ID`";
-        @$conn->query($dropPrimaryDBLSSQL);
-        $sortTableDBLSSQL = "ALTER TABLE `DBLSLADDER` ORDER BY `DBLS_POINTS` DESC";
-        @$conn->query($sortTableDBLSSQL);
-        $addPrimaryDBLSSQL = "ALTER TABLE `DBLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
-        @$conn->query($addPrimaryDBLSSQL);
-    }
 }
 
 if (isset($_POST['ntrNewFName'])){
@@ -1665,14 +1641,8 @@ if (isset($_POST['ntrNewFName'])){
     $newEmail = isset($_POST['ntrNewEmail']) ? $_POST['ntrNewEmail'] : 'No data found';
     $newPhone = isset($_POST['ntrNewPhone']) ? $_POST['ntrNewPhone'] : 'No data found';
     $newPassword = isset($_POST['ntrNewPassword']) ? $_POST['ntrNewPassword'] : 'No data found';
-    $newSGLSPoints = isset($_POST['ntrNewSGLSPoints']) ? $_POST['ntrNewSGLSPoints'] : 'No data found';
-    $newDBLSPoints = isset($_POST['ntrNewDBLSPoints']) ? $_POST['ntrNewDBLSPoints'] : 'No data found';
-    $newSGLSPlayer = isset($_POST['ntrNewSGLSPlayer']) ? $_POST['ntrNewSGLSPlayer'] : 'No data found';
-    $newDBLSPlayer = isset($_POST['ntrNewDBLSPlayer']) ? $_POST['ntrNewDBLSPlayer'] : 'No data found';
 
-
-    addNewPlayer($newFName, $newLName, $newEmail, $newPhone, $newPassword, $newSGLSPoints, $newDBLSPoints, $newSGLSPlayer,$newDBLSPlayer);
-
+    addNewPlayer($newFName, $newLName, $newEmail, $newPhone, $newPassword);
 }
 
 #endregion
@@ -1703,6 +1673,68 @@ if (isset($_POST['ntrUserNewTDID1'])){
 
 }
 
+#endregion
+
+#region Add player to SGLS ladder
+function addSGPlayer($_playerID,$_startingPoints){
+    global $conn;
+    global $sznID;
+    
+        $insertStartingSGLSPointsSQL = "INSERT INTO `SGLSLADDER` (`PLAYER_ID`, `SGLS_POINTS`, `ID`) VALUES ('".$_playerID."', '".$_startingPoints."', NULL)";
+        @$conn->query($insertStartingSGLSPointsSQL);
+        
+        $updateSinglesPlayer = "UPDATE `PLAYER` SET `SGLS_PLAYER` = 1 WHERE `ID` = '".$_playerID."'";
+        @$conn->query($updateSinglesPlayer);
+    
+        $dropPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` DROP COLUMN `ID`";
+        @$conn->query($dropPrimarySGLSSQL);
+        $sortTableSGLSSQL = "ALTER TABLE `SGLSLADDER` ORDER BY `SGLS_POINTS` DESC";
+        @$conn->query($sortTableSGLSSQL);
+        $addPrimarySGLSSQL = "ALTER TABLE `SGLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
+        @$conn->query($addPrimarySGLSSQL);
+
+}
+
+if (isset($_POST['ntrUserNewSGID'])){
+
+    $userNewSGID = isset($_POST['ntrUserNewSGID']) ? $_POST['ntrUserNewSGID'] : 'No data found';
+    $newSGPoints = isset($_POST['ntrNewSGPoints']) ? $_POST['ntrNewSGPoints'] : 'No data found';
+
+
+    addSGPlayer($userNewSGID, $newSGPoints);
+
+}
+#endregion
+
+#region Add player to DBLS ladder
+function addDBPlayer($_playerID,$_startingPoints){
+    global $conn;
+    global $sznID;
+    
+        $insertStartingDBLSPointsSQL = "INSERT INTO `DBLSLADDER` (`PLAYER_ID`, `DBLS_POINTS`, `ID`) VALUES ('".$_playerID."', '".$_startingPoints."', NULL)";
+        @$conn->query($insertStartingDBLSPointsSQL);
+
+        $updateDubsPlayer = "UPDATE `PLAYER` SET `DBLS_PLAYER` = 1 WHERE `ID` = '".$_playerID."'";
+        @$conn->query($updateDubsPlayer);
+    
+        $dropPrimaryDBLSSQL = "ALTER TABLE `DBLSLADDER` DROP COLUMN `ID`";
+        @$conn->query($dropPrimaryDBLSSQL);
+        $sortTableDBLSSQL = "ALTER TABLE `DBLSLADDER` ORDER BY `DBLS_POINTS` DESC";
+        @$conn->query($sortTableDBLSSQL);
+        $addPrimaryDBLSSQL = "ALTER TABLE `DBLSLADDER` ADD COLUMN `ID` INT(11) NOT NULL AUTO_INCREMENT, ADD PRIMARY KEY (`ID`)";
+        @$conn->query($addPrimaryDBLSSQL);
+
+}
+
+if (isset($_POST['ntrUserNewDBID'])){
+
+    $userNewDBID = isset($_POST['ntrUserNewDBID']) ? $_POST['ntrUserNewDBID'] : 'No data found';
+    $newDBPoints = isset($_POST['ntrNewDBPoints']) ? $_POST['ntrNewDBPoints'] : 'No data found';
+
+
+    addDBPlayer($userNewDBID, $newDBPoints);
+
+}
 #endregion
 
 #region Drop Player from Ladder
@@ -1956,12 +1988,3 @@ if (isset($_POST['ntrUserNewPNID'])){
 #endregion
 
 #region Logout
-if(!empty($_POST["logout"])) {
-    $_SESSION["userID"] = '';
-    $_SESSION["userFN"] = '';
-    $_SESSION["userLN"] = '';
-    $_SESSION["userPIC"] = '';
-    session_destroy();
-    header("Location: index.php");
-}
-#endregion

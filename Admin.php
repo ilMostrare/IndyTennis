@@ -78,7 +78,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                         echo '<li id="addChallengeM">Add Match</li>';
                         echo '<li id="enterSGLSScores">Enter Scores</li>';
                         echo '<li id="addPlayers">Add Players</li>';
-                        echo '<li id="addTDTeam">Add Team Doubles Team</li>';
+                        echo '<li id="addTDTeam">Add to Ladder</li>';
                         echo '<li id="dropLadderView">Player Drop Ladder</li>';
                         echo '<li id="changePassword">Edit Player Info</li>';
                         echo '<li id="addAnnounce">Add Announcement</li>';
@@ -251,16 +251,35 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             // echo "<label><h4>Password:</h4></label>";
                             // echo "<div class='newPlayer'><input type='password' name='newPassword' id='newPassword' required></input></div>";
 
-                            echo "<div class='newPlayer'><label><h4>Singles Player?:</h4></label><input type='checkbox' name='newSGLSPlayer' id='newSGLSPlayer' value='sg'></input><label><h4>Doubles Player?:</h4></label><input type='checkbox' name='newDBLSPlayer' id='newDBLSPlayer' value='db'></input></div>";
+                            // echo "<div class='newPlayer'><label><h4>Singles Player?:</h4></label><input type='checkbox' name='newSGLSPlayer' id='newSGLSPlayer' value='sg'></input><label><h4>Doubles Player?:</h4></label><input type='checkbox' name='newDBLSPlayer' id='newDBLSPlayer' value='db'></input></div>";
 
-                            echo "<div class='newPlayer'><label><h4>Starting Singles<br />Points (if any):</h4></label><input type='number' name='newSGLSPoints' id='newSGLSPoints' min='0'></input><label><h4>Starting Doubles<br />Points (if any):</h4></label><input type='number' name='newDBLSPoints' id='newDBLSPoints' min='0'></input></div>";
+                            // echo "<div class='newPlayer'><label><h4>Starting Singles<br />Points (if any):</h4></label><input type='number' name='newSGLSPoints' id='newSGLSPoints' min='0'></input><label><h4>Starting Doubles<br />Points (if any):</h4></label><input type='number' name='newDBLSPoints' id='newDBLSPoints' min='0'></input></div>";
 
                             echo "<input id='newPlayerSubmit' type='submit' value='Submit'>";
                         echo "</form>";
                     echo "</div>";
 
                     echo "<div id='addNewTDTeam'>";
-                        echo "<h3>Add New Team Doubles Team</h3>";
+                        echo "<div id='addToLadderController'><h3 id='addSGView'>Add to Singles Ladder</h3><h3 id='addDBView'>Add to Social Dubs Ladder</h3><h3 id='addTDView'>Add to Comp Dubs Ladder</h3></div>";
+
+                        echo "<form action='' method='post' class='addNewSG'>";                            
+                            echo "<label><h4>Select Player: </h4></label>";
+                            echo "<select name='userNewSG' id='userNewSG' required><option disabled selected value> -- select an player -- </option>", getAllPlayers() ,"</select>";
+
+                            echo "<div class='newSGPlayer'><label><h4>Starting Points (if any):</h4></label><input type='number' name='newSGPoints' id='newSGPoints' min='0'></input></div>";
+
+                            echo "<input id='newSGSubmit' type='submit' value='Submit'>";
+                        echo "</form>";
+
+                        echo "<form action='' method='post' class='addNewDB'>";                            
+                            echo "<label><h4>Select Player: </h4></label>";
+                            echo "<select name='userNewDB' id='userNewDB' required><option disabled selected value> -- select an player -- </option>", getAllPlayers() ,"</select>";
+
+                            echo "<div class='newDBPlayer'><label><h4>Starting Points (if any):</h4></label><input type='number' name='newDBPoints' id='newDBPoints' min='0'></input></div>";
+
+                            echo "<input id='newDBSubmit' type='submit' value='Submit'>";
+                        echo "</form>";
+
                         echo "<form action='' method='post' class='addNewTD'>";                            
                             echo "<label><h4>Select Player 1: </h4></label>";
                             echo "<select name='userNewTDID1' id='userNewTDID1' required><option disabled selected value> -- select an player -- </option>", getAllPlayers() ,"</select>";

@@ -2140,6 +2140,28 @@ nav .navContainer .navRight div {
   margin-top: 35px;
   display: none;
 }
+/*----------------------------------------------------------------------*/
+.adminContent .adminBody .adminForms #addNewTDTeam #addToLadderController {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto auto 15px auto;
+}
+
+.adminContent .adminBody .adminForms #addNewTDTeam #addToLadderController #addSGView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #addNewTDTeam #addToLadderController #addDBView {
+  margin: auto;
+  cursor: pointer;
+}
+
+.adminContent .adminBody .adminForms #addNewTDTeam #addToLadderController #addTDView {
+  margin: auto;
+  cursor: pointer;
+}
 
 .adminContent .adminBody .adminForms #addNewTDTeam h3 {
   text-align: center;

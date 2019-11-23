@@ -218,6 +218,42 @@ function setBindings() {
     });
     //#endregion
 
+    //#region add to ladder view controller
+    $(".addNewTD").css({"display":"none"});
+    $(".addNewDB").css({"display":"none"});
+    $("#addSGView").css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+    $("#addDBView").css({"border": "none", "color": "#868686"});
+    $("#addTDView").css({"border": "none", "color": "#868686"});
+
+    $("#addSGView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#addDBView").css({"border": "none", "color": "#868686"});
+        $("#addTDView").css({"border": "none", "color": "#868686"});
+
+        $(".addNewSG").css({"display":"block"});
+        $(".addNewDB").css({"display":"none"});
+        $(".addNewTD").css({"display":"none"});
+    });
+    $("#addDBView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#addSGView").css({"border": "none", "color": "#868686"});
+        $("#addTDView").css({"border": "none", "color": "#868686"});
+
+        $(".addNewSG").css({"display":"none"});
+        $(".addNewDB").css({"display":"block"});
+        $(".addNewTD").css({"display":"none"});
+    });
+    $("#addTDView").click(function (evt){
+        $(this).css({"border-bottom-color": "#333333", "border-bottom-style": "solid", "border-bottom-width": ".5px", "color": "#333333"});
+        $("#addSGView").css({"border": "none", "color": "#868686"});
+        $("#addDBView").css({"border": "none", "color": "#868686"});
+
+        $(".addNewSG").css({"display":"none"});
+        $(".addNewDB").css({"display":"none"});
+        $(".addNewTD").css({"display":"block"});
+    });
+    //#endregion
+
     $( window ).resize( function( evt ) {
         // $( "#orientation" ).text( "This device is in " + evt.orientation + " mode!" );
         if(window.innerWidth > window.innerHeight){
@@ -1718,32 +1754,32 @@ function setBindings() {
         var newEmail = $("#newEmail").val();
         var newPhone = parseInt($("#newPhone").val());
         var newPassword = pwGen();
-        var newSGLSPoints = $("#newSGLSPoints").val();
-        var newDBLSPoints = $("#newDBLSPoints").val();
-        var newSGLSPlayer = $("#newSGLSPlayer").prop("checked");
-        var newDBLSPlayer = $("#newDBLSPlayer").prop("checked");
+        // var newSGLSPoints = $("#newSGLSPoints").val();
+        // var newDBLSPoints = $("#newDBLSPoints").val();
+        // var newSGLSPlayer = $("#newSGLSPlayer").prop("checked");
+        // var newDBLSPlayer = $("#newDBLSPlayer").prop("checked");
 
         //#region Value Handling
-        if(newSGLSPlayer == true){
-            newSGLSPlayer = 1;
-        } else {
-            newSGLSPlayer = 0;
-        };
-        if(newDBLSPlayer == true){
-            newDBLSPlayer = 1;
-        } else {
-            newDBLSPlayer = 0;
-        };
-        if(newSGLSPoints == ''){
-            newSGLSPoints = 0;
-        } else {
-            newSGLSPoints = parseInt(newSGLSPoints);
-        };
-        if(newDBLSPoints == ''){
-            newDBLSPoints = 0;
-        } else {
-            newDBLSPoints = parseInt(newDBLSPoints);
-        };
+        // if(newSGLSPlayer == true){
+        //     newSGLSPlayer = 1;
+        // } else {
+        //     newSGLSPlayer = 0;
+        // };
+        // if(newDBLSPlayer == true){
+        //     newDBLSPlayer = 1;
+        // } else {
+        //     newDBLSPlayer = 0;
+        // };
+        // if(newSGLSPoints == ''){
+        //     newSGLSPoints = 0;
+        // } else {
+        //     newSGLSPoints = parseInt(newSGLSPoints);
+        // };
+        // if(newDBLSPoints == ''){
+        //     newDBLSPoints = 0;
+        // } else {
+        //     newDBLSPoints = parseInt(newDBLSPoints);
+        // };
         //#endregion
 
         //console.log(newFName," ",newLName," ",newEmail," ",newPhone," ",newSGLSPoints," ",newDBLSPoints," ",newSGLSPlayer," ",newDBLSPlayer);
@@ -1784,11 +1820,11 @@ function setBindings() {
                     ntrNewLName: newLName,
                     ntrNewEmail: newEmail,
                     ntrNewPhone: newPhone,
-                    ntrNewPassword: newPassword,
-                    ntrNewSGLSPoints: newSGLSPoints,
-                    ntrNewDBLSPoints: newDBLSPoints,
-                    ntrNewSGLSPlayer: newSGLSPlayer,
-                    ntrNewDBLSPlayer: newDBLSPlayer
+                    ntrNewPassword: newPassword
+                    // ntrNewSGLSPoints: newSGLSPoints,
+                    // ntrNewDBLSPoints: newDBLSPoints,
+                    // ntrNewSGLSPlayer: newSGLSPlayer,
+                    // ntrNewDBLSPlayer: newDBLSPlayer
                 }
             }).done(function (data) {
                 //console.log("Success");
@@ -1847,6 +1883,82 @@ function setBindings() {
 
             console.log(userNewTDID1," ",userNewTDID2," ",newTDPoints);
 
+        } 
+
+    });
+
+    $("form #newSGSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var userNewSGID = parseInt($("#userNewTDID1").val());
+        var newSGPoints = $("#newTDPoints").val();
+
+        //#region Value Handling
+        if(newSGPoints == ''){
+            newSGPoints = 0;
+        } else {
+            newSGPoints = parseInt(newSGPoints);
+        };
+        //#endregion
+
+
+        if (!(userNewSGID > 0)){
+            swal("Oops...", "Please Select a Player", "error");
+        }  else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrUserNewSGID: userNewSGID,
+                    ntrNewSGPoints: newSGPoints
+                }
+            }).done(function (data) {
+                //console.log("Success");
+                console.log(data);
+                swal({title: "Success", text: "Player Entered", type: "success"},
+                    function(){ 
+                        $(".addNewSG")[0].reset();
+                    }
+                );
+            });
+        } 
+
+    });
+
+    $("form #newDBSubmit").click(function (evt){
+        evt.preventDefault();
+
+        var userNewDBID = parseInt($("#userNewTDID1").val());
+        var newDBPoints = $("#newTDPoints").val();
+
+        //#region Value Handling
+        if(newDBPoints == ''){
+            newDBPoints = 0;
+        } else {
+            newDBPoints = parseInt(newDBPoints);
+        };
+        //#endregion
+
+
+        if (!(userNewDBID > 0)){
+            swal("Oops...", "Please Select a Player", "error");
+        }  else {
+            $.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    ntrUserNewDBID: userNewDBID,
+                    ntrNewDBPoints: newDBPoints
+                }
+            }).done(function (data) {
+                //console.log("Success");
+                console.log(data);
+                swal({title: "Success", text: "Player Entered", type: "success"},
+                    function(){ 
+                        $(".addNewDB")[0].reset();
+                    }
+                );
+            });
         } 
 
     });
