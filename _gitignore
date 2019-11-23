@@ -1,0 +1,8 @@
+.idea/*
+prepros-6.config
+.gitignore
+/includes/database.php
+.vscode
+includes\database.php
+.vscode/settings.json
+includes/database.php

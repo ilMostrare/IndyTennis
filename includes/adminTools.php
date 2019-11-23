@@ -19,6 +19,7 @@ function createSGLSMatches(){
     global $conn;
     global $sznID;
     global $SGLSroundID;
+    global $SGLSroundPLAYOFF;
 
     // $resultSet = array();
 
@@ -76,23 +77,25 @@ function createSGLSMatches(){
         if ($exists > 0) {
             echo "Player exists, do nothing\n";
         } else {
-            if ($player2Rank > $totalSGLSplayersROW) {
-                $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11' ," . $SGLSroundID . ", " . $sznID . ")";
-                @$conn->query($createMatchSQL);
-            } else {
-                $exists2SQL = "SELECT COUNT(*) as 'COUNT' FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player2 . "') OR (`PLAYER2` = '" . $player2 . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
-                $exists2QRY = @$conn->query($exists2SQL);
-                while ($exists2_Row = mysqli_fetch_assoc($exists2QRY)) {
-                    $exists2 = $exists2_Row["COUNT"];
-                }
-
-                if($exists2 > 0){
+            if($SGLSroundPLAYOFF != 1){
+                if ($player2Rank > $totalSGLSplayersROW) {
                     $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11' ," . $SGLSroundID . ", " . $sznID . ")";
                     @$conn->query($createMatchSQL);
                 } else {
-                    $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '" . $SGLSroundID . "', '" . $sznID . "')";
-                    @$conn->query($createMatchSQL);
-                }                
+                    $exists2SQL = "SELECT COUNT(*) as 'COUNT' FROM `SGLSMATCH` WHERE ((`PLAYER1` = '" . $player2 . "') OR (`PLAYER2` = '" . $player2 . "')) AND `ROUND_NUM` = '" . $SGLSroundID . "'";
+                    $exists2QRY = @$conn->query($exists2SQL);
+                    while ($exists2_Row = mysqli_fetch_assoc($exists2QRY)) {
+                        $exists2 = $exists2_Row["COUNT"];
+                    }
+
+                    if($exists2 > 0){
+                        $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '11' ," . $SGLSroundID . ", " . $sznID . ")";
+                        @$conn->query($createMatchSQL);
+                    } else {
+                        $createMatchSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`) VALUES (NULL, '" . $player1 . "', '" . $player2 . "', '" . $SGLSroundID . "', '" . $sznID . "')";
+                        @$conn->query($createMatchSQL);
+                    }                
+                }
             }
         }
 
@@ -789,11 +792,18 @@ function addChallengeMatch($_player1,$_player2){
     global $conn;
     global $sznID;
     global $SGLSroundID;
+    global $SGLSroundPLAYOFF;
 
     echo $sznID," ", $SGLSroundID," ", $_player1," ", $_player2;
 
-    $insertChallengeSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$_player1."', '".$_player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', CURRENT_TIMESTAMP)";
-    @$conn->query($insertChallengeSQL);
+    if ($SGLSroundPLAYOFF > 0){
+        $insertPlayoffSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$_player1."', '".$_player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', CURRENT_TIMESTAMP)";
+        @$conn->query($insertPlayoffSQL);
+    } else {
+        $insertChallengeSQL = "INSERT INTO `SGLSMATCH` (`ID`, `PLAYER1`, `PLAYER2`, `ROUND_NUM`, `SEASON_NUM`, `P1_SET1`, `P1_SET2`, `P1_SET3`, `P2_SET1`, `P2_SET2`, `P2_SET3`, `MATCHWINNER`, `CHALLENGE`, `PLAYOFF`, `DNP`, `LAST_MODIFIED`) VALUES (NULL, '".$_player1."', '".$_player2."', '".$SGLSroundID."', '$sznID', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', CURRENT_TIMESTAMP)";
+        @$conn->query($insertChallengeSQL);
+    }
+
 }
 
 if (isset($_POST['ntrAddChallengeP1'])){
@@ -1233,10 +1243,10 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
         $p3Wins++;
         $p4Wins++;
     } else {
-        $player1Points = $player1curPTS;
-        $player2Points = $player2curPTS;
-        $player3Points = $player3curPTS;
-        $player4Points = $player4curPTS;
+        $player1Points = $player1curDBLSPTS;
+        $player2Points = $player2curDBLSPTS;
+        $player3Points = $player3curDBLSPTS;
+        $player4Points = $player4curDBLSPTS;
         $p1Wins = $player1curWins;
         $p2Wins = $player2curWins;
         $p1Losses = $player1curLosses;
@@ -1314,6 +1324,14 @@ function ntrDBLSScores($_MatchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3
         $player2Points = $player2curDBLSPTS;
         $player3Points = $player3curDBLSPTS;
         $player4Points = $player4curDBLSPTS;
+        $p1Wins = $player1curWins;
+        $p2Wins = $player2curWins;
+        $p1Losses = $player1curLosses;
+        $p2Losses = $player2curLosses;
+        $p3Wins = $player3curWins;
+        $p4Wins = $player4curWins;
+        $p3Losses = $player3curLosses;
+        $p4Losses = $player4curLosses;
     }
     #endregion
 
@@ -1482,22 +1500,22 @@ function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$
             $team2Points += $team2GamesWon;
         }
 
-        if (($team2Rank - $team1Rank) >= 2){
-            $team1Points += (10 + ($team1GamesWon - $team2GamesWon) + (($team1GamesWon - $team2GamesWon)/2));
+        // if (($team2Rank - $team1Rank) >= 2){
+        //     $team1Points += (10 + ($team1GamesWon - $team2GamesWon) + (($team1GamesWon - $team2GamesWon)/2));
 
-            if($team1Points < 15){
-                $team1Points += 15;
-            } 
-            if ($team1Points > 25){
-                $team1Points += 25;
-            } 
-        } else {
-            $team1Points += (10 + ($team1GamesWon - $team2GamesWon));
-        
-            if ($team1Points < 11){
-                $team1Points += 11;
-            }
+        //     if($team1Points < 15){
+        //         $team1Points += 15;
+        //     } 
+        //     if ($team1Points > 25){
+        //         $team1Points += 25;
+        //     } 
+        // } else {
+        $team1Points += (10 + ($team1GamesWon - $team2GamesWon));
+    
+        if ($team1Points < 11){
+            $team1Points += 11;
         }
+        // }
 
     } elseif ($_winner == 2) {
         $T2Wins++;
@@ -1509,22 +1527,22 @@ function ntrTDScores($_matchID, $_T1s1, $_T1s2, $_T1s3, $_T2s1, $_T2s2, $_T2s3,$
             $team1Points += $team1GamesWon;
         }
         
-        if (($team1Rank - $team2Rank) >= 2){
-            $team2Points += (10 + ($team2GamesWon - $team1GamesWon) + (($team2GamesWon - $team1GamesWon)/2));
+        // if (($team1Rank - $team2Rank) >= 2){
+        //     $team2Points += (10 + ($team2GamesWon - $team1GamesWon) + (($team2GamesWon - $team1GamesWon)/2));
         
-            if ($team2GamesWon < 15){
-                $team2Points += 15;
-            }
-            if ($team2GamesWon > 25){
-                $team2Points += 25;
-            }
-        } else {
-            $team2Points += (10 + ($team2GamesWon - $team1GamesWon));
-        
-            if ($team2GamesWon < 11){
-                $team2Points += 11;
-            }
+        //     if ($team2Points < 15){
+        //         $team2Points += 15;
+        //     }
+        //     if ($team2Points > 25){
+        //         $team2Points += 25;
+        //     }
+        // } else {
+        $team2Points += (10 + ($team2GamesWon - $team1GamesWon));
+    
+        if ($team2Points < 11){
+            $team2Points += 11;
         }
+        // }
     } else {
         $T1Wins = $team1curWins;
         $T2Wins = $team2curWins;
@@ -1587,7 +1605,7 @@ if (isset($_POST['ntrTDMatchID'])){
 #endregion
 
 #endregion
-
+ 
 #region Add Player
 
 function addNewPlayer ($_fName,$_lName,$_email,$_phone,$_password,$_sglsPoints,$_dblsPoints,$_sglsPlayer,$_dblsPlayer){

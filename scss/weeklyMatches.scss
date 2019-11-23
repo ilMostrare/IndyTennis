@@ -43,6 +43,36 @@
       }
     }
   }
+
+  .bracketSelector{
+    display: flex;
+    // background-color: green;
+    margin: 0 auto;
+    width: 75%;
+
+    h3{
+      // background-color: cadetblue;
+      margin: auto;
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: #EEF95D;
+      }
+
+      &:active {
+        color: #53A548;
+      }
+    }
+  }
+
+  #playoffContainer{
+    // background-color: aqua;
+    display: flex;
+    width: 100%;
+    height: auto;
+  }
   
   .displayMatches{
     width: 90%;

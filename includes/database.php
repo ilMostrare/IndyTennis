@@ -3,7 +3,7 @@
  //define parameters
 $host = '157.230.57.0';
 $login = 'byrsla';
-$password = '';
+$password = 'oscul6764sal';
 $database = 'indytennisdb';
  //Connect to the mysql server
 $conn = @new mysqli($host, $login, $password, $database);

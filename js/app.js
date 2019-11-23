@@ -1223,6 +1223,7 @@ function setBindings() {
         evt.preventDefault();
         var sglsDNP;
         var sglsWalkover;
+        var sglsWinnerNM;
         var p1Set = 0;
         var p2Set = 0;
 
@@ -1234,6 +1235,9 @@ function setBindings() {
         var sglsSet2P2 = parseInt($("#sglsSet2P2").val());
         var sglsSet3P2 = $("#sglsSet3P2").val();
         var sglsPlayoff = $("#sglsPlayoff").prop("checked");
+        var sglsPlayers = $("#sglsMatchID option:selected").text();
+        var sglsPlayer1 = sglsPlayers.split(" vs. ")[0];
+        var sglsPlayer2 = sglsPlayers.split(" vs. ")[1];
         // var sglsWinner = parseInt($('input[name=sglsWinner]:checked').val());
         
         //#region Value Handling
@@ -1282,9 +1286,13 @@ function setBindings() {
 
         if(p1Set > p2Set){
             sglsWinner = 1;
+            sglsWinnerNM = sglsPlayer1;
         } else {
             sglsWinner = 2;
+            sglsWinnerNM = sglsPlayer2;
         }
+        console.log(sglsPlayers);
+        console.log(sglsWinnerNM);
         //#endregion
 
         // console.log(sglsMatchID," ",sglsSet1P1," ",sglsSet2P1," ",sglsSet3P1," ",sglsSet1P2," ",sglsSet2P2," ",sglsSet3P2," ",sglsPlayoff," ",sglsChallenge," ",sglsWinner);
@@ -1369,6 +1377,7 @@ function setBindings() {
                         }
                     }).done(function (data) {
                         //console.log("Success");
+
                         console.log(data);
                         swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
@@ -1396,6 +1405,24 @@ function setBindings() {
                         }
                     }).done(function (data) {
                         //console.log("Success");
+
+                        var templateParams = {
+                            p1s1: sglsSet1P1,
+                            p2s1: sglsSet1P2,
+                            p1s2: sglsSet2P1,
+                            p2s2: sglsSet2P2,
+                            p1s3: sglsSet3P1,
+                            p2s3: sglsSet3P2,
+                            winner: sglsWinnerNM,
+                            players: sglsPlayers
+                        };             
+                        emailjs.send('gmail_2', 'matchresult', templateParams)
+                            .then(function(response) {
+                                console.log('SUCCESS!', response.status, response.text);
+                            }, function(error) {
+                                console.log('FAILED. consol..', error);
+                        });
+
                         console.log(data);
                         swal({title: "Success", text: "Scores Entered", type: "success"},
                             function(){ 
@@ -1742,7 +1769,7 @@ function setBindings() {
                 phone: newPhone,
                 pw: newPassword
             };             
-            emailjs.send('gmail', 'indytenniswelcome', templateParams)
+            emailjs.send('gmail_2', 'indytenniswelcome', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                 }, function(error) {
@@ -2045,6 +2072,21 @@ function setBindings() {
 
     //#endregion
 
+    //#region Playoffs
+    $('.bracketSelector h3').click(function(evt){
+        var eventText = $(evt.target).text();
+        // console.log(eventText);
+
+        var filePath = 'includes/brackets/'+eventText+'.html';
+        // console.log(filePath);
+
+        $('#poHeader').html(eventText+' Bracket')
+        
+        $.get( filePath, function( data ) {
+            $("#playoffContainer").html(data);
+        });
+    })
+    //#endregion
 }
 
 $(document).ready(function () {

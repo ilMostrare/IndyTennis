@@ -903,6 +903,7 @@ function GetPlayerPastMatches($playerID){
                     $set3Score = $T2Set3." - ".$T1Set3;
                 }
 
+
                 if($TDoppInnactive == 1){
                     $TDoppRank = "NR";
                 }

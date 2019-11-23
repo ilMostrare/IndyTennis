@@ -75,7 +75,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
 
                         echo '<li id="createMatches">Create Round Matches</li>';
                         echo '<li id="editMatches">Edit Matchups</li>';
-                        echo '<li id="addChallengeM">Add Challenge Match</li>';
+                        echo '<li id="addChallengeM">Add Match</li>';
                         echo '<li id="enterSGLSScores">Enter Scores</li>';
                         echo '<li id="addPlayers">Add Players</li>';
                         echo '<li id="addTDTeam">Add Team Doubles Team</li>';
@@ -156,7 +156,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                     echo "</div>";
 
                     echo "<div id='addChallengeMatch'>";
-                        echo "<h3>Add Challenge Match</h3>";
+                        echo "<h3>Add Match</h3>";
                         echo "<div class='roundNumbers'><span>Current Singles Round: ".$SGLSroundID."</span><span> | Current Doubles Round: ".$DBLSroundID."</span></div>";
                         echo "<form action='' method='post' class='addChallenge'>";
                             echo "<label><h4>Player 1:</h4></label>";
@@ -165,7 +165,7 @@ $userRow=mysqli_fetch_assoc($userQuery); */
                             echo "<label><h4>Player 2:</h4></label>";
                             echo "<div class='sglsSet'><select name='addChallengeP2' id='addChallengeP2'><option readonly selected value=''> -- if unchanged, leave blank -- </option>", getAllSinglesPlayers() ,"</select></div>";
 
-                            echo "<input id='addChallengeSubmit' type='submit' value='Add Challenge Match'>";
+                            echo "<input id='addChallengeSubmit' type='submit' value='Add Match'>";
                         echo "</form>";
                     echo "</div>";
 

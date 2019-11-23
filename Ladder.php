@@ -11,6 +11,8 @@ session_start();
 require_once ('includes/database.php');
 require_once ('includes/queries.php');
 require_once ('includes/adminLogin.php');
+require_once ('includes/playoff.php');
+
 
 ?>
 
@@ -32,10 +34,13 @@ require_once ('includes/adminLogin.php');
 
         if ( $sznID != '' ) {
             
-            if( ($SGLSroundPLAYOFF != 1) && ($DBLSroundPLAYOFF != 1) ){
                 echo '<div class="header">';
                     echo '<h1>'.date("Y").' Ladder Standings</h1>';
-                    echo '<h3><a href="RoundMatches">View This Round\'s Matchups</a></h3>';
+                    if($SGLSroundPLAYOFF != 0){
+                        echo '<h3><a href="RoundMatches">View Singles Playoff Brackets</a></h3>';
+                    } else {
+                        echo '<h3><a href="RoundMatches">View This Round\'s Matchups</a></h3>';
+                    }
                 echo '</div>';
                 echo '<div class="standings">';
                     echo '<div id="mobileViewController" display="none"><h2 id="sglsLadderView">Singles</h2><h2 id="dblsLadderView">Doubles - Ind.</h2><h2 id="TDLadderView">Doubles - Team</h2></div>';
@@ -45,6 +50,7 @@ require_once ('includes/adminLogin.php');
                         echo '<table id="singles">';
                             printSGLSRankings();
                         echo '</table>';
+                        
                     echo '</div>';
 
                     echo '<div class="right">';
@@ -63,11 +69,6 @@ require_once ('includes/adminLogin.php');
                         echo '</table>';
                     echo '</div>';
                 echo '</div>';
-            } else {
-                echo '<div class="header">';
-                    echo '<h1>Playoffs</h1>';
-                echo '</div>';
-            }
             
         } else {
 

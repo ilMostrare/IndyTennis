@@ -3058,6 +3058,37 @@ footer .shoe .footerRight a:active {
   color: #53A548;
 }
 
+.matchesContent .bracketSelector {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  width: 75%;
+}
+
+.matchesContent .bracketSelector h3 {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.matchesContent .bracketSelector h3:hover {
+  color: #EEF95D;
+}
+
+.matchesContent .bracketSelector h3:active {
+  color: #53A548;
+}
+
+.matchesContent #playoffContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
 .matchesContent .displayMatches {
   width: 90%;
   margin: 0 auto;
@@ -3190,11 +3221,10 @@ footer .shoe .footerRight a:active {
   width: 10%;
   text-align: left;
   padding: 5px auto;
-  display: none;
 }
 
 .matchesContent .displayMatches .right #doublesMU .tableCenter {
-  width: 100%;
+  width: 80%;
   text-align: center;
   padding: 5px auto;
   display: -webkit-box;
@@ -3228,7 +3258,6 @@ footer .shoe .footerRight a:active {
   width: 10%;
   text-align: center;
   padding: 5px auto;
-  display: none;
 }
 
 .matchesContent .displayMatches .farRight {
@@ -3260,7 +3289,7 @@ footer .shoe .footerRight a:active {
 }
 
 .matchesContent .displayMatches .farRight #teamDoubles2 .tableLeft {
-  /* width: 10%; */
+  width: 10%;
   text-align: left;
   padding: 5px auto;
   display: none;
@@ -3298,7 +3327,7 @@ footer .shoe .footerRight a:active {
 }
 
 .matchesContent .displayMatches .farRight #teamDoubles2 .tableRight {
-  /* width: 10%; */
+  width: 10%;
   text-align: center;
   padding: 5px auto;
   display: none;
@@ -3481,7 +3510,7 @@ footer .shoe .footerRight a:active {
     display: none;
   }
   .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableCenter {
-    width: 100%;
+    width: 95%;
   }
   .matchesContent .displayMatches .farRight #teamDoubles2 tr .tableRight {
     display: none;
